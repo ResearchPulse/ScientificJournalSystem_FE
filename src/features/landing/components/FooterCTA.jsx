@@ -41,7 +41,7 @@ export default function FooterCTA() {
         }}
       />
       
-      <Container className="py-5 position-relative z-3">
+      <Container className="py-5 position-relative z-3 reveal-scale">
         
         {/* Main Heading */}
         <h2 

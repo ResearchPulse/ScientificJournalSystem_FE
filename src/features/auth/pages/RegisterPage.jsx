@@ -75,9 +75,10 @@ export default function RegisterPage() {
         color: 'var(--text-muted) !important',
         lineHeight: '1.6',
         fontSize: '14px'
-      }}>{t("auth.motEmailXacThucDaDuocGuiToiDia")}<strong style={{
-          color: 'var(--text-main)'
-        }}>{registeredEmail}</strong>{t("auth.vuiLongKiemTraHopThuHoacThuRac")}</p>
+      }}>{t("auth.motEmailXacThucDaDuocGuiToiDia")}{' '}<strong style={{
+          color: 'var(--text-main)',
+          margin: '0 4px'
+        }}>{registeredEmail}</strong>{' '}{t("auth.vuiLongKiemTraHopThuHoacThuRac")}</p>
 
           <button onClick={() => navigate('/login')} className="w-100 py-2.5 rounded-3 border-0 text-sm font-semibold transition-all" style={{
         background: 'var(--btn-dark)',

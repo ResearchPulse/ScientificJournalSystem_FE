@@ -99,7 +99,7 @@ export default function Sandbox() {
       <Container style={{ maxWidth: "960px" }}>
         {/* Glowing border card container */}
         <div
-          className="p-1 rounded-5"
+          className="p-1 rounded-5 reveal-scale"
           style={{
             background:
               "linear-gradient(135deg, var(--primary-light) 0%, rgba(255, 255, 255, 0.5) 50%, var(--primary-light) 100%)",

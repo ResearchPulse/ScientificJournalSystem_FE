@@ -66,7 +66,7 @@ export default function HowToUse() {
       <Container className="py-5 position-relative">
         
         {/* Section Header */}
-        <div className="text-center mb-5">
+        <div className="text-center mb-5 reveal-on-scroll">
           <div 
             className="d-inline-flex align-items-center gap-2 mb-2 text-uppercase font-bold tracking-wider" 
             style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 700, letterSpacing: '0.1em' }}
@@ -104,8 +104,8 @@ export default function HowToUse() {
           
           {/* Steps layout grid */}
           <Row className="gy-5 gy-lg-0 justify-content-center">
-            {steps.map((step) => (
-              <Col xs={12} sm={6} lg={3} key={step.number}>
+            {steps.map((step, idx) => (
+              <Col xs={12} sm={6} lg={3} key={step.number} className={`reveal-scale delay-${(idx + 1) * 100}`}>
                 <StepItem
                   number={step.number}
                   title={t(step.titleKey)}
