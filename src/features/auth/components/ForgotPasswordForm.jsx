@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import InputField from '../../../shared/components/InputField';
+import Icon from '../../../shared/components/Icon';
 import ROUTES from '../../../app/routes/routePaths';
 import SubmitButton from './SubmitButton';
 import FormErrorMessage from './FormErrorMessage';
