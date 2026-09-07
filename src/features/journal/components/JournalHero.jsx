@@ -79,16 +79,26 @@ export default function JournalHero({
   }
   const {
     display_name,
+    title,
+    name,
     description,
     publisher_name,
     is_open_access,
-    quartile = 'Q1',
+    quartile,
     metric_value,
-    metric_name = 'Impact Factor',
-    metric_year = '2024',
+    metric_name,
+    metric_year,
+    latest_metrics,
     subject_categories = [],
     is_following
-  } = journal;
+  } = journal || {};
+
+  const journalTitle = display_name || title || name || '';
+  const displayQuartile = quartile || latest_metrics?.quartile || 'Q1';
+  const displayMetricValue = metric_value ?? latest_metrics?.sjr ?? latest_metrics?.value ?? null;
+  const displayMetricName = metric_name || 'SJR Score';
+  const displayMetricYear = metric_year || latest_metrics?.year || '2025';
+
   const handleCategoryClick = categoryName => {
     if (!categoryName) return;
     navigate(`/keywords?keyword=${encodeURIComponent(categoryName)}`);
@@ -97,13 +107,13 @@ export default function JournalHero({
       <Row className="gy-4 align-items-start journal-hero-content">
         <Col lg={8} md={7}>
           <div className="journal-meta-line">
-            {quartile && <span>{quartile}</span>}
+            {displayQuartile && <span>{displayQuartile}</span>}
             {is_open_access && <span>Open Access</span>}
             {publisher_name && <span>{publisher_name}</span>}
           </div>
 
           <h1 id="journal-detail-title" className="journal-title">
-            {display_name}
+            {journalTitle}
           </h1>
 
           <p className="journal-description">
@@ -118,12 +128,12 @@ export default function JournalHero({
         </Col>
 
         <Col lg={4} md={5} className="text-md-end text-start mt-lg-2">
-          {metric_value ? <div className="journal-metric-panel ms-md-auto mb-3">
+          {displayMetricValue !== null && displayMetricValue !== undefined ? <div className="journal-metric-panel ms-md-auto mb-3">
               <div className="journal-metric-value">
-                {metric_value}
+                {displayMetricValue}
               </div>
               <div className="journal-metric-label">
-                {metric_name} {metric_year}
+                {displayMetricName} {displayMetricYear}
               </div>
             </div> : <div className="journal-metric-panel ms-md-auto mb-3">
               <span className="text-muted-custom">{t("journal.chuaCoDuLieuRanking")}</span>

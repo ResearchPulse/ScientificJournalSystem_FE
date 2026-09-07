@@ -70,10 +70,10 @@ export default function RankingTabContent({
     return chartHeight - paddingBottom - ratio * graphHeight;
   };
   return <Row className="gy-4 align-items-stretch">
-      <Col lg={7}>
+      <Col lg={7} className="d-flex flex-column">
         <section className="journal-surface p-4 h-100 d-flex flex-column">
           <h2 className="journal-section-title">
-            {metricName}{t("journal.theoNam")}</h2>
+            {metricName} {t("journal.theoNam")}</h2>
 
           <div className="flex-grow-1 d-flex justify-content-center align-items-center overflow-auto py-2">
             <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} width="100%" style={{
@@ -135,11 +135,11 @@ export default function RankingTabContent({
         </section>
       </Col>
 
-      <Col lg={5}>
-        <section className="journal-surface p-4 h-100">
+      <Col lg={5} className="d-flex flex-column">
+        <section className="journal-surface p-4 h-100 d-flex flex-column">
           <h2 className="journal-section-title">{t("journal.bangXepHangLichSu")}</h2>
 
-          <div className="table-responsive">
+          <div className="table-responsive flex-grow-1">
             <Table borderless className="journal-ranking-table align-middle mb-0 text-start">
               <thead>
                 <tr>
