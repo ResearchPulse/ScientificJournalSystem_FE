@@ -17,6 +17,15 @@ import useAuth from "../../auth/hooks/useAuth";
 import { useUserStore } from "../../../app/store/userStore";
 import ROUTES from "../../../app/routes/routePaths";
 import CoinBalanceBadge from "../../wallet/components/CoinBalanceBadge";
+import "./Header.css";
+
+const LANG_OPTIONS = [
+  { code: "vi", label: "Tiếng Việt" },
+  { code: "en", label: "English" },
+  { code: "ja", label: "日本語" },
+  { code: "ko", label: "한국어" },
+];
+
 export default function Header() {
   const {
     t,
@@ -36,8 +45,11 @@ export default function Header() {
   const userRole = auth.user?.role;
   const accountManagementRoute = userRole === 'ADMINISTRATOR' ? ROUTES.ADMIN_USERS : ROUTES.PROFILE;
   const language = i18n.language || "vi";
+  const currentLangName =
+    LANG_OPTIONS.find(opt => language.startsWith(opt.code))?.label || "English";
   const [isScrolled, setIsScrolled] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -253,129 +265,177 @@ export default function Header() {
         </Container>
       </Navbar>
 
-      {/* Mobile Menu Drawer (Offcanvas) */}
-      <Offcanvas show={showMobileMenu} onHide={() => setShowMobileMenu(false)} placement="end" className="bg-white text-dark border-start border-light" style={{
-      width: "280px",
-      backgroundColor: "var(--bg-card)",
-      color: "var(--text-main)"
-    }}>
-        <Offcanvas.Header closeButton closeVariant="dark" className="border-bottom border-light py-4">
-          <Offcanvas.Title className="d-flex align-items-center text-main" style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 800
-        }}>
-            <div className="d-flex align-items-center justify-content-center me-2" style={{
-            width: "28px",
-            height: "28px",
-            borderRadius: "6px",
-            background: "var(--btn-dark)"
-          }}>
-              <Icon icon="lucide:activity" className="text-white text-xs" />
+      {/* Mobile Menu Drawer (Offcanvas) — modern compact hierarchy:
+          Header → User card + Sign out → Main nav → Dashboard → Language */}
+      <Offcanvas
+        show={showMobileMenu}
+        onHide={() => setShowMobileMenu(false)}
+        placement="end"
+        className="mobile-drawer"
+      >
+        <Offcanvas.Header className="mnav-header" closeButton={false}>
+          <Offcanvas.Title className="mnav-brand">
+            <div className="mnav-brand-mark">
+              <Icon icon="lucide:activity" width="14" />
             </div>
             ResearchPulse
           </Offcanvas.Title>
+          <button
+            type="button"
+            className="mnav-close"
+            aria-label="Close menu"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            <Icon icon="lucide:x" width="18" />
+          </button>
         </Offcanvas.Header>
 
-        <Offcanvas.Body className="d-flex flex-column justify-content-between py-4">
-          <Nav className="flex-column gap-3 mb-4">
-            {!!email && (
-              <>
-                <Nav.Link onClick={() => {
-                  setShowMobileMenu(false);
-                  navigateWithLang(ROUTES.DASHBOARD);
-                }} className="text-muted-custom hover:text-main py-2 text-sm font-semibold border-bottom border-light">{t("author.tongQuan")}</Nav.Link>
-                <Nav.Link onClick={() => {
-                  setShowMobileMenu(false);
-                  navigateWithLang(ROUTES.PROJECTS);
-                }} className="text-muted-custom hover:text-main py-2 text-sm font-semibold border-bottom border-light" style={{
-                  color: cleanPathname.startsWith(ROUTES.PROJECTS) ? "var(--primary)" : "var(--text-muted)",
-                  fontWeight: cleanPathname.startsWith(ROUTES.PROJECTS) ? 700 : 600
-                }}>{t("landing.duAn")}</Nav.Link>
-              </>
-            )}
-            <Nav.Link onClick={() => {
-              setShowMobileMenu(false);
-              navigateWithLang(ROUTES.CATALOG);
-            }} className="text-muted-custom hover:text-main py-2 text-sm font-semibold border-bottom border-light">
-              {t("search")}
-            </Nav.Link>
-            <Nav.Link onClick={() => {
-              setShowMobileMenu(false);
-              navigateWithLang(ROUTES.ARTICLES);
-            }} className="text-muted-custom hover:text-main py-2 text-sm font-semibold border-bottom border-light" style={{
-              color: cleanPathname.startsWith(ROUTES.ARTICLES) ? "var(--primary)" : "var(--text-muted)",
-              fontWeight: cleanPathname.startsWith(ROUTES.ARTICLES) ? 700 : 600
-            }}>{t("articles")}</Nav.Link>
-          </Nav>
-
-          <div className="d-flex flex-column gap-3">
-            {/* Mobile Language Switches */}
-            <div className="d-flex align-items-center justify-content-center gap-3 py-2 border-top border-bottom border-light mb-2 flex-wrap">
-              <Button variant="link" onClick={() => changeLanguage("vi")} className={`text-decoration-none text-xs font-bold p-0 ${language.startsWith("vi") ? "text-primary" : "text-muted-custom"}`}>Tiếng Việt</Button>
-              <span className="text-muted-custom">|</span>
-              <Button variant="link" onClick={() => changeLanguage("en")} className={`text-decoration-none text-xs font-bold p-0 ${language.startsWith("en") ? "text-primary" : "text-muted-custom"}`}>English</Button>
-              <span className="text-muted-custom">|</span>
-              <Button variant="link" onClick={() => changeLanguage("ja")} className={`text-decoration-none text-xs font-bold p-0 ${language.startsWith("ja") ? "text-primary" : "text-muted-custom"}`}>日本語</Button>
-              <span className="text-muted-custom">|</span>
-              <Button variant="link" onClick={() => changeLanguage("ko")} className={`text-decoration-none text-xs font-bold p-0 ${language.startsWith("ko") ? "text-primary" : "text-muted-custom"}`}>한국어</Button>
-            </div>
-
-            {/* Mobile Auth options */}
-            {email ? <div className="d-flex flex-column gap-3">
-                <Button variant="outline-primary" className="w-100 rounded-pill py-2.5 text-xs font-bold" onClick={() => {
-              setShowMobileMenu(false);
-              navigateWithLang(ROUTES.DASHBOARD);
-            }}>
-                  <Icon icon="lucide:layout-dashboard" className="me-1" />
-                  {language.startsWith("vi") ? t("landing.bangDieuKhien") : "Go to Dashboard"}
-                </Button>
-                <div className="d-flex align-items-center justify-content-center gap-2 p-2.5 rounded-3 border" style={{
-              background: "#f8fafc"
-            }}>
-                  <div className="d-flex align-items-center justify-content-center text-white" style={{
-                width: "28px",
-                height: "28px",
-                borderRadius: "50%",
-                background: "var(--primary)",
-                boxShadow: "0 0 6px rgba(255, 122, 51, 0.15)"
-              }}>
-                    <Icon icon="lucide:user" width="14" />
-                  </div>
-                  <div className="text-start">
-                    <div className="text-xs text-main font-bold" style={{
-                  lineHeight: "1.2"
-                }}>{t("landing.nguoiDung")}</div>
-                    <div className="text-xxs text-muted" style={{
-                  fontSize: "9px",
-                  marginTop: "1px"
-                }}>
-                      {email}
-                    </div>
-                  </div>
-                  <div className="ms-auto">
-                    <CoinBalanceBadge />
-                  </div>
+        <Offcanvas.Body className="mnav-body">
+          {/* User section — compact card near top */}
+          {email && (
+            <>
+              <div className="mnav-user-card mnav-stagger">
+                <div className="mnav-avatar">
+                  <Icon icon="lucide:user" width="16" />
                 </div>
-                <Button variant="danger" className="w-100 rounded-pill py-2 text-xs font-bold" onClick={() => {
-              logout();
-              setShowMobileMenu(false);
-            }}>
-                  {language.startsWith("vi") ? t("landing.dangXuat") : "Sign Out"}
-                </Button>
-              </div> : <div className="d-flex flex-column gap-2">
-                <Button variant="outline-primary" className="w-100 rounded-pill py-2.5 text-xs font-bold" onClick={() => {
-              setShowMobileMenu(false);
-              handleAuthLogin();
-            }}>
-                  {t("signIn")}
-                </Button>
-                <Button className="btn-primary-glow w-100 rounded-pill py-2.5 text-xs font-bold border-0 text-white" onClick={() => {
-              setShowMobileMenu(false);
-              handleAuthRegister();
-            }}>
-                  {t("signUp")}
-                </Button>
-              </div>}
+                <div className="mnav-user-meta">
+                  <span className="mnav-user-name">{t("landing.nguoiDung")}</span>
+                  <span className="mnav-user-email">{email}</span>
+                </div>
+                <CoinBalanceBadge className="mnav-coin-badge" />
+              </div>
+              <button
+                type="button"
+                className="mnav-signout mnav-stagger"
+                onClick={() => {
+                  logout();
+                  setShowMobileMenu(false);
+                }}
+              >
+                <Icon icon="lucide:log-out" width="14" />
+                {language.startsWith("vi") ? t("landing.dangXuat") : "Sign Out"}
+              </button>
+            </>
+          )}
+
+          {/* Main navigation */}
+          <nav className="mnav-nav">
+            {navItems.map((item, index) => {
+              const isPrivate = item.path === ROUTES.DASHBOARD || item.path === ROUTES.PROJECTS;
+              if (isPrivate && !email) return null;
+              const isActive =
+                item.path === "/"
+                  ? cleanPathname === "/"
+                  : cleanPathname.startsWith(item.path);
+              return (
+                <button
+                  key={item.path}
+                  type="button"
+                  className={`mnav-item mnav-stagger ${isActive ? "is-active" : ""}`}
+                  style={{ animationDelay: `${80 + index * 40}ms` }}
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    navigateWithLang(item.path);
+                  }}
+                >
+                  <Icon icon={item.icon} width="16" className="mnav-item-icon" />
+                  <span>{item.label}</span>
+                  <Icon icon="lucide:chevron-right" width="14" className="mnav-item-caret" />
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Go to Dashboard */}
+          {email && (
+            <button
+              type="button"
+              className="mnav-dash-btn mnav-stagger"
+              onClick={() => {
+                setShowMobileMenu(false);
+                navigateWithLang(ROUTES.DASHBOARD);
+              }}
+            >
+              <Icon icon="lucide:layout-dashboard" width="15" />
+              {language.startsWith("vi") ? t("landing.bangDieuKhien") : "Go to Dashboard"}
+            </button>
+          )}
+
+          {/* Guest auth actions */}
+          {!email && (
+            <div className="mnav-auth mnav-stagger">
+              <button
+                type="button"
+                className="mnav-auth-btn is-outline"
+                onClick={() => {
+                  setShowMobileMenu(false);
+                  handleAuthLogin();
+                }}
+              >
+                {t("signIn")}
+              </button>
+              <button
+                type="button"
+                className="mnav-auth-btn is-solid"
+                onClick={() => {
+                  setShowMobileMenu(false);
+                  handleAuthRegister();
+                }}
+              >
+                {t("signUp")}
+              </button>
+            </div>
+          )}
+
+          {/* Language — single compact row with dropdown */}
+          <div className="mnav-lang mnav-stagger">
+            <button
+              type="button"
+              className="mnav-lang-row"
+              aria-expanded={langOpen}
+              onClick={() => setLangOpen(open => !open)}
+            >
+              <span className="mnav-lang-label">
+                <Icon icon="lucide:globe" width="15" />
+                Language
+              </span>
+              <span className="mnav-lang-value">
+                {currentLangName}
+                <Icon
+                  icon="lucide:chevron-down"
+                  width="14"
+                  className={`mnav-lang-caret ${langOpen ? "is-open" : ""}`}
+                />
+              </span>
+            </button>
+            <div
+              className={`mnav-lang-collapse ${langOpen ? "is-open" : ""}`}
+              aria-hidden={!langOpen}
+            >
+              <div className="mnav-lang-clip">
+                <div className="mnav-lang-list">
+                  {LANG_OPTIONS.map(opt => (
+                    <button
+                      key={opt.code}
+                      type="button"
+                      className={`mnav-lang-option ${language.startsWith(opt.code) ? "is-active" : ""}`}
+                      onClick={() => {
+                        changeLanguage(opt.code);
+                        setLangOpen(false);
+                      }}
+                    >
+                      <span>{opt.label}</span>
+                      {language.startsWith(opt.code) && <Icon icon="lucide:check" width="14" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer — small, unobtrusive */}
+          <div className="mnav-footer mnav-stagger">
+            © {new Date().getFullYear()} ResearchPulse
           </div>
         </Offcanvas.Body>
       </Offcanvas>
