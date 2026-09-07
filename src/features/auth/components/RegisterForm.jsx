@@ -142,7 +142,7 @@ export default function RegisterForm({
       first_name: payload.first_name.trim()
     });
   };
-  const termsLabel = <span>{t("auth.toiDongYVoi")}{' '}
+  const termsLabel = <span className="d-inline-flex flex-wrap align-items-center gap-1">{t("auth.toiDongYVoi")}{' '}
       <a href="#" className="text-decoration-none" style={{
       color: 'var(--primary)',
       fontWeight: 500
@@ -189,14 +189,14 @@ export default function RegisterForm({
       <CheckboxField name="terms" checked={formData.terms} onChange={handleChange} error={errors.terms} labelMarkup={termsLabel} disabled={isLoading} />
 
       {/* Submit Button */}
-      <SubmitButton isLoading={isLoading} loadingText="Đang tạo tài khoản..." label={t("auth.taoTaiKhoan")} />
+      <SubmitButton isLoading={isLoading} loadingText={t("auth.dangTaoTaiKhoan")} label={t("auth.taoTaiKhoan")} />
 
       {/* Link Redirect to Login */}
       <div className="text-center mt-4 text-sm font-medium">
         <span className="text-muted-custom" style={{
         color: '#94a3b8 !important'
-      }}>{t("auth.daCoTaiKhoan")}</span>
-        <Link to={ROUTES.LOGIN} className="text-decoration-none" style={{
+      }}>{t("auth.daCoTaiKhoan")}</span>{' '}
+        <Link to={ROUTES.LOGIN} className="text-decoration-none transition-all" style={{
         color: 'var(--primary)',
         fontWeight: 600
       }}>{t("signIn")}</Link>

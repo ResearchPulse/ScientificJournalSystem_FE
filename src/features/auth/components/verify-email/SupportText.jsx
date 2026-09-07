@@ -7,8 +7,8 @@ const SupportText = () => {
     fontSize: '0.85rem',
     color: 'var(--text-muted, #6B6B6B)'
   }}>
-      {t("auth.canHoTro")}
-      <a href="mailto:support@researchpulse.io" style={{
+      <span>{t("auth.canHoTro")}</span>{' '}
+      <a href="mailto:support@researchpulse.io" className="transition-all" style={{
       color: 'var(--primary)',
       textDecoration: 'none',
       fontWeight: 500

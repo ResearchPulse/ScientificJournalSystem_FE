@@ -54,9 +54,12 @@ export default function ForgotPasswordSuccess({
         background: 'var(--border)'
       }} />
 
-        <Link to={ROUTES.LOGIN} className="text-decoration-none text-sm font-semibold py-2" style={{
+        <Link to={ROUTES.LOGIN} className="text-decoration-none text-sm font-semibold py-2 d-inline-flex align-items-center justify-content-center gap-1.5 transition-all" style={{
         color: 'var(--btn-dark)'
-      }}>{t("auth.quayLaiDangNhap")}</Link>
+      }}>
+          <Icon icon="lucide:arrow-left" width="16" />
+          <span>{t("auth.quayLaiDangNhap")}</span>
+        </Link>
       </div>
     </div>;
 }

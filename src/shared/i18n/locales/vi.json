@@ -503,7 +503,11 @@
     "vuiLongNhapMatKhauMoiCuaBanBen": "Vui lòng nhập mật khẩu mới của bạn bên dưới.",
     "lienKetKhoiPhucMatKhauKhongHop": "Liên kết khôi phục mật khẩu không hợp lệ hoặc thiếu mã token. Vui lòng kiểm tra lại email của bạn hoặc gửi lại yêu cầu.",
     "yeuCauLienKetMoi": "Yêu cầu liên kết mới →",
-    "quayLai": "Quay lại"
+    "quayLai": "Quay lại",
+    "dangTaoTaiKhoan": "Đang tạo tài khoản...",
+    "dangDangNhap": "Đang đăng nhập...",
+    "dangGuiYeuCau": "Đang gửi yêu cầu...",
+    "dangCapNhat": "Đang cập nhật..."
   },
   "author": {
     "phanBoLinhVucNghienCuu": "Phân bổ lĩnh vực nghiên cứu",
@@ -1148,7 +1152,8 @@
     "tongSoPhanVungToanCau": "Tổng số phân vùng toàn cầu",
     "tongQuocGia": "Tổng quốc gia",
     "tongSanLuongBaiBao": "Tổng sản lượng bài báo",
-    "top5QuocGiaCoSanLuongArticleCa": "Top 5 Quốc gia có sản lượng Article cao nhất",
+    "top5QuocGiaCoSanLuongArticleCa": "Top 10 Quốc gia có sản lượng Article cao nhất",
+    "top10QuocGiaCoSanLuongArticleCa": "Top 10 Quốc gia có sản lượng Article cao nhất",
     "phanBoSoLuongBaiBaoKhoaHocXuat": "Phân bố số lượng bài báo khoa học xuất bản theo lãnh thổ",
     "tatCaCacNam": "Tất cả các năm",
     "chuaChonQuocGia": "Chưa chọn quốc gia",
