@@ -80,7 +80,7 @@ export default function ResetPasswordForm({
 
       {/* Submit Button */}
       <div className="mt-4">
-        <SubmitButton isLoading={isLoading} loadingText="Đang cập nhật..." label={t("auth.capNhatMatKhau")} />
+        <SubmitButton isLoading={isLoading} loadingText={t("auth.dangCapNhat")} label={t("auth.capNhatMatKhau")} />
       </div>
     </Form>;
 }

@@ -83,8 +83,8 @@ export default function PublicationTrendsChart({
             // API trả month dạng số (1-12) -> convert sang label viết tắt (Jan, Feb...)
             const monthLabel = MONTH_LABELS[item.month - 1] || item.month;
             return <g key={item.year || item.month}>
-                    {/* Cột "manuscripts" (submissions) - màu xám section */}
-                    <rect x={manuscriptsX} y={plotHeight - manuscriptsHeight} width={barWidth} height={manuscriptsHeight} fill="var(--bg-section)" rx="3" />
+                    {/* Cột "manuscripts" (submissions) - màu Slate/Blue-Grey đậm */}
+                    <rect x={manuscriptsX} y={plotHeight - manuscriptsHeight} width={barWidth} height={manuscriptsHeight} fill="#64748b" rx="3" />
                     {/* Cột "published" - màu cam primary */}
                     <rect x={publishedX} y={plotHeight - publishedHeight} width={barWidth} height={publishedHeight} fill="var(--primary)" rx="3" />
                     {/* Label tháng dưới mỗi nhóm cột */}

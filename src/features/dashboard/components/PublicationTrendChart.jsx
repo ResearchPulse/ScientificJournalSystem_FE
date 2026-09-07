@@ -20,7 +20,7 @@ import ChartRangeDropdown from './ChartRangeDropdown';
  *   error
  */
 
-const LINE_COLORS = ['var(--primary)', 'var(--text-main)', 'var(--text-muted)', 'var(--border)'];
+const LINE_COLORS = ['var(--primary)', '#3b82f6', '#10b981', '#a855f7'];
 function SimpleSvgChart({
   years,
   series

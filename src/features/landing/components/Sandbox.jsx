@@ -99,7 +99,7 @@ export default function Sandbox() {
       <Container style={{ maxWidth: "960px" }}>
         {/* Glowing border card container */}
         <div
-          className="p-1 rounded-5"
+          className="p-1 rounded-5 reveal-scale"
           style={{
             background:
               "linear-gradient(135deg, var(--primary-light) 0%, rgba(255, 255, 255, 0.5) 50%, var(--primary-light) 100%)",
@@ -374,36 +374,50 @@ export default function Sandbox() {
                             >
                               <Icon icon={cfg.icon} className="fs-5" />
                             </div>
-                            <span
-                              className="font-medium text-main text-sm text-truncate"
-                              style={{
-                                fontSize: "0.875rem",
-                                maxWidth: "360px",
-                              }}
-                            >
-                              {item.name}
-                            </span>
+                            <div className="d-flex flex-column text-truncate" style={{ minWidth: 0 }}>
+                              <span
+                                className="font-medium text-main text-sm text-truncate"
+                                style={{
+                                  fontSize: "0.875rem",
+                                  maxWidth: "380px",
+                                }}
+                              >
+                                {item.title || item.name}
+                              </span>
+                              {(item.authors?.length > 0 || item.journal?.name) && (
+                                <span
+                                  className="text-muted-custom text-truncate"
+                                  style={{ fontSize: "0.725rem", maxWidth: "380px" }}
+                                >
+                                  {item.authors?.length > 0 && (
+                                    <span>
+                                      {item.authors.map(a => a.name || a.display_name).slice(0, 3).join(', ')}
+                                      {item.authors.length > 3 ? ' et al.' : ''}
+                                    </span>
+                                  )}
+                                  {item.authors?.length > 0 && item.journal?.name && <span> • </span>}
+                                  {item.journal?.name && <span className="fst-italic">{item.journal.name}</span>}
+                                </span>
+                              )}
+                            </div>
                           </div>
                           <span
                             style={{
-                              backgroundColor: ["KEYWORD", "AUTHOR", "ARTICLE", "JOURNAL"].includes(item.type)
-                                ? cfg.bgColor
-                                : "transparent",
-                              color: ["KEYWORD", "AUTHOR", "ARTICLE", "JOURNAL"].includes(item.type)
-                                ? "#000000"
-                                : cfg.textColor,
-                              border: ["KEYWORD", "AUTHOR", "ARTICLE", "JOURNAL"].includes(item.type)
-                                ? "none"
-                                : `1px solid ${cfg.borderColor}`,
+                              backgroundColor: cfg.bgColor,
+                              color: "#000000",
+                              border: "none",
                               fontSize: "0.65rem",
                               fontWeight: 700,
                               textTransform: "uppercase",
                               letterSpacing: "0.05em",
                               padding: "0.35em 0.65em",
                               flexShrink: 0,
+                              maxWidth: "140px",
                             }}
+                            className="text-truncate rounded-2"
+                            title={item.subject_area?.name || item.type}
                           >
-                            {t(cfg.labelKey)}
+                            {item.subject_area?.name || t(cfg.labelKey)}
                           </span>
                         </div>
                       );

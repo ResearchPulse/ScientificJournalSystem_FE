@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import InputField from '../../../shared/components/InputField';
+import Icon from '../../../shared/components/Icon';
 import ROUTES from '../../../app/routes/routePaths';
 import SubmitButton from './SubmitButton';
 import FormErrorMessage from './FormErrorMessage';
@@ -48,15 +49,18 @@ export default function ForgotPasswordForm({
 
       {/* Submit Button */}
       <div className="mt-4">
-        <SubmitButton isLoading={isLoading} loadingText="Đang gửi yêu cầu..." label={t("auth.guiLienKetDatLaiMatKhau")} />
+        <SubmitButton isLoading={isLoading} loadingText={t("auth.dangGuiYeuCau")} label={t("auth.guiLienKetDatLaiMatKhau")} />
       </div>
 
       {/* Link back to Login */}
-      <div className="text-center mt-4 text-sm font-medium">
-        <Link to={ROUTES.LOGIN} className="text-decoration-none" style={{
+      <div className="text-center mt-4 text-sm font-medium d-flex align-items-center justify-content-center gap-1 flex-wrap">
+        <Link to={ROUTES.LOGIN} className="text-decoration-none d-inline-flex align-items-center gap-1.5 transition-all" style={{
         color: 'var(--primary)',
         fontWeight: 600
-      }}>{t("auth.quayLaiDangNhap")}</Link>
+      }}>
+          <Icon icon="lucide:arrow-left" width="16" />
+          <span>{t("auth.quayLaiDangNhap")}</span>
+        </Link>
       </div>
     </Form>;
 }
