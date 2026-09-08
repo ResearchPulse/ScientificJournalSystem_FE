@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useState, useEffect, useCallback } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import ROUTES from '../../../app/routes/routePaths';
 import { useQueryClient } from '@tanstack/react-query';
 import { useKeywordTracking } from '../../keyword/hooks/useKeywordTracking';
@@ -27,6 +27,8 @@ const ProjectDetailPage = () => {
     id: projectId
   } = useParams();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab');
   const auth = useAuth();
   const currentUser = auth?.user;
   const {
@@ -45,7 +47,19 @@ const ProjectDetailPage = () => {
     fetchKeywordArticles,
     refetch: refetchProjectDetails
   } = useKeywordTracking(projectId);
-  const [activeTab, setActiveTab] = useState('articles'); // 'overview', 'articles', 'keywords'
+  const [activeTab, setActiveTab] = useState(tabParam && ['overview', 'articles', 'keywords', 'members'].includes(tabParam) ? tabParam : 'articles');
+  
+  useEffect(() => {
+    if (tabParam && ['overview', 'articles', 'keywords', 'members'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
+
+  const handleTabChange = (newTab) => {
+    setActiveTab(newTab);
+    setSearchParams({ tab: newTab }, { replace: true });
+  };
+
   const [showAddModal, setShowAddModal] = useState(false);
   const [showManageModal, setShowManageModal] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
@@ -509,14 +523,14 @@ const ProjectDetailPage = () => {
         paddingLeft: '1rem'
       }}>
           <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'overview' ? 'active' : 'text-muted-custom'}`} onClick={() => setActiveTab('overview')} style={activeTab === 'overview' ? {
+            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'overview' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('overview')} style={activeTab === 'overview' ? {
             color: 'var(--primary)',
             borderBottom: '2px solid var(--primary)'
           } : undefined}>
               <Icon icon="lucide:bar-chart-2" width="18" className="me-2" />{t("project.tongQuanBieuDo", "Overview & Charts")}</button>
           </li>
           <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'articles' ? 'active' : 'text-muted-custom'}`} onClick={() => setActiveTab('articles')} style={activeTab === 'articles' ? {
+            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'articles' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('articles')} style={activeTab === 'articles' ? {
             color: 'var(--primary)',
             borderBottom: '2px solid var(--primary)'
           } : undefined}>
@@ -524,7 +538,7 @@ const ProjectDetailPage = () => {
             </button>
           </li>
           <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'keywords' ? 'active' : 'text-muted-custom'}`} onClick={() => setActiveTab('keywords')} style={activeTab === 'keywords' ? {
+            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'keywords' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('keywords')} style={activeTab === 'keywords' ? {
             color: 'var(--primary)',
             borderBottom: '2px solid var(--primary)'
           } : undefined}>
@@ -532,11 +546,11 @@ const ProjectDetailPage = () => {
             </button>
           </li>
           <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'members' ? 'active' : 'text-muted-custom'}`} onClick={() => setActiveTab('members')} style={activeTab === 'members' ? {
+            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'members' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('members')} style={activeTab === 'members' ? {
             color: 'var(--primary)',
             borderBottom: '2px solid var(--primary)'
           } : undefined}>
-              <Icon icon="lucide:users" width="18" className="me-2" />{t("project.thanhVien", "Members")}
+              <Icon icon="lucide:users" width="18" className="me-2" />{t("project.thanhVien", "Members")} ({members.length})
             </button>
           </li>
         </ul>
@@ -624,6 +638,7 @@ const ProjectDetailPage = () => {
             
           {activeTab === 'members' && (
             <ProjectMembersList 
+              project={project}
               members={members} 
               loading={membersLoading} 
               onInviteClick={() => setShowInviteModal(true)}
