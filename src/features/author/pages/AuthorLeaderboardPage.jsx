@@ -42,14 +42,6 @@ export default function AuthorLeaderboardPage() {
       limit: limit
     });
   }, [selectedArea, selectedPeriod, currentPage, fetchLeaderboard]);
-  const handleAreaChange = e => {
-    setSelectedArea(e.target.value);
-    setCurrentPage(1);
-  };
-  const handlePeriodChange = e => {
-    setSelectedPeriod(e.target.value);
-    setCurrentPage(1);
-  };
   return <div className="author-leaderboard-page">
       <Header />
 

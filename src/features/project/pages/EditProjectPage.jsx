@@ -3,10 +3,8 @@ import { t } from "i18next";
 import { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import ROUTES from '../../../app/routes/routePaths';
 import projectService from '../services/projectService';
 import { Icon } from '@iconify/react';
-import { getSubjectAreasApi } from '../../catalog/api/catalogApi';
 import keywordApi from '../../keywords/api/keywordApi';
 import keywordService from '../../keyword/services/keywordService';
 import SearchableKeywordInput from '../../../shared/components/Input/SearchableKeywordInput';
@@ -26,7 +24,6 @@ const EditProjectPage = () => {
   const [keywords, setKeywords] = useState([]);
 
   // API Data State
-  const [areas, setAreas] = useState([]);
   const [suggestedKeywords, setSuggestedKeywords] = useState([]);
 
   // Loading States
@@ -38,8 +35,7 @@ const EditProjectPage = () => {
     const fetchData = async () => {
       setLoadingData(true);
       try {
-        const [areasRes, projectRes] = await Promise.all([getSubjectAreasApi(), projectService.getProjectById(id)]);
-        if (areasRes?.data) setAreas(areasRes.data?.data?.items || areasRes.data?.data || areasRes.data || []);
+        const projectRes = await projectService.getProjectById(id);
 
         // Pre-fill
         if (projectRes && projectRes.data) {
@@ -89,8 +85,6 @@ const EditProjectPage = () => {
     };
     fetchSuggestions();
   }, []);
-  const selectedAreaObj = areas.find(a => String(a.id || a.subject_area_id) === String(subjectAreaId));
-  const selectedAreaName = selectedAreaObj ? selectedAreaObj.display_name || selectedAreaObj.name || selectedAreaObj.area_name : '';
   const removeKeyword = kw => {
     setKeywords(keywords.filter(k => k !== kw));
   };
@@ -98,11 +92,6 @@ const EditProjectPage = () => {
     if (!keywords.includes(kw)) {
       setKeywords([...keywords, kw]);
     }
-  };
-
-  // Handle Area Change
-  const handleAreaChange = e => {
-    setSubjectAreaId(e.target.value);
   };
   const handleSubmit = async e => {
     e.preventDefault();

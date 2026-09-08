@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\dashboard\pages\DashboardPage.jsx
  */
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { Icon } from "@iconify/react";
@@ -56,16 +56,8 @@ export default function DashboardPage() {
     refetchAnalytics
   } = useDashboard(email, trendRange);
 
-  // Quick search state
-  const [quickSearch, setQuickSearch] = useState("");
-
   // Auth modal (for "Tạo Project mới" when guest)
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const handleQuickSearch = useCallback(e => {
-    if (e.key === "Enter" && quickSearch.trim()) {
-      navigate(`/catalog?search=${encodeURIComponent(quickSearch.trim())}`);
-    }
-  }, [quickSearch, navigate]);
   const handleCreateProject = () => {
     if (!email) {
       setShowAuthModal(true);

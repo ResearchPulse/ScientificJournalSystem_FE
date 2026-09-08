@@ -156,7 +156,7 @@ export default function useAuthors() {
         } else {
           throw new Error(response.data?.message || 'Failed to fetch authors');
         }
-      } catch (err) {
+      } catch {
         // Mock Fallback
         const keyword = (authorsParams.search || '').toLowerCase().trim();
         const area = (authorsParams.subject_area || '').trim();
@@ -191,7 +191,7 @@ export default function useAuthors() {
         } else {
           throw new Error(response.data?.message || 'Failed to fetch author detail');
         }
-      } catch (err) {
+      } catch {
         return MOCK_AUTHORS.find(a => String(a.id) === String(authorDetailId)) || createUnknownAuthorFallback(authorDetailId);
       }
     },
@@ -212,7 +212,7 @@ export default function useAuthors() {
         } else {
           throw new Error(response.data?.message || 'Failed to fetch author articles');
         }
-      } catch (err) {
+      } catch {
         return MOCK_ARTICLES_MAP[String(id)] || [];
       }
     },
@@ -232,7 +232,7 @@ export default function useAuthors() {
         } else {
           throw new Error(response.data?.message || 'Failed to fetch areas breakdown');
         }
-      } catch (err) {
+      } catch {
         return MOCK_BREAKDOWNS_MAP[String(authorBreakdownId)] || [];
       }
     },
@@ -277,9 +277,9 @@ export default function useAuthors() {
                 if (breakdownResponse.data && typeof breakdownResponse.data === 'object' && breakdownResponse.data.success !== false) {
                   breakdownMap[id] = normalizeAreasBreakdown(breakdownResponse.data.data);
                 }
-              } catch (error) {
-      // ignore
-    }
+              } catch {
+                // ignore
+              }
             })
           );
           
@@ -291,7 +291,7 @@ export default function useAuthors() {
         } else {
           throw new Error(response.data?.message || 'Failed to fetch leaderboard');
         }
-      } catch (err) {
+      } catch {
         let list = MOCK_LEADERBOARD.map((item, idx) => ({ ...item, final_rank: idx + 1 }));
         const area = (leaderboardParams.subject_area || '').trim().toLowerCase();
         if (area) list = list.filter(item => item.subject_area.toLowerCase().includes(area));

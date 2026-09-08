@@ -6,8 +6,6 @@ import { useTranslation } from "react-i18next";
 import { useState } from 'react';
 import { Modal, Spinner } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import { useNavigate } from 'react-router-dom';
-import ROUTES from '../../../app/routes/routePaths';
 import { activateProjectApi } from '../api/project.api';
 import { toast } from '../../../shared/utils/toast';
 import { useWalletStore } from '../../../app/store/walletStore';
@@ -19,7 +17,6 @@ const UpgradePlanModal = ({
   projectId,
   onSuccess
 }) => {
-  const navigate = useNavigate();
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const fetchWallet = useWalletStore(state => state.fetchWallet);

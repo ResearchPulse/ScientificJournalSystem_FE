@@ -49,7 +49,7 @@ export default function ProfilePage() {
       if (!cancelled && shouldFetch) {
         try {
           await fetchProfile();
-        } catch (e) {
+        } catch {
           // nếu BE trả lỗi nhưng cookie vẫn có (hoặc endpoint không khớp payload),
           // tránh hard-crash và để UI hiển thị error state từ hook.
         }

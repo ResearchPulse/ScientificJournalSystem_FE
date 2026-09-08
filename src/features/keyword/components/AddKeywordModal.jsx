@@ -19,7 +19,7 @@ const AddKeywordModal = ({
       await onAdd(keyword.trim());
       setKeyword('');
       onHide();
-    } catch (err) {
+    } catch {
       // Error handled by hook or parent
     }
   };

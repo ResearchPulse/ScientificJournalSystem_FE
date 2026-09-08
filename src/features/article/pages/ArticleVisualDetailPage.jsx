@@ -1,11 +1,10 @@
-import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
  *
  * File: features\article\pages\ArticleVisualDetailPage.jsx
  */
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Button, Modal, Dropdown } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
@@ -17,7 +16,7 @@ import Header from '../../landing/components/Header';
 import useAuth from '../../auth/hooks/useAuth';
 
 // API
-import { getArticleDetailApi, bookmarkArticleApi, getArticlesListApi } from '../api/articleApi';
+import { getArticleDetailApi, getArticlesListApi } from '../api/articleApi';
 import { spendCoin } from '../../wallet/api/walletApi';
 import { useWalletStore } from '../../../app/store/walletStore';
 
@@ -68,8 +67,6 @@ const ArticleDetailPane = ({
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isBookmarkLoading, setIsBookmarkLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showAllAuthors, setShowAllAuthors] = useState(false);
   const [showCitationsModal, setShowCitationsModal] = useState(false);
@@ -95,9 +92,6 @@ const ArticleDetailPane = ({
           const parsedArticle = normalizeArticleDetail(apiData, articleId);
           setArticle(parsedArticle);
         }
-        const localBookmarkKey = `bookmark_${currentUser?.username || 'guest'}_${articleId}`;
-        const isLocallyBookmarked = localStorage.getItem(localBookmarkKey) === 'true';
-        setIsBookmarked(apiData.is_bookmarked || isLocallyBookmarked);
       } else {
         throw new Error(response.data?.message || t("article.khongTheTaiChiTietBaiBao"));
       }
@@ -132,29 +126,6 @@ const ArticleDetailPane = ({
   const referenceTotalPages = Math.max(1, Math.ceil(references.length / referencesPerPage));
   const paginatedReferences = references.slice((referencePage - 1) * referencesPerPage, referencePage * referencesPerPage);
   const articleDoiUrl = getDoiUrl(article?.doi);
-  const handleBookmarkToggle = async () => {
-    if (!currentUser) {
-      setShowLoginModal(true);
-      return;
-    }
-    if (!article?.article_id) return;
-    setIsBookmarkLoading(true);
-    const localBookmarkKey = `bookmark_${currentUser.username}_${article.article_id}`;
-    const nextState = !isBookmarked;
-    try {
-      await bookmarkArticleApi(article.article_id);
-      setIsBookmarked(nextState);
-      localStorage.setItem(localBookmarkKey, String(nextState));
-      toast.success(nextState ? t("article.daThemBaiBaoVaoProject") : t("article.daXoaBaiBaoKhoiProject"));
-    } catch (err) {
-      console.warn('Bookmark API error, toggling state locally:', err);
-      setIsBookmarked(nextState);
-      localStorage.setItem(localBookmarkKey, String(nextState));
-      toast.warning(t("article.khongTheDongBoServerDaCapNhatT"));
-    } finally {
-      setIsBookmarkLoading(false);
-    }
-  };
   const handleShareArticle = async () => {
     const shareUrl = `${window.location.origin}/articles/${article.article_id}`;
     const shareData = {
@@ -446,9 +417,6 @@ export default function ArticleVisualDetailPage() {
   // State để trigger việc re-mount iframe khi cần tải lại
   // eslint-disable-next-line react-hooks/purity
   const [iframeReloadKey, setIframeReloadKey] = useState(Date.now());
-  const [isIframeLoading, setIsIframeLoading] = useState(true);
-  const [iframeError, setIframeError] = useState(false);
-  const iframeRef = useRef(null);
   useEffect(() => {
     setSelectedArticleId(id);
   }, [id]);
@@ -505,7 +473,6 @@ export default function ArticleVisualDetailPage() {
     if (!originArticle) return;
     let isMounted = true;
     setIframeStatus('loading');
-    const iframeUrl = `${import.meta.env.VITE_ORIGIN_URL || 'http://localhost:5174'}/embed/article-graph?keyword=${encodeURIComponent(originArticle.title)}&limit=1`;
     const origin = import.meta.env.VITE_ORIGIN_URL || 'http://localhost:5174';
     const checkServiceAvailability = async () => {
       try {
@@ -547,15 +514,15 @@ export default function ArticleVisualDetailPage() {
         return currentStatus;
       });
     }, 10000);
-    setIsIframeLoading(true);
-    setIframeError(false);
     const iframeLoadTimeout = setTimeout(() => {
       // Nếu iframe không gửi message 'graph-ready' trong 10s, coi như lỗi
-      if (isIframeLoading) {
-        console.warn('[Parent] Iframe load timed out after 10 seconds.');
-        setIframeError(true);
-        setIsIframeLoading(false);
-      }
+      setIframeStatus(currentStatus => {
+        if (currentStatus === 'content-loading') {
+          console.warn('[Parent] Iframe load timed out after 10 seconds.');
+          return 'error';
+        }
+        return currentStatus;
+      });
     }, 10000); // 10 giây timeout
 
     // Xử lý message từ iframe
@@ -568,8 +535,6 @@ export default function ArticleVisualDetailPage() {
         console.log('[Parent] Received GRAPH_READY message from iframe.');
         setIframeStatus('loaded'); // Đánh dấu đã tải xong nếu nhận được message
         clearTimeout(iframeLoadTimeout);
-        setIsIframeLoading(false);
-        setIframeError(false);
       }
       if (message.type === 'NODE_CLICK') {
         console.log('[Parent] Node clicked, received payload:', message.payload);

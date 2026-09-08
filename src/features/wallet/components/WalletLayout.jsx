@@ -1,7 +1,6 @@
 import { t } from "i18next";
-import { useTranslation } from "react-i18next";
 import { useCallback } from 'react';
-import { Outlet, useLocation, NavLink } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import Header from '../../landing/components/Header';
 import ROUTES from '../../../app/routes/routePaths';
@@ -22,7 +21,6 @@ const NAV_ITEMS = [{
 export default function WalletLayout({
   children
 }) {
-  const location = useLocation();
 
   /**
    * Kiểm tra xem một mục menu có đang active hay không.

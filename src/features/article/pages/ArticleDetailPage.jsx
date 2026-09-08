@@ -84,17 +84,12 @@ export default function ArticleDetailPage() {
   const [showCitationsModal, setShowCitationsModal] = useState(false);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const { balance, setBalance } = useWalletStore();
-  const [referencePage, setReferencePage] = useState(1);
-  const referencesPerPage = 2;
   const visibleAuthors = useMemo(() => {
     const authors = article?.authors || [];
     if (showAllAuthors) return authors;
     return authors.slice(0, 3);
   }, [article?.authors, showAllAuthors]);
   const hiddenAuthorCount = Math.max((article?.authors?.length || 0) - 3, 0);
-  const references = article?.references || [];
-  const referenceTotalPages = Math.max(1, Math.ceil(references.length / referencesPerPage));
-  const paginatedReferences = references.slice((referencePage - 1) * referencesPerPage, referencePage * referencesPerPage);
   const keywordsText = useMemo(() => {    const keywords = article?.keywords || [];
     if (!keywords.length) return t("article.dangCapNhatTuKhoa");
     return keywords.map(keyword => keyword.display_name || keyword.name || keyword.keyword).filter(Boolean).join('; ');
@@ -185,10 +180,6 @@ export default function ArticleDetailPage() {
     // eslint-disable-next-line no-undef
     downloadArticlePdf(article, { withWatermark: false, premium: true });
   };
-  const handleDoiClick = () => {
-    if (!articleDoiUrl) return;
-    window.open(articleDoiUrl, '_blank', 'noopener,noreferrer');
-  };
   const handleShareArticle = async () => {    const shareUrl = window.location.href;
     const shareData = {
       title: article?.title || 'Article detail',
@@ -229,12 +220,6 @@ export default function ArticleDetailPage() {
     const label = topic?.display_name || topic?.name || '';
     if (!label) return;
     navigate(`/articles?search=${encodeURIComponent(label)}`);
-  };
-  const handleOrganizationAccess = () => {    if (article?.is_open_access && article?.doi) {
-      window.open(getDoiUrl(article.doi), '_blank', 'noopener,noreferrer');
-      return;
-    }
-    toast.info(t("article.hienChuaCoCongTruyCapToChucRie"));
   };
   const articleDoiUrl = getDoiUrl(article?.doi);
   return <div className="article-detail-page grid-bg">

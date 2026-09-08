@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 import { Table } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
 import { StateCard } from '../../../../shared/components/Card';
 const getIssueId = issue => issue.issue_id || issue.id;
 const getIssueNumber = issue => issue.issue_number ?? issue.issueNumber ?? '—';
@@ -19,7 +17,7 @@ export default function IssueTable({
   issues,
   articleCountsByIssueId = {}
 }) {
-  const { t: _t } = useTranslation();
+  const { t } = useTranslation();
   if (!issues || issues.length === 0) {
     return <StateCard variant="neutral" icon="lucide:calendar-dashed" title="No issues found" description="This volume does not have any issues created yet." className="my-4 border-dashed" />;
   }

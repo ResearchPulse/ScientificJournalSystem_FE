@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  * File: features\article\components\ArticleFilterBar.jsx
  */
 import { useState, useEffect } from 'react';
-import { Dropdown, Form, Button } from 'react-bootstrap';
+import { Dropdown, Form } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { FilterSearch } from '../../../shared/components/Input';
 import { FilterCard } from '../../../shared/components/Card';
@@ -26,10 +26,6 @@ const YEAR_OPTIONS = [{
 }, {
   value: '2022',
   label: '2022'
-}];
-const ACCESS_OPTIONS = [{
-  value: 'oa',
-  label: 'Open Access (OA)'
 }];
 export default function ArticleFilterBar({
   filters,
@@ -117,7 +113,6 @@ export default function ArticleFilterBar({
     });
   };
   const currentSortValue = `${filters.sortBy}-${filters.sortOrder}`;
-  const hasActiveFilters = filters.search !== '' || filters.selectedYear !== 'all' || filters.selectedJournal !== 'all' || filters.selectedTopic !== 'all' || filters.selectedAccess !== 'all' || filters.sortBy !== 'created_at' || filters.sortOrder !== 'desc';
   const filterConfigs = [{
     id: 'year',
     label: t("article.nam"),

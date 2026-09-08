@@ -68,8 +68,6 @@ const CreateProjectPage = () => {
     };
     fetchSuggestions();
   }, []);
-  const selectedAreaObj = areas.find(a => String(a.id || a.subject_area_id) === String(subjectAreaId));
-  const selectedAreaName = selectedAreaObj ? selectedAreaObj.display_name || selectedAreaObj.name || selectedAreaObj.area_name : '';
   const removeKeyword = kw => {
     setKeywords(keywords.filter(k => k !== kw));
   };
@@ -83,10 +81,6 @@ const CreateProjectPage = () => {
   const handleAreaChange = val => {
     setSubjectAreaId(val);
   };
-  const areaOptions = Array.isArray(areas) ? areas.map(area => ({
-    value: area.id || area.subject_area_id,
-    label: area.display_name || area.name || area.area_name
-  })) : [];
   const handleSubmit = async e => {    e.preventDefault();
     if (!title.trim() || !subjectAreaId) {
       setError(t("project.vuiLongNhapTenDuAnVaChonLinhVu"));

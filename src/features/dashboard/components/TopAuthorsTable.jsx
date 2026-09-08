@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
  * File: features\dashboard\components\TopAuthorsTable.jsx
  */
 import { Icon } from '@iconify/react';
-import { useNavigate } from 'react-router-dom';
 import { EntityCard } from '../../../shared/components/Card';
 import { formatCount } from '../../../shared/utils/formatNumber';
 import { truncate } from '../../../shared/utils/formatNumber';
@@ -94,7 +93,6 @@ export default function TopAuthorsTable({
   const {
     t
   } = useTranslation();
-  const navigate = useNavigate();
   const actions = onViewAll ? <button className="btn btn-link p-0 text-decoration-none" onClick={onViewAll} style={{
     fontSize: '0.75rem',
     color: 'var(--primary)'
