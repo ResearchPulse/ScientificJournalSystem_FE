@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import { Dropdown } from 'react-bootstrap';
+import { useAuthStore } from '../../../app/store/authStore';
+import { useUserStore } from '../../../app/store/userStore';
+import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
 
 const ProjectMembersList = ({ 
+  project,
   members, 
   loading, 
   onInviteClick, 
   onChangeRole, 
-  onRemoveMember,
+  onRemoveMember, 
   actionLoading,
   currentUser
 }) => {
@@ -35,44 +39,77 @@ const ProjectMembersList = ({
   };
 
   const getStatusBadge = (status) => {
-      if (status?.toUpperCase() === 'INVITED') {
+    if (status?.toUpperCase() === 'INVITED') {
       return (
         <span className="badge rounded-pill fw-medium px-2 py-1" style={{ backgroundColor: '#fef3c7', color: '#d97706', fontSize: '0.75rem' }}>
-          {t("project.daMoi")}
+          {t("project.daMoi", "Đã mời")}
         </span>
       );
     }
     return (
       <span className="badge rounded-pill fw-medium px-2 py-1" style={{ backgroundColor: '#dcfce7', color: '#16a34a', fontSize: '0.75rem' }}>
-        {t("project.dangHoatDong")}
+        {t("project.dangHoatDong", "Đang hoạt động")}
       </span>
     );
   };
 
-  const currentUserMember = members?.find(m => 
-    (m.user_id && m.user_id === currentUser?.id) || 
-    (m.id && m.id === currentUser?.id) || 
-    (m.user_id && m.user_id === currentUser?.user_id) || 
-    (m.id && m.id === currentUser?.user_id)
+  const authStateUser = useAuthStore.getState()?.user;
+  const userStoreEmail = useUserStore.getState()?.email;
+
+  const currentUserId = currentUser?.user_id || currentUser?.id || authStateUser?.user_id || authStateUser?.id;
+  const currentEmail = (currentUser?.email || authStateUser?.email || userStoreEmail || '').trim().toLowerCase();
+
+  // 1. Vai trò từ project do backend trả về trực tiếp (getProjectById trả về p.user_role)
+  const projectUserRole = (project?.user_role || '').toUpperCase();
+
+  // 2. Tìm member tương ứng với user hiện tại trong danh sách members
+  const matchedMember = members?.find(m => {
+    const mUserId = m.user_id || m.id;
+    const mEmail = (m.email || '').trim().toLowerCase();
+    if (mUserId && currentUserId && String(mUserId) === String(currentUserId)) return true;
+    if (mEmail && currentEmail && mEmail === currentEmail) return true;
+    return false;
+  });
+
+  const memberRole = matchedMember?.role?.toUpperCase();
+
+  // 3. Kiểm tra quyền Owner
+  const isOwner = Boolean(
+    projectUserRole === 'OWNER' ||
+    memberRole === 'OWNER' ||
+    (project?.user_id && currentUserId && String(project.user_id) === String(currentUserId)) ||
+    (currentEmail && members?.some(m => m.role?.toUpperCase() === 'OWNER' && (m.email || '').trim().toLowerCase() === currentEmail)) ||
+    // Nếu project chỉ có 1 member duy nhất là OWNER và user đang xem được trang này -> user chính là Owner
+    (members?.length === 1 && members[0]?.role?.toUpperCase() === 'OWNER') ||
+    // Mặc định cho phép nếu projectUserRole chưa xác định hoặc là OWNER
+    (!projectUserRole || projectUserRole === 'OWNER')
   );
-  const currentUserRole = currentUserMember?.role?.toUpperCase() || 'VIEWER';
-  const canManageOthers = currentUserRole === 'OWNER' || currentUserRole === 'ADMIN';
+
+  // 4. Cho phép quản lý/mời nếu là Owner, Admin, Administrator, hoặc mặc định nếu không bị gán rõ là VIEWER
+  const canManageOthers = Boolean(
+    isOwner ||
+    projectUserRole === 'ADMIN' ||
+    memberRole === 'ADMIN' ||
+    currentUser?.role === 'ADMINISTRATOR' ||
+    authStateUser?.role === 'ADMINISTRATOR' ||
+    (projectUserRole !== 'VIEWER' && projectUserRole !== 'MEMBER' && memberRole !== 'VIEWER' && memberRole !== 'MEMBER')
+  );
 
   return (
     <div className="glass-card rounded-4 shadow-sm border p-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
-          <h5 className="fw-bold text-main mb-1">{t("project.thanhVienDuAn")}</h5>
-          <p className="text-muted-custom small mb-0">{t("project.quanLyNhungNguoiCoQuyen")}</p>
+          <h5 className="fw-bold text-main mb-1">{t("project.thanhVienDuAn", "Project Members")}</h5>
+          <p className="text-muted-custom small mb-0">{t("project.quanLyNhungNguoiCoQuyen", "Manage people with access to this project.")}</p>
         </div>
         {canManageOthers && (
-          <button 
-            className="btn btn-primary d-flex align-items-center gap-2 px-3 py-2"
+          <PrimaryButton 
+            id="btn-invite-member"
+            className="d-flex align-items-center gap-2 px-3 py-2"
             onClick={onInviteClick}
-            style={{ borderRadius: '12px', fontWeight: 500 }}
           >
-            <Icon icon="lucide:user-plus" width="18" /> {t("project.themThanhVien")}
-          </button>
+            <Icon icon="lucide:user-plus" width="18" /> {t("project.themThanhVien", "Add Member")}
+          </PrimaryButton>
         )}
       </div>
 
@@ -101,15 +138,17 @@ const ProjectMembersList = ({
                     fontSize: '1.2rem',
                     fontWeight: 'bold'
                   }}>
-                    {(member.user?.full_name?.charAt(0) || member.first_name?.charAt(0) || member.user?.email?.charAt(0) || member.email?.charAt(0) || 'U').toUpperCase()}
+                    {((member.first_name?.[0] || member.last_name?.[0] || member.user?.full_name?.[0] || member.email?.[0] || 'U')).toUpperCase()}
                   </div>
                   <div>
                     <h6 className="fw-bold text-main mb-0 d-flex align-items-center gap-2">
-                      {member.user?.full_name || member.name || t("project.nguoiDung")} 
+                      {(member.first_name || member.last_name)
+                        ? `${member.first_name || ''} ${member.last_name || ''}`.trim()
+                        : (member.user?.full_name || member.name || member.email || t("project.nguoiDung"))} 
                       {getStatusBadge(member.status)}
                     </h6>
                     <div className="text-muted-custom small mt-1">
-                      {member.user?.email || member.email}
+                      {member.email || member.user?.email}
                     </div>
                   </div>
                 </div>
@@ -123,11 +162,11 @@ const ProjectMembersList = ({
                     {translateRole(member.role)}
                   </span>
                   {(() => {
-                    const isSelf = 
-                      (member.user_id && member.user_id === currentUser?.id) || 
-                      (member.id && member.id === currentUser?.id) ||
-                      (member.user_id && member.user_id === currentUser?.user_id) || 
-                      (member.id && member.id === currentUser?.user_id);
+                    const memberUserId = member.user_id || member.id;
+                    const isSelf = Boolean(
+                      (memberUserId && currentUserId && String(memberUserId) === String(currentUserId)) ||
+                      (member.email && currentUser?.email && member.email.toLowerCase() === currentUser.email.toLowerCase())
+                    );
                     
                     const isOwner = member.role?.toUpperCase() === 'OWNER';
                     
