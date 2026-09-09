@@ -3,6 +3,7 @@
  *
  * File: features\landing\components\Sandbox.jsx
  */
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
@@ -21,6 +22,7 @@ const typeConfig = {
     textColor: "#3b82f6",
     bgColor: "rgba(59, 130, 246, 0.1)",
     borderColor: "rgba(59, 130, 246, 0.2)",
+    path: (id) => `/journals/${id}`,
   },
   AUTHOR: {
     labelKey: "typeAuthor",
@@ -29,6 +31,7 @@ const typeConfig = {
     textColor: "#a855f7",
     bgColor: "rgba(168, 85, 247, 0.1)",
     borderColor: "rgba(168, 85, 247, 0.2)",
+    path: (id) => `/authors/${id}`,
   },
   ARTICLE: {
     labelKey: "typeArticle",
@@ -37,6 +40,7 @@ const typeConfig = {
     textColor: "#10b981",
     bgColor: "rgba(16, 185, 129, 0.1)",
     borderColor: "rgba(16, 185, 129, 0.2)",
+    path: (id) => `/articles/${id}/visual`,
   },
   KEYWORD: {
     labelKey: "typeKeyword",
@@ -45,6 +49,7 @@ const typeConfig = {
     textColor: "#f59e0b",
     bgColor: "rgba(245, 158, 11, 0.1)",
     borderColor: "rgba(245, 158, 11, 0.2)",
+    path: (id) => `/keywords/${id}`,
   },
   AREA: {
     labelKey: "typeArea",
@@ -73,6 +78,10 @@ const defaultType = {
   borderColor: "rgba(148, 163, 184, 0.2)",
 };
 
+// Module-level helper: resolve route path for a search item by type.
+// Pure & referentially stable — safe to call from memoized handlers.
+const getItemPath = (item) => typeConfig[item.type]?.path?.(item.id);
+
 export default function Sandbox() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -85,6 +94,15 @@ export default function Sandbox() {
     handleTagClick,
     handleSearchSubmit,
   } = useSandboxSearch();
+
+  // Stable handler — same reference across renders unless `navigate` changes.
+  const handleItemClick = useCallback(
+    (item) => {
+      const targetPath = getItemPath(item);
+      if (targetPath) navigate(targetPath);
+    },
+    [navigate]
+  );
 
   const tags = [
     "LLM",
@@ -318,6 +336,7 @@ export default function Sandbox() {
                   >
                     {searchResult.items.map((item, index) => {
                       const cfg = typeConfig[item.type] || defaultType;
+                      const isClickable = Boolean(getItemPath(item));
                       return (
                         <div
                           key={item.id || index}
@@ -325,28 +344,9 @@ export default function Sandbox() {
                           style={{
                             backgroundColor: "var(--bg-chip)",
                             transition: "all 0.2s ease",
-                            cursor:
-                              item.type === "JOURNAL" ||
-                              item.type === "AUTHOR" ||
-                              item.type === "ARTICLE" ||
-                              item.type === "KEYWORD"
-                                ? "pointer"
-                                : "default",
+                            cursor: isClickable ? "pointer" : "default",
                           }}
-                          onClick={() => {
-                            if (item.type === "JOURNAL") {
-                              navigate(`/journals/${item.id}`);
-                            }
-                            if (item.type === "AUTHOR") {
-                              navigate(`/authors/${item.id}`);
-                            }
-                            if (item.type === "ARTICLE") {
-                              navigate(`/articles/${item.id}/visual`);
-                            }
-                            if (item.type === "KEYWORD") {
-                              navigate(`/keywords/${item.id}`);
-                            }
-                          }}
+                          onClick={() => handleItemClick(item)}
                           onMouseEnter={(e) => {
                             if (item.type === "JOURNAL") {
                               e.currentTarget.style.backgroundColor =

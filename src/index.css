@@ -37,6 +37,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  max-width: 100vw;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -234,6 +236,11 @@ header.sticky-scrolled {
 /* Custom Tab Styling */
 .tab-nav-custom {
   border-bottom: 1px solid var(--border);
+}
+
+/* Hide default Bootstrap dropdown caret — all toggles in this project use custom icons (lucide) */
+.dropdown-toggle::after {
+  display: none !important;
 }
 .tab-nav-custom .nav-link {
   color: var(--text-muted);
