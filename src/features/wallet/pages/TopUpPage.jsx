@@ -206,7 +206,7 @@ export default function TopUpPage() {
                     </div>
                     <div className="topup-pkg-card__meta">
                       <div className="topup-pkg-card__label">ResearchPulse Coin</div>
-                      <div className="topup-pkg-card__name">{pkg.name}</div>
+                      <div className="topup-pkg-card__name">{pkg.name.replace(/(Gói)(?=\d)/, '$1 ')}</div>
                     </div>
                   </div>
 
@@ -226,7 +226,7 @@ export default function TopUpPage() {
                   <div className="topup-pkg-card__footer">
                     <div className="topup-pkg-card__price">{formatVND(pkg.price)}</div>
                     <div className="topup-pkg-card__footer-note">
-                      {formatCoin(pkg.coin_amount)}{t("wallet.coinGoc")}</div>
+                      {formatCoin(pkg.coin_amount)} {t("wallet.coinGoc")}</div>
                   </div>
                 </button>;
         })}
