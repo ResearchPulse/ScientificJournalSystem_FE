@@ -101,7 +101,7 @@ export default function Features() {
   return (
     <section 
       id="features" 
-      className="py-5 relative" 
+      className="py-5 position-relative"
       style={{ 
         backgroundColor: 'var(--bg-main)', 
         overflow: 'hidden',
