@@ -206,7 +206,6 @@ export default function Header() {
                       e.currentTarget.style.borderBottomColor = "transparent";
                     }}
                   >
-                    <Icon icon={item.icon} width="14" />
                     {item.label}
                   </Nav.Link>
                 );
