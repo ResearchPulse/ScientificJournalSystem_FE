@@ -157,9 +157,9 @@ export default function WalletCheckoutPage() {
                     <Icon icon="lucide:circle-dollar-sign" width={28} />
                   </div>
                   <div className="checkout-package-main">
-                    <div className="checkout-package-name">{pkg?.name}</div>
+                    <div className="checkout-package-name">{pkg?.name?.replace(/(Gói)(?=\d)/, '$1 ')}</div>
                     <div className="checkout-package-meta">
-                      {formatCoin(pkg?.coin_amount)}{t("wallet.coinGoc")}{pkg?.bonus_coin > 0 ? ` • +${formatCoin(pkg?.bonus_coin)} bonus` : ''}
+                      {formatCoin(pkg?.coin_amount)} {t("wallet.coinGoc")}{pkg?.bonus_coin > 0 ? ` • +${formatCoin(pkg?.bonus_coin)} bonus` : ''}
                     </div>
                   </div>
                   <div className="checkout-package-coin">
@@ -227,7 +227,7 @@ export default function WalletCheckoutPage() {
                 </span>{t("wallet.tomTatThanhToan")}</div>
 
               <div className="checkout-summary-row">
-                <span>{t("wallet.goi")}{formatCoin(pkg?.total_coin)} Coins</span>
+                <span>{t("wallet.goi")} {formatCoin(pkg?.total_coin)} Coins</span>
                 <strong>{formatVND(totals.amount)}</strong>
               </div>
               <div className="checkout-summary-row">
