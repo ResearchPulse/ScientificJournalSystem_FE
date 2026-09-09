@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { EntityCard } from '../../../shared/components/Card';
 const ProjectCard = ({
@@ -10,6 +10,7 @@ const ProjectCard = ({
   currentUser = null
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const handleDelete = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -46,8 +47,20 @@ const ProjectCard = ({
     const displayUsers = allUsers.slice(0, maxDisplay);
     const extraCount = allUsers.length - maxDisplay;
 
+    const handleMembersClick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      handleCardClick();
+      navigate(`/projects/${project.project_id || project.id}?tab=members`);
+    };
+
     return (
-      <div className="d-flex align-items-center">
+      <div 
+        className="d-flex align-items-center" 
+        onClick={handleMembersClick}
+        title={t("project.quanLyThanhVien", "Quản lý thành viên")}
+        style={{ cursor: 'pointer' }}
+      >
         {displayUsers.map((u, idx) => (
           <div 
             key={idx} 

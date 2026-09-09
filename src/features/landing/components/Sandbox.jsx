@@ -3,6 +3,7 @@
  *
  * File: features\landing\components\Sandbox.jsx
  */
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
@@ -12,7 +13,6 @@ import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 import Icon from "../../../shared/components/Icon";
 import useSandboxSearch from "../hooks/useSandboxSearch";
-import "./Sandbox.css";
 
 const typeConfig = {
   JOURNAL: {
@@ -22,6 +22,7 @@ const typeConfig = {
     textColor: "#3b82f6",
     bgColor: "rgba(59, 130, 246, 0.1)",
     borderColor: "rgba(59, 130, 246, 0.2)",
+    path: (id) => `/journals/${id}`,
   },
   AUTHOR: {
     labelKey: "typeAuthor",
@@ -30,6 +31,7 @@ const typeConfig = {
     textColor: "#a855f7",
     bgColor: "rgba(168, 85, 247, 0.1)",
     borderColor: "rgba(168, 85, 247, 0.2)",
+    path: (id) => `/authors/${id}`,
   },
   ARTICLE: {
     labelKey: "typeArticle",
@@ -38,6 +40,7 @@ const typeConfig = {
     textColor: "#10b981",
     bgColor: "rgba(16, 185, 129, 0.1)",
     borderColor: "rgba(16, 185, 129, 0.2)",
+    path: (id) => `/articles/${id}/visual`,
   },
   KEYWORD: {
     labelKey: "typeKeyword",
@@ -46,6 +49,7 @@ const typeConfig = {
     textColor: "#f59e0b",
     bgColor: "rgba(245, 158, 11, 0.1)",
     borderColor: "rgba(245, 158, 11, 0.2)",
+    path: (id) => `/keywords/${id}`,
   },
   AREA: {
     labelKey: "typeArea",
@@ -74,9 +78,9 @@ const defaultType = {
   borderColor: "rgba(148, 163, 184, 0.2)",
 };
 
-const CLICKABLE_TYPES = ["JOURNAL", "AUTHOR", "ARTICLE", "KEYWORD"];
-const BADGE_TYPES = ["KEYWORD", "AUTHOR", "ARTICLE", "JOURNAL"];
-const STAGGER_DELAY_MS = 50;
+// Module-level helper: resolve route path for a search item by type.
+// Pure & referentially stable — safe to call from memoized handlers.
+const getItemPath = (item) => typeConfig[item.type]?.path?.(item.id);
 
 export default function Sandbox() {
   const { t } = useTranslation();
@@ -90,6 +94,15 @@ export default function Sandbox() {
     handleTagClick,
     handleSearchSubmit,
   } = useSandboxSearch();
+
+  // Stable handler — same reference across renders unless `navigate` changes.
+  const handleItemClick = useCallback(
+    (item) => {
+      const targetPath = getItemPath(item);
+      if (targetPath) navigate(targetPath);
+    },
+    [navigate]
+  );
 
   const tags = [
     "LLM",
@@ -132,49 +145,57 @@ export default function Sandbox() {
             {/* Form */}
             <Form
               onSubmit={handleSearchSubmit}
-              className="sandbox-search-form mx-auto mb-4"
+              className="mx-auto mb-4"
+              style={{ maxWidth: "720px" }}
             >
-              <div className="sandbox-searchbar">
-                <InputGroup
-                  size="lg"
-                  className="sandbox-searchbar-inner"
+              <InputGroup
+                size="lg"
+                className="rounded-pill overflow-hidden p-1 align-items-center"
+                style={{ backgroundColor: "var(--bg-chip)" }}
+              >
+                <span
+                  className="bg-transparent border-0 px-3 d-flex align-items-center justify-content-center"
+                  style={{ color: "var(--text-muted)" }}
                 >
-                  <span className="sandbox-search-icon">
-                    <Icon icon="lucide:search" className="fs-5" />
-                  </span>
+                  <Icon icon="lucide:search" className="fs-5" />
+                </span>
 
-                  <Form.Control
-                    type="text"
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    placeholder={t("sandboxPlaceholder")}
-                    className="sandbox-search-input fs-6"
-                  />
+                <Form.Control
+                  type="text"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder={t("sandboxPlaceholder")}
+                  className="bg-transparent border-0 shadow-none fs-6 py-2.5"
+                  style={{
+                    color: "var(--text-main)",
+                    backgroundColor: "transparent",
+                  }}
+                />
 
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="btn-primary-glow sandbox-search-btn me-1"
-                  >
-                    {isLoading ? (
-                      <>
-                        <Spinner
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                        />
-                        <span>...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>{t("searchBtn")}</span>
-                        <Icon icon="lucide:arrow-right" className="fs-6" />
-                      </>
-                    )}
-                  </Button>
-                </InputGroup>
-              </div>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="btn-primary-glow rounded-pill px-4 py-2 text-xs font-bold border-0 d-flex align-items-center gap-2 me-1"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  {isLoading ? (
+                    <>
+                      <Spinner
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      <span>...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>{t("searchBtn")}</span>
+                      <Icon icon="lucide:arrow-right" className="fs-6" />
+                    </>
+                  )}
+                </Button>
+              </InputGroup>
             </Form>
 
             {/* Tag suggestions */}
@@ -195,7 +216,11 @@ export default function Sandbox() {
                     key={tag}
                     type="button"
                     onClick={() => handleTagClick(tag)}
-                    className="sandbox-chip"
+                    className="px-3 py-1.5 rounded-pill sandbox-tag text-xs font-semibold btn btn-sm"
+                    style={{
+                      fontSize: "0.75rem",
+                      transition: "all 0.2s ease",
+                    }}
                   >
                     {tag}
                   </button>
@@ -203,14 +228,19 @@ export default function Sandbox() {
               </div>
             </div>
 
-            {/* Loading indicator */}
+            {/* Interactive Mock Results */}
             {isLoading && (
-              <div className="sandbox-loading mt-4 mx-auto p-4 d-flex align-items-center justify-content-center gap-2 text-muted-custom"
-                style={{ maxWidth: "600px" }}
+              <div
+                className="mt-4 mx-auto p-4 rounded-4 d-flex align-items-center justify-content-center gap-2 text-muted-custom"
+                style={{
+                  maxWidth: "600px",
+                  backgroundColor: "var(--bg-chip)",
+                  fontSize: "0.85rem",
+                }}
               >
                 <Icon
                   icon="lucide:database"
-                  className="sandbox-loading-icon fs-5"
+                  className="animate-bounce fs-5"
                   style={{ color: "var(--primary)" }}
                 />
                 <span>Analyzing publications databases...</span>
@@ -219,8 +249,11 @@ export default function Sandbox() {
 
             {error && (
               <div
-                className="sandbox-error mt-4 mx-auto p-4"
-                style={{ maxWidth: "600px" }}
+                className="mt-4 mx-auto p-4 rounded-4 text-start"
+                style={{
+                  maxWidth: "600px",
+                  backgroundColor: "rgba(220, 53, 69, 0.05)",
+                }}
               >
                 <div className="d-flex align-items-start gap-3 text-danger">
                   <Icon icon="lucide:alert-circle" className="fs-4 mt-1" />
@@ -241,15 +274,20 @@ export default function Sandbox() {
 
             {searchResult && (
               <div
-                className="sandbox-results mt-4 mx-auto"
-                style={{ maxWidth: "600px" }}
+                className="mt-4 mx-auto p-4 rounded-4 text-start"
+                style={{
+                  maxWidth: "600px",
+                  backgroundColor: "var(--bg-card)",
+                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.05)",
+                }}
               >
                 <div
-                  className="sandbox-results-meta d-flex align-items-center justify-content-between mb-3 pb-2"
+                  className="d-flex align-items-center justify-content-between mb-3 pb-2"
+                  style={{ borderBottom: "1px solid var(--border)" }}
                 >
                   <div className="d-flex align-items-center gap-2">
                     <div
-                      className="rounded-circle sandbox-live-dot"
+                      className="rounded-circle animate-pulse"
                       style={{
                         width: "8px",
                         height: "8px",
@@ -280,45 +318,47 @@ export default function Sandbox() {
                   </span>
                 </div>
 
-                <h4 className="sandbox-results-title">
+                <h4
+                  className="font-display font-bold text-main mb-3"
+                  style={{ fontSize: "1.05rem" }}
+                >
                   {t("resultsFor")} "
-                  <span className="sandbox-results-keyword">
+                  <span style={{ color: "var(--primary)" }}>
                     {searchResult.keyword}
                   </span>
                   "
                 </h4>
 
                 {searchResult.items && searchResult.items.length > 0 ? (
-                  <div className="sandbox-result-list">
+                  <div
+                    className="d-flex flex-column gap-2 overflow-y-auto pr-1 custom-scrollbar"
+                    style={{ maxHeight: "380px" }}
+                  >
                     {searchResult.items.map((item, index) => {
                       const cfg = typeConfig[item.type] || defaultType;
-                      const isOutlineBadge = !BADGE_TYPES.includes(item.type);
+                      const isClickable = Boolean(getItemPath(item));
                       return (
                         <div
                           key={item.id || index}
-                          className={[
-                            "sandbox-result-card d-flex align-items-center justify-content-between",
-                            CLICKABLE_TYPES.includes(item.type)
-                              ? "is-clickable"
-                              : "",
-                            item.type === "JOURNAL" ? "is-journal" : "",
-                          ]
-                            .filter(Boolean)
-                            .join(" ")}
-                          style={{ animationDelay: `${index * STAGGER_DELAY_MS}ms` }}
-                          onClick={() => {
+                          className="d-flex align-items-center justify-content-between p-3 rounded-3 transition-all"
+                          style={{
+                            backgroundColor: "var(--bg-chip)",
+                            transition: "all 0.2s ease",
+                            cursor: isClickable ? "pointer" : "default",
+                          }}
+                          onClick={() => handleItemClick(item)}
+                          onMouseEnter={(e) => {
                             if (item.type === "JOURNAL") {
-                              navigate(`/journals/${item.id}`);
+                              e.currentTarget.style.backgroundColor =
+                                "var(--primary-light)";
+                            } else {
+                              e.currentTarget.style.backgroundColor =
+                                "rgba(255, 122, 51, 0.05)";
                             }
-                            if (item.type === "AUTHOR") {
-                              navigate(`/authors/${item.id}`);
-                            }
-                            if (item.type === "ARTICLE") {
-                              navigate(`/articles/${item.id}/visual`);
-                            }
-                            if (item.type === "KEYWORD") {
-                              navigate(`/keywords/${item.id}`);
-                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor =
+                              "var(--bg-chip)";
                           }}
                         >
                           <div
@@ -326,7 +366,7 @@ export default function Sandbox() {
                             style={{ flex: "1 1 auto", minWidth: 0 }}
                           >
                             <div
-                              className="sandbox-result-icon"
+                              className="p-2 rounded-3 d-flex align-items-center justify-content-center"
                               style={{
                                 color: cfg.textColor,
                                 backgroundColor: cfg.bgColor,
@@ -362,12 +402,6 @@ export default function Sandbox() {
                             </div>
                           </div>
                           <span
-                            className={[
-                              "sandbox-result-badge",
-                              isOutlineBadge ? "is-outline" : "",
-                            ]
-                              .filter(Boolean)
-                              .join(" ")}
                             style={{
                               backgroundColor: cfg.bgColor,
                               color: "#000000",

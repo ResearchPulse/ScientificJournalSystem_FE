@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 import Header from '../../landing/components/Header';
 import ROUTES from '../../../app/routes/routePaths';
 import { useWalletStore } from '../../../app/store/walletStore';
-import { confirmVnpayIpn, getMyWallet, getPaymentStatus } from '../api/walletApi';
+import { getPaymentByOrderCode, getMyWallet, getPaymentStatus } from '../api/walletApi';
 import './PaymentResultPage.css';
 export default function PaymentResultPage() {
   const { t } = useTranslation();
@@ -21,33 +21,60 @@ export default function PaymentResultPage() {
   const [payment, setPayment] = useState(null);
   const [walletBalance, setWalletBalance] = useState(null);
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const orderCode = searchParams.get('orderCode') || '';
   const transactionId = searchParams.get('transactionId') || searchParams.get('vnp_TxnRef') || searchParams.get('txnRef') || '';
+  const payosStatus = searchParams.get('status') || '';
+  const isCancelled = searchParams.get('cancel') === 'true' || payosStatus === 'CANCELLED';
+  const isSuccessParam = (searchParams.get('code') === '00' && !isCancelled) || payosStatus === 'PAID';
+
   useEffect(() => {
     let mounted = true;
-    const runFlow = async () => {      setLoading(true);
+    const runFlow = async () => {
+      setLoading(true);
       setErrorMessage('');
       setStage('pending');
+
+      if (isCancelled) {
+        if (mounted) {
+          setStage('failed');
+          setErrorMessage(t("wallet.giaoDichBiHuy") || 'Giao dịch đã bị hủy hoặc chưa hoàn tất.');
+          setLoading(false);
+        }
+        return;
+      }
+
       try {
-        const ipnResponse = await confirmVnpayIpn(location.search);
-        const rspCode = ipnResponse?.RspCode;
-        const ipnSuccess = rspCode === '00';
         let paymentData = null;
-        if (transactionId) {
+
+        // Ưu tiên tra cứu theo orderCode của PayOS
+        if (orderCode) {
+          try {
+            const res = await getPaymentByOrderCode(orderCode);
+            paymentData = res?.data || null;
+            if (mounted && paymentData) setPayment(paymentData);
+          } catch {
+            // fallback nếu BE chưa sync
+          }
+        }
+
+        // Fallback tra cứu theo transactionId
+        if (!paymentData && transactionId) {
           try {
             const paymentRes = await getPaymentStatus(transactionId);
             paymentData = paymentRes?.data || null;
-            if (mounted) setPayment(paymentData);
+            if (mounted && paymentData) setPayment(paymentData);
           } catch {
-            // keep IPN result if payment detail fails
+            // keep whatever we have
           }
         }
-        if (!mounted) return;
-        const paymentStatus = paymentData?.payment_status;
-        const hasPaymentStatus = Boolean(paymentStatus);
-        const shouldShowSuccess = paymentStatus === 'success' || !hasPaymentStatus && ipnSuccess;
-        const shouldShowFailed = paymentStatus === 'failed' || paymentStatus === 'cancelled' || paymentStatus === 'refunded' || !hasPaymentStatus && (rspCode === '24' || rspCode === '97' || ipnSuccess === false);
 
-        // Chỉ refresh ví khi backend payment thật sự success, hoặc không lấy được payment detail nhưng IPN báo success.
+        if (!mounted) return;
+
+        const paymentStatus = paymentData?.payment_status;
+        const shouldShowSuccess = paymentStatus === 'success' || isSuccessParam;
+        const shouldShowFailed = isCancelled || paymentStatus === 'failed' || paymentStatus === 'cancelled' || paymentStatus === 'refunded';
+
+        // Refresh số dư ví khi thanh toán thành công
         if (shouldShowSuccess) {
           try {
             const walletRes = await getMyWallet();
@@ -61,14 +88,15 @@ export default function PaymentResultPage() {
             // ignore wallet refresh failure in result UI
           }
         }
+
         if (shouldShowSuccess) {
           setStage('success');
         } else if (shouldShowFailed) {
           setStage('failed');
-          setErrorMessage(paymentData?.note || ipnResponse?.Message || t("wallet.giaoDichChuaDuocXacNhanThanhCo"));
+          setErrorMessage(paymentData?.note || t("wallet.giaoDichChuaDuocXacNhanThanhCo"));
         } else {
           setStage('pending');
-          setErrorMessage(paymentData?.note || ipnResponse?.Message || t("wallet.heThongDangChoXacNhanGiaoDichT"));
+          setErrorMessage(paymentData?.note || t("wallet.heThongDangChoXacNhanGiaoDichT"));
         }
       } catch (err) {
         if (!mounted) return;
@@ -78,11 +106,12 @@ export default function PaymentResultPage() {
         if (mounted) setLoading(false);
       }
     };
+
     runFlow();
     return () => {
       mounted = false;
     };
-  }, [location.search, transactionId, fetchWallet, setBalance]);
+  }, [location.search, orderCode, transactionId, isCancelled, isSuccessParam, fetchWallet, setBalance, t]);
   const formatCoin = n => Number.isInteger(n) ? Number(n || 0).toLocaleString('en-US') : Number(n || 0).toLocaleString('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
@@ -144,11 +173,11 @@ export default function PaymentResultPage() {
             <div className="payment-result-grid">
               <div className="payment-result-info">
                 <div className="payment-result-info__label">{t("wallet.maGiaoDich")}</div>
-                <div className="payment-result-info__value">{payment?.transaction_id || transactionId || '—'}</div>
+                <div className="payment-result-info__value">{payment?.order_code || orderCode || payment?.transaction_id || transactionId || '—'}</div>
               </div>
               <div className="payment-result-info">
                 <div className="payment-result-info__label">{t("journal.phuongThuc")}</div>
-                <div className="payment-result-info__value">{payment?.payment_method || 'vnpay'}</div>
+                <div className="payment-result-info__value">{payment?.payment_method === 'momo' ? 'MoMo' : 'PayOS (VietQR)'}</div>
               </div>
               <div className="payment-result-info">
                 <div className="payment-result-info__label">{t("wallet.goiCoin")}</div>
