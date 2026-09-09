@@ -217,11 +217,11 @@ export default function MyWalletPage() {
               <Icon icon="lucide:link-2" width={18} />{t("wallet.taiKhoanLienKet")}</div>
             <div className="my-wallet-account-list">
               <div className="my-wallet-account-item active">
-                <Icon icon="solar:wallet-bold" width={22} color="#ff7a33" />
+                <Icon icon="solar:qr-code-bold" width={22} color="#0066cc" />
                 <div style={{
                 flex: 1
               }}>
-                  <div className="my-wallet-account-name">VNPay E-Wallet</div>
+                  <div className="my-wallet-account-name">PayOS (VietQR)</div>
                   <div className="my-wallet-account-status">{t("wallet.macDinhThanhToan")}</div>
                 </div>
                 <Icon icon="lucide:check-circle" width={16} color="#16a34a" />

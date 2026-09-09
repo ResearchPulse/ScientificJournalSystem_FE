@@ -58,6 +58,7 @@ const ROUTES = {
   WALLET_TRANSACTIONS:   "/wallet/transactions",
   WALLET_CHECKOUT:       "/wallet/checkout",
   PAYMENT_RESULT:        "/wallet/payment-result",
+  PAYOS_RETURN:          "/wallet/payment/result",
   VNPAY_RETURN:          "/api/v1/payments/vnpay/return",
 
   // Tìm kiếm & Danh mục tạp chí
