@@ -50,7 +50,7 @@ export const getCoinPackages = async () => {
  * @param {string} payload.paymentMethod - Phương thức thanh toán (vnpay, momo...).
  * @returns {Promise<Object>} Response: { success, data: { transactionId, paymentUrl, payment } }
  */
-export const createPayment = async ({ packageId, paymentMethod = 'vnpay' }) => {
+export const createPayment = async ({ packageId, paymentMethod = 'payos' }) => {
   const response = await api.post('/payments/create', { packageId, paymentMethod });
   return response.data;
 };
@@ -68,16 +68,14 @@ export const getPaymentStatus = async (transactionId) => {
 };
 
 /**
- * Gọi backend VNPay IPN với query string VNPay redirect về FE.
- * Endpoint: GET /payments/vnpay/ipn?...vnpay_query
+ * Lấy thông tin giao dịch theo PayOS orderCode.
+ * Endpoint: GET /payments/payos/order/{orderCode}
  *
- * @param {string} queryString - Query string có hoặc không có dấu ? đầu chuỗi.
- * @returns {Promise<Object>} VNPay IPN response: { RspCode, Message }
+ * @param {string|number} orderCode
+ * @returns {Promise<Object>} Transaction detail.
  */
-export const confirmVnpayIpn = async (queryString = '') => {
-  const normalizedQuery = queryString.startsWith('?') ? queryString.slice(1) : queryString;
-  const url = normalizedQuery ? `/payments/vnpay/ipn?${normalizedQuery}` : '/payments/vnpay/ipn';
-  const response = await api.get(url);
+export const getPaymentByOrderCode = async (orderCode) => {
+  const response = await api.get(`/payments/payos/order/${orderCode}`);
   return response.data;
 };
 
