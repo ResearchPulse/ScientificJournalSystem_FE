@@ -132,6 +132,6 @@ export default function LoginForm({
       <CheckboxField name="remember_login" checked={formData.remember_login} onChange={handleChange} labelMarkup={rememberLabel} disabled={isLoading} />
 
       {/* Submit Button */}
-      <SubmitButton isLoading={isLoading} loadingText="Đang đăng nhập..." label={t("signIn")} />
+      <SubmitButton isLoading={isLoading} loadingText={t("auth.dangDangNhap")} label={t("signIn")} />
     </Form>;
 }

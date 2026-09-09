@@ -275,6 +275,17 @@
   padding: 0 0.85rem;
 }
 
+.journal-tabs-wrap .tab-nav-custom {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.journal-tabs-wrap .tab-nav-custom::-webkit-scrollbar {
+  display: none;
+}
+
 .journal-tabs-wrap .nav-link {
   border: 0 !important;
   border-bottom: 2px solid transparent !important;

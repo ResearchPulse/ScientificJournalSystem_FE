@@ -10,8 +10,11 @@ import Features from '../components/Features';
 import HowToUse from '../components/HowToUse';
 import FooterCTA from '../components/FooterCTA';
 import Footer from '../components/Footer';
+import useScrollReveal from '../../../shared/hooks/useScrollReveal';
 
 export default function LandingPage() {
+  useScrollReveal('.reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale');
+
   return (
     <div className="min-vh-100 overflow-x-hidden" style={{ backgroundColor: 'var(--bg-main)', color: 'var(--text-main)' }}>
       {/* Sticky Header */}

@@ -1,28 +1,7 @@
-import { t } from "i18next";
 import { useTranslation } from "react-i18next";
-/**
- * File source thuộc hệ thống FE ResearchPulse.
- *
- * File: features\auth\components\RoleSelect.jsx
- */
 import { Form, Row, Col } from 'react-bootstrap';
 import Icon from '../../../shared/components/Icon';
-const ROLES = [{
-  key: 'STUDENT',
-  label: t("auth.sinhVien"),
-  desc: t("auth.dangDiHoc"),
-  icon: 'lucide:graduation-cap'
-}, {
-  key: 'LECTURER',
-  label: t("auth.giangVien"),
-  desc: t("auth.dangGiangDay"),
-  icon: 'lucide:user-check'
-}, {
-  key: 'RESEARCHER',
-  label: t("auth.nhaNghienCuu"),
-  desc: t("auth.dangLamViec"),
-  icon: 'lucide:flask-conical'
-}];
+
 export default function RoleSelect({
   label,
   name,
@@ -32,6 +11,29 @@ export default function RoleSelect({
   required = false,
   disabled = false
 }) {
+  const { t } = useTranslation();
+
+  const roles = [
+    {
+      key: 'STUDENT',
+      label: t("auth.sinhVien"),
+      desc: t("auth.dangDiHoc"),
+      icon: 'lucide:graduation-cap'
+    },
+    {
+      key: 'LECTURER',
+      label: t("auth.giangVien"),
+      desc: t("auth.dangGiangDay"),
+      icon: 'lucide:user-check'
+    },
+    {
+      key: 'RESEARCHER',
+      label: t("auth.nhaNghienCuu"),
+      desc: t("auth.dangLamViec"),
+      icon: 'lucide:flask-conical'
+    }
+  ];
+
   const handleSelect = roleKey => {
     if (disabled) return;
     onChange({
@@ -41,6 +43,7 @@ export default function RoleSelect({
       }
     });
   };
+
   return <Form.Group className="mb-4">
       {label && <Form.Label className="text-xs font-bold mb-1.5 d-flex align-items-center gap-1" style={{
       letterSpacing: '0.05em',
@@ -52,7 +55,7 @@ export default function RoleSelect({
         </Form.Label>}
 
       <Row className="g-3">
-        {ROLES.map(role => {
+        {roles.map(role => {
         const isSelected = value === role.key;
         return <Col key={role.key} xs={4}>
               <div onClick={() => handleSelect(role.key)} className={`role-card-item ${isSelected ? 'selected' : ''} ${disabled ? 'disabled' : ''} w-100 p-3 rounded-3 text-center d-flex flex-column align-items-center justify-content-center gap-2 select-none`} style={{

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File source thuộc hệ thống FE ResearchPulse.
  *
  * File: features\journal\hooks\useJournalDetail.js
@@ -69,21 +69,37 @@ export function useJournalDetail(journalId, currentUser) {
     setLoadingRanking(true);
     try {
       const response = await getJournalRankingsApi(journalId);
-      if (response.data && response.data.data) {
-        const grouped = response.data.data;
+      const rawData = response.data?.data;
+      
+      if (rawData) {
+        let grouped = {};
+        if (Array.isArray(rawData)) {
+          rawData.forEach(item => {
+            const yr = item.year;
+            if (yr) {
+              if (!grouped[yr]) grouped[yr] = [];
+              grouped[yr].push(item);
+            }
+          });
+        } else if (typeof rawData === 'object') {
+          grouped = rawData;
+        }
+
         const flatList = Object.keys(grouped).map(yr => {
-          const metrics = grouped[yr];
-          const sjrMetric = metrics.find(m => m.metric_code === 'SJR');
+          const metrics = grouped[yr] || [];
+          const sjrMetric = metrics.find(m => m.metric_code === 'SJR' || m.metric_code === 'SJR_SCORE');
           const hindexMetric = metrics.find(m => m.metric_code === 'H_INDEX');
-          const quartileMetric = metrics.find(m => m.metric_code === 'SJR_BEST_QUARTILE' || m.metric_code === 'SJR_QUARTILE_BY_CAT');
+          const quartileMetric = metrics.find(m => m.metric_code === 'SJR_BEST_QUARTILE' || m.metric_code === 'SJR_QUARTILE_BY_CAT' || m.metric_type === 'QUARTILE');
+          const scoreMetric = sjrMetric || metrics.find(m => m.metric_type === 'SCORE' || typeof m.value === 'number');
           
           return {
             year: parseInt(yr, 10),
-            value: sjrMetric ? parseFloat(sjrMetric.value) : (metrics[0] ? parseFloat(metrics[0].value) : null),
+            value: scoreMetric ? parseFloat(scoreMetric.value) : null,
             h_index: hindexMetric ? parseInt(hindexMetric.value, 10) : null,
-            quartile: quartileMetric ? quartileMetric.value : 'Q1',
+            quartile: quartileMetric ? (quartileMetric.value || 'Q1') : 'Q1',
           };
-        }).sort((a, b) => b.year - a.year);
+        }).filter(item => !isNaN(item.year) && item.value !== null).sort((a, b) => b.year - a.year);
+
         setRankingHistory(flatList);
       } else {
         setRankingHistory([]);

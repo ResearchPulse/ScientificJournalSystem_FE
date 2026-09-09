@@ -30,7 +30,7 @@ export default function Hero() {
         
         {/* Animated OpenAlex Badge */}
         <div 
-          className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4"
+          className="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4 reveal-on-scroll delay-100"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(0, 0, 0, 0.2)',
@@ -46,7 +46,7 @@ export default function Hero() {
 
         {/* Main Heading */}
         <h1 
-          className="font-display text-main mb-4"
+          className="font-display text-main mb-4 reveal-on-scroll delay-200"
           style={{
             fontWeight: 800,
             fontSize: 'calc(1.8rem + 2.5vw)',
@@ -63,7 +63,7 @@ export default function Hero() {
 
         {/* Sub Heading */}
         <p 
-          className="text-main mb-5 max-w-2xl"
+          className="text-main mb-5 max-w-2xl reveal-on-scroll delay-300"
           style={{
             fontSize: 'calc(0.95rem + 0.15vw)',
             lineHeight: 1.6,
@@ -74,7 +74,7 @@ export default function Hero() {
         </p>
 
         {/* Action CTA Buttons */}
-        <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 w-100 w-sm-auto mb-5">
+        <div className="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 w-100 w-sm-auto mb-5 reveal-on-scroll delay-400">
           {/* Start Searching Button */}
           <Button
             href="#search-sandbox"
@@ -86,19 +86,19 @@ export default function Hero() {
           </Button>
 
           {/* View Trends Button */}
-<Button
-  href="#features"
-  variant="outline-secondary"
-  className="btn-view-trends rounded-pill px-5 py-3 d-flex align-items-center justify-content-center gap-2"
->
-  <Icon icon="lucide:bar-chart-2" className="fs-5 btn-view-trends-icon" />
-  <span>{t('ctaTrends')}</span>
-</Button>
+          <Button
+            href="#features"
+            variant="outline-secondary"
+            className="btn-view-trends rounded-pill px-5 py-3 d-flex align-items-center justify-content-center gap-2"
+          >
+            <Icon icon="lucide:bar-chart-2" className="fs-5 btn-view-trends-icon" />
+            <span>{t('ctaTrends')}</span>
+          </Button>
         </div>
       </Container>
 
       {/* Stats Counter Row Container */}
-      <div className="position-relative w-100 z-3" style={{ borderTop: '1px solid var(--border)' }}>
+      <div className="position-relative w-100 z-3 reveal-scale delay-500" style={{ borderTop: '1px solid var(--border)' }}>
         <Container className="pt-4 pb-2">
           <Row className="gy-4 gy-md-0 text-center">
             {stats.map((stat, idx) => (

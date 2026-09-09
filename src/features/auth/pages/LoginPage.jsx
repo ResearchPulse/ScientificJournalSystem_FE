@@ -102,8 +102,8 @@ export default function LoginPage() {
       <div className="text-center mt-4 text-sm font-medium">
         <span className="text-muted-custom" style={{
         color: '#94a3b8 !important'
-      }}>{t("auth.chuaCoTaiKhoan")}</span>
-        <Link to={ROUTES.REGISTER} className="text-decoration-none" style={{
+      }}>{t("auth.chuaCoTaiKhoan")}</span>{' '}
+        <Link to={ROUTES.REGISTER} className="text-decoration-none transition-all" style={{
         color: 'var(--primary)',
         fontWeight: 600
       }}>{t("signUp")}</Link>

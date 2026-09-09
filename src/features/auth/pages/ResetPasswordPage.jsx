@@ -85,8 +85,8 @@ export default function ResetPasswordPage() {
 
           {/* Link back to Login */}
           {!isSubmitted && <div className="text-center mt-4 text-sm font-medium">
-              <span className="text-muted-custom">{t("auth.quayLai")}</span>
-              <Link to={ROUTES.LOGIN} className="text-decoration-none" style={{
+              <span className="text-muted-custom">{t("auth.quayLai")}</span>{' '}
+              <Link to={ROUTES.LOGIN} className="text-decoration-none transition-all" style={{
           color: 'var(--primary)',
           fontWeight: 600
         }}>{t("signIn")}</Link>

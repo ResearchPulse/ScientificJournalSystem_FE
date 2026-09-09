@@ -138,7 +138,7 @@ export default function Features() {
       <Container className="position-relative z-3 py-5">
         
         {/* Section Header */}
-        <div className="text-center mb-5">
+        <div className="text-center mb-5 reveal-on-scroll">
           <div className="d-inline-flex align-items-center gap-2 mb-2 text-xs font-bold tracking-wider text-uppercase" style={{ fontSize: '0.75rem', color: 'var(--primary)' }}>
             <span style={{ width: '24px', height: '1px', backgroundColor: 'var(--primary)' }} />
             <span>{t('featuresSubtitle')}</span>
@@ -157,7 +157,7 @@ export default function Features() {
         {/* Grid of Feature Cards */}
         <Row className="g-4">
           {featureList.map((feature, index) => (
-            <Col xs={12} md={6} lg={4} key={index}>
+            <Col xs={12} md={6} lg={4} key={index} className={`reveal-on-scroll delay-${(index + 1) * 100}`}>
               <FeatureCard
                 icon={feature.icon}
                 title={t(feature.titleKey)}
