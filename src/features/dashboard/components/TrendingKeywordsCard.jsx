@@ -46,7 +46,7 @@ function KeywordsRechart({
         fontSize: '11px',
         fontFamily: 'var(--font-display)'
       }} />
-        <Bar dataKey="value" fill="var(--primary)" name={dataset.label || t("publications")} radius={[0, 4, 4, 0]} barSize={14} onClick={data => {
+        <Bar dataKey="value" fill="var(--primary)" name={dataset.label || t("publications")} radius={[0, 4, 4, 0]} barSize={14} isAnimationActive={true} animationDuration={400} onClick={data => {
         if (data && data.keyword) {
           onKeywordClick?.(data.keyword);
         }
@@ -63,6 +63,7 @@ function KeywordsRechart({
 export default function TrendingKeywordsCard({
   keywords,
   loading,
+  isFetching,
   error,
   onKeywordClick,
   onViewMore
@@ -70,21 +71,30 @@ export default function TrendingKeywordsCard({
   const {
     t
   } = useTranslation();
-  const actions = onViewMore ? <button className="btn btn-link p-0 text-decoration-none" onClick={onViewMore} style={{
-    fontSize: '0.75rem',
-    color: 'var(--primary)'
-  }} onMouseEnter={e => {
-    e.currentTarget.style.textDecoration = 'underline';
-    e.currentTarget.style.textUnderlineOffset = '4px';
-  }} onMouseLeave={e => {
-    e.currentTarget.style.textDecoration = 'none';
-  }}>{t("dashboard.xemThem")}</button> : null;
   const labels = keywords?.labels || [];
   const dataset = keywords?.datasets?.[0] || {
     data: []
   };
   const hasData = labels.length > 0 && dataset.data?.length > 0;
-  const description = loading ? <div className="d-flex flex-column gap-3 py-2">
+
+  const actions = <div className="d-flex align-items-center gap-2">
+    {isFetching && (
+      <Icon icon="lucide:loader" className="spin-animation text-muted-custom" width={14} />
+    )}
+    {onViewMore && (
+      <button className="btn btn-link p-0 text-decoration-none" onClick={onViewMore} style={{
+        fontSize: '0.75rem',
+        color: 'var(--primary)'
+      }} onMouseEnter={e => {
+        e.currentTarget.style.textDecoration = 'underline';
+        e.currentTarget.style.textUnderlineOffset = '4px';
+      }} onMouseLeave={e => {
+        e.currentTarget.style.textDecoration = 'none';
+      }}>{t("dashboard.xemThem")}</button>
+    )}
+  </div>;
+
+  const description = loading && !hasData ? <div className="d-flex flex-column gap-3 py-2">
       {[1, 2, 3, 4, 5].map((_, i) => <div key={i} className="d-flex align-items-center gap-3">
           <div className="skeleton-shimmer rounded" style={{
         width: 80,
@@ -94,7 +104,7 @@ export default function TrendingKeywordsCard({
         height: 16
       }} />
         </div>)}
-    </div> : error ? <div className="text-center py-4">
+    </div> : error && !hasData ? <div className="text-center py-4">
       <Icon icon="lucide:alert-circle" width={28} style={{
       color: '#ef4444'
     }} />
@@ -111,7 +121,14 @@ export default function TrendingKeywordsCard({
       <p className="text-muted-custom mb-0" style={{
       fontSize: '0.75rem'
     }}>{t("dashboard.themKeywordVaoProjectDeBatDauT")}</p>
-    </div> : <KeywordsRechart chartData={keywords} onKeywordClick={onKeywordClick} />;
+    </div> : <div style={{
+      opacity: isFetching ? 0.6 : 1,
+      transition: 'opacity 0.25s ease',
+      width: '100%'
+    }}>
+      <KeywordsRechart chartData={keywords} onKeywordClick={onKeywordClick} />
+    </div>;
+
   return <EntityCard className="h-100" title={<span className="d-flex align-items-center gap-2">
           <Icon icon="lucide:flame" width={16} style={{
       color: 'var(--primary)'

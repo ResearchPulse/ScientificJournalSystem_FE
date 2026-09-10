@@ -90,11 +90,11 @@ function SimpleSvgChart({
         const showDots = years.length <= 25;
         return <g key={si}>
               {/* Area fill */}
-              <polygon points={`${pts0} ${pts} ${ptsN}`} fill={color} fillOpacity={0.08} />
+              <polygon points={`${pts0} ${pts} ${ptsN}`} fill={color} fillOpacity={0.08} style={{ transition: 'all 0.35s ease' }} />
               {/* Line */}
-              <polyline points={pts} fill="none" stroke={color} strokeWidth={2} strokeLinejoin="round" />
+              <polyline points={pts} fill="none" stroke={color} strokeWidth={2} strokeLinejoin="round" style={{ transition: 'all 0.35s ease' }} />
               {/* Dots */}
-              {showDots && s.data.map((v, i) => <circle key={i} cx={xScale(i)} cy={yScale(v ?? 0)} r={3} fill={color} stroke="var(--bg-card)" strokeWidth={1.5} />)}
+              {showDots && s.data.map((v, i) => <circle key={i} cx={xScale(i)} cy={yScale(v ?? 0)} r={3} fill={color} stroke="var(--bg-card)" strokeWidth={1.5} style={{ transition: 'all 0.35s ease' }} />)}
               {/* Transparent larger hover targets (always active) */}
               {s.data.map((v, i) => <circle key={`hover-${i}`} cx={xScale(i)} cy={yScale(v ?? 0)} r={12} fill="transparent" style={{
             cursor: 'pointer'
@@ -127,6 +127,7 @@ function SimpleSvgChart({
 export default function PublicationTrendChart({
   analytics,
   loading,
+  isFetching,
   error,
   onRetry,
   selectedRange,
@@ -155,15 +156,23 @@ export default function PublicationTrendChart({
         </div>)}
     </div> : null;
   const description = <>
-      <p className="text-muted-custom mb-3" style={{
-      fontSize: '0.72rem'
-    }}>{t("dashboard.soBaiBaoTheoNamTrongProjectsCu")}</p>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <p className="text-muted-custom mb-0" style={{
+          fontSize: '0.72rem'
+        }}>{t("dashboard.soBaiBaoTheoNamTrongProjectsCu")}</p>
+        {isFetching && (
+          <span className="d-inline-flex align-items-center gap-1 text-muted-custom" style={{ fontSize: '0.7rem' }}>
+            <Icon icon="lucide:loader" className="spin-animation" width={12} />
+            <span>{t("common.dangCapNhat", "Đang cập nhật...")}</span>
+          </span>
+        )}
+      </div>
       <div style={{
       minHeight: 160
     }}>
-        {loading ? <div className="skeleton-shimmer rounded-3 w-100" style={{
+        {loading && years.length === 0 ? <div className="skeleton-shimmer rounded-3 w-100" style={{
         height: 160
-      }} /> : error ? <div className="d-flex flex-column align-items-center justify-content-center gap-2 py-5">
+      }} /> : error && years.length === 0 ? <div className="d-flex flex-column align-items-center justify-content-center gap-2 py-5">
             <Icon icon="lucide:alert-triangle" width={28} style={{
           color: '#ef4444'
         }} />
@@ -181,7 +190,14 @@ export default function PublicationTrendChart({
             <p className="text-muted-custom mb-0" style={{
           fontSize: '0.75rem'
         }}>{t("dashboard.taoProjectDauTienDeBatDauTheoD")}</p>
-          </div> : <SimpleSvgChart years={years} series={series} />}
+          </div> : <div style={{
+            opacity: isFetching ? 0.6 : 1,
+            transition: 'opacity 0.25s ease',
+            width: '100%',
+            height: '100%'
+          }}>
+            <SimpleSvgChart years={years} series={series} />
+          </div>}
       </div>
     </>;
   return <div className="publication-trend-card h-100">
