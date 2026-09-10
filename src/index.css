@@ -550,3 +550,191 @@ select.account-form-input {
   color: #ffffff !important;
 }
 
+/* ─── Project Overview redesign tokens ─────────────────────── */
+:root {
+  --text-secondary: #475569;   /* slate-600 — secondary headings */
+  --text-subtle:    #94a3b8;   /* slate-400 — micro labels */
+  --divider:        #eef0f3;   /* hairline divider */
+  --negative:       #b42318;   /* restrained red for negative growth */
+  --radius-sm:      8px;
+  --radius-md:      10px;
+}
+
+/* Subtle hairline */
+.hairline { border-color: var(--divider) !important; }
+
+/* Flatten glass-card hover for sections that opt in (chart cards) */
+.glass-card--flat:hover { transform: none; box-shadow: none; border-color: var(--border); }
+
+/* Compact, Linear-style project header */
+.po-header {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1.25rem;
+}
+@media (min-width: 768px) { .po-header { padding: 1.125rem 1.5rem; } }
+
+/* Single information-dense metrics row, no cards, hairline dividers */
+.po-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--divider);
+  gap: 0;
+}
+@media (max-width: 767.98px) {
+  .po-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.po-metric {
+  padding: 0 1rem;
+  border-left: 1px solid var(--divider);
+}
+.po-metric:first-child { border-left: 0; padding-left: 0; }
+@media (max-width: 767.98px) {
+  .po-metric { padding: 0.625rem 0.75rem; border-left: 0; border-top: 1px solid var(--divider); }
+  .po-metric:nth-child(-n+2) { border-top: 0; }
+  .po-metric:nth-child(odd)  { padding-left: 0; }
+  .po-metric:nth-child(even) { border-left: 1px solid var(--divider); }
+}
+.po-metric__label {
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.po-metric__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.po-metric__value.is-negative { color: var(--negative); }
+.po-metric__value.is-positive { color: #15803d; }
+
+/* Tabs visually attached to the header card */
+.po-tabs {
+  display: flex;
+  gap: 1.75rem;
+  border-bottom: 1px solid var(--divider);
+  margin-top: 1.125rem;
+  padding-left: 0.25rem;
+}
+.po-tab {
+  background: transparent;
+  border: 0;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; /* sit on the divider line */
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.po-tab:hover { color: var(--text-main); }
+.po-tab.is-active { color: var(--text-main); border-bottom-color: var(--primary); font-weight: 600; }
+.po-tab__count { color: var(--text-subtle); font-weight: 500; }
+.po-tab.is-active .po-tab__count { color: var(--text-muted); }
+
+/* ─── Status indicator (project active/inactive) ─────────────── */
+/* Inline dot + text — no pill background, no border, no glow.  */
+/* Editorial; signals state through color alone.                  */
+.po-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.2;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.005em;
+}
+.po-status__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #94a3b8; /* inactive — slate-400 */
+  flex-shrink: 0;
+}
+.po-status.is-active {
+  color: #15803d; /* green-700 */
+}
+.po-status.is-active .po-status__dot {
+  background: #16a34a; /* green-500 */
+}
+
+/* ─── Metric value tiers (selective hierarchy) ────────────────── */
+/* Hero: dominant metric — biggest, boldest (e.g. article count) */
+.po-metric__value--hero {
+  font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.25rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  color: var(--text-main) !important;
+  line-height: 1.05 !important;
+}
+/* Strong: secondary important metric (e.g. negative growth) */
+.po-metric__value--strong {
+  font-size: clamp(1.5rem, 1.375rem + 0.5vw, 1.75rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--text-main) !important;
+  line-height: 1.1 !important;
+}
+/* Strong + state: let negative/positive colors override strong's base color */
+.po-metric__value--strong.is-negative { color: var(--negative) !important; }
+.po-metric__value--strong.is-positive { color: #15803d !important; }
+/* Muted: tertiary, scannable but not competing (keywords, alerts) */
+.po-metric__value--muted {
+  font-size: 1.0625rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.005em !important;
+  color: var(--text-subtle) !important;
+  line-height: 1.2 !important;
+}
+
+/* ─── Project Overview: breadcrumb & meta line ──────────────── */
+/* Muted, editorial breadcrumb — small, low-emphasis, not competing with title */
+.po-breadcrumb {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+  letter-spacing: 0.01em;
+}
+.po-breadcrumb .breadcrumb { margin-bottom: 0; }
+.po-breadcrumb .breadcrumb-item,
+.po-breadcrumb .breadcrumb-item a {
+  color: var(--text-subtle);
+  text-decoration: none;
+  font-weight: 400;
+}
+.po-breadcrumb .breadcrumb-item a:hover { color: var(--text-muted); }
+.po-breadcrumb .breadcrumb-item + .breadcrumb-item::before { color: var(--text-subtle); opacity: 0.7; }
+.po-breadcrumb .breadcrumb-item.active { color: var(--text-muted); font-weight: 500; }
+
+/* Project meta line (category · updated date) — sits directly above title */
+.po-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+  letter-spacing: 0.005em;
+  font-weight: 500;
+  margin-bottom: 0.375rem;
+}
+.po-meta__sep { opacity: 0.7; }
+
