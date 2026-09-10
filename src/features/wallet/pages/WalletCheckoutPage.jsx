@@ -8,11 +8,17 @@ import ROUTES from '../../../app/routes/routePaths';
 import { getCoinPackages, createPayment } from '../api/walletApi';
 import './WalletCheckoutPage.css';
 const METHOD_UI = {
+  payos: {
+    name: 'PayOS (VietQR)',
+    desc: t("wallet.thanhToanNhanhQuaCongPayos") || 'Quét mã VietQR thanh toán nhanh qua ứng dụng ngân hàng',
+    icon: 'solar:qr-code-bold',
+    iconColor: '#0066cc'
+  },
   vnpay: {
-    name: 'VNPay',
-    desc: t("wallet.thanhToanNhanhQuaCongVnpay"),
-    icon: 'solar:wallet-bold',
-    iconColor: '#ff7a33'
+    name: 'PayOS (VietQR)',
+    desc: t("wallet.thanhToanNhanhQuaCongPayos") || 'Quét mã VietQR thanh toán nhanh qua ứng dụng ngân hàng',
+    icon: 'solar:qr-code-bold',
+    iconColor: '#0066cc'
   },
   momo: {
     name: 'MoMo',
@@ -26,7 +32,7 @@ export default function WalletCheckoutPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const packageId = searchParams.get('packageId') || '';
-  const paymentMethod = searchParams.get('paymentMethod') || 'vnpay';
+  const paymentMethod = searchParams.get('paymentMethod') || 'payos';
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -151,9 +157,9 @@ export default function WalletCheckoutPage() {
                     <Icon icon="lucide:circle-dollar-sign" width={28} />
                   </div>
                   <div className="checkout-package-main">
-                    <div className="checkout-package-name">{pkg?.name}</div>
+                    <div className="checkout-package-name">{pkg?.name?.replace(/(Gói)(?=\d)/, '$1 ')}</div>
                     <div className="checkout-package-meta">
-                      {formatCoin(pkg?.coin_amount)}{t("wallet.coinGoc")}{pkg?.bonus_coin > 0 ? ` • +${formatCoin(pkg?.bonus_coin)} bonus` : ''}
+                      {formatCoin(pkg?.coin_amount)} {t("wallet.coinGoc")}{pkg?.bonus_coin > 0 ? ` • +${formatCoin(pkg?.bonus_coin)} bonus` : ''}
                     </div>
                   </div>
                   <div className="checkout-package-coin">
@@ -221,7 +227,7 @@ export default function WalletCheckoutPage() {
                 </span>{t("wallet.tomTatThanhToan")}</div>
 
               <div className="checkout-summary-row">
-                <span>{t("wallet.goi")}{formatCoin(pkg?.total_coin)} Coins</span>
+                <span>{t("wallet.goi")} {formatCoin(pkg?.total_coin)} Coins</span>
                 <strong>{formatVND(totals.amount)}</strong>
               </div>
               <div className="checkout-summary-row">

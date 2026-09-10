@@ -22,13 +22,13 @@ import { getCoinPackages } from '../api/walletApi';
 import './TopUpPage.css';
 
 // Gói nổi bật (package_id hoặc coin_amount nếu muốn cứng)
-const RECOMMENDED_COIN_AMOUNT = 500;
+const RECOMMENDED_COIN_AMOUNT = 10;
 
 // Danh sách phương thức thanh toán
 const PAYMENT_METHODS = [{
-  key: 'vnpay',
-  label: 'VNPay',
-  icon: 'simple-icons:vnpay',
+  key: 'payos',
+  label: 'PayOS (VietQR)',
+  icon: 'solar:qr-code-bold',
   color: '#0066cc'
 }, {
   key: 'momo',
@@ -76,7 +76,7 @@ export default function TopUpPage() {
   const [loadingPackages, setLoadingPackages] = useState(true);
   const [errorPackages, setErrorPackages] = useState(null);
   const [selectedPkgId, setSelectedPkgId] = useState(null);
-  const [paymentMethod, setPaymentMethod] = useState('vnpay');
+  const [paymentMethod, setPaymentMethod] = useState('payos');
 
   // Fetch wallet nếu chưa có
   useEffect(() => {
@@ -206,7 +206,7 @@ export default function TopUpPage() {
                     </div>
                     <div className="topup-pkg-card__meta">
                       <div className="topup-pkg-card__label">ResearchPulse Coin</div>
-                      <div className="topup-pkg-card__name">{pkg.name}</div>
+                      <div className="topup-pkg-card__name">{pkg.name.replace(/(Gói)(?=\d)/, '$1 ')}</div>
                     </div>
                   </div>
 
@@ -226,7 +226,7 @@ export default function TopUpPage() {
                   <div className="topup-pkg-card__footer">
                     <div className="topup-pkg-card__price">{formatVND(pkg.price)}</div>
                     <div className="topup-pkg-card__footer-note">
-                      {formatCoin(pkg.coin_amount)}{t("wallet.coinGoc")}</div>
+                      {formatCoin(pkg.coin_amount)} {t("wallet.coinGoc")}</div>
                   </div>
                 </button>;
         })}

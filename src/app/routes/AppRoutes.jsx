@@ -70,7 +70,8 @@ export default function AppRoutes() {
       {/* Root redirect to language-prefixed root */}
       <Route path="/" element={<LanguageRedirect />} />
 
-      {/* VNPay redirect exact API path on frontend */}
+      {/* PayOS & VNPay redirect route on frontend */}
+      <Route path="/wallet/payment/result" element={<PaymentResultPage />} />
       <Route path="/api/v1/payments/vnpay/return" element={<PaymentResultPage />} />
 
       {/* Language Prefixed Route Tree */}
@@ -145,6 +146,7 @@ export default function AppRoutes() {
 
           <Route path="profile" element={<ProfilePage />} />
           <Route path="wallet/checkout" element={<WalletCheckoutPage />} />
+          <Route path="wallet/payment/result" element={<PaymentResultPage />} />
           <Route path="wallet/payment-result" element={<PaymentResultPage />} />
           <Route path="verify-email" element={<VerifyEmailPage />} />
 
