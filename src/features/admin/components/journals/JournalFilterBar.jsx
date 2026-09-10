@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { getSubjectAreasApi } from '../../../journal/api/journalApi';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
-import { HeaderFilterCard } from '../../../../shared/components/Card';
-import { FilterSearch, FilterSelect } from '../../../../shared/components/Input';
+import { PrimaryButton } from '@ui';
+import { HeaderFilterCard } from '@ui';
+import { FilterSearch, FilterSelect } from '@ui';
 
 /**
  * Component JournalFilterBar - Thanh công cụ lọc, tìm kiếm và chuyển đổi giao diện hiển thị.

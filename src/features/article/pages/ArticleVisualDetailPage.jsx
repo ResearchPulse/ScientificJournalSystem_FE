@@ -25,13 +25,13 @@ import { useWalletStore } from '../../../app/store/walletStore';
 import ArticleDetailSkeleton from '../components/ArticleDetailSkeleton';
 import ArticleDetailEmpty from '../components/ArticleDetailEmpty';
 import ArticleDetailError from '../components/ArticleDetailError';
-import ErrorState from '../../../shared/components/ErrorState';
-import AuthRequiredModal from '../../../shared/components/AuthRequiredModal';
+import { ErrorState } from '@ui';
+import { AuthRequiredModal } from '@ui';
 import { toast } from '../../../shared/utils/toast';
 import { getDoiUrl, normalizeArticleDetail } from '../utils/articleFormatters';
 import { downloadArticleCsv } from '../utils/csvExport';
 import { downloadArticlePdf } from '../utils/pdfExport';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 import '../Article.css';
 const formatAuthorsLine = (authors = [], limit = 3) => {
   if (!authors || authors.length === 0) return t("article.dangCapNhatTacGia");

@@ -2,8 +2,8 @@ import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useState, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
-import Icon from '../../../../shared/components/Icon';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { Icon } from '@ui';
+import { PrimaryButton } from '@ui';
 import { SYSTEM_ROLES } from '../../../../shared/constants/systemConstants';
 const getUserInitial = (name = '', email = '') => {
   const source = String(name || email || 'U').trim();

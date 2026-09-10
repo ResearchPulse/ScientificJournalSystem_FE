@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
  */
 import { useState } from 'react';
 import { Icon } from '@iconify/react';
-import { EntityCard } from '../../../shared/components/Card';
+import { EntityCard } from '@ui';
 
 function ProjectStatusBadge({
   status

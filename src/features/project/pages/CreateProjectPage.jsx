@@ -8,10 +8,8 @@ import { Icon } from '@iconify/react';
 import { getSubjectAreasApi } from '../../catalog/api/catalogApi';
 import keywordApi from '../../keywords/api/keywordApi';
 import keywordService from '../../keyword/services/keywordService';
-import SearchableSelect from '../../../shared/components/Select/SearchableSelect';
-import SearchableKeywordInput from '../../../shared/components/Input/SearchableKeywordInput';
+import { PrimaryButton, SearchableSelect, SearchableKeywordInput } from '@ui';
 import Header from '../../landing/components/Header';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
 const CreateProjectPage = () => {
   const { t: _t } = useTranslation();
   const navigate = useNavigate();

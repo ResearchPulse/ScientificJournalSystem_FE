@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { Table } from 'react-bootstrap';
 import RoleBadge from './RoleBadge';
 import UserStatusBadge from './UserStatusBadge';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 /**
  * UserTable Component

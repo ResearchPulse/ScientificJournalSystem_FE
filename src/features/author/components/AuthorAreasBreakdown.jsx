@@ -6,8 +6,8 @@ import { t } from "i18next";
  */
 
 import { Row, Col, Card } from 'react-bootstrap';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import EmptyState from '../../../shared/components/EmptyState';
+import { LoadingSkeleton } from '@ui';
+import { EmptyState } from '@ui';
 export default function AuthorAreasBreakdown({
   breakdown = [],
   loading = false,

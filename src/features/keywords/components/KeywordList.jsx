@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
  */
 import { Row, Col } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import AdminPagination from '../../../shared/components/Pagination';
+import { LoadingSkeleton } from '@ui';
+import { Pagination as AdminPagination } from '@ui';
 import KeywordListItem from './KeywordListItem';
 
 /**

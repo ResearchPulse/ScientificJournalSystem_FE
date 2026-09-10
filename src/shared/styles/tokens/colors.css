@@ -1,0 +1,25 @@
+:root {
+  /* ─── SCImago-style Core Palette ─── */
+  --primary: #ff7a33;        /* Accent / link cam */
+  --primary-light: #fff0e8;  /* Light tint của cam */
+  --btn-dark: #071a1c;       /* Button đen đậm */
+  --q1-color: #ff7a33;       /* Q1 badge dùng accent cam */
+
+  /* ─── Supporting Surface Tokens ─── */
+  --bg-main: #ffffff;        /* Background chính */
+  --bg-section: #ececec;     /* Section / card background */
+  --bg-chip: #f2f2f2;        /* Chip / filter background */
+  --bg-card: #ffffff;        /* White card surface */
+  --border: #e6e6e6;         /* Border / divider */
+
+  /* ─── Typography Colors ─── */
+  --text-main: #0d1b1c;      /* Text chính */
+  --text-muted: #6b6b6b;     /* Text phụ */
+
+  /* ─── Compatibility Aliases ─── */
+  --dark-bg: var(--bg-main);
+  --dark-card: var(--bg-card);
+  --dark-border: var(--border);
+  --brand-accent: var(--primary);
+  --glow-accent: rgba(255, 122, 51, 0.08);
+}

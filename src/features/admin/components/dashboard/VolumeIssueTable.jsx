@@ -7,10 +7,10 @@ import { t } from "i18next";
  */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 import StatusBadge from '../shared/StatusBadge';
 import AdminProgressBar from '../layout/AdminProgressBar';
-import Pagination from '../../../../shared/components/Pagination';
+import { Pagination } from '@ui';
 import { exportAdminVolumeIssueStatusCsv } from '../../api/adminDashboard.api';
 export default function VolumeIssueTable({
   items = [],

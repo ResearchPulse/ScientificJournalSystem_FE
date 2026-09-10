@@ -4,7 +4,7 @@
  * File: features\auth\components\CheckboxField.jsx
  */
 import { Form } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 export default function CheckboxField({
   name,

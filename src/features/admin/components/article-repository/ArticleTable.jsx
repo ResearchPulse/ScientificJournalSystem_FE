@@ -5,7 +5,7 @@
  * - endIndex:    index (1-indexed) của item cuối cùng trong trang hiện tại.
  */
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 import StatusBadge from '../shared/StatusBadge';
 
 export default function ArticleTable({ items, totalItems, startIndex, endIndex }) {

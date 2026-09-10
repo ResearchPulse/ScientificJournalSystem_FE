@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  */
 
 import { Card, Row, Col } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import AuthorAvatar from './AuthorAvatar';
 export default function AuthorProfileHeader({
   author,

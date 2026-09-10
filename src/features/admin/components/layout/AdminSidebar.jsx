@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import ADMIN_MENU from '../constants/adminMenu';
 
 export default function AdminSidebar() {

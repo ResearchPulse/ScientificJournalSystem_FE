@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 export default function FooterCTA() {
   const { t } = useTranslation();

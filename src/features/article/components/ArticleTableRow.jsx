@@ -8,7 +8,7 @@ import { t } from "i18next";
 import { Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 export default function ArticleTableRow({
   article,
   index,

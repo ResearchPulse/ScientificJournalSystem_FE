@@ -6,7 +6,7 @@ import AuthBanner from '../components/AuthBanner';
 import ForgotPasswordForm from '../components/ForgotPasswordForm';
 import ForgotPasswordSuccess from '../components/ForgotPasswordSuccess';
 import { forgotPasswordApi } from '../api/auth.api';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 export default function ForgotPasswordPage() {
   const { t: _t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
  */
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
-import { EntityCard } from '../../../shared/components/Card';
+import { EntityCard } from '@ui';
 import { formatCount } from '../../../shared/utils/formatNumber';
 import { truncate } from '../../../shared/utils/formatNumber';
 

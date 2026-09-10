@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Card, Badge } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 export default function ArticleHeaderCard({
   article
 }) {

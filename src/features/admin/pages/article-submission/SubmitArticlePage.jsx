@@ -3,13 +3,13 @@ import { t } from "i18next";
 import { useState } from 'react';
 import { Card, Button, Row, Col, Modal, Form } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 import SubmissionTabs from '../../components/article-submission/SubmissionTabs';
 import ManualArticleForm from '../../components/article-submission/ManualArticleForm';
 import PdfDropzone from '../../components/article-submission/PdfDropzone';
 import UploadFeatureCard from '../../components/article-submission/UploadFeatureCard';
 import { useAdminStore } from '../../../../app/store/adminStore';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 /**
  * SubmitArticlePage Component

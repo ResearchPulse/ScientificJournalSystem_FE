@@ -4,7 +4,7 @@ import { Row, Col, Card, Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useJournalManagement } from '../../journal/hooks/useJournalManagement';
-import Pagination from '../../../shared/components/Pagination';
+import { Pagination } from '@ui';
 import SwitchJournalModal from '../components/modals/SwitchJournalModal';
 
 /**

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 const KeywordRelatedArticleList = ({
   articles,
   loading

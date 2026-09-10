@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { Table, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { StateCard } from '../../../../shared/components/Card';
+import { StateCard } from '@ui';
 
 /**
  * Component JournalTableAdmin - Bảng hiển thị danh sách tạp chí phục vụ mục đích quản trị.

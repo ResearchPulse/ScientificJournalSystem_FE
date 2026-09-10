@@ -7,7 +7,7 @@
  */
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import { useWalletStore } from '../../../app/store/walletStore';
 import ROUTES from '../../../app/routes/routePaths';
 

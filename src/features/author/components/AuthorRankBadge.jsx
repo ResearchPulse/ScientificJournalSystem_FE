@@ -7,7 +7,7 @@
  * - Hiển thị vòng tròn số thứ tự thông thường cho các thứ hạng sau Top 3.
  */
 
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 /**
  * Component hiển thị huy hiệu thứ hạng tác giả.

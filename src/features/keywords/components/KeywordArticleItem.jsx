@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
  */
 import { Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 
 /**
  * Item hiển thị bài báo liên quan đến keyword.

@@ -5,7 +5,7 @@
  */
 import { useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 export default function PasswordInput({
   label,

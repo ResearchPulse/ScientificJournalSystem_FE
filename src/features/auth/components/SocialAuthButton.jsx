@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 * File: features\auth\components\SocialAuthButton.jsx
 */
 import { Button } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 export default function SocialAuthButton({
   onClick,
   disabled = false,

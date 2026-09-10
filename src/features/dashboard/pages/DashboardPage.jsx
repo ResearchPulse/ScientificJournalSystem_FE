@@ -17,8 +17,8 @@ import RecentProjectsCard from "../components/RecentProjectsCard";
 import TrendingKeywordsCard from "../components/TrendingKeywordsCard";
 import QuickAccessGrid from "../components/QuickAccessGrid";
 import TopAuthorsTable from "../components/TopAuthorsTable";
-import AuthRequiredModal from "../../../shared/components/AuthRequiredModal";
-import PrimaryButton from "../../../shared/components/Button/PrimaryButton";
+import { AuthRequiredModal } from '@ui';
+import { PrimaryButton } from '@ui';
 
 /**
  * DashboardPage — Trang Tổng quan / Dashboard

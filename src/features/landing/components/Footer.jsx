@@ -5,7 +5,7 @@
  */
 import { useTranslation } from 'react-i18next';
 import Container from 'react-bootstrap/Container';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 export default function Footer() {
   const { t } = useTranslation();

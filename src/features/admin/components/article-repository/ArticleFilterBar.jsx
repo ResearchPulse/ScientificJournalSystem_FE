@@ -7,7 +7,7 @@
 import { useState, useEffect } from 'react';
 import { searchJournalsApi } from '../../../journal/api/journalApi';
 import { STATUS_FILTER_OPTIONS } from '../../constants/articleListFilters';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 export default function ArticleFilterBar({
   journal,

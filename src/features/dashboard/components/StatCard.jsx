@@ -3,7 +3,7 @@
  *
  * File: features\dashboard\components\StatCard.jsx
  */
-import { StatCard as SharedStatCard } from '../../../shared/components/Card';
+import { StatCard as SharedStatCard } from '@ui';
 
 /**
  * Backward-compatible dashboard wrapper around the shared StatCard.

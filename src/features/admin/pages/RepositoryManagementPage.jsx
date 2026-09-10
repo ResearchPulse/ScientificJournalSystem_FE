@@ -11,7 +11,7 @@ import IssueTable from '../components/repository/IssueTable';
 import SwitchJournalModal from '../components/modals/SwitchJournalModal';
 import CreateVolumeModal from '../components/modals/CreateVolumeModal';
 import CreateIssueModal from '../components/modals/CreateIssueModal';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 /**
  * RepositoryManagementPage - Admin repository coordinator for selected journal volumes and issues.

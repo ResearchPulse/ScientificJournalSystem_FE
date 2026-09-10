@@ -7,7 +7,7 @@ import AuthBanner from '../components/AuthBanner';
 import ResetPasswordForm from '../components/ResetPasswordForm';
 import ResetPasswordSuccess from '../components/ResetPasswordSuccess';
 import { resetPasswordApi } from '../api/auth.api';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import ROUTES from '../../../app/routes/routePaths';
 export default function ResetPasswordPage() {
   const { t: _t } = useTranslation();

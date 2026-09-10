@@ -8,7 +8,7 @@ import { Container } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import Header from '../../landing/components/Header';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
+import { LoadingSkeleton } from '@ui';
 import KeywordArticleList from '../components/KeywordArticleList';
 import { useKeywordArticles } from '../hooks/useKeywordArticles';
 import './KeywordArticlesPage.css';

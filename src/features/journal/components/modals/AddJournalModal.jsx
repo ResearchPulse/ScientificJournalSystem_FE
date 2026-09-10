@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useState } from 'react';
 import { Modal, Form, Row, Col } from 'react-bootstrap';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import { useJournalManagement } from '../../hooks/useJournalManagement';
 
 /**

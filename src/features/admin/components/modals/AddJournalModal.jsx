@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { useState, useEffect } from 'react';
 import { Modal, Form, Row, Col } from 'react-bootstrap';
 import { useJournalManagement } from '../../../journal/hooks/useJournalManagement';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 export default function AddJournalModal({
   show,
   handleClose

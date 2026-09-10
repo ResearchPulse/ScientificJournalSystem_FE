@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import Icon from "../../../shared/components/Icon";
+import { Icon } from '@ui';
 import useSandboxSearch from "../hooks/useSandboxSearch";
 
 const typeConfig = {

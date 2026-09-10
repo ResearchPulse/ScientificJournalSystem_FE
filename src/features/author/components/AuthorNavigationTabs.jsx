@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 export default function AuthorNavigationTabs({
   activeTab
 }) {

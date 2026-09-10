@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 import { Dropdown } from 'react-bootstrap';
 import { useAuthStore } from '../../../app/store/authStore';
 import { useUserStore } from '../../../app/store/userStore';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 const ProjectMembersList = ({ 
   project,

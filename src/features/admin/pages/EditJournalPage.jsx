@@ -5,7 +5,7 @@ import { Form, Row, Col, Card } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useJournalManagement } from '../../journal/hooks/useJournalManagement';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 export default function EditJournalPage() {
   const { t: _t } = useTranslation();
   const {

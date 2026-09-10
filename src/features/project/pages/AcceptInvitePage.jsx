@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import ROUTES from '../../../app/routes/routePaths';
 import projectService from '../services/projectService';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import Header from '../../landing/components/Header';
 
 const AcceptInvitePage = () => {

@@ -7,9 +7,9 @@ import { useTranslation } from "react-i18next";
 import { Table, Row, Col } from 'react-bootstrap';
 import AuthorTableRow from './AuthorTableRow';
 import AuthorCard from './AuthorCard';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import EmptyState from '../../../shared/components/EmptyState';
-import ErrorState from '../../../shared/components/ErrorState';
+import { LoadingSkeleton } from '@ui';
+import { EmptyState } from '@ui';
+import { ErrorState } from '@ui';
 export default function AuthorTable({
   authors = [],
   loading = false,

@@ -7,15 +7,15 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import Header from '../../landing/components/Header';
 import useAuthors from '../hooks/useAuthors';
 import AuthorLeaderboardTable from '../components/AuthorLeaderboardTable';
 import AuthorNavigationTabs from '../components/AuthorNavigationTabs';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
-import { FilterCard } from '../../../shared/components/Card';
-import { FilterSelect } from '../../../shared/components/Input';
-import AdminPagination from '../../../shared/components/Pagination';
+import { PrimaryButton } from '@ui';
+import { FilterCard } from '@ui';
+import { FilterSelect } from '@ui';
+import { Pagination as AdminPagination } from '@ui';
 import './AuthorLeaderboardPage.css';
 export default function AuthorLeaderboardPage() {
   const {

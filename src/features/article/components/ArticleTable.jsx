@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Table, Card, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import ArticleTableRow from './ArticleTableRow';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 export default function ArticleTable({
   articles,
   isLoading,

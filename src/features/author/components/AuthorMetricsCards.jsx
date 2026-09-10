@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
  */
 
 import { Row, Col, Card } from 'react-bootstrap';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
+import { LoadingSkeleton } from '@ui';
 
 /**
  * Component hiển thị 4 thẻ chỉ số học thuật nhanh của tác giả.

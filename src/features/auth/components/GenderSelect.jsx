@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  * File: features\auth\components\GenderSelect.jsx
  */
 import { Form } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 export default function GenderSelect({
   label,
   name,

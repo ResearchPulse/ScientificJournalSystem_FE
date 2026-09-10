@@ -1,5 +1,5 @@
 import { Card } from 'react-bootstrap';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 /**
  * PendingRequestCard Component

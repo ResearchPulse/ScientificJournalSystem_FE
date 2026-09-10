@@ -7,13 +7,13 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import Header from '../../landing/components/Header';
 import useAuthors from '../hooks/useAuthors';
 import AuthorProfileHeader from '../components/AuthorProfileHeader';
 import AuthorAreasBreakdown from '../components/AuthorAreasBreakdown';
 import AuthorArticlesSection from '../components/AuthorArticlesSection';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import './AuthorDetailPage.css';
 export default function AuthorDetailPage() {
   const {

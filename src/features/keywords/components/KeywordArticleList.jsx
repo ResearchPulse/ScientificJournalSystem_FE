@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
  * File: features\keywords\components\KeywordArticleList.jsx
  */
 import { Icon } from '@iconify/react';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import AdminPagination from '../../../shared/components/Pagination';
+import { LoadingSkeleton } from '@ui';
+import { Pagination as AdminPagination } from '@ui';
 import KeywordArticleItem from './KeywordArticleItem';
 
 /**

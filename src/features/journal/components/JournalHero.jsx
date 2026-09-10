@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Row, Col, Button, Spinner } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 export default function JournalHero({
   journal,
   isFollowing,

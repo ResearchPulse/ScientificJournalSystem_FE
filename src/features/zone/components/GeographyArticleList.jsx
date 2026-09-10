@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Table, Card, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import AdminPagination from '../../../shared/components/Pagination';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { Pagination as AdminPagination } from '@ui';
+import { LatexText } from '@ui';
 export default function GeographyArticleList({
   articles = [],
   loading = false,

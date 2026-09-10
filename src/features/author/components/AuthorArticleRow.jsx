@@ -6,8 +6,8 @@ import { useTranslation } from "react-i18next";
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { Icon } from '@ui';
+import { LatexText } from '@ui';
 export default function AuthorArticleRow({
   article,
   isLast = false

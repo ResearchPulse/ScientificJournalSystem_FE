@@ -1,30 +1,30 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{js,jsx}'],
-    extends: [
-      js.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      globals: globals.browser,
-      parserOptions: { ecmaFeatures: { jsx: true } },
-    },
-    rules: {
-      'react-hooks/exhaustive-deps': 'off',
-      // Data-fetching hooks intentionally call setState inside effects through async functions.
-      // Disabling these rules project-wide to avoid false positives.
-      'react-hooks/set-state-in-effect': 'off',
-      'react-hooks/immutability': 'off',
-      'react-refresh/only-export-components': 'off',
-      'no-unused-vars': 'off',
-    },
+export default defineConfig([globalIgnores(['dist', 'storybook-static/**', '.claude/**', '.agents/**', 'public/**']), {
+  files: ['**/*.{js,jsx}'],
+  extends: [
+    js.configs.recommended,
+    reactHooks.configs.flat.recommended,
+    reactRefresh.configs.vite,
+  ],
+  languageOptions: {
+    globals: globals.browser,
+    parserOptions: { ecmaFeatures: { jsx: true } },
   },
-])
+  rules: {
+    'react-hooks/exhaustive-deps': 'off',
+    // Data-fetching hooks intentionally call setState inside effects through async functions.
+    // Disabling these rules project-wide to avoid false positives.
+    'react-hooks/set-state-in-effect': 'off',
+    'react-hooks/immutability': 'off',
+    'react-refresh/only-export-components': 'off',
+    'no-unused-vars': 'off',
+  },
+}, ...storybook.configs["flat/recommended"]])

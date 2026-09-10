@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import InputField from '../../../shared/components/InputField';
+import { InputField } from '@ui';
 import PasswordInput from './PasswordInput';
 import CheckboxField from './CheckboxField';
 import SubmitButton from './SubmitButton';

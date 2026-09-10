@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Form } from 'react-bootstrap';
-import Icon from '../../../../shared/components/Icon';
-import { HeaderFilterCard } from '../../../../shared/components/Card';
+import { Icon } from '@ui';
+import { HeaderFilterCard } from '@ui';
 import { SYSTEM_ROLES, ACCOUNT_STATUSES } from '../../../../shared/constants/systemConstants';
 
 /**

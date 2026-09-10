@@ -7,14 +7,14 @@ import { t } from "i18next";
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Container, Row, Col, Card, Badge, Spinner, Alert } from 'react-bootstrap';
-import { StateCard } from '../../../shared/components/Card';
+import { StateCard } from '@ui';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import Header from '../../landing/components/Header';
 import { getTopicByIdApi, getTopicArticlesApi } from '../api/topic.api';
-import AdminPagination from '../../../shared/components/Pagination';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { Pagination as AdminPagination } from '@ui';
+import { PrimaryButton } from '@ui';
+import { LatexText } from '@ui';
 import './TopicDetailPage.css';
 const PAGE_SIZE = 10;
 const normalizeArticle = (item = {}) => ({

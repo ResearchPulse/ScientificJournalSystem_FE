@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Breadcrumb } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 // Shared Layout Header
 import Header from '../../landing/components/Header';
@@ -23,7 +23,7 @@ import JournalTabs from '../components/JournalTabs';
 import RankingTabContent from '../components/RankingTabContent';
 import VolumesTabContent from '../components/VolumesTabContent';
 import ArticlesTabContent from '../components/ArticlesTabContent';
-import AuthRequiredModal from '../../../shared/components/AuthRequiredModal';
+import { AuthRequiredModal } from '@ui';
 import AddToProjectModal from '../components/AddToProjectModal';
 import '../components/JournalDetail.css';
 export default function JournalDetailPage() {

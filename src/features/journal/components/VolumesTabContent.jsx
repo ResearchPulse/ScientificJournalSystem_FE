@@ -8,8 +8,8 @@ import { useState } from 'react';
 import { Spinner, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import AdminPagination from '../../../shared/components/Pagination';
+import { LoadingSkeleton } from '@ui';
+import { Pagination as AdminPagination } from '@ui';
 export default function VolumesTabContent({
   volumes = [],
   issuesByVolume = {},

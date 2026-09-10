@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  * File: features\journal\components\RankingTabContent.jsx
  */
 import { Row, Col, Table } from 'react-bootstrap';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
+import { LoadingSkeleton } from '@ui';
 export default function RankingTabContent({
   rankingHistory = [],
   metricName = 'Impact Factor',

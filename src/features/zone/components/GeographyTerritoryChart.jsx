@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useMemo } from 'react';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 // Helper function to map country code to circle-flags icon code
 const getCountryFlagCode = (item) => {

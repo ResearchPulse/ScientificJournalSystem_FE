@@ -7,8 +7,8 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import { Dropdown, Form, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import { FilterSearch } from '../../../shared/components/Input';
-import { FilterCard } from '../../../shared/components/Card';
+import { FilterSearch } from '@ui';
+import { FilterCard } from '@ui';
 import { searchJournalsApi } from '../../journal/api/journalApi';
 import { getTopicsApi } from '../../topic/api/topic.api';
 const YEAR_OPTIONS = [{

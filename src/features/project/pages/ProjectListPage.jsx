@@ -4,12 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import ROUTES from '../../../app/routes/routePaths';
 import useProjects from '../hooks/useProjects';
 import ProjectCard from '../components/ProjectCard';
-import EmptyState from '../../../shared/components/EmptyState';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
+import { EmptyState } from '@ui';
+import { LoadingSkeleton } from '@ui';
 import { Icon } from '@iconify/react';
 import { Modal, Button } from 'react-bootstrap';
 import Header from '../../landing/components/Header';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import useAuth from '../../auth/hooks/useAuth';
 const ProjectListPage = () => {
   const navigate = useNavigate();

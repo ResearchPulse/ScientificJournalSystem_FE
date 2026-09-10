@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 const AddKeywordModal = ({
   show,
   onHide,

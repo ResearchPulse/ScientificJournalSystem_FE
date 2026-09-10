@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 export default function Hero() {
   const { t } = useTranslation();

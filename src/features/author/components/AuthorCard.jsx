@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  */
 
 import { useNavigate } from 'react-router-dom';
-import { EntityCard } from '../../../shared/components/Card';
+import { EntityCard } from '@ui';
 import AuthorAvatar from './AuthorAvatar';
 export default function AuthorCard({
   author

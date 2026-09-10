@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
  * File: features\article\components\ArticleDetailError.jsx
  */
 import { useNavigate } from 'react-router-dom';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
-import { StateCard } from '../../../shared/components/Card';
+import { PrimaryButton } from '@ui';
+import { StateCard } from '@ui';
 export default function ArticleDetailError({
   errorMsg,
   onRetry

@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
-import Icon from '../../shared/components/Icon';
-import Logo from '../../shared/components/Logo';
+import { Icon } from '@ui';
+import { Logo } from '@ui';
 import useAuth from '../../features/auth/hooks/useAuth';
 import ROUTES from '../routes/routePaths';
 

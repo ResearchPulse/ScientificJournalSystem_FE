@@ -3,7 +3,7 @@ import { t } from "i18next";
 import { useState } from 'react';
 import { Alert, Card, Row, Col } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 import UserAccountForm from '../../components/account/UserAccountForm';
 import { createAdminUser } from '../../api/adminUsers.api';
 import ROUTES from '../../../../app/routes/routePaths';

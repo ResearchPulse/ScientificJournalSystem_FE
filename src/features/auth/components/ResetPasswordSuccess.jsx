@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import SubmitButton from './SubmitButton';
 export default function ResetPasswordSuccess() {
   const {

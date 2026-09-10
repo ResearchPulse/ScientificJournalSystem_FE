@@ -8,7 +8,7 @@ import GeographyTerritoryChart from '../components/GeographyTerritoryChart';
 import GeographyRankingTable from '../components/GeographyRankingTable';
 import GeographyArticleList from '../components/GeographyArticleList';
 import Header from '../../landing/components/Header';
-import AuthRequiredModal from '../../../shared/components/AuthRequiredModal';
+import { AuthRequiredModal } from '@ui';
 import { useAuthStore } from '../../../app/store/authStore';
 import { isAuthenticated as checkAuthSession } from '../../../shared/utils/auth';
 import './GeographyPage.css';

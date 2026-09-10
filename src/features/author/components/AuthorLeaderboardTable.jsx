@@ -8,9 +8,9 @@ import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import AuthorAvatar from './AuthorAvatar';
 import AuthorRankBadge from './AuthorRankBadge';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import EmptyState from '../../../shared/components/EmptyState';
-import ErrorState from '../../../shared/components/ErrorState';
+import { LoadingSkeleton } from '@ui';
+import { EmptyState } from '@ui';
+import { ErrorState } from '@ui';
 export default function AuthorLeaderboardTable({
   authors = [],
   loading = false,

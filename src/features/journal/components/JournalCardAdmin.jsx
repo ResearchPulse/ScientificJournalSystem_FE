@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { EntityCard } from '../../../shared/components/Card';
+import { EntityCard } from '@ui';
 
 /**
  * Component JournalCardAdmin - Hiển thị thông tin tạp chí dưới dạng thẻ khối độc lập dành cho Admin.

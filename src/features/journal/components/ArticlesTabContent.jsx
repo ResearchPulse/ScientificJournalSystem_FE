@@ -7,8 +7,8 @@ import { t } from "i18next";
  */
 import { Card, Button } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LoadingSkeleton } from '@ui';
+import { LatexText } from '@ui';
 export default function ArticlesTabContent({
   recentArticles = [],
   loading,

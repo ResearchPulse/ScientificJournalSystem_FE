@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 import { useAuthStore } from '../../../app/store/authStore';
 export default function AdminHeader() {
   const {

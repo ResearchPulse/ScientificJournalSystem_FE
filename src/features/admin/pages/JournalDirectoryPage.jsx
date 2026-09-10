@@ -5,7 +5,7 @@ import JournalFilterBar from '../components/journals/JournalFilterBar';
 import JournalTableAdmin from '../components/journals/JournalTableAdmin';
 import JournalCardAdmin from '../components/journals/JournalCardAdmin';
 import AddJournalModal from '../components/modals/AddJournalModal';
-import Pagination from '../../../shared/components/Pagination';
+import { Pagination } from '@ui';
 
 /**
  * JournalDirectoryPage - Màn hình chính quản lý thư mục các Tạp chí dành cho Admin.

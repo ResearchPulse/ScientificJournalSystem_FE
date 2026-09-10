@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState, useRef } from 'react';
 import { Button, Alert, ProgressBar } from 'react-bootstrap';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 /**
  * PdfDropzone Component

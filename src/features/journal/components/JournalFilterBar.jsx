@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Row, Col, Form, Button, InputGroup } from 'react-bootstrap';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 
 /**
  * Component JournalFilterBar - Thanh công cụ lọc, tìm kiếm và chuyển đổi giao diện hiển thị.

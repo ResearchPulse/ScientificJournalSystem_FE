@@ -16,9 +16,9 @@ import InviteMemberModal from '../components/InviteMemberModal';
 import { Icon } from '@iconify/react';
 import { Modal } from 'react-bootstrap';
 import Header from '../../landing/components/Header';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import projectService from '../../project/services/projectService';
-import LatexText from '../../../shared/components/LatexText/LatexText';
+import { LatexText } from '@ui';
 import useAuth from '../../auth/hooks/useAuth';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 const ProjectDetailPage = () => {

@@ -5,7 +5,7 @@ import { Alert, Card } from 'react-bootstrap';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import UserAccountForm from '../../components/account/UserAccountForm';
 import { getAdminUserById, updateAdminUser } from '../../api/adminUsers.api';
-import Icon from '../../../../shared/components/Icon';
+import { Icon } from '@ui';
 import ROUTES from '../../../../app/routes/routePaths';
 const getApiErrorMessage = (error, fallback) => {
   if (error.response?.status === 403) {

@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 // Gồm: icon, heading, mô tả, countdown, buttons.
 
 import SuccessIcon from './SuccessIcon';
-import CountdownRedirect from '../../../../shared/components/CountdownRedirect';
+import { CountdownRedirect } from '@ui';
 import AuthActionButtons from './AuthActionButtons';
 const SuccessState = ({
   countdown,

@@ -7,10 +7,10 @@ import { useTranslation } from "react-i18next";
 import { useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import AuthorArticleRow from './AuthorArticleRow';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import EmptyState from '../../../shared/components/EmptyState';
-import ErrorState from '../../../shared/components/ErrorState';
-import AdminPagination from '../../../shared/components/Pagination';
+import { LoadingSkeleton } from '@ui';
+import { EmptyState } from '@ui';
+import { ErrorState } from '@ui';
+import { Pagination as AdminPagination } from '@ui';
 export default function AuthorArticlesSection({
   articles = [],
   loading = false,

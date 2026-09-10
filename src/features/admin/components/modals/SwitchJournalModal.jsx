@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import { Modal, Form, ListGroup } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import { useJournalManagement } from '../../../journal/hooks/useJournalManagement';
 
 /**

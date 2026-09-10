@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { Table } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import { StateCard } from '../../../../shared/components/Card';
+import { StateCard } from '@ui';
 const getIssueId = issue => issue.issue_id || issue.id;
 const getIssueNumber = issue => issue.issue_number ?? issue.issueNumber ?? '—';
 const getIssueYear = issue => issue.publication_year || issue.publicationYear;

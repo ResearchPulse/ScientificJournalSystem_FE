@@ -5,7 +5,7 @@
  */
 import { Form, InputGroup } from 'react-bootstrap';
 import { useState } from 'react';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 
 
 export default function DateInput({

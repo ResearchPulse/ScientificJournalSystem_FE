@@ -12,8 +12,8 @@ import useArticleList from '../hooks/useArticleList';
 import ArticleStatsCards from '../components/ArticleStatsCards';
 import ArticleFilterBar from '../components/ArticleFilterBar';
 import ArticleTable from '../components/ArticleTable';
-import AdminPagination from '../../../shared/components/Pagination';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { Pagination as AdminPagination } from '@ui';
+import { PrimaryButton } from '@ui';
 import '../Article.css';
 export default function ArticleListPage() {
   const {

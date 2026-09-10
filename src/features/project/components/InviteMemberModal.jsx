@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Form, Spinner } from 'react-bootstrap';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
+import { PrimaryButton } from '@ui';
 import { Icon } from '@iconify/react';
 
 const InviteMemberModal = ({ show, onHide, onInvite, actionLoading }) => {

@@ -11,7 +11,7 @@ import useAuth from '../hooks/useAuth';
 import AuthLayout from '../../../app/layouts/AuthLayout';
 import AuthBanner from '../components/AuthBanner';
 import RegisterForm from '../components/RegisterForm';
-import Icon from '../../../shared/components/Icon';
+import { Icon } from '@ui';
 export default function RegisterPage() {
   const { t: _t } = useTranslation();
   const navigate = useNavigate();
