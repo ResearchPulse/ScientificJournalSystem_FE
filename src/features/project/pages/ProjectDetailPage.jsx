@@ -268,86 +268,59 @@ const ProjectDetailPage = () => {
   const renderOverviewTab = () => {
     const summary = overviewData?.summary || {};
     const charts = overviewData?.charts || {};
-    const summaryCards = [{
-      label: t("project.tongSoBaiBao"),
-      value: formatNumber(summary.totalArticles),
-      icon: 'lucide:file-text',
-      tone: '#ff702f'
-    }, {
-      label: t("project.keywordTheoDoi"),
-      value: formatNumber(summary.totalKeywords),
-      icon: 'lucide:key-round',
-      tone: '#f97316'
-    }, {
-      label: t("project.tongSoTapChi"),
-      value: formatNumber(summary.totalJournals),
-      icon: 'lucide:library',
-      tone: '#334155'
-    }, {
-      label: t("project.capNhatGanNhat"),
-      value: formatDate(summary.lastUpdatedAt),
-      icon: 'lucide:calendar-clock',
-      tone: '#64748b'
-    }];
     if (overviewLoading) {
-      return <div className="glass-card rounded-4 shadow-sm border p-5 text-center text-muted-custom">
-          <div className="spinner-border" style={{
-          color: 'var(--primary)'
-        }} role="status" />
+      return <div className="glass-card rounded-3 border-0 p-5 text-center text-muted-custom">
+          <Icon icon="lucide:loader-circle" width="32" className="animate-spin-slow mb-3" style={{ color: 'var(--primary)' }} />
           <p className="small mb-0 mt-3">{t("project.dangTaiDuLieuTongQuan")}</p>
         </div>;
     }
     if (overviewError) {
-      return <div className="glass-card rounded-4 shadow-sm border p-4 text-center">
+      return <div className="glass-card rounded-3 border-0 p-4 text-center">
           <Icon icon="lucide:circle-alert" width="42" className="text-danger mb-3" />
           <h6 className="fw-bold text-main">{t("article.khongTheTaiBieuDo")}</h6>
           <p className="text-muted-custom small">{overviewError}</p>
           <PrimaryButton className="px-3 py-2" onClick={fetchProjectOverview}>{t("article.thuLai")}</PrimaryButton>
         </div>;
     }
-    return <div className="d-flex flex-column gap-4">
-        <div className="row g-3">
-          {summaryCards.map(card => <div className="col-12 col-sm-6 col-lg-3" key={card.label}>
-              <div className="glass-card rounded-4 border shadow-sm p-3 h-100">
-                <div className="d-flex justify-content-between align-items-start gap-3">
-                  <div>
-                    <div className="text-muted-custom small fw-semibold text-uppercase mb-2" style={{
-                  letterSpacing: '.04em'
-                }}>{card.label}</div>
-                    <div className="fs-4 fw-bold text-main">{card.value}</div>
-                  </div>
-                  <div className="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style={{
-                width: 42,
-                height: 42,
-                backgroundColor: 'var(--primary-light)',
-                color: card.tone
-              }}>
-                    <Icon icon={card.icon} width="20" />
-                  </div>
-                </div>
-              </div>
-            </div>)}
+    return <div className="d-flex flex-column gap-3">
+        <div className="po-metrics mb-4" style={{ borderTop: 0, paddingTop: 0, marginTop: 0 }}>
+          <div className="po-metric">
+            <div className="po-metric__label">{t("project.tongSoBaiBao")}</div>
+            <div className="po-metric__value">{formatNumber(summary.totalArticles)}</div>
+          </div>
+          <div className="po-metric">
+            <div className="po-metric__label">{t("project.keywordTheoDoi")}</div>
+            <div className="po-metric__value">{formatNumber(summary.totalKeywords)}</div>
+          </div>
+          <div className="po-metric">
+            <div className="po-metric__label">{t("project.tongSoTapChi")}</div>
+            <div className="po-metric__value">{formatNumber(summary.totalJournals)}</div>
+          </div>
+          <div className="po-metric">
+            <div className="po-metric__label">{t("project.capNhatGanNhat")}</div>
+            <div className="po-metric__value" style={{ fontSize: '1.125rem' }}>{formatDate(summary.lastUpdatedAt)}</div>
+          </div>
         </div>
 
-        <div className="glass-card rounded-4 border shadow-sm p-4">
+        <div className="glass-card glass-card--flat rounded-3 p-4">
           <div className="mb-3">
-            <h5 className="fw-bold text-main mb-1">{t("project.xuHuongXuatBan")}</h5>
+            <h6 className="fw-semibold text-main mb-1" style={{ letterSpacing: '-0.005em' }}>{t("project.xuHuongXuatBan")}</h6>
             <p className="text-muted-custom small mb-0">{t("project.soLuongBaiBaoLienQuanTheoTungN")}</p>
           </div>
           {renderLineChart(charts.publicationTrend)}
         </div>
 
-        <div className="row g-4">
+        <div className="row g-3">
           <div className="col-12 col-lg-6">
-            <div className="glass-card rounded-4 border shadow-sm p-4 h-100">
-              <h5 className="fw-bold text-main mb-1">{t("project.phanBoLinhVuc")}</h5>
+            <div className="glass-card glass-card--flat rounded-3 p-4 h-100">
+              <h6 className="fw-semibold text-main mb-1" style={{ letterSpacing: '-0.005em' }}>{t("project.phanBoLinhVuc")}</h6>
               <p className="text-muted-custom small mb-3">{t("project.tyTrongBaiBaoTheoSubjectArea")}</p>
               {renderDonutChart(charts.subjectAreaDistribution, 'Subject Areas')}
             </div>
           </div>
           <div className="col-12 col-lg-6">
-            <div className="glass-card rounded-4 border shadow-sm p-4 h-100">
-              <h5 className="fw-bold text-main mb-1">{t("project.loaiNguonXuatBan")}</h5>
+            <div className="glass-card glass-card--flat rounded-3 p-4 h-100">
+              <h6 className="fw-semibold text-main mb-1" style={{ letterSpacing: '-0.005em' }}>{t("project.loaiNguonXuatBan")}</h6>
               <p className="text-muted-custom small mb-3">{t("project.phanBoTheoJournalConferenceBoo")}</p>
               {renderDonutChart(charts.publicationTypeDistribution, 'Publication Types')}
             </div>
@@ -448,112 +421,130 @@ const ProjectDetailPage = () => {
       marginTop: '40px'
     }}>
         {/* Breadcrumb */}
-        <nav aria-label="breadcrumb" className="mb-4">
-          <ol className="breadcrumb mb-2 text-muted-custom small">
-            <li className="breadcrumb-item"><Link to={ROUTES.DASHBOARD} className="text-decoration-none text-muted-custom hover-primary">{t("author.tongQuan")}</Link></li>
-            <li className="breadcrumb-item"><Link to={ROUTES.PROJECTS} className="text-decoration-none text-muted-custom hover-primary">{t("project.duAnTheoDoi")}</Link></li>
+        <nav aria-label="breadcrumb" className="po-breadcrumb mb-2">
+          <ol className="breadcrumb mb-0">
+            <li className="breadcrumb-item"><Link to={ROUTES.DASHBOARD} className="text-decoration-none">{t("author.tongQuan")}</Link></li>
+            <li className="breadcrumb-item"><Link to={ROUTES.PROJECTS} className="text-decoration-none">{t("project.duAnTheoDoi")}</Link></li>
             <li className="breadcrumb-item active" aria-current="page">{title}</li>
           </ol>
         </nav>
 
         {/* Header section (Mockup 3) */}
-        <div className="glass-card rounded-4 shadow-sm border p-4 p-md-5 mb-4">
-          <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
-            <div>
-              <div className="d-flex align-items-center gap-2 mb-3">
-                <span className="badge rounded-pill fw-medium" style={{
-                backgroundColor: 'var(--primary-light)',
-                color: 'var(--primary)'
-              }}>
-                  {areaName}
-                </span>
-                <span className="text-muted-custom small">{t("project.capNhatLuc")}{createdAt}</span>
+        <div className="po-header mb-3">
+          <div className="d-flex flex-wrap justify-content-between align-items-start gap-3">
+
+            {/* LEFT: meta + title + status */}
+            <div className="min-w-0" style={{ flex: '1 1 320px' }}>
+              <div className="po-meta">
+                <span>{areaName}</span>
+                <span className="po-meta__sep">·</span>
+                <span>{t("project.capNhatLuc")}{createdAt}</span>
               </div>
-              <h1 className="font-display fw-bold text-main mb-0" style={{
-              fontSize: '2rem'
-            }}>{title}</h1>
+              <div className="d-flex align-items-center gap-3 flex-wrap">
+                <h1 className="font-display text-main mb-0" style={{ fontSize: 'clamp(2rem, 1.625rem + 1.5vw, 2.625rem)', fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.05 }}>{title}</h1>
+                <span className={`po-status ${isProjectActive ? 'is-active' : ''}`}>
+                  <span className="po-status__dot" aria-hidden="true" />
+                  {isProjectActive ? t("project.dangHoatDong") : t("project.chuaKichHoat", "Chưa kích hoạt")}
+                </span>
+              </div>
             </div>
-            <div className="d-flex gap-2">
 
-              {!isProjectActive && <PrimaryButton className="px-3" style={{
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-              border: 'none'
-            }} onClick={() => setShowUpgradeModal(true)}>
-                  <Icon icon="lucide:crown" width="16" />{t("project.kichHoatGoi")}</PrimaryButton>}
+            {/* RIGHT: action buttons */}
+            <div className="d-flex align-items-center gap-2 flex-shrink-0">
+              {!isProjectActive && (
+                <PrimaryButton
+                  className="px-3"
+                  variant="outline"
+                  style={{ minHeight: 36, padding: '0.4rem 0.85rem', fontSize: '0.85rem' }}
+                  onClick={() => setShowUpgradeModal(true)}
+                >
+                  <Icon icon="lucide:crown" width="14" />
+                  {t("project.kichHoatGoi")}
+                </PrimaryButton>
+              )}
 
-              <PrimaryButton className="px-3" variant={isProjectActive ? 'primary' : 'outline'} disabled={!isProjectActive} style={!isProjectActive ? {
-              opacity: 0.5,
-              cursor: 'not-allowed'
-            } : {}} onClick={() => {
-              if (!isProjectActive) return;
-              const originUrl = import.meta.env.VITE_ORIGIN_URL || 'http://localhost:5174';
-              const lang = i18n.language ? i18n.language.split('-')[0] : 'vi';
-              window.location.href = `${originUrl}/${lang}/project/${projectId}/dashboard`;
-            }}>
-                <Icon icon={isProjectActive ? "lucide:sparkles" : "lucide:lock"} width="16" />{t("project.phanTichChuyenSau")}</PrimaryButton>
+              <PrimaryButton
+                className="px-3"
+                variant={isProjectActive ? 'primary' : 'outline'}
+                disabled={!isProjectActive}
+                style={!isProjectActive ? { opacity: 0.55, cursor: 'not-allowed', minHeight: 36, padding: '0.4rem 0.85rem', fontSize: '0.85rem' } : { minHeight: 36, padding: '0.4rem 0.85rem', fontSize: '0.85rem' }}
+                onClick={() => {
+                  if (!isProjectActive) return;
+                  const originUrl = import.meta.env.VITE_ORIGIN_URL || 'http://localhost:5174';
+                  const lang = i18n.language ? i18n.language.split('-')[0] : 'vi';
+                  window.location.href = `${originUrl}/${lang}/project/${projectId}/dashboard`;
+                }}
+              >
+                <Icon icon={isProjectActive ? "lucide:sparkles" : "lucide:lock"} width="14" />
+                {t("project.phanTichChuyenSau")}
+              </PrimaryButton>
             </div>
           </div>
 
-          <div className="row g-4 mt-3 pt-4 border-top">
-            <div className="col-6 col-md-3">
-              <div className="text-muted-custom small mb-1 text-uppercase tracking-wider fw-semibold">{t("project.tuKhoaTheoDoi1")}</div>
-              <div className="fs-3 fw-bold text-main">{keywordCount}</div>
+          {/* Single information-dense metrics row, no individual cards.
+              Reading order (left → right): hero → strong → default → muted.
+              Tier classes control size + weight for selective hierarchy. */}
+          <div className="po-metrics">
+            <div className="po-metric">
+              <div className="po-metric__label">{t("keywords.baiBaoLienQuan")}</div>
+              <div className="po-metric__value po-metric__value--hero">{articleCount.toLocaleString('vi-VN')}</div>
             </div>
-            <div className="col-6 col-md-3">
-              <div className="text-muted-custom small mb-1 text-uppercase tracking-wider fw-semibold">{t("keywords.baiBaoLienQuan")}</div>
-              <div className="fs-3 fw-bold text-main">{articleCount}</div>
-            </div>
-            <div className="col-6 col-md-3">
-              <div className="text-muted-custom small mb-1 text-uppercase tracking-wider fw-semibold">{t("project.canhBaoMoi24h")}</div>
-              <div className={`fs-3 fw-bold d-flex align-items-center gap-1 ${(project?.alerts_24h?.todayCount || 0) > 0 ? 'text-success' : 'text-main'}`}>
-                <Icon icon="lucide:bell" width="20" /> {project?.alerts_24h?.todayCount || 0}
-              </div>
-            </div>
-            <div className="col-6 col-md-3">
-              <div className="text-muted-custom small mb-1 text-uppercase tracking-wider fw-semibold">{t("project.mucDoTangTruong")}</div>
-              <div className={`fs-3 fw-bold d-flex align-items-center gap-1 ${(project?.alerts_24h?.growthRate || 0) > 0 ? 'text-success' : (project?.alerts_24h?.growthRate || 0) < 0 ? 'text-danger' : 'text-muted'}`}>
-                <Icon icon={(project?.alerts_24h?.growthRate || 0) > 0 ? "lucide:trending-up" : (project?.alerts_24h?.growthRate || 0) < 0 ? "lucide:trending-down" : "lucide:minus"} width="24" /> 
+            <div className="po-metric">
+              <div className="po-metric__label">{t("project.mucDoTangTruong")}</div>
+              <div className={`po-metric__value po-metric__value--strong ${
+                (project?.alerts_24h?.growthRate || 0) > 0 ? 'is-positive'
+                : (project?.alerts_24h?.growthRate || 0) < 0 ? 'is-negative'
+                : ''
+              }`}>
+                <Icon
+                  icon={(project?.alerts_24h?.growthRate || 0) > 0 ? "lucide:trending-up"
+                    : (project?.alerts_24h?.growthRate || 0) < 0 ? "lucide:trending-down"
+                    : "lucide:minus"}
+                  width="14"
+                />
                 {(project?.alerts_24h?.growthRate || 0) > 0 ? '+' : ''}{project?.alerts_24h?.growthRate || 0}%
               </div>
+            </div>
+            <div className="po-metric">
+              <div className="po-metric__label">{t("project.tuKhoaTheoDoi1")}</div>
+              <div className="po-metric__value po-metric__value--muted">{keywordCount.toLocaleString('vi-VN')}</div>
+            </div>
+            <div className="po-metric">
+              <div className="po-metric__label">{t("project.canhBaoMoi24h")}</div>
+              <div className="po-metric__value po-metric__value--muted">{project?.alerts_24h?.todayCount || 0}</div>
             </div>
           </div>
         </div>
 
-        <ul className="nav nav-tabs tab-nav-custom mb-4 border-bottom-0 gap-4" style={{
-        paddingLeft: '1rem'
-      }}>
-          <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'overview' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('overview')} style={activeTab === 'overview' ? {
-            color: 'var(--primary)',
-            borderBottom: '2px solid var(--primary)'
-          } : undefined}>
-              <Icon icon="lucide:bar-chart-2" width="18" className="me-2" />{t("project.tongQuanBieuDo", "Overview & Charts")}</button>
-          </li>
-          <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'articles' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('articles')} style={activeTab === 'articles' ? {
-            color: 'var(--primary)',
-            borderBottom: '2px solid var(--primary)'
-          } : undefined}>
-              <Icon icon="lucide:file-text" width="18" className="me-2" />{t("project.luongBaiBao", "News Feed")} ({articleCount.toLocaleString()})
-            </button>
-          </li>
-          <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'keywords' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('keywords')} style={activeTab === 'keywords' ? {
-            color: 'var(--primary)',
-            borderBottom: '2px solid var(--primary)'
-          } : undefined}>
-              <Icon icon="lucide:key" width="18" className="me-2" />{t("project.keywordsGiamSat", "Keywords & Monitoring")} ({keywordCount.toLocaleString()})
-            </button>
-          </li>
-          <li className="nav-item">
-            <button className={`nav-link border-0 bg-transparent px-0 pb-3 fw-medium ${activeTab === 'members' ? 'active' : 'text-muted-custom'}`} onClick={() => handleTabChange('members')} style={activeTab === 'members' ? {
-            color: 'var(--primary)',
-            borderBottom: '2px solid var(--primary)'
-          } : undefined}>
-              <Icon icon="lucide:users" width="18" className="me-2" />{t("project.thanhVien", "Members")} ({members.length})
-            </button>
-          </li>
-        </ul>
+        <nav className="po-tabs" role="tablist" aria-label="Project sections">
+          <button role="tab" aria-selected={activeTab === 'overview'}
+            className={`po-tab ${activeTab === 'overview' ? 'is-active' : ''}`}
+            onClick={() => handleTabChange('overview')}>
+            <Icon icon="lucide:bar-chart-2" width="15" />
+            {t("project.tongQuanBieuDo", "Overview & Charts")}
+          </button>
+          <button role="tab" aria-selected={activeTab === 'articles'}
+            className={`po-tab ${activeTab === 'articles' ? 'is-active' : ''}`}
+            onClick={() => handleTabChange('articles')}>
+            <Icon icon="lucide:file-text" width="15" />
+            {t("project.luongBaiBao", "News Feed")}
+            <span className="po-tab__count">({articleCount.toLocaleString()})</span>
+          </button>
+          <button role="tab" aria-selected={activeTab === 'keywords'}
+            className={`po-tab ${activeTab === 'keywords' ? 'is-active' : ''}`}
+            onClick={() => handleTabChange('keywords')}>
+            <Icon icon="lucide:key" width="15" />
+            {t("project.keywordsGiamSat", "Keywords & Monitoring")}
+            <span className="po-tab__count">({keywordCount.toLocaleString()})</span>
+          </button>
+          <button role="tab" aria-selected={activeTab === 'members'}
+            className={`po-tab ${activeTab === 'members' ? 'is-active' : ''}`}
+            onClick={() => handleTabChange('members')}>
+            <Icon icon="lucide:users" width="15" />
+            {t("project.thanhVien", "Members")}
+            <span className="po-tab__count">({members.length})</span>
+          </button>
+        </nav>
 
         {/* Tab Content */}
         <div className="mb-5">
