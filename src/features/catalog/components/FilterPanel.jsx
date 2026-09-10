@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
@@ -34,7 +33,6 @@ export default function FilterPanel({
   onClearAll,
   loading = false
 }) {
-  const { t: _t } = useTranslation();
   const [menuSearch, setMenuSearch] = useState({});
   const hasSelectedArea = selectedAreas.length > 0;
   const accessValue = selectedAccess[0] || 'all';
@@ -50,20 +48,12 @@ export default function FilterPanel({
     const area = subjectAreas.find(item => String(item.subject_area_id) === String(areaId));
     return area ? cleanLabel(area.display_name) : '';
   };
-  const categoryNameCounts = subjectCategories.reduce((acc, cat) => {
-    const label = cleanLabel(cat.display_name);
-    acc[label] = (acc[label] || 0) + 1;
-    return acc;
-  }, {});
   const getCategoryLabel = cat => {
-    const label = cleanLabel(cat.display_name);
-    const isDuplicateName = categoryNameCounts[label] > 1;
-    const areaLabel = getAreaLabel(cat.subject_area_id);
-    return isDuplicateName && areaLabel ? `${label} (${areaLabel})` : label;
+    return cleanLabel(cat.display_name);
   };
   const visibleCategories = useMemo(() => {
     if (!hasSelectedArea) return [];
-    return subjectCategories.filter(cat => selectedAreas.includes(String(cat.subject_area_id)));
+    return subjectCategories.filter(cat => !cat.subject_area_id || selectedAreas.includes(String(cat.subject_area_id)));
   }, [hasSelectedArea, selectedAreas, subjectCategories]);
   const zoneOptions = zones.map(zone => ({
     value: String(zone.zone_id),

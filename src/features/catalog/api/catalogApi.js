@@ -23,6 +23,15 @@ export const getSubjectCategoriesApi = (params = { limit: 5000 }) => {
 };
 
 /**
+ * Get subject categories for catalog, filterable by subject_area_id
+ * @param {Object} params - { subject_area_id }
+ * @returns {Promise} Axios promise
+ */
+export const getCatalogSubjectCategoriesApi = (params = {}) => {
+  return api.get('/catalog/subject-categories', { params });
+};
+
+/**
  * Get historical rankings of a journal by journal ID
  * @param {number|string} id - Journal ID
  * @returns {Promise} Axios promise
