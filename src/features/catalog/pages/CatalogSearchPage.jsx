@@ -22,10 +22,7 @@ export default function CatalogSearchPage() {
     t
   } = useTranslation();
   const navigate = useNavigate();
-  const auth = useAuth();
-  const {
-    user
-  } = auth;
+  const { user } = useAuth();
   const {
     searchInput,
     setSearchInput,
