@@ -47,7 +47,9 @@ export default function DashboardPage() {
     summaryStats,
     loadingProjects,
     loadingAnalytics,
+    isFetchingAnalytics,
     loadingKeywords,
+    isFetchingKeywords,
     loadingAuthors,
     errorProjects,
     errorAnalytics,
@@ -154,7 +156,15 @@ export default function DashboardPage() {
         {/* ── Chart + Recent Projects ─────────────────────────────── */}
         <Row className="g-3 mb-3">
           <Col xs={12} lg={8}>
-            <PublicationTrendChart analytics={analytics} loading={loadingAnalytics} error={errorAnalytics} onRetry={() => refetchAnalytics()} selectedRange={trendRange} onRangeChange={setTrendRange} />
+            <PublicationTrendChart
+              analytics={analytics}
+              loading={loadingAnalytics}
+              isFetching={isFetchingAnalytics}
+              error={errorAnalytics}
+              onRetry={() => refetchAnalytics()}
+              selectedRange={trendRange}
+              onRangeChange={setTrendRange}
+            />
           </Col>
           <Col xs={12} lg={4}>
             <RecentProjectsCard projects={projects} loading={loadingProjects} error={errorProjects} onViewAll={() => navigate("/projects")} onProjectClick={handleProjectClick} />
@@ -164,7 +174,14 @@ export default function DashboardPage() {
         {/* ── Trending Keywords + Quick Access ────────────────────── */}
         <Row className="g-3 mb-4">
           <Col xs={12} md={6}>
-            <TrendingKeywordsCard keywords={trendingKeywords} loading={loadingKeywords} error={errorKeywords} onKeywordClick={handleKeywordClick} onViewMore={() => navigate("/catalog")} />
+            <TrendingKeywordsCard
+              keywords={trendingKeywords}
+              loading={loadingKeywords}
+              isFetching={isFetchingKeywords}
+              error={errorKeywords}
+              onKeywordClick={handleKeywordClick}
+              onViewMore={() => navigate("/catalog")}
+            />
           </Col>
           <Col xs={12} md={6}>
             <QuickAccessGrid />

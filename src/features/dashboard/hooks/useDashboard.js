@@ -3,7 +3,7 @@
  *
  * File: features\dashboard\hooks\useDashboard.js
  */
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import {
   getDashboardProjectsApi,
@@ -66,6 +66,7 @@ export default function useDashboard(currentUser, trendRange = '5') {
   const {
     data: analyticsData,
     isLoading: loadingAnalytics,
+    isFetching: isFetchingAnalytics,
     error: analyticsQueryError,
     refetch: refetchAnalytics
   } = useQuery({
@@ -91,7 +92,8 @@ export default function useDashboard(currentUser, trendRange = '5') {
       };
     },
     enabled: !!currentUser,
-    staleTime: 7200000, // 2 hours
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    placeholderData: keepPreviousData,
   });
 
   const analytics = analyticsData || { years: [], series: [], rawData: [] };
@@ -101,6 +103,7 @@ export default function useDashboard(currentUser, trendRange = '5') {
   const {
     data: trendingKeywordsData,
     isLoading: loadingKeywords,
+    isFetching: isFetchingKeywords,
     error: keywordsQueryError,
     refetch: refetchKeywords
   } = useQuery({
@@ -117,10 +120,12 @@ export default function useDashboard(currentUser, trendRange = '5') {
         ...yearParams,
       };
       const res = await getDashboardTrendingKeywordsApi(params);
-      return res.data?.chart ?? res.data?.data?.chart ?? res.data ?? null;
+      const payload = res.data?.data ?? res.data?.chart ?? res.data;
+      return payload?.labels ? payload : (payload?.data ?? null);
     },
     enabled: !!currentUser,
-    staleTime: 7200000, // 2 hours
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    placeholderData: keepPreviousData,
   });
 
   const trendingKeywords = trendingKeywordsData || null;
@@ -203,7 +208,9 @@ export default function useDashboard(currentUser, trendRange = '5') {
 
     loadingProjects,
     loadingAnalytics,
+    isFetchingAnalytics,
     loadingKeywords,
+    isFetchingKeywords,
     loadingAuthors,
 
     errorProjects,
