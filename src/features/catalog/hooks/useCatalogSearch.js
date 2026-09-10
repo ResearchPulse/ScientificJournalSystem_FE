@@ -3,11 +3,11 @@
  *
  * File: features\catalog\hooks\useCatalogSearch.js
  */
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { searchJournalsApi } from '../../journal/api/journalApi';
-import { getSubjectAreasApi, getSubjectCategoriesApi } from '../api/catalogApi';
+import { getSubjectAreasApi, getCatalogSubjectCategoriesApi } from '../api/catalogApi';
 import { getCountryStatsApi } from '../../zone/api/zone.api';
 import { normalizeSearchResponse } from '../services/catalogSearchService';
 import { useCatalogSearchStore } from '../store/catalogSearchStore';
@@ -47,6 +47,8 @@ export function useCatalogSearch(currentUser) {
   const selectedZone = searchParams.get('country_id') || '';
   const isOaDiamond = searchParams.get('is_oa_diamond') === 'true';
 
+  const selectedAreaId = selectedAreas[0] || '';
+
   const selectedAreasStr = selectedAreas.join(',');
   const selectedCategoriesStr = selectedCategories.join(',');
   const selectedAccessStr = selectedAccess.join(',');
@@ -73,22 +75,32 @@ export function useCatalogSearch(currentUser) {
   const { data: filtersData, isLoading: loadingFilters } = useQuery({
     queryKey: ['catalog', 'filters'],
     queryFn: async () => {
-      const [areasRes, catsRes, zonesRes] = await Promise.all([
+      const [areasRes, zonesRes] = await Promise.all([
         getSubjectAreasApi(),
-        getSubjectCategoriesApi(),
         getCountryStatsApi({ page: 1, limit: 300 }),
       ]);
       return {
         subjectAreas: areasRes.data?.data?.items || areasRes.data?.data || [],
-        subjectCategories: catsRes.data?.data?.items || catsRes.data?.data || [],
         zones: zonesRes.data?.data?.items || zonesRes.data?.data?.countries || zonesRes.data?.data || [],
       };
     },
     staleTime: 86400000, // 24 hours
   });
 
+  /* ----- Load subject categories dependent on the selected subject area ----- */
+  const { data: categoriesData = [], isLoading: loadingCategories } = useQuery({
+    queryKey: ['catalog', 'categories', selectedAreaId],
+    queryFn: async () => {
+      if (!selectedAreaId) return [];
+      const res = await getCatalogSubjectCategoriesApi({ subject_area_id: selectedAreaId });
+      return res.data?.data || res.data?.data?.items || [];
+    },
+    enabled: Boolean(selectedAreaId),
+    staleTime: 300000, // 5 minutes
+  });
+
   const subjectAreas = filtersData?.subjectAreas || [];
-  const subjectCategories = filtersData?.subjectCategories || [];
+  const subjectCategories = categoriesData;
   const zones = filtersData?.zones || [];
 
   /* ----- Fetch journals whenever URL params change (Cached via TanStack Query) ----- */
@@ -346,7 +358,7 @@ export function useCatalogSearch(currentUser) {
     subjectAreas,
     subjectCategories,
     zones,
-    loadingFilters,
+    loadingFilters: loadingFilters || (Boolean(selectedAreaId) && loadingCategories),
 
     // Results
     journals,
