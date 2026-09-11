@@ -13,8 +13,8 @@
   color: var(--text-main);
   text-align: left;
   font-family: var(--font-display);
-  transition:
-    transform 0.18s ease,
+  animation: slideUp var(--dur-slow, 240ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1)) backwards;
+  transition: transform 0.18s ease,
     border-color 0.18s ease,
     box-shadow 0.18s ease;
 }

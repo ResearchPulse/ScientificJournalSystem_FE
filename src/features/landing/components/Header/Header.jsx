@@ -11,8 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
-import Button from "react-bootstrap/Button";
-import { Icon } from '@ui';
+import { Button, Icon } from '@ui';
 import useAuth from "@features/auth/hooks/useAuth";
 import { useUserStore } from "@/app/store/userStore";
 import ROUTES from "@/app/routes/routePaths";
@@ -238,10 +237,10 @@ export default function Header() {
                   </Dropdown.Menu>
                 </Dropdown>
                 </> : <>
-                  <Button variant="outline-secondary" className="text-xs rounded-pill px-3" onClick={handleAuthLogin}>
+                  <Button variant="outline" size="sm" className="rounded-pill px-3" onClick={handleAuthLogin}>
                     {t("signIn")}
                   </Button>
-                  <Button className="btn-primary-glow border-0 text-white text-xs rounded-pill px-3" onClick={handleAuthRegister}>
+                  <Button variant="primary" size="sm" className="rounded-pill px-3" onClick={handleAuthRegister}>
                     {t("signUp")}
                   </Button>
                 </>}
@@ -319,11 +318,10 @@ export default function Header() {
 
             {/* Mobile Auth options */}
             {email ? <div className="d-flex flex-column gap-3">
-                <Button variant="outline-primary" className="w-100 rounded-pill py-2.5 text-xs font-bold" onClick={() => {
+                <Button variant="outline" size="sm" icon="lucide:layout-dashboard" className="w-100 rounded-pill py-2.5 font-bold" onClick={() => {
               setShowMobileMenu(false);
               navigateWithLang(ROUTES.DASHBOARD);
             }}>
-                  <Icon icon="lucide:layout-dashboard" className="me-1" />
                   {language.startsWith("vi") ? t("landing.bangDieuKhien") : "Go to Dashboard"}
                 </Button>
                 <div className="d-flex align-items-center justify-content-center gap-2 p-2.5 rounded-3 border" style={{
@@ -334,7 +332,7 @@ export default function Header() {
                 height: "28px",
                 borderRadius: "50%",
                 background: "var(--primary)",
-                boxShadow: "0 0 6px rgba(255, 122, 51, 0.15)"
+                boxShadow: "0 0 6px color-mix(in srgb, var(--primary) 25%, transparent)"
               }}>
                     <Icon icon="lucide:user" width="14" />
                   </div>
@@ -353,20 +351,20 @@ export default function Header() {
                     <CoinBalanceBadge />
                   </div>
                 </div>
-                <Button variant="danger" className="w-100 rounded-pill py-2 text-xs font-bold" onClick={() => {
+                <Button variant="destructive" size="sm" className="w-100 rounded-pill py-2 font-bold" onClick={() => {
               logout();
               setShowMobileMenu(false);
             }}>
                   {language.startsWith("vi") ? t("landing.dangXuat") : "Sign Out"}
                 </Button>
               </div> : <div className="d-flex flex-column gap-2">
-                <Button variant="outline-primary" className="w-100 rounded-pill py-2.5 text-xs font-bold" onClick={() => {
+                <Button variant="outline" size="sm" className="w-100 rounded-pill py-2.5 font-bold" onClick={() => {
               setShowMobileMenu(false);
               handleAuthLogin();
             }}>
                   {t("signIn")}
                 </Button>
-                <Button className="btn-primary-glow w-100 rounded-pill py-2.5 text-xs font-bold border-0 text-white" onClick={() => {
+                <Button variant="primary" size="sm" className="w-100 rounded-pill py-2.5 font-bold" onClick={() => {
               setShowMobileMenu(false);
               handleAuthRegister();
             }}>

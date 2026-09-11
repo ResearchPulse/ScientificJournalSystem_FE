@@ -176,18 +176,18 @@
   display: inline-block;
 }
 
-/* Nút phát sáng phong cách primary */
+/* Nút phong cách primary phẳng, không bóng mờ */
 .btn-primary-glow {
   background: var(--primary) !important;
   border: none !important;
   color: #ffffff !important;
   font-weight: 600;
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 30%, transparent);
+  box-shadow: none !important;
   transition: all 0.3s ease;
 }
 .btn-primary-glow:hover {
   background: var(--primary-hover) !important;
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--primary-hover) 45%, transparent);
+  box-shadow: none !important;
   transform: translateY(-1px);
   color: #ffffff !important;
 }

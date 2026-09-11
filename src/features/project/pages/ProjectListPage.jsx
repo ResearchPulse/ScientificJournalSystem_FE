@@ -167,7 +167,7 @@ const ProjectListPage = () => {
                   <span>{t("project.duAnXemGanDay")}</span>
                 </h5>
                 <div className="row g-4">
-                  {recentProjects.map(project => <div key={`recent-${project.project_id || project.id}`} className="col-12 col-md-6 col-lg-4">
+                  {recentProjects.map(project => <div key={`recent-${project.project_id || project.id}`} className="col-12 col-md-6 col-lg-4 reveal-on-scroll">
                       <ProjectCard project={project} onDelete={handleDelete} onRestore={handleRestore} isRecent={true} currentUser={currentUser} />
                     </div>)}
                 </div>
@@ -182,7 +182,7 @@ const ProjectListPage = () => {
                 <span>{t("project.tatCaDuAn")} ({activeProjects.length})</span>
               </h5>
               <div className="row g-4">
-                {activeProjects.map(project => <div key={project.project_id || project.id} className="col-12 col-md-6 col-lg-4">
+                {activeProjects.map(project => <div key={project.project_id || project.id} className="col-12 col-md-6 col-lg-4 reveal-on-scroll">
                     <ProjectCard project={project} onDelete={handleDelete} onRestore={handleRestore} currentUser={currentUser} />
                   </div>)}
               </div>

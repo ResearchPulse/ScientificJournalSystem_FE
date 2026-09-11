@@ -6,8 +6,9 @@ import { useTranslation } from "react-i18next";
  */
 
 import { useNavigate } from 'react-router-dom';
-import { EntityCard, Badge, LoadingSkeleton, Icon } from '@ui';
+import { EntityCard, Badge, LoadingSkeleton, Icon, Button } from '@ui';
 import { formatCount, truncate } from '@shared/utils/formatNumber';
+import './TopAuthorsTable.css';
 
 /** Rank badge — top 3 có màu riêng */
 function RankBadge({
@@ -89,15 +90,17 @@ export default function TopAuthorsTable({
     t
   } = useTranslation();
   const navigate = useNavigate();
-  const actions = onViewAll ? <button className="btn btn-link p-0 text-decoration-none" onClick={onViewAll} style={{
-    fontSize: '0.75rem',
-    color: 'var(--primary)'
-  }} onMouseEnter={e => {
-    e.currentTarget.style.textDecoration = 'underline';
-    e.currentTarget.style.textUnderlineOffset = '4px';
-  }} onMouseLeave={e => {
-    e.currentTarget.style.textDecoration = 'none';
-  }}>{t("dashboard.bangXepHang")}</button> : null;
+  const actions = onViewAll ? (
+    <Button
+      variant="link"
+      size="sm"
+      className="p-0 text-decoration-none fw-semibold"
+      onClick={onViewAll}
+      style={{ fontSize: '0.75rem' }}
+    >
+      {t("dashboard.bangXepHang")}
+    </Button>
+  ) : null;
   const description = loading ? <div className="p-3">
       {[1, 2, 3, 4, 5].map(i => <div key={i} className="d-flex align-items-center gap-3 py-3 px-2 border-bottom border-light">
           <LoadingSkeleton width="28px" height="28px" borderRadius="50%" />
@@ -127,12 +130,7 @@ export default function TopAuthorsTable({
     }}>{t("dashboard.duLieuLeaderboardSeHienThiODay")}</p>
     </div> : <div>
       {/* Table header */}
-      <div className="d-none d-md-grid px-4 py-2 mb-2 rounded-3 mx-2 mt-2" style={{
-      gridTemplateColumns: '40px 200px 1fr 80px 90px',
-      gap: '12px',
-      alignItems: 'center',
-      backgroundColor: 'var(--bg-section)'
-    }}>
+      <div className="d-none d-md-grid px-4 py-2 mb-2 rounded-3 mx-2 mt-2 top-author-header">
         {['#', t("typeAuthor"), t("author.linhVuc"), t("articles"), 'Citations'].map(h => <span key={h} className="text-muted-custom" style={{
         fontSize: '0.7rem',
         fontWeight: 600,
@@ -150,22 +148,9 @@ export default function TopAuthorsTable({
       const articles = author.article_count ?? author.papers ?? author.works_count ?? 0;
       const citations = author.citation_count ?? author.citations ?? author.cited_by_count ?? 0;
       const rank = i + 1;
-      return <div key={author.author_id ?? author.id ?? i} className="d-flex d-md-grid px-3 py-3 align-items-center gap-3 font-display rounded-4" style={{
-        gridTemplateColumns: '40px 200px 1fr 80px 90px',
-        cursor: 'pointer',
-        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-        border: '1px solid transparent'
-      }} onClick={() => onAuthorClick?.(author)} onMouseEnter={e => {
-        e.currentTarget.style.backgroundColor = 'var(--bg-section)';
-        e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.borderColor = 'var(--border)';
-        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.05)';
-      }} onMouseLeave={e => {
-        e.currentTarget.style.backgroundColor = 'transparent';
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.borderColor = 'transparent';
-        e.currentTarget.style.boxShadow = 'none';
-      }}>
+      return <div key={author.author_id ?? author.id ?? i} className="d-flex d-md-grid px-3 py-3 align-items-center gap-3 font-display rounded-4 top-author-row reveal-on-scroll" style={{
+        transitionDelay: `${i * 80}ms`
+      }} onClick={() => onAuthorClick?.(author)}>
             <RankBadge rank={rank} />
             <div className="d-flex align-items-center gap-2">
               <AuthorAvatar name={name} />

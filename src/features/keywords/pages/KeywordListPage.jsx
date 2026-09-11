@@ -60,7 +60,7 @@ export default function KeywordListPage() {
           </ol>
         </nav>
 
-        <section className="keyword-list-hero">
+        <section className="keyword-list-hero reveal-on-scroll">
           <div className="keyword-list-hero__content">
             <div className="keyword-list-eyebrow">
               <Icon icon="lucide:tags" width="18" />
@@ -75,7 +75,7 @@ export default function KeywordListPage() {
           </div>
         </section>
 
-        <div className="keyword-toolbar">
+        <div className="keyword-toolbar reveal-on-scroll">
           <div className="keyword-toolbar__search">
             <KeywordSearchBar value={filters.keyword} onSearch={handleSearch} onClear={handleClearSearch} />
           </div>
@@ -83,7 +83,7 @@ export default function KeywordListPage() {
         </div>
 
         {/* Active filter context */}
-        {filters.keyword && <div className="keyword-active-filter">
+        {filters.keyword && <div className="keyword-active-filter reveal-on-scroll">
             <span>{t("keywords.ketQuaTimKiemCho")}</span>
             <span className="keyword-active-filter__term">
               "{filters.keyword}"
@@ -93,7 +93,9 @@ export default function KeywordListPage() {
           </div>}
 
         {/* Keyword grid */}
-        <KeywordList keywords={keywords} loading={loading} error={error} pagination={pagination} onPageChange={handlePageChange} onViewArticles={handleViewArticles} onRetry={actions.refetch} />
+        <div className="reveal-on-scroll">
+          <KeywordList keywords={keywords} loading={loading} error={error} pagination={pagination} onPageChange={handlePageChange} onViewArticles={handleViewArticles} onRetry={actions.refetch} />
+        </div>
       </Container>
     </div>;
 }

@@ -307,7 +307,7 @@ const ProjectDetailPage = () => {
     }
     return <div className="d-flex flex-column gap-4">
         <div className="row g-3">
-          {summaryCards.map(card => <div className="col-12 col-sm-6 col-lg-3" key={card.label}>
+          {summaryCards.map((card, sIdx) => <div className={`col-12 col-sm-6 col-lg-3 reveal-on-scroll delay-${(sIdx + 1) * 100}`} key={card.label}>
               <div className="glass-card rounded-4 border shadow-sm p-3 h-100">
                 <div className="d-flex justify-content-between align-items-start gap-3">
                   <div>
@@ -329,7 +329,7 @@ const ProjectDetailPage = () => {
             </div>)}
         </div>
 
-        <div className="glass-card rounded-4 border shadow-sm p-4">
+        <div className="glass-card rounded-4 border shadow-sm p-4 reveal-on-scroll">
           <div className="mb-3">
             <h5 className="fw-bold text-main mb-1">{t("project.xuHuongXuatBan")}</h5>
             <p className="text-muted-custom small mb-0">{t("project.soLuongBaiBaoLienQuanTheoTungN")}</p>
@@ -338,14 +338,14 @@ const ProjectDetailPage = () => {
         </div>
 
         <div className="row g-4">
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-6 reveal-on-scroll">
             <div className="glass-card rounded-4 border shadow-sm p-4 h-100">
               <h5 className="fw-bold text-main mb-1">{t("project.phanBoLinhVuc")}</h5>
               <p className="text-muted-custom small mb-3">{t("project.tyTrongBaiBaoTheoSubjectArea")}</p>
               {renderDonutChart(charts.subjectAreaDistribution, 'Subject Areas')}
             </div>
           </div>
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-6 reveal-on-scroll delay-100">
             <div className="glass-card rounded-4 border shadow-sm p-4 h-100">
               <h5 className="fw-bold text-main mb-1">{t("project.loaiNguonXuatBan")}</h5>
               <p className="text-muted-custom small mb-3">{t("project.phanBoTheoJournalConferenceBoo")}</p>
@@ -459,7 +459,7 @@ const ProjectDetailPage = () => {
         </nav>
 
         {/* Header section (Mockup 3) */}
-        <div className="glass-card rounded-4 shadow-sm border p-4 p-md-5 mb-4">
+        <div className="glass-card rounded-4 shadow-sm border p-4 p-md-5 mb-4 reveal-on-scroll">
           <div className="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
             <div>
               <div className="d-flex align-items-center gap-2 mb-3">
@@ -521,7 +521,7 @@ const ProjectDetailPage = () => {
           </div>
         </div>
 
-        <ul className="nav nav-tabs tab-nav-custom mb-4 border-bottom-0 gap-4" style={{
+        <ul className="nav nav-tabs tab-nav-custom mb-4 border-bottom-0 gap-4 reveal-on-scroll" style={{
         paddingLeft: '1rem'
       }}>
           <li className="nav-item">
@@ -558,7 +558,7 @@ const ProjectDetailPage = () => {
         </ul>
 
         {/* Tab Content */}
-        <div className="mb-5">
+        <div className="mb-5 reveal-on-scroll">
           {activeTab === 'overview' && renderOverviewTab()}
 
           {activeTab === 'articles' && <div className="glass-card rounded-4 shadow-sm border p-4">

@@ -1,0 +1,53 @@
+/**
+ * TopAuthorsTable.css
+ */
+
+.top-author-header {
+  grid-template-columns: 40px 200px 1fr 80px 90px;
+  gap: 12px;
+  align-items: center;
+  background-color: var(--bg-section);
+  opacity: 0;
+  transform: translateY(16px);
+  will-change: opacity, transform;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.top-author-header.is-visible,
+.reveal-on-scroll.is-visible .top-author-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.top-author-row {
+  grid-template-columns: 40px 200px 1fr 80px 90px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  opacity: 0;
+  transform: translateY(26px);
+  will-change: opacity, transform;
+  transition:
+    opacity 0.4s ease,
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+/* Kích hoạt nảy lò xo khi cuộn chuột tới bảng */
+.top-author-row.is-visible,
+.reveal-on-scroll.is-visible .top-author-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.top-author-row:hover {
+  background-color: var(--bg-section);
+  transform: translateY(-3px) !important;
+  border-color: var(--border);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}

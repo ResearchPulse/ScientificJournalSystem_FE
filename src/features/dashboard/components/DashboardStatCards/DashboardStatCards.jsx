@@ -49,7 +49,11 @@ export default function DashboardStatCards({
   }];
   return <Row className="g-3 mb-4">
       {cards.map((card, idx) => <Col xs={6} lg={3} key={idx}>
-          <StatCard {...card} loading={loading} />
+          <StatCard
+            {...card}
+            loading={loading}
+            style={{ animationDelay: `${idx * 80}ms` }}
+          />
         </Col>)}
     </Row>;
 }

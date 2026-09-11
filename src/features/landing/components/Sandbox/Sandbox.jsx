@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
-import { Icon } from '@ui';
+import { Button, Icon } from '@ui';
 import useSandboxSearch from "../../hooks/useSandboxSearch";
 
 const typeConfig = {
@@ -157,7 +156,9 @@ export default function Sandbox() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="btn-primary-glow rounded-pill px-4 py-2 text-xs font-bold border-0 d-flex align-items-center gap-2 me-1"
+                  variant="primary"
+                  size="sm"
+                  className="rounded-pill px-4 py-2 me-1"
                   style={{ fontSize: "0.8rem" }}
                 >
                   {isLoading ? (
@@ -194,18 +195,19 @@ export default function Sandbox() {
               </span>
               <div className="d-flex flex-wrap justify-content-center gap-2">
                 {tags.map((tag) => (
-                  <button
+                  <Button
                     key={tag}
                     type="button"
+                    variant="outline"
+                    size="sm"
                     onClick={() => handleTagClick(tag)}
-                    className="px-3 py-1.5 rounded-pill sandbox-tag text-xs font-semibold btn btn-sm"
+                    className="rounded-pill px-3 py-1 font-semibold"
                     style={{
                       fontSize: "0.75rem",
-                      transition: "all 0.2s ease",
                     }}
                   >
                     {tag}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>

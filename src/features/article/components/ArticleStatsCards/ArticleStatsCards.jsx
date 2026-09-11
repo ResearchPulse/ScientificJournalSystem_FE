@@ -33,7 +33,7 @@ export default function ArticleStatsCards({
   return (
     <Row className="g-3 mb-4">
       {statItems.map((item, index) => (
-        <Col key={index} xs={12} sm={6} md={3}>
+        <Col key={index} xs={12} sm={6} md={3} className={`reveal-on-scroll delay-${(index + 1) * 100}`}>
           <StatCard
             label={item.label}
             value={item.value}

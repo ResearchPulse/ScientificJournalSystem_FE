@@ -62,7 +62,7 @@ export default function AuthorDetailPage() {
           </ol>
         </nav>
 
-        <section className="author-detail-hero">
+        <section className="author-detail-hero reveal-on-scroll">
           <div className="author-detail-hero__content d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
             <div>
               <div className="author-detail-eyebrow">
@@ -77,11 +77,11 @@ export default function AuthorDetailPage() {
         </section>
 
         <Row className="g-4">
-          <Col xs={12} lg={4}>
+          <Col xs={12} lg={4} className="reveal-on-scroll">
             <AuthorProfileHeader author={currentAuthor} loading={loadingAuthorDetail} error={errorAuthorDetail} onRetry={() => id && fetchAuthorDetail(id)} />
           </Col>
 
-          <Col xs={12} lg={8}>
+          <Col xs={12} lg={8} className="reveal-on-scroll delay-100">
             <div className="d-flex flex-column gap-4">
               <AuthorAreasBreakdown breakdown={authorBreakdown} loading={loadingAreas} error={errorAreas} onRetry={() => id && fetchAuthorAreasBreakdown(id)} />
 

@@ -6,8 +6,7 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import { Icon } from '@ui';
+import { Button, Icon } from '@ui';
 
 export default function FooterCTA() {
   const { t } = useTranslation();
@@ -64,21 +63,22 @@ export default function FooterCTA() {
           {/* Try Searching Now Button */}
           <Button
             href="#search-sandbox"
-            variant="outline-secondary"
-            className="btn-view-trends w-100 w-sm-auto rounded-pill px-5 py-3 d-flex align-items-center justify-content-center gap-2"
+            variant="outline"
+            icon="lucide:search"
+            className="w-100 w-sm-auto rounded-pill px-5 py-3"
             style={{ fontSize: '0.875rem', fontWeight: 600 }}
           >
-            <Icon icon="lucide:search" className="btn-view-trends-icon fs-5" />
             <span>{t('ctaTryNowBtn')}</span>
           </Button>
 
           {/* Create Free Account Button */}
           <Button
             onClick={handleCreateAccount}
-            className="btn-primary-glow w-100 w-sm-auto rounded-pill px-5 py-3 d-flex align-items-center justify-content-center gap-2 border-0"
+            variant="primary"
+            icon="lucide:user-plus"
+            className="w-100 w-sm-auto rounded-pill px-5 py-3"
             style={{ fontSize: '0.875rem', fontWeight: 700 }}
           >
-            <Icon icon="lucide:user-plus" className="fs-5" />
             <span>{t('ctaCreateAccountBtn')}</span>
           </Button>
         </div>

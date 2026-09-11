@@ -17,8 +17,8 @@ import RecentProjectsCard from "../components/RecentProjectsCard";
 import TrendingKeywordsCard from "../components/TrendingKeywordsCard";
 import QuickAccessGrid from "../components/QuickAccessGrid";
 import TopAuthorsTable from "../components/TopAuthorsTable";
-import { AuthRequiredModal } from '@ui';
-import { PrimaryButton } from '@ui';
+import useScrollReveal from "../../../shared/hooks/useScrollReveal";
+import { AuthRequiredModal, PrimaryButton, Chip } from '@ui';
 
 /**
  * DashboardPage — Trang Tổng quan / Dashboard
@@ -84,6 +84,9 @@ export default function DashboardPage() {
   const handleKeywordClick = keyword => {
     navigate(`/catalog?search=${encodeURIComponent(keyword)}`);
   };
+  // Scroll reveal animation for all cards
+  useScrollReveal('.reveal-on-scroll', [projects, analytics, trendingKeywords, topAuthors]);
+
   return <div className="min-vh-100" style={{
     backgroundColor: "var(--bg-main)",
     color: "var(--text-main)",
@@ -95,7 +98,7 @@ export default function DashboardPage() {
       <Container className="py-4">
         {/* ── Welcome Hero Banner ─────────────────────────────────── */}
         <div
-          className="p-4 p-md-5 mb-4 position-relative overflow-hidden"
+          className="p-4 p-md-5 mb-4 position-relative overflow-hidden reveal-on-scroll"
           style={{
             backgroundColor: "var(--bg-card)",
             border: "1px solid var(--border)",
@@ -105,18 +108,13 @@ export default function DashboardPage() {
         >
           <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-4 position-relative" style={{ zIndex: 1 }}>
             <div>
-              <div
-                className="d-inline-flex align-items-center gap-2 px-3 py-1 mb-3 rounded-pill"
-                style={{
-                  backgroundColor: "var(--primary-light)",
-                  color: "var(--primary)",
-                  fontSize: "0.8rem",
-                  fontWeight: "600"
-                }}
-              >
-                <Icon icon="lucide:sparkles" width={14} />
-                <span>ResearchPulse Analytics</span>
-              </div>
+              <Chip
+                icon="lucide:sparkles"
+                label="ResearchPulse Analytics"
+                variant="minimal"
+                size="sm"
+                className="mb-3"
+              />
               <h1
                 className="font-display fw-bold text-main mb-2"
                 style={{
@@ -149,30 +147,34 @@ export default function DashboardPage() {
         </div>
 
         {/* ── Stat Cards ──────────────────────────────────────────── */}
-        <DashboardStatCards stats={summaryStats} loading={loadingProjects} />
+        <div className="reveal-on-scroll">
+          <DashboardStatCards stats={summaryStats} loading={loadingProjects} />
+        </div>
 
         {/* ── Chart + Recent Projects ─────────────────────────────── */}
         <Row className="g-3 mb-3">
-          <Col xs={12} lg={8}>
+          <Col xs={12} lg={8} className="reveal-on-scroll">
             <PublicationTrendChart analytics={analytics} loading={loadingAnalytics} error={errorAnalytics} onRetry={() => refetchAnalytics()} selectedRange={trendRange} onRangeChange={setTrendRange} />
           </Col>
-          <Col xs={12} lg={4}>
+          <Col xs={12} lg={4} className="reveal-on-scroll delay-100">
             <RecentProjectsCard projects={projects} loading={loadingProjects} error={errorProjects} onViewAll={() => navigate("/projects")} onProjectClick={handleProjectClick} />
           </Col>
         </Row>
 
         {/* ── Trending Keywords + Quick Access ────────────────────── */}
         <Row className="g-3 mb-4">
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} className="reveal-on-scroll">
             <TrendingKeywordsCard keywords={trendingKeywords} loading={loadingKeywords} error={errorKeywords} onKeywordClick={handleKeywordClick} onViewMore={() => navigate("/catalog")} />
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={6} className="reveal-on-scroll delay-100">
             <QuickAccessGrid />
           </Col>
         </Row>
 
         {/* ── Top Authors Table ────────────────────────────────────── */}
-        <TopAuthorsTable authors={topAuthors} loading={loadingAuthors} error={errorAuthors} onAuthorClick={handleAuthorClick} onViewAll={() => navigate("/authors")} />
+        <div className="reveal-on-scroll">
+          <TopAuthorsTable authors={topAuthors} loading={loadingAuthors} error={errorAuthors} onAuthorClick={handleAuthorClick} onViewAll={() => navigate("/authors")} />
+        </div>
       </Container>
 
       {/* Auth modal for guests clicking "Tạo Project mới" */}

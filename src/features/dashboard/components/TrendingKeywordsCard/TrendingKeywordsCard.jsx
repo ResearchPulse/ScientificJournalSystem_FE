@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  * File: features\dashboard\components\TrendingKeywordsCard.jsx
  */
 
-import { EntityCard, Icon } from '@ui';
+import { EntityCard, Icon, Button } from '@ui';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 function KeywordsRechart({
   chartData,
@@ -70,15 +70,17 @@ export default function TrendingKeywordsCard({
   const {
     t
   } = useTranslation();
-  const actions = onViewMore ? <button className="btn btn-link p-0 text-decoration-none" onClick={onViewMore} style={{
-    fontSize: '0.75rem',
-    color: 'var(--primary)'
-  }} onMouseEnter={e => {
-    e.currentTarget.style.textDecoration = 'underline';
-    e.currentTarget.style.textUnderlineOffset = '4px';
-  }} onMouseLeave={e => {
-    e.currentTarget.style.textDecoration = 'none';
-  }}>{t("dashboard.xemThem")}</button> : null;
+  const actions = onViewMore ? (
+    <Button
+      variant="link"
+      size="sm"
+      className="p-0 text-decoration-none fw-semibold"
+      onClick={onViewMore}
+      style={{ fontSize: '0.75rem' }}
+    >
+      {t("dashboard.xemThem")}
+    </Button>
+  ) : null;
   const labels = keywords?.labels || [];
   const dataset = keywords?.datasets?.[0] || {
     data: []

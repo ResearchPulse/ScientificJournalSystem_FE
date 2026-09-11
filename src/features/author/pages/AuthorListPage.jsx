@@ -122,7 +122,7 @@ export default function AuthorListPage() {
           </ol>
         </nav>
 
-        <section className="author-list-hero">
+        <section className="author-list-hero reveal-on-scroll">
           <div className="author-list-hero__content">
             <div className="author-list-eyebrow">
               <Icon icon="lucide:users-round" width="17" />
@@ -136,7 +136,7 @@ export default function AuthorListPage() {
         <AuthorNavigationTabs activeTab="list" />
 
         <Row className="g-3 mb-4">
-          {statCards.map((stat, idx) => <Col xs={12} sm={6} lg={3} key={idx}>
+          {statCards.map((stat, idx) => <Col xs={12} sm={6} lg={3} key={idx} className={`reveal-on-scroll delay-${(idx + 1) * 100}`}>
               <Card className="author-stat-card">
                 <div className="author-stat-header">
                   <span className="author-stat-label">{stat.label}</span>
@@ -148,7 +148,7 @@ export default function AuthorListPage() {
             </Col>)}
         </Row>
 
-        <FilterCard className="author-filter-card mb-4">
+        <FilterCard className="author-filter-card mb-4 reveal-on-scroll">
           <Form onSubmit={handleSearchSubmit}>
             <Row className="g-3 align-items-center author-filter-row">
               <Col xs={12} lg={4}>
@@ -172,7 +172,7 @@ export default function AuthorListPage() {
           </Form>
         </FilterCard>
 
-        <div className="mb-4">
+        <div className="mb-4 reveal-on-scroll">
           {viewMode === 'grid' ? loadingAuthors ? <Row className="g-3">
                 {Array.from({
             length: limitVal
@@ -196,7 +196,11 @@ export default function AuthorListPage() {
               </Row> : <AuthorTable authors={authors} loading={loadingAuthors} error={errorAuthors} onRetry={() => fetchAuthors()} startIndex={startIndex} />}
         </div>
 
-        {authors.length > 0 && totalPagesCount > 1 && <AdminPagination totalItems={totalAuthors} currentPage={pageVal} limit={limitVal} onPageChange={handlePageChange} entityName={t("author.tacGia")} />}
+        {authors.length > 0 && totalPagesCount > 1 && (
+          <div className="reveal-on-scroll">
+            <AdminPagination totalItems={totalAuthors} currentPage={pageVal} limit={limitVal} onPageChange={handlePageChange} entityName={t("author.tacGia")} />
+          </div>
+        )}
       </Container>
     </div>;
 }

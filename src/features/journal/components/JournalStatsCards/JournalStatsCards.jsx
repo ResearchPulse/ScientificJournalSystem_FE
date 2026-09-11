@@ -36,7 +36,7 @@ export default function JournalStatsCards({
   return (
     <Row className="g-4 mb-4">
       {cardData.map((item, idx) => (
-        <Col lg={3} md={6} xs={12} key={idx}>
+        <Col lg={3} md={6} xs={12} key={idx} className={`reveal-on-scroll delay-${(idx + 1) * 100}`}>
           <StatCard
             label={item.title}
             value={item.value}

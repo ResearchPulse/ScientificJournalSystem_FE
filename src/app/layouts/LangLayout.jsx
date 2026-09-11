@@ -6,6 +6,7 @@
 import { useEffect } from 'react';
 import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import i18n from '../../shared/i18n/i18n';
+import useScrollReveal from '../../shared/hooks/useScrollReveal';
 import {
   getDefaultLang,
   isSupportedLang,
@@ -30,6 +31,9 @@ const LangLayout = () => {
       i18n.changeLanguage(lang);
     }
   }, [lang]);
+
+  // Global scroll reveal observer across all pages
+  useScrollReveal('.reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale', [location.pathname]);
 
   if (!isSupportedLang(lang)) {
     const fallbackLang = getDefaultLang();

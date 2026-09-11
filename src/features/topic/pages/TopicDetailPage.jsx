@@ -115,7 +115,7 @@ export default function TopicDetailPage() {
           </ol>
         </nav>
 
-        <Card className="topic-detail-hero">
+        <Card className="topic-detail-hero reveal-on-scroll">
           <Card.Body className="topic-detail-hero__body">
             <Row className="g-5 align-items-center">
               <Col lg={8}>
@@ -157,7 +157,7 @@ export default function TopicDetailPage() {
           </Card.Body>
         </Card>
 
-        <div className="topic-detail-section-heading d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div className="topic-detail-section-heading d-flex align-items-center justify-content-between flex-wrap gap-3 reveal-on-scroll">
           <div>
             <h2 className="topic-detail-section-title">{t("topic.baiBaoThuocTopic")}</h2>
             <p className="topic-detail-section-subtitle">
@@ -177,7 +177,7 @@ export default function TopicDetailPage() {
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           </div> : <div className="d-grid gap-3">
-            {articles.length === 0 ? <StateCard variant="neutral" icon="lucide:file-question" title={t("topic.khongCoDuLieu")} description={t("topic.chuaCoBaiBaoNaoChoTopicNay")} className="my-4" /> : articles.map(article => <Card key={article.id} className="topic-detail-article-card">
+            {articles.length === 0 ? <StateCard variant="neutral" icon="lucide:file-question" title={t("topic.khongCoDuLieu")} description={t("topic.chuaCoBaiBaoNaoChoTopicNay")} className="my-4" /> : articles.map(article => <Card key={article.id} className="topic-detail-article-card reveal-on-scroll">
                   <Card.Body className="p-4">
                     <div className="d-flex justify-content-between align-items-start gap-3 flex-wrap">
                       <div className="flex-grow-1">
@@ -201,7 +201,11 @@ export default function TopicDetailPage() {
                 </Card>)}
           </div>}
 
-        {articles.length > 0 && totalPages > 1 && <AdminPagination totalItems={pagination.total} currentPage={pagination.page} limit={pagination.limit} onPageChange={handlePageChange} entityName="bài báo" />}
+        {articles.length > 0 && totalPages > 1 && (
+          <div className="reveal-on-scroll">
+            <AdminPagination totalItems={pagination.total} currentPage={pagination.page} limit={pagination.limit} onPageChange={handlePageChange} entityName="bài báo" />
+          </div>
+        )}
       </Container>
     </div>;
 }

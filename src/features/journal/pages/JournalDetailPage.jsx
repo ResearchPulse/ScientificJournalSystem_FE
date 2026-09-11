@@ -121,16 +121,22 @@ export default function JournalDetailPage() {
         </div>
 
         {/* Hero Section */}
-        <JournalHero journal={journal} isFollowing={isFollowing} isAddingToProject={isAddingToProject} onFollow={handleFollow} onAddToProject={() => handleAddToProject()} loading={loadingJournal} />
+        <div className="reveal-on-scroll">
+          <JournalHero journal={journal} isFollowing={isFollowing} isAddingToProject={isAddingToProject} onFollow={handleFollow} onAddToProject={() => handleAddToProject()} loading={loadingJournal} />
+        </div>
 
         {/* Grid Metadata metrics */}
-        <JournalMetadataGrid journal={journal} loading={loadingJournal} />
+        <div className="reveal-on-scroll delay-100">
+          <JournalMetadataGrid journal={journal} loading={loadingJournal} />
+        </div>
 
         {/* Tab Controls */}
-        <JournalTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <div className="reveal-on-scroll">
+          <JournalTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        </div>
 
         {/* Tab Contents */}
-        <div className="journal-tab-panel">
+        <div className="journal-tab-panel reveal-on-scroll">
           {activeTab === 'ranking' && <RankingTabContent rankingHistory={rankingHistory} metricName={journal?.metric_name || 'Impact Factor'} loading={loadingRanking} />}
 
           {activeTab === 'volumes' && <VolumesTabContent volumes={volumes} issuesByVolume={issuesByVolume} issueErrors={issueErrors} journalId={id} onVolumeExpand={fetchIssuesForVolume} loading={loadingVolumes} error={volumesError} volumePagination={volumePagination} issuePaginationByVolume={issuePaginationByVolume} onVolumePageChange={handleVolumePageChange} onIssuePageChange={handleIssuePageChange} />}

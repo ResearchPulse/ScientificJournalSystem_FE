@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import { Icon } from '@ui';
+import { Button, Icon } from '@ui';
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -78,20 +77,22 @@ export default function Hero() {
           {/* Start Searching Button */}
           <Button
             href="#search-sandbox"
-            className="btn-primary-glow rounded-pill px-5 py-3 d-flex align-items-center justify-content-center gap-2"
+            variant="primary"
+            icon="lucide:rocket"
+            className="rounded-pill px-5 py-3"
             style={{ fontSize: '0.875rem', letterSpacing: '0.03em' }}
           >
-            <Icon icon="lucide:rocket" className="fs-5" />
             <span>{t('ctaSearch')}</span>
           </Button>
 
           {/* View Trends Button */}
           <Button
             href="#features"
-            variant="outline-secondary"
-            className="btn-view-trends rounded-pill px-5 py-3 d-flex align-items-center justify-content-center gap-2"
+            variant="outline"
+            icon="lucide:bar-chart-2"
+            className="rounded-pill px-5 py-3"
+            style={{ fontSize: '0.875rem', letterSpacing: '0.03em' }}
           >
-            <Icon icon="lucide:bar-chart-2" className="fs-5 btn-view-trends-icon" />
             <span>{t('ctaTrends')}</span>
           </Button>
         </div>

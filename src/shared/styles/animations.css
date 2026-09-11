@@ -195,3 +195,69 @@
 .duration-normal { animation-duration: var(--dur-normal) !important; } /* Tốc độ vừa (220ms) */
 .duration-slow { animation-duration: var(--dur-slow) !important; }     /* Tốc độ chậm (350ms) */
 .duration-slower { animation-duration: var(--dur-slower) !important; } /* Tốc độ rất chậm (500ms) */
+
+/* ─── 5. Hiệu ứng cuộn chuột tới đâu trượt hiện tới đó (Scroll Reveal Utilities) ─── */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+  transition:
+    opacity var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  will-change: opacity, transform;
+  transition:
+    opacity var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.reveal-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  will-change: opacity, transform;
+  transition:
+    opacity var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.reveal-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  will-change: opacity, transform;
+  transition:
+    opacity var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform var(--dur-slow, 350ms) var(--ease-smooth, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hỗ trợ transition-delay cho scroll reveal */
+.reveal-on-scroll.delay-75, .reveal-scale.delay-75 { transition-delay: 75ms; }
+.reveal-on-scroll.delay-100, .reveal-scale.delay-100 { transition-delay: 100ms; }
+.reveal-on-scroll.delay-150, .reveal-scale.delay-150 { transition-delay: 150ms; }
+.reveal-on-scroll.delay-200, .reveal-scale.delay-200 { transition-delay: 200ms; }
+.reveal-on-scroll.delay-300, .reveal-scale.delay-300 { transition-delay: 300ms; }
+.reveal-on-scroll.delay-400, .reveal-scale.delay-400 { transition-delay: 400ms; }
+.reveal-on-scroll.delay-500, .reveal-scale.delay-500 { transition-delay: 500ms; }

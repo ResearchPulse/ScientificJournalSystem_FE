@@ -142,7 +142,7 @@ export default function GeographyPage() {
         </div>
 
         {/* Header */}
-        <div className="mb-4 pb-2 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <div className="mb-4 pb-2 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 reveal-on-scroll">
           <div>
             <h1 className="geography-title">{t("zone.phanBoTapChiTheoQuocGia")}</h1>
             <p className="geography-subtitle">{t("zone.xemThongKeSoLuongAnPhamKhoaHoc")}</p>
@@ -180,18 +180,18 @@ export default function GeographyPage() {
         {/* Main Content Layout */}
         <Row className="g-4">
           {/* Left Column: Chart Area */}
-          <Col xs={12} lg={7} xl={8}>
+          <Col xs={12} lg={7} xl={8} className="reveal-on-scroll">
             <GeographyTerritoryChart data={countryStats} loading={loadingCountries} selectedCountry={selectedCountry} onSelectCountry={handleSelectCountry} selectedYear={selectedYear} />
           </Col>
 
           {/* Right Column: Ranking Table */}
-          <Col xs={12} lg={5} xl={4}>
+          <Col xs={12} lg={5} xl={4} className="reveal-on-scroll delay-100">
             <GeographyRankingTable data={countryStats} loading={loadingCountries} selectedCountry={selectedCountry} onSelectCountry={handleSelectCountry} />
           </Col>
         </Row>
 
         {/* Selected Country Articles List */}
-        {selectedCountry && <Row className="mt-4" ref={articlesRef}>
+        {selectedCountry && <Row className="mt-4 reveal-on-scroll" ref={articlesRef}>
             <Col xs={12}>
               <GeographyArticleList articles={articles} loading={loadingArticles} total={totalArticles} page={articlesPage} totalPages={totalPages} onPageChange={setArticlesPage} onDetailClick={handleDetailClick} countryName={selectedCountry.name} />
             </Col>

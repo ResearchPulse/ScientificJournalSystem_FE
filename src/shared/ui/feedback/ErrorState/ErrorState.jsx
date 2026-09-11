@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from 'react-bootstrap';
+import Button from '../../components/Button';
 import Icon from '../../primitives/Icon';
 
 /**
@@ -78,10 +78,12 @@ export default function ErrorState({
 
       {onRetry && (
         <Button
-          className="btn-dark-solid btn-ripple rounded-pill px-4 py-2 text-xs font-bold"
+          variant="primary"
+          size="sm"
+          icon="lucide:rotate-cw"
+          className="rounded-pill px-4 py-2"
           onClick={handleRetryClick}
         >
-          <Icon icon="lucide:rotate-cw" width="12" className="me-1.5" />
           {resolvedRetryLabel}
         </Button>
       )}

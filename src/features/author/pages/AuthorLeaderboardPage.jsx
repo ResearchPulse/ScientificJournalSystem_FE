@@ -66,7 +66,7 @@ export default function AuthorLeaderboardPage() {
           </ol>
         </nav>
 
-        <section className="author-leaderboard-hero">
+        <section className="author-leaderboard-hero reveal-on-scroll">
           <div className="author-leaderboard-hero__content d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
             <div>
               <div className="author-leaderboard-eyebrow">
@@ -84,7 +84,7 @@ export default function AuthorLeaderboardPage() {
 
         <AuthorNavigationTabs activeTab="leaderboard" />
 
-        <FilterCard className="author-leaderboard-filter-card">
+        <FilterCard className="author-leaderboard-filter-card reveal-on-scroll">
           <Row className="g-3 align-items-center">
             <Col xs={12} sm={6} md={4}>
               <div className="author-leaderboard-filter-control">
@@ -126,12 +126,14 @@ export default function AuthorLeaderboardPage() {
           </Row>
         </FilterCard>
 
-        <AuthorLeaderboardTable authors={leaderboard} loading={loadingLeaderboard} error={errorLeaderboard} onRetry={() => fetchLeaderboard({
-        subject_area: selectedArea,
-        period: selectedPeriod,
-        page: currentPage,
-        limit: limit
-      })} />
+        <div className="reveal-on-scroll">
+          <AuthorLeaderboardTable authors={leaderboard} loading={loadingLeaderboard} error={errorLeaderboard} onRetry={() => fetchLeaderboard({
+          subject_area: selectedArea,
+          period: selectedPeriod,
+          page: currentPage,
+          limit: limit
+        })} />
+        </div>
 
         {leaderboard.length > 0 && leaderboardTotalPages > 1 && <AdminPagination totalItems={totalLeaderboard} currentPage={currentPage} limit={limit} onPageChange={setCurrentPage} entityName={t("author.tacGia")} />}
       </Container>

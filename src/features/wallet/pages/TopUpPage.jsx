@@ -146,7 +146,7 @@ export default function TopUpPage() {
         </div>
 
         {/* ── Wallet Balance Bar ── */}
-        <div className="topup-wallet-bar">
+        <div className="topup-wallet-bar reveal-on-scroll">
           <div className="topup-wallet-bar__left">
             <div className="topup-wallet-bar__icon">
               <Icon icon="solar:wallet-bold" width={22} color="var(--primary)" />
@@ -165,7 +165,7 @@ export default function TopUpPage() {
         </div>
 
         {/* ── Package Selection ── */}
-        <div className="topup-section-title">{t("wallet.chonGoiCoinPhuHop")}</div>
+        <div className="topup-section-title reveal-on-scroll">{t("wallet.chonGoiCoinPhuHop")}</div>
 
         {loadingPackages && <div className="topup-loading-area">
             <div className="spinner-border spinner-border-sm" role="status" style={{
@@ -190,9 +190,9 @@ export default function TopUpPage() {
           </div>}
 
         {!loadingPackages && packages.length > 0 && <div className="topup-packages-grid">
-            {packages.map(pkg => {          const isRecommended = pkg.coin_amount === RECOMMENDED_COIN_AMOUNT;
+            {packages.map((pkg, idx) => {          const isRecommended = pkg.coin_amount === RECOMMENDED_COIN_AMOUNT;
           const isSelected = selectedPkgId === pkg.package_id;
-          return <button key={pkg.package_id} className={`topup-pkg-card ${isSelected ? 'selected' : ''}`} onClick={() => setSelectedPkgId(pkg.package_id)} type="button" aria-pressed={isSelected}>
+          return <button key={pkg.package_id} className={`topup-pkg-card reveal-on-scroll delay-${((idx % 4) + 1) * 100} ${isSelected ? 'selected' : ''}`} onClick={() => setSelectedPkgId(pkg.package_id)} type="button" aria-pressed={isSelected}>
                   {isRecommended && <div className="topup-pkg-card__badge">{t("wallet.khuyenDung")}</div>}
 
                   <div className="topup-pkg-card__check">
@@ -235,8 +235,8 @@ export default function TopUpPage() {
 
         {/* ── Payment Method ── */}
         {!loadingPackages && packages.length > 0 && <>
-            <div className="topup-section-title">{t("wallet.phuongThucThanhToan")}</div>
-            <div className="topup-method-row">
+            <div className="topup-section-title reveal-on-scroll">{t("wallet.phuongThucThanhToan")}</div>
+            <div className="topup-method-row reveal-on-scroll">
               {PAYMENT_METHODS.map(m => <button key={m.key} type="button" className={`topup-method-btn ${paymentMethod === m.key ? 'active' : ''}`} onClick={() => !m.disabled && setPaymentMethod(m.key)} disabled={m.disabled} title={m.disabled ? t("wallet.sapRaMat") : m.label}>
                   <Icon icon={m.icon} width={18} color={m.color} />
                   {m.label}
@@ -250,7 +250,7 @@ export default function TopUpPage() {
           </>}
 
         {/* ── CTA ── */}
-        {!loadingPackages && packages.length > 0 && <div className="topup-cta-row">
+        {!loadingPackages && packages.length > 0 && <div className="topup-cta-row reveal-on-scroll">
             <Button
               variant="primary"
               size="lg"
@@ -265,7 +265,7 @@ export default function TopUpPage() {
           </div>}
 
         {/* ── Benefits Section ── */}
-        <div className="topup-benefits">
+        <div className="topup-benefits reveal-on-scroll">
           <div className="topup-benefits__title">{t("wallet.taiSaoNenSuDungResearchpulseCo")}</div>
           <div className="topup-benefits__grid">
             {BENEFITS.map(b => <div className="topup-benefit-item" key={b.title}>

@@ -74,16 +74,25 @@
 /* ─── 4. Biến thể: Pill (Viên con nhộng bo tròn tối đa có nền nhẹ) ─── */
 .ui-chip--pill {
   border-radius: 50rem !important;
-  background-color: color-mix(in srgb, var(--primary) 6%, transparent);
-  border-color: color-mix(in srgb, var(--primary) 14%, transparent);
-  color: var(--text-main);
+  background-color: var(--primary-light, color-mix(in srgb, var(--primary) 8%, transparent));
+  border-color: transparent;
+  color: var(--primary);
+  font-weight: 600;
+}
+.ui-chip--pill.ui-chip--sm {
+  padding: 3px 12px;
+}
+.ui-chip--pill.ui-chip--md {
+  padding: 4px 14px;
+}
+.ui-chip--pill.ui-chip--lg {
+  padding: 6px 18px;
 }
 .ui-chip--pill .ui-chip__icon {
   color: var(--primary);
 }
 .ui-chip--pill.ui-chip--interactive:hover {
-  background-color: color-mix(in srgb, var(--primary-hover) 12%, transparent);
-  border-color: color-mix(in srgb, var(--primary-hover) 25%, transparent);
+  background-color: color-mix(in srgb, var(--primary) 14%, transparent);
   color: var(--primary-hover);
 }
 .ui-chip--pill.ui-chip--interactive:hover .ui-chip__icon {

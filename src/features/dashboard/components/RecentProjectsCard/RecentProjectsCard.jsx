@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
  */
 import { useState } from 'react';
 
-import { EntityCard, Badge, LoadingSkeleton, Icon } from '@ui';
+import { EntityCard, Badge, LoadingSkeleton, Icon, Button } from '@ui';
 
 function ProjectStatusBadge({
   status
@@ -114,21 +114,23 @@ export default function RecentProjectsCard({
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil((projects?.length ?? 0) / ITEMS_PER_PAGE));
   const paginatedProjects = projects.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
-  const actions = onViewAll ? <button className="btn btn-link p-0 text-decoration-none" onClick={onViewAll} style={{
-    fontSize: '0.75rem',
-    color: 'var(--primary)'
-  }} onMouseEnter={e => {
-    e.currentTarget.style.textDecoration = 'underline';
-    e.currentTarget.style.textUnderlineOffset = '4px';
-  }} onMouseLeave={e => {
-    e.currentTarget.style.textDecoration = 'none';
-  }}>{t("dashboard.xemTatCa")}</button> : null;
+  const actions = onViewAll ? (
+    <Button
+      variant="link"
+      size="sm"
+      className="p-0 text-decoration-none fw-semibold"
+      onClick={onViewAll}
+      style={{ fontSize: '0.75rem' }}
+    >
+      {t("dashboard.xemTatCa")}
+    </Button>
+  ) : null;
   const description = <div className="px-1">
       {loading ? [1, 2, 3].map(i => <div key={i} className="d-flex align-items-center gap-3 px-3 py-3">
             <LoadingSkeleton width="40px" height="40px" borderRadius="10px" />
             <div className="flex-grow-1">
-              <LoadingSkeleton width="70%" height="14px" className="mb-2" />
-              <LoadingSkeleton width="50%" height="11px" />
+               <LoadingSkeleton width="70%" height="14px" className="mb-2" />
+               <LoadingSkeleton width="50%" height="11px" />
             </div>
           </div>) : error ? <div className="text-center py-5 px-3">
           <Icon icon="lucide:alert-circle" width={32} style={{
@@ -151,13 +153,16 @@ export default function RecentProjectsCard({
           {paginatedProjects.map((p, i) => <RecentProjectItem key={p.project_id ?? p.id ?? i} project={p} onClick={() => onProjectClick?.(p)} />)}
 
           {totalPages > 1 && <div className="d-flex align-items-center justify-content-between gap-2 px-3 pt-3 pb-2">
-              <button type="button" className="btn btn-sm" onClick={() => setPage(prev => Math.max(1, prev - 1))} disabled={page === 1} style={{
-          border: '1px solid var(--border)',
-          background: 'var(--bg-card)',
-          color: page === 1 ? 'var(--text-muted)' : 'var(--text-main)',
-          fontSize: '0.72rem',
-          fontWeight: 600
-        }}>{t("dashboard.truoc")}</button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setPage(prev => Math.max(1, prev - 1))}
+                disabled={page === 1}
+                style={{ fontSize: '0.72rem', paddingInline: '0.6rem', minHeight: '28px' }}
+              >
+                {t("dashboard.truoc")}
+              </Button>
 
               <span className="text-muted-custom" style={{
           fontSize: '0.72rem'
@@ -165,15 +170,16 @@ export default function RecentProjectsCard({
                 {t("dashboard.trang")} {page}/{totalPages}
               </span>
 
-              <button type="button" className="btn btn-sm" onClick={() => setPage(prev => Math.min(totalPages, prev + 1))} disabled={page === totalPages} style={{
-          border: '1px solid var(--border)',
-          background: 'var(--bg-card)',
-          color: page === totalPages ? 'var(--text-muted)' : 'var(--text-main)',
-          fontSize: '0.72rem',
-          fontWeight: 600
-        }}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => setPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={page === totalPages}
+                style={{ fontSize: '0.72rem', paddingInline: '0.6rem', minHeight: '28px' }}
+              >
                 {t("dashboard.sau")} →
-              </button>
+              </Button>
             </div>}
         </>}
     </div>;

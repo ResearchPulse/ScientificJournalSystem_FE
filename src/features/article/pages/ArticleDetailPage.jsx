@@ -243,7 +243,7 @@ export default function ArticleDetailPage() {
       <Container fluid className="position-relative z-1 px-3 px-xl-5">
         {isLoading ? <ArticleDetailSkeleton /> : error ? <ArticleDetailError errorMsg={error} onRetry={fetchArticleDetail} /> : !article ? <ArticleDetailEmpty articleId={id} /> : <main className="article-detail-container">
             <div className="article-detail-shell">
-              <aside className="article-detail-sidebar d-none d-xl-block">
+              <aside className="article-detail-sidebar d-none d-xl-block reveal-on-scroll">
                 <h2 className={`article-detail-journal-title mb-4 ${article.journal_id ? 'is-clickable' : ''}`} role={article.journal_id ? 'button' : undefined} onClick={() => article.journal_id && navigate(`/journals/${article.journal_id}`)}>
                   {article.journal_name || 'Scientific Journal'}
                 </h2>
@@ -275,7 +275,7 @@ export default function ArticleDetailPage() {
                 </div>
               </aside>
 
-              <section className="article-detail-main">
+              <section className="article-detail-main reveal-on-scroll">
                 <div className="article-detail-breadcrumb">
                   <span role="button" onClick={() => navigate('/articles')} className="article-detail-breadcrumb-link">{t("articles")}</span>
                   <Icon icon="lucide:chevron-right" width="12" />
@@ -359,7 +359,7 @@ export default function ArticleDetailPage() {
                 {activeTab === 'preview' ? <div className="article-preview-grid">
                     <article>
                       {/* TL;DR section */}
-                      {article.semantic_tldr && <section id="tldr" className="article-section">
+                      {article.semantic_tldr && <section id="tldr" className="article-section reveal-on-scroll">
                           <h2 className="article-section-title" style={{
                     fontSize: '1.4rem'
                   }}>TL;DR</h2>
@@ -374,7 +374,7 @@ export default function ArticleDetailPage() {
                           </div>
                         </section>}
 
-                      <section id="abstract" className="article-section">
+                      <section id="abstract" className="article-section reveal-on-scroll">
                         <h2 className="article-section-title" style={{
                     fontSize: '1.65rem'
                   }}>{t("article.abstract")}</h2>
@@ -384,7 +384,7 @@ export default function ArticleDetailPage() {
                       </section>
 
 
-                      <section id="section-snippets" className="article-section">
+                      <section id="section-snippets" className="article-section reveal-on-scroll">
                         <h2 className="article-section-title">Section snippets</h2>
                         <p className="article-section-text" style={{
                     fontSize: '0.98rem'

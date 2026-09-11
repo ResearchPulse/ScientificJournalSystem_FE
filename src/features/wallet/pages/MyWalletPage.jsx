@@ -123,7 +123,7 @@ export default function MyWalletPage() {
         <span>My Wallet</span>
       </div>
 
-      <div className="my-wallet-hero">
+      <div className="my-wallet-hero reveal-on-scroll">
         <h1 className="my-wallet-title">{t("wallet.tongQuanTaiChinh")}</h1>
         <p className="my-wallet-subtitle">{t("wallet.theoDoiSoDuKiemTraLichSuBienDo")}</p>
       </div>
@@ -131,7 +131,7 @@ export default function MyWalletPage() {
       <div className="my-wallet-grid">
         <div className="my-wallet-left-stack">
           {/* Balance Card */}
-          <div className="my-wallet-balance-card">
+          <div className="my-wallet-balance-card reveal-on-scroll">
             <div>
               <div className="my-wallet-balance-label">{t("wallet.soDuKhaDung")}</div>
               <div className="my-wallet-balance-value">
@@ -149,7 +149,7 @@ export default function MyWalletPage() {
           </div>
 
           {/* Transactions Card */}
-          <div className="my-wallet-card">
+          <div className="my-wallet-card reveal-on-scroll">
             <div className="my-wallet-card-header">
               <div className="my-wallet-card-title">
                 <Icon icon="lucide:clock" width={18} />{t("wallet.lichSuGiaoDichGanDay")}</div>
@@ -211,18 +211,18 @@ export default function MyWalletPage() {
         <div className="my-wallet-right-stack">
           {/* Stats cards */}
           <div className="my-wallet-stats-grid">
-            <div className="my-wallet-stat-card">
+            <div className="my-wallet-stat-card reveal-on-scroll">
               <div className="my-wallet-stat-label">{t("wallet.daSuDung")}</div>
               <div className="my-wallet-stat-value">{formatCoin(totalSpent)} Coins</div>
             </div>
-            <div className="my-wallet-stat-card">
+            <div className="my-wallet-stat-card reveal-on-scroll delay-100">
               <div className="my-wallet-stat-label">{t("wallet.daNap")}</div>
               <div className="my-wallet-stat-value">{formatCoin(totalDeposit)} Coins</div>
             </div>
           </div>
 
           {/* Linked accounts */}
-          <div className="my-wallet-card">
+          <div className="my-wallet-card reveal-on-scroll">
             <div className="my-wallet-card-title" style={{
             marginBottom: 16
           }}>
@@ -242,7 +242,7 @@ export default function MyWalletPage() {
           </div>
 
           {/* Security note */}
-          <div className="my-wallet-card bg-secure">
+          <div className="my-wallet-card bg-secure reveal-on-scroll">
             <div className="my-wallet-card-title" style={{
             color: '#16a34a',
             marginBottom: 8

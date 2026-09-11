@@ -58,7 +58,7 @@ export default function JournalListPage() {
           </ol>
         </nav>
 
-        <section className="journal-list-hero">
+        <section className="journal-list-hero reveal-on-scroll">
           <div className="journal-list-hero__content">
             <div className="journal-list-eyebrow">
               <Icon icon="lucide:library" width="17" />
@@ -73,7 +73,9 @@ export default function JournalListPage() {
         <JournalStatsCards stats={stats} loading={loadingStats} />
 
         {/* Search & Filter Bar */}
-        <JournalSearchBar searchInput={searchInput} setSearchInput={setSearchInput} quartile={quartile} setQuartile={setQuartile} isOpenAccess={isOpenAccess} setIsOpenAccess={setIsOpenAccess} onSubmit={handleSearchSubmit} onClear={handleClearAll} />
+        <div className="reveal-on-scroll">
+          <JournalSearchBar searchInput={searchInput} setSearchInput={setSearchInput} quartile={quartile} setQuartile={setQuartile} isOpenAccess={isOpenAccess} setIsOpenAccess={setIsOpenAccess} onSubmit={handleSearchSubmit} onClear={handleClearAll} />
+        </div>
 
         {/* Error State */}
         {error && <div className="journal-alert alert d-flex align-items-center gap-2 mb-4" role="alert">
@@ -82,16 +84,16 @@ export default function JournalListPage() {
           </div>}
 
         {/* Table & Loading Skeleton wrapper */}
-        {isLoading ? <div className="journal-loading-panel">
+        {isLoading ? <div className="journal-loading-panel reveal-on-scroll">
             <div className="skeleton-shimmer journal-skeleton-line mb-3" />
             {[1, 2, 3, 4, 5].map(i => <div key={i} className="skeleton-shimmer journal-skeleton-row mb-2" />)}
-          </div> : <>
+          </div> : <div className="reveal-on-scroll">
             {/* Journal Table */}
             <JournalTable journals={journals} page={pagination.page} limit={pagination.limit} />
 
             {/* Pagination Controls */}
             {journals.length > 0 && totalPages > 1 && <AdminPagination totalItems={pagination.total} currentPage={pagination.page} limit={pagination.limit} onPageChange={handlePageChange} entityName="tạp chí" />}
-          </>}
+          </div>}
       </Container>
     </div>;
 }

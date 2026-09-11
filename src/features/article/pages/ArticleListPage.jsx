@@ -53,7 +53,7 @@ export default function ArticleListPage() {
         </nav>
 
         {/* Page Header */}
-        <section className="article-list-hero" aria-labelledby="article-list-title">
+        <section className="article-list-hero reveal-on-scroll" aria-labelledby="article-list-title">
           <div>
             <div className="article-list-eyebrow">
               <Icon icon="lucide:library-big" width="15" height="15" />
@@ -84,7 +84,9 @@ export default function ArticleListPage() {
         <ArticleStatsCards stats={stats} isLoading={isLoading} />
 
         {/* Thanh lọc & Sắp xếp */}
-        <ArticleFilterBar filters={filters} updateFilters={updateFilters} clearFilters={clearFilters} />
+        <div className="reveal-on-scroll">
+          <ArticleFilterBar filters={filters} updateFilters={updateFilters} clearFilters={clearFilters} />
+        </div>
 
         {/* Kết quả đếm */}
         <div className="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
@@ -98,10 +100,16 @@ export default function ArticleListPage() {
         </div>
 
         {/* Bảng dữ liệu */}
-        <ArticleTable articles={articles} isLoading={isLoading} onDetailClick={handleDetailClick} onClearFilters={clearFilters} />
+        <div className="reveal-on-scroll">
+          <ArticleTable articles={articles} isLoading={isLoading} onDetailClick={handleDetailClick} onClearFilters={clearFilters} />
+        </div>
 
         {/* Phân trang */}
-        {total > 0 && totalPages > 1 && <AdminPagination totalItems={total} currentPage={currentPage} limit={10} onPageChange={handlePageChange} entityName="bài báo" />}
+        {total > 0 && totalPages > 1 && (
+          <div className="reveal-on-scroll">
+            <AdminPagination totalItems={total} currentPage={currentPage} limit={10} onPageChange={handlePageChange} entityName="bài báo" />
+          </div>
+        )}
       </Container>
 
       {/* Warning Auth Modal */}

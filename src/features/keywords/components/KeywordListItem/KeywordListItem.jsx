@@ -19,7 +19,7 @@ export default function KeywordListItem({
   } = useTranslation();
   const keywordId = keyword.keyword_id || keyword.id || keyword.keywordId;
   const articleCount = Number(keyword.article_count || 0);
-  return <div className="keyword-card">
+  return <div className="keyword-card reveal-on-scroll">
       <div className="d-flex align-items-start justify-content-between gap-3 mb-3">
         <div>
           <div className="keyword-card-label">

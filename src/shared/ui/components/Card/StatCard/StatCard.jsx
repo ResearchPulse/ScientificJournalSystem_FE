@@ -39,7 +39,8 @@ export default function StatCard({
   loading = false,
   formatValue = true,
   onClick,
-  className = ''
+  className = '',
+  style = {}
 }) {
   const {
     t
@@ -54,7 +55,8 @@ export default function StatCard({
       <span>{isNeutral ? t("common.khongDoi") : `${formatGrowth(growth)} ${growthLabelText}`}</span>
     </span> : null);
   return <Tag type={onClick ? 'button' : undefined} onClick={onClick} className={`shared-stat-card ${onClick ? 'shared-stat-card--interactive' : ''} ${className}`.trim()} style={{
-    '--stat-card-accent': accentColor
+    '--stat-card-accent': accentColor,
+    ...style
   }}>
       {loading ? <div className="shared-stat-card__skeleton" aria-label="Đang tải thống kê">
           <div className="skeleton-shimmer shared-stat-card__skeleton-icon" />
