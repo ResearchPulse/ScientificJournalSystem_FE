@@ -28,7 +28,9 @@ button.shared-stat-card {
 }
 
 .shared-stat-card:hover,
-.shared-stat-card--interactive:hover {
+.shared-stat-card--interactive:hover,
+.shared-stat-card:focus-visible,
+.shared-stat-card--interactive:focus-visible {
   background-color: var(--bg-section);
   transform: translateY(-3px);
   border-color: var(--border);

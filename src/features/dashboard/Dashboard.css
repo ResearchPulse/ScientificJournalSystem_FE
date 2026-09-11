@@ -450,14 +450,34 @@
   cursor: pointer;
   text-align: left;
   font-family: var(--font-display);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
 }
 
-.premium-qa-tile:hover,
-.premium-qa-tile:focus {
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+.premium-qa-tile:hover {
+  background-color: var(--bg-section);
+  border-color: var(--border);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.premium-qa-tile:focus-visible {
+  background-color: var(--bg-section);
+  border-color: var(--border);
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.premium-qa-tile:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .premium-qa-icon-wrapper {
@@ -468,11 +488,12 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.2s ease;
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .premium-qa-tile:hover .premium-qa-icon-wrapper {
   transform: scale(1.08);
+  transition: transform 0.18s ease;
 }
 
 .premium-qa-content {
