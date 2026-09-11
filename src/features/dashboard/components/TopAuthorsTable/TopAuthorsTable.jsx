@@ -91,15 +91,13 @@ export default function TopAuthorsTable({
   } = useTranslation();
   const navigate = useNavigate();
   const actions = onViewAll ? (
-    <Button
-      variant="link"
-      size="sm"
-      className="p-0 text-decoration-none fw-semibold"
+    <button
+      type="button"
+      className="dashboard-link-action"
       onClick={onViewAll}
-      style={{ fontSize: '0.75rem' }}
     >
       {t("dashboard.bangXepHang")}
-    </Button>
+    </button>
   ) : null;
   const description = loading ? <div className="p-3">
       {[1, 2, 3, 4, 5].map(i => <div key={i} className="d-flex align-items-center gap-3 py-3 px-2 border-bottom border-light">

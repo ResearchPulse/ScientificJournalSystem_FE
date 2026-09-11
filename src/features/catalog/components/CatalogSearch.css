@@ -1,28 +1,11 @@
 .catalog-search-page {
-  background: var(--bg-main);
-  padding-top: 100px;
+  background: var(--bg-main, #ffffff);
+  padding-top: 96px;
   padding-bottom: 80px;
 }
 
 .catalog-shell {
   max-width: 1180px;
-}
-
-.catalog-breadcrumb {
-  margin-bottom: 1.4rem;
-  font-size: 0.9rem;
-}
-
-.catalog-breadcrumb a,
-.catalog-breadcrumb .breadcrumb-item,
-.catalog-breadcrumb .breadcrumb-item.active {
-  color: var(--text-muted) !important;
-  font-family: var(--font-display) !important;
-  text-decoration: none;
-}
-
-.catalog-breadcrumb a:hover {
-  color: var(--primary) !important;
 }
 
 .catalog-hero {
@@ -53,7 +36,14 @@
   border-radius: 16px;
 }
 
+.catalog-filter-section {
+  position: relative;
+  z-index: 30;
+}
+
 .catalog-filter-card {
+  position: relative;
+  z-index: 30;
   overflow: visible !important;
 }
 
@@ -63,6 +53,9 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  position: relative;
+  z-index: 30;
+  overflow: visible !important;
 }
 
 .catalog-filter-toolbar {
@@ -75,6 +68,17 @@
   justify-content: center;
   border: 1px solid var(--border) !important;
   border-radius: 999px !important;
+  position: relative;
+  z-index: 30;
+  overflow: visible !important;
+}
+
+.catalog-filter-dropdown {
+  position: relative;
+}
+
+.catalog-filter-dropdown.show {
+  z-index: 50;
 }
 
 .catalog-filter-dropdown .dropdown-toggle::after,
@@ -130,7 +134,7 @@
   background: var(--bg-card) !important;
   box-shadow: 0 18px 44px rgba(7, 26, 28, 0.12) !important;
   padding: 0.55rem !important;
-  z-index: 1040;
+  z-index: 1060 !important;
 }
 
 .catalog-more-filter-menu {
@@ -369,6 +373,8 @@
 }
 
 .catalog-toolbar {
+  position: relative;
+  z-index: 10;
   margin-bottom: 1rem;
 }
 
@@ -407,13 +413,16 @@
 }
 
 .catalog-table-card {
+  position: relative;
+  z-index: 1;
   overflow: hidden;
   border-radius: 16px;
 }
 
 .catalog-table {
   --bs-table-bg: var(--bg-card);
-  --bs-table-hover-bg: #f5f6f7;
+  --bs-table-hover-bg: var(--bg-section);
+  --bs-table-hover-color: var(--text-main);
   color: var(--text-main) !important;
 }
 
@@ -434,9 +443,18 @@
   vertical-align: middle;
 }
 
-.catalog-table tbody tr {
+.catalog-table tbody tr,
+.catalog-table tbody tr > * {
   cursor: pointer;
-  transition: background-color 0.18s ease;
+  transition: background-color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1)),
+              color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.catalog-table.table-hover > tbody > tr:hover,
+.catalog-table.table-hover > tbody > tr:hover > * {
+  background-color: var(--bg-section) !important;
+  --bs-table-accent-bg: var(--bg-section) !important;
+  --bs-table-hover-bg: var(--bg-section) !important;
 }
 
 .catalog-journal-name {

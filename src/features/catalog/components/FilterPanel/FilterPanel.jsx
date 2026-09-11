@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
  *
@@ -34,7 +33,7 @@ export default function FilterPanel({
   onClearAll,
   loading = false
 }) {
-  const { t: _t } = useTranslation();
+  const { t } = useTranslation();
   const [menuSearch, setMenuSearch] = useState({});
   const hasSelectedArea = selectedAreas.length > 0;
   const accessValue = selectedAccess[0] || 'all';
@@ -100,7 +99,7 @@ export default function FilterPanel({
   };
   const filterConfigs = [{
     id: 'area',
-    label: 'Subject area',
+    label: t("catalog.subjectArea", 'Subject area'),
     selectedLabel: selectedLabels.area,
     options: filterOptions.area,
     disabled: loading,
@@ -109,7 +108,7 @@ export default function FilterPanel({
     onClear: () => onAreaSelect('all')
   }, {
     id: 'category',
-    label: 'Subject category',
+    label: t("catalog.subjectCategory", 'Subject category'),
     selectedLabel: selectedLabels.category,
     options: filterOptions.category,
     disabled: loading || !hasSelectedArea,
@@ -119,7 +118,7 @@ export default function FilterPanel({
     onClear: () => onCategorySelect('all')
   }, {
     id: 'zone',
-    label: 'Zone',
+    label: t("catalog.zone", 'Zone'),
     selectedLabel: selectedLabels.zone,
     options: filterOptions.zone,
     disabled: loading,
@@ -128,7 +127,7 @@ export default function FilterPanel({
     onClear: () => onZoneSelect('all')
   }, {
     id: 'quartile',
-    label: 'Quartile',
+    label: t("catalog.quartile", 'Quartile'),
     selectedLabel: selectedLabels.quartile,
     options: filterOptions.quartile,
     disabled: loading,
@@ -136,7 +135,7 @@ export default function FilterPanel({
     onClear: () => onQuartileSelect('all')
   }, {
     id: 'year',
-    label: 'Year',
+    label: t("catalog.year", 'Year'),
     selectedLabel: selectedLabels.year,
     options: filterOptions.year,
     disabled: loading,
@@ -223,21 +222,21 @@ export default function FilterPanel({
           <Dropdown className="catalog-filter-dropdown" autoClose="outside">
             <Dropdown.Toggle variant="light" id="catalog-more-filters" className="catalog-filter-button catalog-more-filter-button">
               <Icon icon="lucide:sliders-horizontal" width="16" />
-              <span>More filters</span>
+              <span>{t("catalog.moreFilters", "More filters")}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu className="catalog-filter-menu catalog-more-filter-menu">
               <div className="catalog-filter-menu-header">
-                <span>More filters</span>
+                <span>{t("catalog.moreFilters", "More filters")}</span>
               </div>
 
               <button type="button" onClick={() => onAccessSelect(accessValue === 'open_access' ? 'all' : 'open_access')} className={`catalog-toggle-row ${accessValue === 'open_access' ? 'is-active' : ''}`}>
                 <Form.Check type="switch" checked={accessValue === 'open_access'} readOnly className="m-0" />
-                <span>Only Open Access Journals</span>
+                <span>{t("catalog.onlyOpenAccess", "Only Open Access Journals")}</span>
               </button>
 
               <button type="button" onClick={() => onOaDiamondToggle && onOaDiamondToggle(!isOaDiamond)} className={`catalog-toggle-row ${isOaDiamond ? 'is-active' : ''}`}>
                 <Form.Check type="switch" checked={isOaDiamond} readOnly className="m-0" />
-                <span>Only OA Diamond</span>
+                <span>{t("catalog.onlyOaDiamond", "Only OA Diamond")}</span>
               </button>
             </Dropdown.Menu>
           </Dropdown>

@@ -81,8 +81,8 @@
   --bg-section: #f8fafc;     /* Nền từng khối section hoặc footer */
   --bg-chip: #f1f5f9;        /* Nền các badge chip hoặc nút lọc */
   --bg-card: #ffffff;        /* Nền thẻ nội dung */
-  --bg-card-hover: #fafafa;  /* Nền thẻ khi rê chuột */    /* Màu nền phía sau giao diện (Backdrop) */
-  --bg-backdrop: #f5f7f9; /* Alias */
+  --bg-card-hover: #fafafa;  /* Nền thẻ khi rê chuột */
+  --bg-backdrop: #f5f7f9;    /* Màu nền phía sau giao diện (Backdrop) */
   --border: #e6e6e6;         /* Đường viền ngăn cách */
   --border-focus: var(--primary); /* Đường viền khi focus ô nhập liệu */
 

@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
  *
@@ -15,22 +14,22 @@ export default function JournalTable({
   followedJournals = {},
   onFollow
 }) {
-  const { t: _t } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return <section className="catalog-surface catalog-table-card">
       <div className="table-responsive">
         <Table hover className="catalog-table align-middle mb-0 text-start">
           <thead>
             <tr>
-              <th className="px-4 py-3">Journal</th>
+              <th className="px-4 py-3">{t("catalog.tapChi", "Journal")}</th>
               <th className="px-3 py-3">ISSN</th>
-              <th className="px-3 py-3">Publisher</th>
-              <th className="px-3 py-3">Country</th>
-              <th className="px-3 py-3">Quartile</th>
-              <th className="px-3 py-3">Metric</th>
-              <th className="px-3 py-3">Year</th>
-              <th className="px-3 py-3">Access</th>
-              <th className="px-4 py-3 text-end">Action</th>
+              <th className="px-3 py-3">{t("catalog.nhaXuatBan", "Publisher")}</th>
+              <th className="px-3 py-3">{t("catalog.quocGia", "Country")}</th>
+              <th className="px-3 py-3">{t("catalog.quartile", "Quartile")}</th>
+              <th className="px-3 py-3">{t("catalog.chiSo", "Metric")}</th>
+              <th className="px-3 py-3">{t("catalog.nam", "Year")}</th>
+              <th className="px-3 py-3">{t("catalog.truyCap", "Access")}</th>
+              <th className="px-4 py-3 text-end">{t("catalog.thaoTac", "Action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -63,7 +62,7 @@ export default function JournalTable({
                       variant={journal.is_open_access ? 'success' : 'warning'}
                       className="text-xs px-2 py-0.5"
                     >
-                      {journal.is_open_access ? 'Open Access' : 'Subscription'}
+                      {journal.is_open_access ? t("catalog.openAccess", "Open Access") : t("catalog.subscription", "Subscription")}
                     </Badge>
                   </td>
                   <td className="px-4 py-3 text-end">

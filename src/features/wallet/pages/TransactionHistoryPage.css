@@ -141,9 +141,6 @@
 }
 
 .tx-history-table-type-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -151,17 +148,14 @@
 }
 
 .tx-history-table-type-icon.deposit {
-  background: rgba(34, 197, 94, 0.12);
   color: #16a34a;
 }
 
 .tx-history-table-type-icon.spend {
-  background: rgba(255, 122, 51, 0.1);
   color: #ff6a1a;
 }
 
 .tx-history-table-type-icon.refund {
-  background: rgba(99, 102, 241, 0.1);
   color: #6366f1;
 }
 

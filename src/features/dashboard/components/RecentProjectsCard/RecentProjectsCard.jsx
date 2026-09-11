@@ -115,15 +115,13 @@ export default function RecentProjectsCard({
   const totalPages = Math.max(1, Math.ceil((projects?.length ?? 0) / ITEMS_PER_PAGE));
   const paginatedProjects = projects.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
   const actions = onViewAll ? (
-    <Button
-      variant="link"
-      size="sm"
-      className="p-0 text-decoration-none fw-semibold"
+    <button
+      type="button"
+      className="dashboard-link-action"
       onClick={onViewAll}
-      style={{ fontSize: '0.75rem' }}
     >
       {t("dashboard.xemTatCa")}
-    </Button>
+    </button>
   ) : null;
   const description = <div className="px-1">
       {loading ? [1, 2, 3].map(i => <div key={i} className="d-flex align-items-center gap-3 px-3 py-3">

@@ -64,18 +64,12 @@
   padding: 16px 20px;
   margin-bottom: 28px;
   cursor: pointer;
-  transition:
-    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background-color 0.18s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .topup-wallet-bar:hover {
   background-color: var(--bg-section);
-  transform: translateY(-3px);
   border-color: var(--border);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 .topup-wallet-bar__left {
@@ -85,15 +79,12 @@
 }
 
 .topup-wallet-bar__icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--primary-light);
-  color: var(--primary);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: var(--primary);
   flex-shrink: 0;
+  font-size: 26px;
 }
 
 .topup-wallet-bar__label {
@@ -157,7 +148,6 @@
   padding: 22px;
   cursor: pointer;
   transition:
-    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
     border-color 0.18s ease,
     box-shadow 0.18s ease,
     background-color 0.18s ease;
@@ -171,23 +161,18 @@
 }
 
 .topup-pkg-card:hover {
-  background-color: var(--bg-section);
-  border-color: var(--border);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
 }
 
 .topup-pkg-card.selected {
   border-color: var(--primary) !important;
   background: color-mix(in srgb, var(--primary) 4%, var(--bg-card));
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--primary) 14%, transparent);
-  transform: translateY(-3px);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 .topup-pkg-card.selected:hover {
   border-color: var(--primary) !important;
   background: color-mix(in srgb, var(--primary) 6%, var(--bg-card));
-  box-shadow: 0 8px 22px color-mix(in srgb, var(--primary) 18%, transparent);
 }
 
 .topup-pkg-card__check {
@@ -235,15 +220,12 @@
 }
 
 .topup-pkg-card__icon-box {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--primary-light);
-  color: var(--primary);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: var(--primary);
   flex-shrink: 0;
+  font-size: 26px;
 }
 
 .topup-pkg-card__meta {
@@ -437,15 +419,13 @@
 }
 
 .topup-benefit-item__icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: var(--primary-light);
-  color: var(--primary);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: var(--primary);
   flex-shrink: 0;
+  font-size: 22px;
+  margin-top: 2px;
 }
 
 .topup-benefit-item__title {

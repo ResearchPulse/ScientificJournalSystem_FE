@@ -157,7 +157,7 @@ export default function TopUpPage() {
         >
           <div className="topup-wallet-bar__left">
             <div className="topup-wallet-bar__icon">
-              <Icon icon="solar:wallet-bold" width={20} />
+              <Icon icon="solar:wallet-bold" width={26} />
             </div>
             <div>
               <div className="topup-wallet-bar__label">{t("wallet.soDuHienTai")}</div>
@@ -221,7 +221,7 @@ export default function TopUpPage() {
 
                 <div className="topup-pkg-card__top-row">
                   <div className="topup-pkg-card__icon-box">
-                    <Icon icon="lucide:circle-dollar-sign" width={22} />
+                    <Icon icon="solar:dollar-minimalistic-bold" width={26} />
                   </div>
                   <div className="topup-pkg-card__meta">
                     <div className="topup-pkg-card__label">ResearchPulse Coin</div>

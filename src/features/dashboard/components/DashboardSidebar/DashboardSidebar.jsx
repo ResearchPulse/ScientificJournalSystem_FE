@@ -161,11 +161,11 @@ export default function DashboardSidebar({
                       onClick={() => onSelectTab && onSelectTab(tab.id)}
                       title={label}
                     >
+                      {isActive && <span className="dashboard-sidebar__active-bar" />}
                       <div className="dashboard-sidebar__item-icon-box">
                         <Icon icon={tab.icon} width={18} />
                       </div>
                       {!isCollapsed && <span className="dashboard-sidebar__item-label">{label}</span>}
-                      {!isCollapsed && isActive && <span className="dashboard-sidebar__active-pill" />}
                     </button>
                   );
                 })}

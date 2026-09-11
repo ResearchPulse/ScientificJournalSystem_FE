@@ -187,7 +187,7 @@ export default function TransactionHistoryPage() {
                         <td>
                           <div className="tx-history-table-desc">
                             <span className={`tx-history-table-type-icon ${getTxTypeIconClass(tx.type)}`}>
-                              <Icon icon={isMinus ? 'lucide:arrow-up-right' : 'lucide:arrow-down-left'} width={13} />
+                              <Icon icon={isMinus ? 'lucide:arrow-up-right' : 'lucide:arrow-down-left'} width={18} />
                             </span>
                             <div>
                               <div className="tx-history-table-type-label">{getTxTypeLabel(tx.type)}</div>

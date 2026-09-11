@@ -71,15 +71,13 @@ export default function TrendingKeywordsCard({
     t
   } = useTranslation();
   const actions = onViewMore ? (
-    <Button
-      variant="link"
-      size="sm"
-      className="p-0 text-decoration-none fw-semibold"
+    <button
+      type="button"
+      className="dashboard-link-action"
       onClick={onViewMore}
-      style={{ fontSize: '0.75rem' }}
     >
       {t("dashboard.xemThem")}
-    </Button>
+    </button>
   ) : null;
   const labels = keywords?.labels || [];
   const dataset = keywords?.datasets?.[0] || {

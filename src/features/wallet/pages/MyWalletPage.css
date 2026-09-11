@@ -195,26 +195,21 @@
 }
 
 .my-wallet-table-type-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 9px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .my-wallet-table-type-icon.deposit {
-  background: rgba(34, 197, 94, 0.12);
   color: #16a34a;
 }
 
 .my-wallet-table-type-icon.spend {
-  background: rgba(255, 122, 51, 0.1);
   color: #ff6a1a;
 }
 
 .my-wallet-table-type-icon.refund {
-  background: rgba(99, 102, 241, 0.1);
   color: #6366f1;
 }
 

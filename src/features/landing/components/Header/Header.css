@@ -27,6 +27,10 @@ header.sticky-scrolled {
 }
 
 .header-user-btn:hover,
-.header-user-btn:focus {
+.header-user-btn:focus,
+.header-user-btn[aria-expanded="true"],
+.header-icon-btn:hover,
+.header-icon-btn:focus,
+.header-icon-btn[aria-expanded="true"] {
   color: var(--primary);
 }

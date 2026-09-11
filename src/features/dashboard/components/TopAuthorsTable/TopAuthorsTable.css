@@ -43,13 +43,4 @@
 
 .top-author-row:hover {
   background-color: var(--bg-section);
-  transform: translateY(-3px) !important;
-  border-color: var(--border);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  transition:
-    transform 0.18s ease 0s,
-    border-color 0.18s ease 0s,
-    box-shadow 0.18s ease 0s,
-    background-color 0.18s ease 0s !important;
-  transition-delay: 0s !important;
 }

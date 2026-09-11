@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\catalog\pages\CatalogSearchPage.jsx
  */
-import { Container, Dropdown, Breadcrumb } from 'react-bootstrap';
+import { Container, Dropdown } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 import { useCatalogSearch } from '../hooks/useCatalogSearch';
@@ -67,19 +67,6 @@ export default function CatalogSearchPage() {
       <Header />
 
       <Container className="catalog-shell">
-        {/* Breadcrumbs */}
-        <div aria-label="breadcrumb" className="catalog-breadcrumb">
-          <Breadcrumb className="mb-0 custom-breadcrumb d-flex align-items-center">
-            <Breadcrumb.Item onClick={() => navigate('/')} className="d-flex align-items-center" linkProps={{
-            style: {
-              cursor: 'pointer'
-            }
-          }}>{t("home")}</Breadcrumb.Item>
-            <Breadcrumb.Item active className="d-flex align-items-center">{t("search")}</Breadcrumb.Item>
-
-          </Breadcrumb>
-        </div>
-
         {/* Page Title & Subtitle */}
         <section className="catalog-hero text-start reveal-on-scroll">
           <h1 className="catalog-title">{t("catalog.danhMucTimKiem")}</h1>
@@ -89,7 +76,7 @@ export default function CatalogSearchPage() {
         {/* Catalog Main Layout */}
         <div className="w-100">
           {/* Toolbar Filter Panel */}
-          <div className="reveal-on-scroll">
+          <div className="catalog-filter-section">
             <FilterPanel searchInput={searchInput} setSearchInput={setSearchInput} onSearchSubmit={handleSearchSubmit} subjectAreas={subjectAreas} subjectCategories={subjectCategories} selectedAreas={selectedAreas} selectedCategories={selectedCategories} selectedAccess={selectedAccess} selectedQuartiles={selectedQuartiles} onAreaSelect={onAreaSelect} onCategorySelect={onCategorySelect} onAccessSelect={onAccessSelect} onQuartileSelect={onQuartileSelect} selectedYear={selectedYear} selectedZone={selectedZone} zones={zones} onYearSelect={onYearSelect} onZoneSelect={onZoneSelect} isOaDiamond={isOaDiamond} onOaDiamondToggle={handleOaDiamondToggle} onClearAll={handleClearAll} loading={loadingFilters} />
           </div>
 
