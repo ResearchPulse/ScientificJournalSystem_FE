@@ -5,13 +5,20 @@ import './Tabs.css';
 const TabsContext = createContext(null);
 
 /**
- * Reusable Tabs Root Component
+ * Hệ thống Tabs điều hướng nội dung (Tabs System)
+ * Hỗ trợ các biến thể thiết kế: 'underline' (gạch chân), 'pills' (viên thuốc bo tròn), 'enclosed' (thẻ đóng).
+ *
+ * @param {string} [activeTab] - Tab đang kích hoạt (dùng khi bạn muốn quản lý state bên ngoài - Controlled)
+ * @param {string} [defaultTab] - Tab mặc định kích hoạt khi mở trang (Uncontrolled)
+ * @param {Function} [onTabChange] - Hàm callback nhận vào tabKey khi người dùng bấm chuyển tab
+ * @param {'underline'|'pills'|'enclosed'} [variant='underline'] - Phong cách giao diện tab
+ * @param {string} [className=''] - Các lớp CSS bổ sung
  */
 export default function Tabs({
   activeTab: controlledTab,
   defaultTab,
   onTabChange,
-  variant = 'underline', // 'underline' | 'pills' | 'enclosed'
+  variant = 'underline',
   className = '',
   children,
   ...props
@@ -38,6 +45,9 @@ export default function Tabs({
   );
 }
 
+/**
+ * Thanh chứa danh sách các nút bấm tab
+ */
 export function TabList({ className = '', children, ...props }) {
   return (
     <div role="tablist" className={`ui-tab-list ${className}`.trim()} {...props}>
@@ -46,6 +56,13 @@ export function TabList({ className = '', children, ...props }) {
   );
 }
 
+/**
+ * Từng nút bấm tab đơn lẻ
+ *
+ * @param {string} eventKey - Khóa định danh duy nhất của tab
+ * @param {boolean} [disabled=false] - Khóa tab không cho bấm
+ * @param {string} [icon] - Tên icon Iconify hiển thị trước tiêu đề tab
+ */
 export function Tab({
   eventKey,
   disabled = false,
@@ -73,6 +90,11 @@ export function Tab({
   );
 }
 
+/**
+ * Khung nội dung tương ứng hiển thị khi tab được chọn
+ *
+ * @param {string} eventKey - Khóa định danh khớp với eventKey của thẻ Tab
+ */
 export function TabPanel({ eventKey, className = '', children, ...props }) {
   const { currentTab } = useContext(TabsContext);
   if (currentTab !== eventKey) return null;

@@ -12,6 +12,7 @@ export { default as Select, SearchableSelect, MultiSelectDropdown } from './Sele
 export * from './Card';
 export { default as Modal, AuthRequiredModal } from './Modal';
 export { default as Badge } from './Badge';
+export { default as Chip } from './Chip';
 export { default as Switch } from './Switch';
 export { default as Checkbox } from './Checkbox';
 export { default as Radio } from './Radio';

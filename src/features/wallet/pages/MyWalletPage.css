@@ -114,14 +114,14 @@
 .my-wallet-balance-value span {
   font-size: 13px;
   font-weight: 750;
-  color: #ff6a1a;
+  color: var(--primary);
   margin-left: 6px;
 }
 
 .my-wallet-balance-btn {
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, #ff7a33, #ff5608);
+  background: var(--primary-gradient);
   color: #fff;
   font-weight: 850;
   padding: 0 20px;
@@ -130,7 +130,7 @@
   align-items: center;
   gap: 8px;
   font-size: 13.5px;
-  box-shadow: 0 6px 14px rgba(255, 122, 51, 0.18);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 /* Table */

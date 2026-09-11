@@ -1,11 +1,18 @@
 import { Badge as BsBadge } from 'react-bootstrap';
 
 /**
- * Badge - Semantic status and metadata indicator
+ * Thẻ huy hiệu trạng thái & siêu dữ liệu (Badge)
+ * Dùng cho phân loại tạp chí (Q1-Q4), trạng thái bài viết (Open Access, Subscription), v.v.
+ *
+ * @param {React.ReactNode} children - Nội dung chữ trong huy hiệu
+ * @param {string} [variant='secondary'] - Loại huy hiệu: 'primary', 'secondary', 'q1', 'success', 'warning', 'danger'
+ * @param {boolean} [pill=false] - Bo tròn tối đa hình viên thuốc (Pill shape)
+ * @param {string} [className=''] - Các lớp CSS bổ sung
+ * @param {object} [style] - Inline style tuỳ biến
  */
 export default function Badge({
   children,
-  variant = 'secondary', // 'primary' | 'secondary' | 'q1' | 'success' | 'warning' | 'danger'
+  variant = 'secondary',
   pill = false,
   className = '',
   style,

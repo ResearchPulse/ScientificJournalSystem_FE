@@ -1,9 +1,10 @@
 :root {
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
+  /* ─── Độ bo tròn góc (Border Radius Tokens) ─── */
+  --radius-xs: 4px;     /* Bo góc cực nhỏ: checkbox, tooltip */
+  --radius-sm: 6px;     /* Bo góc nhỏ: thẻ tag con, ô nhập liệu phụ */
+  --radius-md: 8px;     /* Bo góc vừa: ô input, dropdown select, nút size nhỏ */
+  --radius-lg: 12px;    /* Bo góc chuẩn: nút bấm chính, thẻ card thông thường */
+  --radius-xl: 16px;    /* Bo góc lớn: thẻ bài báo, modal dialog, bảng thống kê */
+  --radius-2xl: 24px;   /* Bo góc rất lớn: banner nổi bật, container hero */
+  --radius-full: 9999px;/* Bo tròn tối đa: nút dạng viên thuốc (pill), avatar tròn, badge tròn */
 }

@@ -1,12 +1,13 @@
 :root {
+  /* ─── Hệ thống lưới khoảng cách chuẩn 4px/8px (Spacing Scale) ─── */
   --space-0: 0;
-  --space-1: 0.25rem;  /* 4px */
-  --space-2: 0.5rem;   /* 8px */
-  --space-3: 0.75rem;  /* 12px */
-  --space-4: 1rem;     /* 16px */
-  --space-5: 1.25rem;  /* 20px */
-  --space-6: 1.5rem;   /* 24px */
-  --space-8: 2rem;     /* 32px */
-  --space-10: 2.5rem;  /* 40px */
-  --space-12: 3rem;    /* 48px */
+  --space-1: 0.25rem;  /* 4px  - Khoảng cách rất nhỏ: khoảng cách giữa icon và chữ */
+  --space-2: 0.5rem;   /* 8px  - Khoảng cách nhỏ: padding bên trong nút nhỏ, gap giữa các badge */
+  --space-3: 0.75rem;  /* 12px - Khoảng cách vừa: khoảng cách giữa các ô input */
+  --space-4: 1rem;     /* 16px - Khoảng cách tiêu chuẩn: padding bên trong thẻ Card */
+  --space-5: 1.25rem;  /* 20px - Khoảng cách lớn: khoảng trống giữa các hàng form */
+  --space-6: 1.5rem;   /* 24px - Khoảng cách rất lớn: padding card lớn, margin tiêu đề */
+  --space-8: 2rem;     /* 32px - Khoảng cách khu vực: khoảng cách giữa các khối section nhỏ */
+  --space-10: 2.5rem;  /* 40px - Khoảng cách rộng: đệm phân cách khối lớn */
+  --space-12: 3rem;    /* 48px - Khoảng cách tối đa: padding trên dưới trang */
 }

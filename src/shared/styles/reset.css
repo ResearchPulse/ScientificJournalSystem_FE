@@ -1,6 +1,14 @@
-/* Hide right scrollbar while preserving scrolling behavior */
+/* Base HTML & Body Styles */
 html,
 body {
+  background-color: var(--bg-main, #ffffff);
+  color: var(--text-main, #0d1b1c);
+  font-family: var(--font-display, inherit);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -11,12 +19,79 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
+/* Typography defaults */
+.navbar-brand,
+.logo-title,
+.system-logo,
+.brand-font {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+}
+
+h1,
+h2,
+h3,
+.page-title {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+}
+
+body,
+p,
+span,
+li,
+div,
+input,
+textarea,
+select {
+  font-family: var(--font-display);
+}
+
+.nav-link,
+.sidebar-link,
+.menu-item,
+.nav-item {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+}
+
+.btn,
+button,
+.btn-custom {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+}
+.btn-fw-600 {
+  font-weight: 600 !important;
+}
+
+.table td,
+.table th,
+table,
+td,
+th {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+}
+.table th,
+th,
+.table-header {
+  font-weight: 500 !important;
+}
+
+.badge,
+.tag,
+.badge-custom {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+}
+
 /* Custom scrollbar for inner scrollable areas */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-main);
+  background: var(--bg-main, #ffffff);
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
@@ -28,6 +103,7 @@ body::-webkit-scrollbar {
 
 /* Selection highlight */
 ::selection {
-  background: var(--primary-light);
-  color: var(--text-main);
+  background: var(--primary-light, #eef6fc);
+  color: var(--text-main, #0d1b1c);
 }
+

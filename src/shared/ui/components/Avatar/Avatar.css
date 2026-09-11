@@ -31,6 +31,14 @@
   text-transform: uppercase;
 }
 
+.ui-avatar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
 /* Sizing */
 .ui-avatar-xs {
   width: 24px;

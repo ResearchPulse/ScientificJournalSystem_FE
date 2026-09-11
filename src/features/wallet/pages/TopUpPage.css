@@ -40,8 +40,8 @@
   gap: 6px;
   padding: 5px 14px;
   border-radius: 50rem;
-  background: rgba(255, 122, 51, 0.1);
-  color: #ff7a33;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -112,7 +112,7 @@
 .topup-wallet-bar__unit {
   font-size: 13px;
   font-weight: 600;
-  color: #ff7a33;
+  color: var(--primary);
   margin-left: 6px;
 }
 
@@ -182,17 +182,17 @@
 }
 
 .topup-pkg-card:hover {
-  border-color: rgba(255, 122, 51, 0.42);
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06), 0 4px 12px rgba(255, 122, 51, 0.08);
+  border-color: color-mix(in srgb, var(--primary) 42%, transparent);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06), 0 4px 12px color-mix(in srgb, var(--primary) 8%, transparent);
   transform: translateY(-2px);
 }
 
 .topup-pkg-card.selected {
-  border-color: #ff7a33;
-  box-shadow: 0 10px 24px rgba(255, 122, 51, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--primary) 12%, transparent);
   background:
-    radial-gradient(circle at top right, rgba(255, 122, 51, 0.075), transparent 36%),
-    linear-gradient(180deg, rgba(255, 122, 51, 0.025), var(--bg-card) 72%);
+    radial-gradient(circle at top right, color-mix(in srgb, var(--primary) 8%, transparent), transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--primary) 3%, transparent), var(--bg-card) 72%);
 }
 
 .topup-pkg-card.selected .topup-pkg-card__check {
@@ -202,7 +202,7 @@
 
 .topup-pkg-card.selected .topup-pkg-card__icon {
   transform: scale(1.03) rotate(-2deg);
-  box-shadow: 0 6px 14px rgba(255, 122, 51, 0.16);
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--primary) 16%, transparent);
 }
 
 /* Checkmark overlay */
@@ -213,14 +213,14 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff7a33, #ff5500);
+  background: var(--primary-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transform: scale(0.65);
   transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 4px 10px rgba(255, 122, 51, 0.18);
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary) 18%, transparent);
 }
 
 /* Badge recommended */
@@ -230,12 +230,12 @@
   left: 22px;
   padding: 4px 12px;
   border-radius: 0 0 10px 10px;
-  background: linear-gradient(135deg, #ff7a33, #ff5500);
+  background: var(--primary-gradient);
   color: #fff;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.35px;
-  box-shadow: 0 4px 10px rgba(255, 122, 51, 0.12);
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 .topup-pkg-card__top-row {
@@ -261,12 +261,12 @@
   width: 42px;
   height: 42px;
   border-radius: 15px;
-  background: linear-gradient(135deg, #fff8f3, #ffe9da);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, white), color-mix(in srgb, var(--primary) 15%, white));
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ff7a33;
-  box-shadow: 0 4px 10px rgba(255, 122, 51, 0.1);
+  color: var(--primary);
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary) 10%, transparent);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -276,7 +276,7 @@
 
 .topup-pkg-card__label {
   font-size: 10px;
-  color: #ff7a33;
+  color: var(--primary);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.45px;
@@ -390,9 +390,9 @@
 }
 
 .topup-method-btn.active {
-  border-color: #ff7a33;
+  border-color: var(--primary);
   color: var(--text-main);
-  background: rgba(255, 122, 51, 0.05);
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
 }
 
 /* ── CTA Button ─────────────────────────────────────────── */
@@ -410,7 +410,7 @@
   gap: 8px;
   padding: 14px 32px;
   border-radius: 50rem;
-  background: linear-gradient(135deg, #ff7a33, #ff5500);
+  background: var(--primary-gradient);
   color: #fff;
   border: none;
   font-family: var(--font-display);
@@ -418,12 +418,12 @@
   font-weight: 700;
   cursor: pointer;
   transition: box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
-  box-shadow: 0 4px 16px rgba(255, 122, 51, 0.35);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--primary) 35%, transparent);
   min-width: 200px;
 }
 
 .topup-cta-btn:hover:not(:disabled) {
-  box-shadow: 0 6px 24px rgba(255, 122, 51, 0.5);
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--primary-hover) 45%, transparent);
   transform: translateY(-1px);
 }
 

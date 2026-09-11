@@ -423,7 +423,9 @@ const ProjectDetailPage = () => {
               <h6 className="fw-bold mb-1">{t("project.khongTheTaiDuAn")}</h6>
               <p className="mb-0 small">{error || t("project.duAnKhongTonTaiHoacDaBiXoa")}</p>
             </div>
-            <button className="btn btn-outline-danger btn-sm ms-auto" onClick={() => navigate(ROUTES.PROJECTS)}>{t("auth.quayLai")}</button>
+            <PrimaryButton variant="outline" size="sm" className="ms-auto" onClick={() => navigate(ROUTES.PROJECTS)}>
+              {t("auth.quayLai")}
+            </PrimaryButton>
           </div>
         </div>
       </div>;
@@ -676,9 +678,9 @@ const ProjectDetailPage = () => {
           <PrimaryButton variant="outline" className="px-4" onClick={() => setConfirmModal({ show: false, userId: null })}>
             {t("admin.huy", "Hủy")}
           </PrimaryButton>
-          <button className="btn btn-danger px-4" onClick={confirmRemoveMember} style={{ fontWeight: 600, borderRadius: '12px' }}>
+          <PrimaryButton variant="destructive" className="px-4" onClick={confirmRemoveMember}>
             {t("project.xoa", "Xóa")}
-          </button>
+          </PrimaryButton>
         </Modal.Footer>
       </Modal>
 

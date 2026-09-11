@@ -16,6 +16,15 @@ export const Initials = {
   },
 };
 
+export const WithIcon = {
+  args: {
+    icon: 'lucide:user',
+    size: 'lg',
+    bgColor: 'var(--primary-100)',
+    color: 'var(--primary)',
+  },
+};
+
 export const Square = {
   args: {
     name: 'Harvard University',
@@ -25,10 +34,11 @@ export const Square = {
   },
 };
 
+
 export const Group = {
   render: () => (
     <AvatarGroup max={3} size="md">
-      <Avatar name="John Doe" bgColor="#ff7a33" />
+      <Avatar name="John Doe" bgColor="var(--primary)" />
       <Avatar name="Alice Smith" bgColor="#10b981" />
       <Avatar name="Bob Johnson" bgColor="#0ea5e9" />
       <Avatar name="Charlie Brown" bgColor="#8b5cf6" />
@@ -47,3 +57,4 @@ export const CssCheck = {
     await expect(avatar).toBeInTheDocument();
   },
 };
+

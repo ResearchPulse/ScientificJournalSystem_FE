@@ -1,8 +1,8 @@
-/* ─── Comprehensive Animation System & Keyframes ─── */
+/* ─── Hệ Thống Keyframe Animations & Lớp Tiện Ích Hiệu Ứng ─── */
 
-/* ─── 1. Keyframe Definitions ─── */
+/* ─── 1. Định nghĩa các kịch bản chuyển động (@keyframes) ─── */
 
-/* Fade In / Out */
+/* Mờ dần sang hiện rõ (Fade In) */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -12,6 +12,7 @@
   }
 }
 
+/* Hiện rõ sang mờ dần biến mất (Fade Out) */
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -21,7 +22,7 @@
   }
 }
 
-/* Slide Up (Fade + TranslateY) */
+/* Trượt từ dưới lên kèm hiện dần (Slide Up) - Rất thích hợp cho Card, Toast, Modal */
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -33,7 +34,7 @@
   }
 }
 
-/* Slide Down (Fade + TranslateY) */
+/* Trượt từ trên xuống kèm hiện dần (Slide Down) - Rất thích hợp cho Dropdown, Banner thông báo */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -45,7 +46,7 @@
   }
 }
 
-/* Slide In Left */
+/* Trượt từ bên trái sang (Slide In Left) */
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -57,7 +58,7 @@
   }
 }
 
-/* Slide In Right */
+/* Trượt từ bên phải sang (Slide In Right) */
 @keyframes slideInRight {
   from {
     opacity: 0;
@@ -69,7 +70,7 @@
   }
 }
 
-/* Scale In (Pop / Modal Entrance) */
+/* Phóng to xuất hiện dạng nảy nhẹ (Scale In) - Dùng cho Dialog, Hộp thoại xác nhận */
 @keyframes scaleIn {
   from {
     opacity: 0;
@@ -81,7 +82,7 @@
   }
 }
 
-/* Scale Out */
+/* Thu nhỏ biến mất (Scale Out) */
 @keyframes scaleOut {
   from {
     opacity: 1;
@@ -93,7 +94,7 @@
   }
 }
 
-/* Floating / Hover Levitation */
+/* Trôi lơ lửng bồng bềnh (Floating) - Dùng cho hình ảnh minh hoạ, huy hiệu nổi bật */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -103,7 +104,7 @@
   }
 }
 
-/* Subtle Pulse (Badges / Status indicators) */
+/* Nhịp thở nhẹ nhàng (Subtle Pulse) - Dùng cho chấm trạng thái Online hoặc Badge chú ý */
 @keyframes pulseSubtle {
   0%, 100% {
     opacity: 1;
@@ -115,17 +116,17 @@
   }
 }
 
-/* Glow Pulse (Accent buttons / highlights) */
+/* Hào quang phát sáng lan tỏa (Glow Pulse) - Tự động đổi màu theo --primary của hệ thống */
 @keyframes glowPulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(255, 122, 51, 0.4);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 40%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(255, 122, 51, 0);
+    box-shadow: 0 0 0 8px transparent;
   }
 }
 
-/* Bounce Subtle */
+/* Bật nảy nhẹ (Bounce Subtle) - Gây sự chú ý vào nút kêu gọi hành động */
 @keyframes bounceSubtle {
   0%, 100% {
     transform: translateY(0);
@@ -135,62 +136,62 @@
   }
 }
 
-/* ─── 2. Utility Animation Classes ─── */
+/* ─── 2. Các lớp tiện ích animation dùng trực tiếp vào JSX (Utility Animation Classes) ─── */
 
 .animate-fade-in {
-  animation: fadeIn var(--dur-normal) var(--ease-standard) forwards;
+  animation: fadeIn var(--dur-normal) var(--ease-standard) forwards; /* Hiện mờ dần */
 }
 
 .animate-fade-out {
-  animation: fadeOut var(--dur-normal) var(--ease-standard) forwards;
+  animation: fadeOut var(--dur-normal) var(--ease-standard) forwards; /* Biến mất dần */
 }
 
 .animate-slide-up {
-  animation: slideUp var(--dur-normal) var(--ease-smooth) forwards;
+  animation: slideUp var(--dur-normal) var(--ease-smooth) forwards; /* Trượt từ dưới lên */
 }
 
 .animate-slide-down {
-  animation: slideDown var(--dur-normal) var(--ease-smooth) forwards;
+  animation: slideDown var(--dur-normal) var(--ease-smooth) forwards; /* Trượt từ trên xuống */
 }
 
 .animate-slide-left {
-  animation: slideInLeft var(--dur-normal) var(--ease-smooth) forwards;
+  animation: slideInLeft var(--dur-normal) var(--ease-smooth) forwards; /* Trượt từ trái vào */
 }
 
 .animate-slide-right {
-  animation: slideInRight var(--dur-normal) var(--ease-smooth) forwards;
+  animation: slideInRight var(--dur-normal) var(--ease-smooth) forwards; /* Trượt từ phải vào */
 }
 
 .animate-scale-in {
-  animation: scaleIn var(--dur-fast) var(--ease-spring) forwards;
+  animation: scaleIn var(--dur-fast) var(--ease-spring) forwards; /* Phóng to nảy lò xo */
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite; /* Trôi lơ lửng liên tục */
 }
 
 .animate-pulse-subtle {
-  animation: pulseSubtle 2s ease-in-out infinite;
+  animation: pulseSubtle 2s ease-in-out infinite; /* Nhịp thở tuần hoàn */
 }
 
 .animate-glow {
-  animation: glowPulse 2s infinite;
+  animation: glowPulse 2s infinite; /* Phát sáng hào quang tuần hoàn */
 }
 
 .animate-bounce-subtle {
-  animation: bounceSubtle 1.5s ease-in-out infinite;
+  animation: bounceSubtle 1.5s ease-in-out infinite; /* Nhún nảy nhẹ liên tục */
 }
 
-/* ─── 3. Stagger & Delay Utilities ─── */
-.delay-75 { animation-delay: 75ms; }
-.delay-100 { animation-delay: 100ms; }
+/* ─── 3. Lớp trễ thời gian để tạo hiệu ứng nối đuôi nhau (Stagger & Delay Utilities) ─── */
+.delay-75 { animation-delay: 75ms; }    /* Trễ 75 phần nghìn giây */
+.delay-100 { animation-delay: 100ms; }  /* Trễ 0.1s */
 .delay-150 { animation-delay: 150ms; }
-.delay-200 { animation-delay: 200ms; }
+.delay-200 { animation-delay: 200ms; }  /* Trễ 0.2s */
 .delay-300 { animation-delay: 300ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-500 { animation-delay: 500ms; }  /* Trễ 0.5s */
 
-/* ─── 4. Duration Overrides ─── */
-.duration-fast { animation-duration: var(--dur-fast) !important; }
-.duration-normal { animation-duration: var(--dur-normal) !important; }
-.duration-slow { animation-duration: var(--dur-slow) !important; }
-.duration-slower { animation-duration: var(--dur-slower) !important; }
+/* ─── 4. Lớp ghi đè tốc độ chạy của hiệu ứng (Duration Overrides) ─── */
+.duration-fast { animation-duration: var(--dur-fast) !important; }     /* Tốc độ nhanh (150ms) */
+.duration-normal { animation-duration: var(--dur-normal) !important; } /* Tốc độ vừa (220ms) */
+.duration-slow { animation-duration: var(--dur-slow) !important; }     /* Tốc độ chậm (350ms) */
+.duration-slower { animation-duration: var(--dur-slower) !important; } /* Tốc độ rất chậm (500ms) */

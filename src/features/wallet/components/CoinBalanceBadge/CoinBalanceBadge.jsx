@@ -3,11 +3,11 @@
  *
  * File: features/wallet/components/CoinBalanceBadge.jsx
  *
- * Component hiển thị số dư coin dạng badge pill sang trọng.
+ * Component hiển thị số dư coin sử dụng Chip từ bộ UI chung (@ui).
  */
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@ui';
+import { Chip } from '@ui';
 import { useWalletStore } from '@/app/store/walletStore';
 import ROUTES from '@/app/routes/routePaths';
 
@@ -30,49 +30,13 @@ export default function CoinBalanceBadge({ className = '' }) {
   }).format(balance);
 
   return (
-    <div
-      className={`d-inline-flex align-items-center gap-2 px-3 py-1 user-select-none ${className}`}
+    <Chip
+      icon="solar:wallet-bold"
+      label={isLoading && !isFetched ? '...' : formattedBalance}
+      variant="minimal"
       onClick={() => navigate(ROUTES.WALLET)}
-      style={{
-        background: 'rgba(0, 0, 0, 0.04)',
-        borderRadius: '50rem',
-        border: '1px solid rgba(0, 0, 0, 0.05)',
-        cursor: 'pointer',
-        transition: 'background 0.2s ease, transform 0.1s ease',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'rgba(255, 122, 51, 0.08)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
-      }}
-    >
-      <div
-        className="d-flex align-items-center justify-content-center"
-        style={{
-          width: '20px',
-          height: '20px',
-          borderRadius: '50%',
-          background: 'rgba(255, 122, 51, 0.1)',
-        }}
-      >
-        <Icon 
-          icon="solar:wallet-bold" 
-          width="12" 
-          style={{ color: '#ff7a33' }} 
-        />
-      </div>
-      <span
-        className="text-main"
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontWeight: 700,
-          fontSize: '13px',
-          lineHeight: 1
-        }}
-      >
-        {isLoading && !isFetched ? '...' : formattedBalance}
-      </span>
-    </div>
+      className={className}
+      aria-label="Số dư ví"
+    />
   );
 }

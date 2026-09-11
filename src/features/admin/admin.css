@@ -1030,8 +1030,8 @@
 }
 
 .admin-btn--primary:hover {
-  background-color: #e8632a;
-  border-color: #e8632a;
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 /* Outline button - viền, nền trắng, chữ chính (Cancel Changes) */

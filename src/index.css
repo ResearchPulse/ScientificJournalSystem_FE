@@ -1,5 +1,19 @@
 /**
  * ResearchPulse FE — Global Style Entrypoint
- * Delegated to modular Design System: tokens, reset, and global styles in shared/styles/
+ * Standardized modular Design System: tokens, reset, animations, and utilities
  */
-@import './shared/styles/global.css';
+
+/* ─── 1. Design Tokens ─── */
+@import './shared/styles/tokens/typography.css';
+@import './shared/styles/tokens/colors.css';
+@import './shared/styles/tokens/spacing.css';
+@import './shared/styles/tokens/radius.css';
+@import './shared/styles/tokens/shadows.css';
+@import './shared/styles/tokens/transitions.css';
+
+/* ─── 2. Base Reset & Defaults ─── */
+@import './shared/styles/reset.css';
+
+/* ─── 3. Animations & Utilities ─── */
+@import './shared/styles/animations.css';
+@import './shared/styles/utilities.css';

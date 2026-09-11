@@ -6,7 +6,7 @@
  *                  admin chắc chắn đang xóa đúng bài.
  */
 import { Modal } from 'react-bootstrap';
-import { Icon } from '@ui';
+import { Button, Icon } from '@ui';
 
 export default function DeleteArticleModal({ show, onClose, onConfirm, articleTitle }) {
   return (
@@ -23,14 +23,14 @@ export default function DeleteArticleModal({ show, onClose, onConfirm, articleTi
           associated manuscript files. This action cannot be undone.
         </p>
 
-        {/* Action buttons - Cancel (outline) bên trái, Delete (danger, filled) bên phải */}
-        <div className="admin-delete-modal__actions">
-          <button type="button" className="admin-btn admin-btn--outline" onClick={onClose}>
+        {/* Action buttons - Cancel (outline) bên trái, Delete (destructive, filled) bên phải */}
+        <div className="admin-delete-modal__actions d-flex gap-2 justify-content-center">
+          <Button variant="outline" onClick={onClose} className="px-4">
             Cancel
-          </button>
-          <button type="button" className="admin-btn admin-btn--danger-solid" onClick={onConfirm}>
+          </Button>
+          <Button variant="destructive" onClick={onConfirm} className="px-4">
             Delete Article
-          </button>
+          </Button>
         </div>
       </Modal.Body>
     </Modal>

@@ -17,6 +17,8 @@ import useAuth from "@features/auth/hooks/useAuth";
 import { useUserStore } from "@/app/store/userStore";
 import ROUTES from "@/app/routes/routePaths";
 import CoinBalanceBadge from "@features/wallet/components/CoinBalanceBadge";
+import './Header.css';
+
 export default function Header() {
   const {
     t,
@@ -199,12 +201,7 @@ export default function Header() {
               {email ? <>
                   <CoinBalanceBadge />
                   <Dropdown align="end">
-                    <Dropdown.Toggle as="button" type="button" className="border-0 bg-transparent d-inline-flex align-items-center justify-content-center p-0 text-muted-custom hover:text-primary" style={{
-                  width: "32px",
-                  height: "32px",
-                  cursor: "pointer",
-                  transition: "color 0.15s ease"
-                }} aria-label="Tài khoản người dùng">
+                    <Dropdown.Toggle as="button" type="button" className="header-user-btn" aria-label="Tài khoản người dùng">
                     <Icon icon="lucide:user" width="18" />
                   </Dropdown.Toggle>
 
@@ -220,7 +217,7 @@ export default function Header() {
                     </div>
                     <Dropdown.Item onClick={() => navigateWithLang(ROUTES.WALLET)} className="d-flex align-items-center gap-2 text-xs py-2 text-main">
                       <Icon icon="solar:wallet-bold" width="14" style={{
-                      color: '#ff7a33'
+                      color: 'var(--primary)'
                     }} />
                       <span className="font-weight-bold" style={{
                       color: 'var(--text-main)'

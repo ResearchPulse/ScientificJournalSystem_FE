@@ -1,22 +1,22 @@
 :root {
-  /* ─── Duration Tokens ─── */
-  --dur-fast: 150ms;
-  --dur-normal: 220ms;
-  --dur-slow: 350ms;
-  --dur-slower: 500ms;
+  /* ─── 1. Thời lượng chuyển tiếp (Duration Tokens) ─── */
+  --dur-fast: 150ms;    /* Nhanh: dùng cho hover nút, đổi màu icon, checkbox/switch */
+  --dur-normal: 220ms;  /* Bình thường: dùng cho trượt dropdown, mở tooltip, nhấc thẻ */
+  --dur-slow: 350ms;    /* Chậm: dùng cho mở Modal, chuyển tab, mở ngăn kéo Drawer */
+  --dur-slower: 500ms;  /* Rất chậm: dùng cho hiệu ứng mờ nền toàn màn hình, fade-in trang */
 
-  /* ─── Timing Functions ─── */
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  /* ─── 2. Đường cong gia tốc chuyển động (Timing Functions) ─── */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);    /* Chuẩn Material: mượt mà tự nhiên */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);            /* Chậm lúc đầu, nhanh dần: dùng khi phần tử biến mất */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);           /* Nhanh lúc đầu, chậm dần: dùng khi phần tử xuất hiện */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Đàn hồi nhẹ (bật nảy lò xo): dùng cho pop-up, modal */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);     /* Cực kỳ êm mượt (kiểu Apple iOS): dùng cho kéo thả, hover thẻ */
 
-  /* ─── Compound Transitions ─── */
-  --transition-fast: all var(--dur-fast) var(--ease-standard);
-  --transition-normal: all var(--dur-normal) var(--ease-standard);
-  --transition-transform: transform var(--dur-normal) var(--ease-smooth);
+  /* ─── 3. Các bộ transition mẫu dùng nhanh (Compound Transitions) ─── */
+  --transition-fast: all var(--dur-fast) var(--ease-standard);       /* Chuyển tiếp nhanh mọi thuộc tính */
+  --transition-normal: all var(--dur-normal) var(--ease-standard);   /* Chuyển tiếp tiêu chuẩn */
+  --transition-transform: transform var(--dur-normal) var(--ease-smooth); /* Chuyển tiếp mượt cho phóng to / nhấc vị trí */
   --transition-colors: background-color var(--dur-fast) var(--ease-standard),
                        border-color var(--dur-fast) var(--ease-standard),
-                       color var(--dur-fast) var(--ease-standard);
+                       color var(--dur-fast) var(--ease-standard);   /* Chỉ chuyển tiếp màu sắc (tối ưu hiệu năng, không lag) */
 }

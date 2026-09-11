@@ -10,14 +10,15 @@ const DEFAULT_ICONS = {
 };
 
 /**
- * Reusable Alert Callout Component
+ * Hộp cảnh báo / thông báo nổi bật trong trang (Alert Callout)
+ * Dùng để thông báo kết quả thao tác, cảnh báo sắp hết hạn phiên hoặc lỗi máy chủ.
  *
- * @param {'info'|'success'|'warning'|'danger'} [variant='info'] - Alert variant
- * @param {string} [title] - Optional alert title
- * @param {string} [icon] - Custom icon
- * @param {boolean} [dismissible=false] - Can be dismissed
- * @param {Function} [onClose] - Close handler
- * @param {string} [className=''] - Extra classes
+ * @param {'info'|'success'|'warning'|'danger'} [variant='info'] - Kiểu cảnh báo: info (xanh dương), success (xanh lá), warning (vàng), danger (đỏ)
+ * @param {string} [title] - Tiêu đề in đậm của thông báo
+ * @param {string} [icon] - Tên icon Iconify tùy biến (nếu để trống sẽ tự động lấy icon theo variant)
+ * @param {boolean} [dismissible=false] - Cho phép người dùng bấm nút [x] để đóng hộp thông báo
+ * @param {Function} [onClose] - Hàm callback thực thi khi thông báo bị đóng
+ * @param {string} [className=''] - Các lớp CSS bổ sung
  */
 export default function Alert({
   variant = 'info',

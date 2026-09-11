@@ -1,3 +1,6 @@
+/* ─── Nút bấm chuẩn hệ thống (Unified Button System) ─── */
+
+/* Khung cơ sở chung cho mọi nút */
 .btn-unified {
   border-radius: 12px;
   display: inline-flex !important;
@@ -17,6 +20,7 @@
     color 0.18s ease;
 }
 
+/* Kích thước nút nhỏ (size="sm") */
 .btn-unified.btn-sm {
   min-height: 32px;
   padding-inline: 0.75rem;
@@ -24,14 +28,17 @@
   border-radius: 8px;
 }
 
+/* Hiệu ứng khi rê chuột (Hover) */
 .btn-unified:hover {
   transform: translateY(-1px);
 }
 
+/* Hiệu ứng khi bấm giữ (Active) */
 .btn-unified:active {
   transform: translateY(0);
 }
 
+/* Trạng thái bị vô hiệu hóa (Disabled) */
 .btn-unified:disabled,
 .btn-unified.disabled {
   cursor: not-allowed;
@@ -40,6 +47,7 @@
   box-shadow: none;
 }
 
+/* ─── 1. Biến thể Chủ đạo (variant="primary") ─── */
 .btn-variant-primary {
   background: var(--primary) !important;
   border: 1px solid var(--primary) !important;
@@ -48,12 +56,13 @@
 
 .btn-variant-primary:hover,
 .btn-variant-primary:focus {
-  background: #e8632a !important;
-  border-color: #e8632a !important;
+  background: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
   color: #fff !important;
-  box-shadow: 0 4px 18px rgba(255, 122, 51, 0.22);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--primary-hover) 35%, transparent);
 }
 
+/* ─── 2. Biến thể Đường viền (variant="outline") ─── */
 .btn-variant-outline {
   background: var(--bg-card) !important;
   border: 1px solid var(--border) !important;
@@ -65,9 +74,10 @@
   background: var(--primary-light) !important;
   border-color: var(--primary) !important;
   color: var(--primary) !important;
-  box-shadow: 0 4px 18px rgba(255, 122, 51, 0.12);
+  box-shadow: 0 4px 18px color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
+/* ─── 3. Biến thể Cảnh báo/Xoá (variant="destructive") ─── */
 .btn-variant-destructive {
   background: #dc3545 !important;
   border: 1px solid #dc3545 !important;
@@ -82,6 +92,7 @@
   box-shadow: 0 4px 18px rgba(220, 53, 69, 0.2);
 }
 
+/* Icon bên trong nút */
 .btn-icon-unified {
   flex-shrink: 0;
 }

@@ -3,6 +3,7 @@ import { t } from "i18next";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { Button } from '@ui';
 import ROUTES from '../../../app/routes/routePaths';
 import { useWalletStore } from '../../../app/store/walletStore';
 import { getWalletTransactions } from '../api/walletApi';
@@ -138,8 +139,13 @@ export default function MyWalletPage() {
                 <span>Coins</span>
               </div>
             </div>
-            <button type="button" className="my-wallet-balance-btn" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
-              <Icon icon="lucide:circle-plus" width={16} />{t("wallet.napThemCoin")}</button>
+            <Button
+              variant="primary"
+              icon="lucide:circle-plus"
+              onClick={() => navigate(ROUTES.WALLET_TOP_UP)}
+            >
+              {t("wallet.napThemCoin")}
+            </Button>
           </div>
 
           {/* Transactions Card */}
@@ -147,8 +153,14 @@ export default function MyWalletPage() {
             <div className="my-wallet-card-header">
               <div className="my-wallet-card-title">
                 <Icon icon="lucide:clock" width={18} />{t("wallet.lichSuGiaoDichGanDay")}</div>
-              <button type="button" className="my-wallet-card-link" onClick={() => navigate(ROUTES.WALLET_TRANSACTIONS)}>{t("wallet.xemTatCa")}<Icon icon="lucide:arrow-right" width={14} />
-              </button>
+              <Button
+                variant="link"
+                size="sm"
+                className="p-0 text-decoration-none d-inline-flex align-items-center gap-1"
+                onClick={() => navigate(ROUTES.WALLET_TRANSACTIONS)}
+              >
+                {t("wallet.xemTatCa")}<Icon icon="lucide:arrow-right" width={14} />
+              </Button>
             </div>
 
             {loadingTx ? <div className="my-wallet-table-loading">{t("wallet.dangTaiLichSuGiaoDich")}</div> : errorTx ? <div className="my-wallet-table-empty">{errorTx}</div> : recentTx.length === 0 ? <div className="my-wallet-table-empty">{t("wallet.khongCoGiaoDichNaoGanDay")}</div> : <div className="my-wallet-table-wrap">

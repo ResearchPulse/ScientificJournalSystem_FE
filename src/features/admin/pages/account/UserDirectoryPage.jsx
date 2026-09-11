@@ -173,8 +173,8 @@ export default function UserDirectoryPage() {
         <Col xs={12} lg={3.5} className="col-lg-4 d-flex flex-column gap-4">
           {/* Access Control Information box */}
           <Card className="p-4 rounded-4 border-0 text-white" style={{
-          background: 'linear-gradient(135deg, #ff7a33 0%, #ea580c 100%)',
-          boxShadow: '0 4px 20px rgba(234, 88, 12, 0.15)'
+          background: 'var(--primary-gradient)',
+          boxShadow: '0 4px 20px color-mix(in srgb, var(--primary) 25%, transparent)'
         }}>
             <div className="d-flex align-items-center gap-2 mb-2.5">
               <Icon icon="lucide:shield-check" width="22" className="text-white" />

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { Button } from '@ui';
 import Header from '../../landing/components/Header';
 import ROUTES from '../../../app/routes/routePaths';
 import { getCoinPackages, createPayment } from '../api/walletApi';
@@ -110,7 +111,9 @@ export default function WalletCheckoutPage() {
       <Header />
       <div className="wallet-checkout-inner">
         <div className="wallet-checkout-breadcrumb">
-          <button type="button" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>{t("wallet.napCoin")}</button>
+          <Button variant="link" size="sm" className="p-0 text-decoration-none fw-bold" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
+            {t("wallet.napCoin")}
+          </Button>
           <Icon icon="lucide:chevron-right" width={14} />
           <span>{t("wallet.xacNhanThanhToan")}</span>
         </div>
@@ -127,7 +130,7 @@ export default function WalletCheckoutPage() {
         {loading ? <div className="checkout-state">
             <div>
               <div className="spinner-border spinner-border-sm" role="status" style={{
-            color: '#ff7a33'
+            color: 'var(--primary)'
           }} />
               <div style={{
             marginTop: 12
@@ -140,9 +143,13 @@ export default function WalletCheckoutPage() {
             marginBottom: 10
           }} />
               <div>{error}</div>
-              <button type="button" className="checkout-back-btn" style={{
-            marginTop: 16
-          }} onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>{t("wallet.quayLaiTrangNapCoin")}</button>
+              <Button
+                variant="outline"
+                className="mt-3"
+                onClick={() => navigate(ROUTES.WALLET_TOP_UP)}
+              >
+                {t("wallet.quayLaiTrangNapCoin")}
+              </Button>
             </div>
           </div> : <div className="wallet-checkout-grid">
             <div className="wallet-checkout-stack">
@@ -186,7 +193,7 @@ export default function WalletCheckoutPage() {
                         <div className="checkout-method-desc">{methodMeta.desc}</div>
                       </div>
                     </div>
-                    <Icon icon="lucide:badge-check" width={20} color="#ff7a33" />
+                    <Icon icon="lucide:badge-check" width={20} color="var(--primary)" />
                   </div>
 
                   <div className="checkout-method-item" style={{
@@ -255,13 +262,25 @@ export default function WalletCheckoutPage() {
                 </div>
               </div>
 
-              <button type="button" className="checkout-pay-btn" onClick={handleConfirmPayment} disabled={submitting}>
+              <Button
+                variant="primary"
+                size="lg"
+                className="w-100 py-3 rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2"
+                onClick={handleConfirmPayment}
+                disabled={submitting}
+              >
                 {submitting ? <>
                     <span className="spinner-border spinner-border-sm text-white" role="status" />{t("wallet.dangChuyenHuong")}</> : <>{t("wallet.xacNhanThanhToan1")}<Icon icon="lucide:arrow-right" width={16} />
                   </>}
-              </button>
+              </Button>
 
-              <button type="button" className="checkout-back-btn" onClick={() => navigate(-1)}>{t("wallet.quayLaiChinhSuaGoi")}</button>
+              <Button
+                variant="outline"
+                className="w-100 mt-2 py-2 rounded-pill"
+                onClick={() => navigate(-1)}
+              >
+                {t("wallet.quayLaiChinhSuaGoi")}
+              </Button>
 
               <div className="checkout-note">
                 <Icon icon="lucide:lock-keyhole" width={14} style={{

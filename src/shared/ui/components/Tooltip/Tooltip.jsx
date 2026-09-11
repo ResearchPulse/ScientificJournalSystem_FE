@@ -2,12 +2,13 @@ import { useState } from 'react';
 import './Tooltip.css';
 
 /**
- * Reusable Tooltip Component
+ * Hộp chú thích nhanh khi rê chuột (Tooltip)
+ * Bọc quanh bất kỳ phần tử nào để hiển thị giải thích phụ mà không chiếm diện tích giao diện.
  *
- * @param {React.ReactNode} content - Tooltip text or content
- * @param {'top'|'bottom'|'left'|'right'} [placement='top'] - Position
- * @param {React.ReactNode} children - Target element to trigger tooltip
- * @param {string} [className=''] - Extra classes
+ * @param {React.ReactNode} content - Nội dung văn bản chú thích hiển thị trong bong bóng
+ * @param {'top'|'bottom'|'left'|'right'} [placement='top'] - Vị trí hiển thị: 'top' (trên), 'bottom' (dưới), 'left' (trái), 'right' (phải)
+ * @param {React.ReactNode} children - Phần tử đích để người dùng rê chuột vào kích hoạt tooltip
+ * @param {string} [className=''] - Các lớp CSS bổ sung
  */
 export default function Tooltip({
   content,

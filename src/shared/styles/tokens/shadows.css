@@ -1,8 +1,13 @@
 :root {
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
-  --shadow-primary: 0 4px 18px rgba(255, 122, 51, 0.22);
-  --shadow-glow: 0 0 16px rgba(255, 122, 51, 0.2);
+  /* ─── Các mức độ bóng đổ (Elevation Shadow Tokens) ─── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);   /* Cực nhẹ: viền phân tách các nút phẳng hoặc tab */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);   /* Nhẹ: dùng cho thẻ danh sách, bảng nhỏ */
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);  /* Vừa phải: dùng khi hover nhấc thẻ (.hover-lift) */
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);   /* Rõ: dùng cho Dropdown menu, popover nổi */
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.12); /* Sâu: dùng cho cửa sổ Modal, hộp thoại thông báo */
+  --shadow-2xl: 0 20px 48px rgba(0, 0, 0, 0.16);/* Rất sâu: dùng cho banner đè nổi toàn màn hình */
+
+  /* ─── Bóng đổ phát sáng theo màu chủ đạo (Brand Glow Shadows) ─── */
+  --shadow-primary: 0 4px 18px color-mix(in srgb, var(--primary) 25%, transparent); /* Bóng phát sáng dưới chân nút chính */
+  --shadow-glow: 0 0 16px color-mix(in srgb, var(--primary) 22%, transparent);       /* Hào quang toả đều 4 phía */
 }

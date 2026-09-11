@@ -117,3 +117,26 @@
 .ui-tab-panel {
   padding-top: 1rem;
 }
+
+/* Custom Bootstrap Tab compatibility (tab-nav-custom) */
+.tab-nav-custom {
+  border-bottom: 1px solid var(--border);
+}
+.tab-nav-custom .nav-link {
+  color: var(--text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+.tab-nav-custom .nav-link:hover {
+  color: var(--text-main);
+}
+.tab-nav-custom .nav-link.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+  background: transparent;
+}
+

@@ -1,83 +1,115 @@
 :root {
-  /* ─── SCImago-style Core Palette ─── */
-  --primary: #ff7a33;        /* Accent / link cam */
-  --primary-hover: #e8632a;
-  --primary-active: #d2531e;
-  --primary-light: #fff0e8;  /* Light tint của cam */
-  --btn-dark: #071a1c;       /* Button đen đậm */
-  --btn-dark-hover: #122c2f;
-  --q1-color: #ff7a33;       /* Q1 badge dùng accent cam */
+  /* ==========================================================================
+     PHẦN 1: BẢNG MÀU THƯƠNG HIỆU CHÍNH (Core Brand Palette)
+     👉 [PROJECT-SPECIFIC] Các mã màu đặc thù riêng cho dự án hiện tại này.
+     Khi áp dụng bộ UI sang project khác, bạn CHỈ CẦN THAY ĐỔI CÁC MÃ MÀU Ở PHẦN 1.
+     ========================================================================== */
+  --primary: #0071bc;        /* Màu chủ đạo thương hiệu (Brand Primary) */
+  --primary-hover: #205493;  /* Màu chủ đạo khi rê chuột (Hover) */
+  --primary-active: #164377; /* Màu chủ đạo khi nhấn giữ (Active/Click) */
+  --primary-light: #eef6fc;  /* Nền nhạt mang sắc thái thương hiệu (Subtle Tint) */
+  --btn-dark: #071a1c;       /* Màu nút đen đặc trưng học thuật (Academic Dark Button) */
+  --btn-dark-hover: #122c2f; /* Màu hover của nút đen */
+  --q1-color: #ff7a33;    /* Nghiệp vụ riêng: Huy hiệu Q1 (Quartile 1) tạp chí */
 
-  /* ─── Primary Scale (Brand) ─── */
-  --primary-50: #fff5f0;
-  --primary-100: #ffe8dc;
-  --primary-200: #ffd1b9;
-  --primary-300: #ffb18b;
-  --primary-400: #ff8b54;
-  --primary-500: #ff7a33;
-  --primary-600: #e8632a;
-  --primary-700: #c24618;
-  --primary-800: #9c3614;
-  --primary-900: #7e2d13;
+  /* ==========================================================================
+     PHẦN 2: THANG SẮC ĐỘ MÀU CHÍNH TỰ ĐỘNG (Dynamic Primary Scale 50 -> 900)
+     👉 [REUSABLE] Tự động tính toán từ --primary bằng color-mix.
+     Dùng cho mọi dự án mà không cần tính toán thủ công từng mã hex.
+     ========================================================================== */
+  --primary-50: color-mix(in srgb, var(--primary) 5%, #ffffff);     /* Nền rất nhạt (5%) */
+  --primary-100: color-mix(in srgb, var(--primary) 10%, #ffffff);   /* Nền highlight nhẹ (10%) */
+  --primary-200: color-mix(in srgb, var(--primary) 22%, #ffffff);   /* Viền mềm / Tag phụ (22%) */
+  --primary-300: color-mix(in srgb, var(--primary) 40%, #ffffff);   /* Viền nổi bật (40%) */
+  --primary-400: color-mix(in srgb, var(--primary) 68%, #ffffff);   /* Màu phụ sáng (68%) */
+  --primary-500: var(--primary);                                    /* Mức gốc chuẩn (100%) */
+  --primary-600: color-mix(in srgb, var(--primary) 85%, #000000);   /* Đậm vừa (pha đen 15%) */
+  --primary-700: color-mix(in srgb, var(--primary) 70%, #000000);   /* Đậm (pha đen 30%) */
+  --primary-800: color-mix(in srgb, var(--primary) 55%, #000000);   /* Rất đậm (pha đen 45%) */
+  --primary-900: color-mix(in srgb, var(--primary) 40%, #000000);   /* Tối sâu nhất cho chữ nhấn mạnh */
 
-  /* ─── Neutral Scale ─── */
-  --neutral-0: #ffffff;
-  --neutral-50: #fafafa;
-  --neutral-100: #f5f5f5;
-  --neutral-200: #e6e6e6;
-  --neutral-300: #d4d4d4;
-  --neutral-400: #a3a3a3;
-  --neutral-500: #737373;
+  /* ==========================================================================
+     PHẦN 3: THANG MÀU TRUNG TÍNH XÁM CHUẨN (Neutral Scale 0 -> 950)
+     👉 [REUSABLE] Chuẩn hoá quốc tế dùng cho mọi dự án.
+     ========================================================================== */
+  --neutral-0: #ffffff;      /* Trắng tuyệt đối: nền card, modal */
+  --neutral-50: #fafafa;     /* Nền header bảng, ô input nhạt */
+  --neutral-100: #f5f5f5;    /* Nền phụ, đường kẻ mờ */
+  --neutral-200: #e6e6e6;    /* Đường viền (border) tiêu chuẩn */
+  --neutral-300: #d4d4d4;    /* Viền khi hover, thanh cuộn */
+  --neutral-400: #a3a3a3;    /* Chữ mờ, placeholder */
+  --neutral-500: #737373;    /* Chữ phụ (secondary text) */
   --neutral-600: #525252;
   --neutral-700: #404040;
   --neutral-800: #262626;
   --neutral-900: #171717;
-  --neutral-950: #0a0a0a;
+  --neutral-950: #0a0a0a;    /* Đen sâu */
 
-  /* ─── Semantic State Colors ─── */
+  /* ==========================================================================
+     PHẦN 4: MÀU SẮC TRẠNG THÁI HỆ THỐNG (Semantic State Colors)
+     👉 [REUSABLE] Bộ màu trạng thái chuẩn cho mọi ứng dụng web.
+     ========================================================================== */
+  /* Thành công (Success) - Xanh lá */
   --color-success: #10b981;
   --color-success-hover: #059669;
   --color-success-light: #ecfdf5;
   --color-success-border: #a7f3d0;
 
+  /* Cảnh báo (Warning) - Vàng cam hổ phách */
   --color-warning: #f59e0b;
   --color-warning-hover: #d97706;
   --color-warning-light: #fffbeb;
   --color-warning-border: #fde68a;
 
+  /* Nguy hiểm / Lỗi (Danger / Error) - Đỏ */
   --color-danger: #ef4444;
   --color-danger-hover: #dc2626;
   --color-danger-light: #fef2f2;
   --color-danger-border: #fecaca;
 
+  /* Thông tin (Info) - Xanh dương */
   --color-info: #0ea5e9;
   --color-info-hover: #0284c7;
   --color-info-light: #f0f9ff;
   --color-info-border: #bae6fd;
 
-  /* ─── Supporting Surface Tokens ─── */
-  --bg-main: #ffffff;        /* Background chính */
-  --bg-section: #ececec;     /* Section / card background */
-  --bg-chip: #f2f2f2;        /* Chip / filter background */
-  --bg-card: #ffffff;        /* White card surface */
-  --bg-card-hover: #fafafa;
-  --border: #e6e6e6;         /* Border / divider */
-  --border-focus: #ff7a33;
+  /* ==========================================================================
+     PHẦN 5: BỀ MẶT GIAO DIỆN & NỀN (Surface & Background Tokens)
+     👉 [REUSABLE] Tự động kế thừa và tái sử dụng cho mọi dự án.
+     ========================================================================== */
+  --bg-main: #ffffff;        /* Nền trang chính */
+  --bg-section: #f8fafc;     /* Nền từng khối section hoặc footer */
+  --bg-chip: #f1f5f9;        /* Nền các badge chip hoặc nút lọc */
+  --bg-card: #ffffff;        /* Nền thẻ nội dung */
+  --bg-card-hover: #fafafa;  /* Nền thẻ khi rê chuột */
+  --border: #e6e6e6;         /* Đường viền ngăn cách */
+  --border-focus: var(--primary); /* Đường viền khi focus ô nhập liệu */
 
-  /* ─── Typography Colors ─── */
-  --text-main: #0d1b1c;      /* Text chính */
-  --text-muted: #6b6b6b;     /* Text phụ */
-  --text-subtle: #9ca3af;    /* Text mờ / hint */
-  --text-inverse: #ffffff;   /* Text trên nền tối */
+  /* ==========================================================================
+     PHẦN 6: MÀU CHỮ TIÊU CHUẨN (Typography Colors)
+     👉 [REUSABLE] Tái sử dụng cho mọi layout.
+     ========================================================================== */
+  --text-main: #0d1b1c;      /* Chữ nội dung chính (đen than dễ đọc) */
+  --text-muted: #6b6b6b;     /* Chữ phụ (mô tả, ngày tháng) */
+  --text-subtle: #9ca3af;    /* Chữ mờ, placeholder */
+  --text-inverse: #ffffff;   /* Chữ trắng trên nền màu tối hoặc nút */
 
-  /* ─── Focus & Glow Rings ─── */
-  --focus-ring: 0 0 0 3px rgba(255, 122, 51, 0.22);
+  /* ==========================================================================
+     PHẦN 7: HIỆU ỨNG VIỀN PHÁT SÁNG & GRADIENTS DÙNG CHUNG
+     👉 [REUSABLE] Tự động tạo hiệu ứng từ màu --primary của project.
+     ========================================================================== */
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
   --focus-ring-danger: 0 0 0 3px rgba(239, 68, 68, 0.2);
+  --primary-gradient: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  --primary-gradient-subtle: linear-gradient(135deg, color-mix(in srgb, var(--primary) 12%, transparent), color-mix(in srgb, var(--primary-hover) 6%, transparent));
 
-  /* ─── Compatibility Aliases ─── */
+  /* ==========================================================================
+     PHẦN 8: BIẾN TƯƠNG THÍCH NGƯỢC (Compatibility Aliases)
+     👉 [REUSABLE] Đảm bảo code cũ vẫn hoạt động trơn tru.
+     ========================================================================== */
   --dark-bg: var(--bg-main);
   --dark-card: var(--bg-card);
   --dark-border: var(--border);
   --brand-accent: var(--primary);
-  --glow-accent: rgba(255, 122, 51, 0.08);
+  --glow-accent: color-mix(in srgb, var(--primary) 10%, transparent);
 }

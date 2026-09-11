@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { Button } from '@ui';
 import { useWalletStore } from '../../../app/store/walletStore';
 import ROUTES from '../../../app/routes/routePaths';
 import { getCoinPackages } from '../api/walletApi';
@@ -41,8 +42,8 @@ const PAYMENT_METHODS = [{
 // Lợi ích khi dùng ResearchPulse Coins
 const BENEFITS = [{
   icon: 'lucide:file-text',
-  iconBg: 'rgba(255, 122, 51, 0.12)',
-  iconColor: '#ff7a33',
+  iconBg: 'color-mix(in srgb, var(--primary) 12%, transparent)',
+  iconColor: 'var(--primary)',
   title: t("wallet.taiLieuPremium"),
   desc: t("wallet.truyCapHangNganBaoCaoNghienCuu")
 }, {
@@ -148,7 +149,7 @@ export default function TopUpPage() {
         <div className="topup-wallet-bar">
           <div className="topup-wallet-bar__left">
             <div className="topup-wallet-bar__icon">
-              <Icon icon="solar:wallet-bold" width={22} color="#ff7a33" />
+              <Icon icon="solar:wallet-bold" width={22} color="var(--primary)" />
             </div>
             <div>
               <div className="topup-wallet-bar__label">{t("wallet.soDuHienTai")}</div>
@@ -168,7 +169,7 @@ export default function TopUpPage() {
 
         {loadingPackages && <div className="topup-loading-area">
             <div className="spinner-border spinner-border-sm" role="status" style={{
-          color: '#ff7a33'
+          color: 'var(--primary)'
         }} />
             <span>{t("wallet.dangTaiGoiCoin")}</span>
           </div>}
@@ -201,7 +202,7 @@ export default function TopUpPage() {
                   <div className="topup-pkg-card__top-row">
                     <div className="topup-pkg-card__icon-wrap">
                       <div className="topup-pkg-card__icon">
-                        <Icon icon="lucide:circle-dollar-sign" width={24} color="#ff7a33" />
+                        <Icon icon="lucide:circle-dollar-sign" width={24} color="var(--primary)" />
                       </div>
                     </div>
                     <div className="topup-pkg-card__meta">
@@ -250,9 +251,16 @@ export default function TopUpPage() {
 
         {/* ── CTA ── */}
         {!loadingPackages && packages.length > 0 && <div className="topup-cta-row">
-            <button className="topup-cta-btn" disabled={!selectedPkgId} onClick={handlePay} type="button">
-              <Icon icon="solar:wallet-bold" width={16} />{t("wallet.tienHanhNapTien")}{selectedPkg && ` — ${formatVND(selectedPkg.price)}`}
-            </button>
+            <Button
+              variant="primary"
+              size="lg"
+              className="rounded-pill px-4"
+              disabled={!selectedPkgId}
+              onClick={handlePay}
+              icon="solar:wallet-bold"
+            >
+              {t("wallet.tienHanhNapTien")}{selectedPkg && ` — ${formatVND(selectedPkg.price)}`}
+            </Button>
             <div className="topup-cta-note">{t("wallet.giaoDichDuocBaoMatVaMaHoa")}<br />{t("wallet.coinSeDuocCongSauKhiThanhToanT")}</div>
           </div>}
 

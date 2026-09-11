@@ -53,14 +53,14 @@
 }
 
 .tx-filter-tab:hover {
-  border-color: rgba(255, 122, 51, 0.42);
-  color: #ff6a1a;
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  color: var(--primary);
 }
 
 .tx-filter-tab.active {
-  border-color: #ff7a33;
-  background: rgba(255, 122, 51, 0.08);
-  color: #ff6a1a;
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  color: var(--primary);
 }
 
 /* Main Table Card */

@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { Button } from '@ui';
 import Header from '../../landing/components/Header';
 import ROUTES from '../../../app/routes/routePaths';
 import { useWalletStore } from '../../../app/store/walletStore';
@@ -214,22 +215,28 @@ export default function PaymentResultPage() {
               <span>{errorMessage}</span>
             </div>}
 
-          <div className="payment-result-actions">
+          <div className="payment-result-actions d-flex justify-content-center gap-3 flex-wrap mt-4">
             {stage === 'success' ? <>
-                <button type="button" className="payment-result-btn primary" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
-                  <Icon icon="lucide:wallet" width={16} />{t("wallet.napThemCoin")}</button>
-                <button type="button" className="payment-result-btn" onClick={() => navigate(ROUTES.DASHBOARD)}>
-                  <Icon icon="lucide:layout-dashboard" width={16} />{t("wallet.quayVeDashboard")}</button>
+                <Button variant="primary" icon="lucide:wallet" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
+                  {t("wallet.napThemCoin")}
+                </Button>
+                <Button variant="outline" icon="lucide:layout-dashboard" onClick={() => navigate(ROUTES.DASHBOARD)}>
+                  {t("wallet.quayVeDashboard")}
+                </Button>
               </> : stage === 'failed' ? <>
-                <button type="button" className="payment-result-btn primary" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
-                  <Icon icon="lucide:rotate-ccw" width={16} />{t("article.thuLai")}</button>
-                <button type="button" className="payment-result-btn" onClick={() => navigate(-1)}>
-                  <Icon icon="lucide:arrow-left" width={16} />{t("auth.quayLai")}</button>
+                <Button variant="primary" icon="lucide:rotate-ccw" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
+                  {t("article.thuLai")}
+                </Button>
+                <Button variant="outline" icon="lucide:arrow-left" onClick={() => navigate(-1)}>
+                  {t("auth.quayLai")}
+                </Button>
               </> : <>
-                <button type="button" className="payment-result-btn primary" onClick={() => window.location.reload()}>
-                  <Icon icon="lucide:refresh-cw" width={16} />{t("wallet.kiemTraLaiTrangThai")}</button>
-                <button type="button" className="payment-result-btn" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
-                  <Icon icon="lucide:wallet" width={16} />{t("wallet.veTrangNapCoin")}</button>
+                <Button variant="primary" icon="lucide:refresh-cw" onClick={() => window.location.reload()}>
+                  {t("wallet.kiemTraLaiTrangThai")}
+                </Button>
+                <Button variant="outline" icon="lucide:wallet" onClick={() => navigate(ROUTES.WALLET_TOP_UP)}>
+                  {t("wallet.veTrangNapCoin")}
+                </Button>
               </>}
           </div>
 

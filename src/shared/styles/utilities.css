@@ -1,19 +1,24 @@
-/* ─── Shared UI Utilities ─── */
+/* ─── Bộ Lớp Tiện Ích Giao Diện Dùng Chung (Shared UI Utilities) ─── */
 
-/* Layout & Alignment */
+/* ─── 1. Bố cục & Căn chỉnh (Layout & Alignment) ─── */
+
+/* Căn giữa cả chiều ngang và chiều dọc cho khối block */
 .flex-center {
   display: flex !important;
   align-items: center;
   justify-content: center;
 }
 
+/* Căn giữa cả chiều ngang và chiều dọc cho khối inline */
 .inline-flex-center {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
 }
 
-/* Micro-interactions & Elevate */
+/* ─── 2. Hiệu ứng vi tương tác khi rê chuột (Micro-interactions & Hover) ─── */
+
+/* Nhấc nhẹ phần tử lên 2px và đổ bóng khi hover (Dùng cho Card, Nút, Banner) */
 .hover-lift {
   transition: transform var(--dur-normal) var(--ease-smooth),
               box-shadow var(--dur-normal) var(--ease-smooth);
@@ -28,7 +33,20 @@
   transform: translateY(0);
 }
 
-/* Multi-line text truncation */
+/* Đổi màu chữ sang màu hover chủ đạo khi rê chuột */
+.hover\:text-primary:hover,
+.hover-text-primary:hover {
+  color: var(--primary-hover, #205493) !important;
+}
+
+/* Hiệu ứng chuyển màu mượt mà cho các phần tử có tương tác hover */
+.transition-colors {
+  transition: color var(--dur-fast, 150ms) ease, background-color var(--dur-fast, 150ms) ease, border-color var(--dur-fast, 150ms) ease !important;
+}
+
+/* ─── 3. Cắt ngắn văn bản nhiều dòng kèm dấu ba chấm (Text Truncation) ─── */
+
+/* Giới hạn văn bản hiển thị tối đa 2 dòng (Thích hợp cho tiêu đề bài báo khoa học) */
 .text-truncate-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -37,6 +55,7 @@
   text-overflow: ellipsis;
 }
 
+/* Giới hạn văn bản hiển thị tối đa 3 dòng (Thích hợp cho đoạn tóm tắt abstract) */
 .text-truncate-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -45,7 +64,9 @@
   text-overflow: ellipsis;
 }
 
-/* Glassmorphism & Cards */
+/* ─── 4. Hiệu ứng bề mặt kính mờ sang trọng (Glassmorphism Surface) ─── */
+
+/* Tấm kính mờ xuyên thấu (Dùng cho Header dính, Panel lọc, Card nổi) */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
@@ -53,7 +74,9 @@
   border: 1px solid var(--border);
 }
 
-/* Custom Sleek Scrollbar */
+/* ─── 5. Thanh cuộn giao diện tối giản (Custom Sleek Scrollbar) ─── */
+
+/* Làm thanh cuộn mảnh chỉ 6px, bo tròn, tự đổi màu tinh tế khi hover */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -72,7 +95,8 @@
   background: var(--neutral-400);
 }
 
-/* Shimmer animation for loading states */
+/* ─── 6. Hiệu ứng quét sáng khung chờ (Skeleton Shimmer) ─── */
+
 @keyframes ui-shimmer {
   0% {
     background-position: -200% 0;
@@ -82,13 +106,287 @@
   }
 }
 
-.shimmer-animated {
+/* Quét vệt sáng mượt mà trên khung xương tải nội dung */
+.shimmer-animated,
+.skeleton-shimmer {
   background: linear-gradient(
     90deg,
-    var(--neutral-100) 0%,
-    var(--neutral-200) 50%,
-    var(--neutral-100) 100%
+    var(--neutral-100, #f1f5f9) 0%,
+    var(--neutral-200, #e2e8f0) 50%,
+    var(--neutral-100, #f1f5f9) 100%
   );
   background-size: 200% 100%;
   animation: ui-shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-md, 6px);
 }
+
+/* ─── 7. Tiện ích màu sắc & Theme (Color & Theme Utilities) ─── */
+.text-main {
+  color: var(--text-main) !important;
+}
+
+.text-muted,
+.text-muted-custom {
+  color: var(--text-muted) !important;
+}
+
+.text-subtle {
+  color: var(--text-subtle) !important;
+}
+
+.text-primary-custom,
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.bg-card {
+  background-color: var(--bg-card) !important;
+}
+
+.bg-dark-bg {
+  background-color: var(--bg-main) !important;
+}
+
+.font-display {
+  font-family: var(--font-display) !important;
+}
+
+/* Hiệu ứng kính mờ cho Card (Glassmorphism card) */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--primary) 18%, transparent);
+  transform: translateY(-2px);
+}
+
+.glow-text-accent {
+  text-shadow: 0 0 10px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.glow-gradient-text {
+  background: var(--primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Nút phát sáng phong cách primary */
+.btn-primary-glow {
+  background: var(--primary) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 30%, transparent);
+  transition: all 0.3s ease;
+}
+.btn-primary-glow:hover {
+  background: var(--primary-hover) !important;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--primary-hover) 45%, transparent);
+  transform: translateY(-1px);
+  color: #ffffff !important;
+}
+
+/* Nút tối màu học thuật (Academic Dark Button) */
+.btn-dark-solid {
+  background: var(--btn-dark);
+  border: none;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(7, 26, 28, 0.2);
+  transition: all 0.3s ease;
+}
+.btn-dark-solid:hover {
+  background: var(--btn-dark-hover);
+  transform: translateY(-1px);
+  color: #ffffff !important;
+}
+
+/* Menu Dropdown item hover */
+.dropdown-item-custom-hover {
+  transition: all 0.2s ease !important;
+}
+.dropdown-item-custom-hover:hover,
+.dropdown-item-custom-hover:focus {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+}
+.dropdown-item-custom-hover:hover .iconify,
+.dropdown-item-custom-hover:focus .iconify,
+.dropdown-item-custom-hover:hover .text-danger,
+.dropdown-item-custom-hover:focus .text-danger {
+  color: #ffffff !important;
+}
+
+/* Xoay chậm nhẹ nhàng */
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── 8. Họa tiết lưới nền & Card bao quát (Grid Pattern & Surfaces) ─── */
+
+/* Họa tiết lưới ô vuông nhạt (Grid pattern) */
+.grid-bg {
+  background-color: var(--bg-main, #ffffff);
+  background-image:
+    linear-gradient(rgba(236, 236, 236, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236, 236, 236, 0.6) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center top;
+}
+
+/* Lớp mờ tỏa tròn để làm dịu đường lưới ở các góc */
+.radial-fade {
+  background: radial-gradient(
+    circle at 50% 30%,
+    transparent 10%,
+    var(--bg-main, #ffffff) 85%
+  );
+}
+
+/* Nút khám phá xu hướng (Landing Hero & CTA) */
+.btn-view-trends {
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  background: var(--bg-chip, #f8fafc) !important;
+  border: 1px solid var(--border, #e2e8f0) !important;
+  color: var(--text-main, #0d1b1c) !important;
+  transition: all 0.25s ease;
+}
+
+.btn-view-trends-icon {
+  color: var(--primary);
+  transition: all 0.25s ease;
+}
+
+.btn-view-trends:hover {
+  background: var(--neutral-200, #e2e8f0) !important;
+  border-color: var(--neutral-300, #cbd5e1) !important;
+  color: var(--text-main, #0d1b1c) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-view-trends:hover .btn-view-trends-icon {
+  color: var(--primary) !important;
+  transform: scale(1.08);
+}
+
+/* Thẻ Journal chuẩn */
+.journal-dark-card {
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-lg, 12px);
+}
+
+/* ─── 9. Biểu mẫu & Nhập liệu (Forms & Inputs) ─── */
+.account-form-input {
+  background-color: #f1f5f9 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 0.88rem !important;
+  padding: 0.65rem 1rem !important;
+  color: var(--text-main) !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+input.account-form-input,
+select.account-form-input {
+  height: 46px !important;
+}
+
+.account-form-input::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+.account-form-input:focus {
+  background-color: #f1f5f9 !important;
+  outline: 0 !important;
+  box-shadow: var(--focus-ring) !important;
+}
+
+.account-form-label {
+  font-size: 0.825rem !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  margin-bottom: 6px !important;
+}
+
+/* Switch Toggle biến thể màu chính */
+.orange-switch-toggle .form-check-input {
+  cursor: pointer;
+  scale: 1.15;
+}
+
+.orange-switch-toggle .form-check-input:checked {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+/* Khung kéo thả tài liệu tải lên (Upload Dropzone) */
+.premium-dropzone {
+  border: 1.5px dashed color-mix(in srgb, var(--primary) 40%, transparent) !important;
+  background-color: #fafafa !important;
+  transition: all 0.2s ease-in-out !important;
+  min-height: 280px;
+  cursor: pointer;
+}
+.premium-dropzone.drag-active {
+  border: 2px dashed var(--primary) !important;
+  background-color: var(--primary-light) !important;
+}
+.premium-dropzone-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  background-color: var(--primary-light) !important;
+  color: var(--primary) !important;
+}
+.premium-dropzone-btn {
+  border: 1px solid var(--primary) !important;
+  color: var(--primary) !important;
+  background-color: #ffffff !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  transition: all 0.2s ease-in-out !important;
+}
+.premium-dropzone-btn:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  color: #ffffff !important;
+}
+
+/* Hiệu ứng rê chuột thẻ dự án (Project Card Hover) */
+.project-card-recent-hover {
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.project-card-recent-hover:hover {
+  border-color: var(--primary) !important;
+  background-color: color-mix(in srgb, var(--primary) 4%, transparent) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--primary) 12%, transparent) !important;
+}
+.project-card-recent-hover:hover .recent-arrow-icon {
+  color: var(--primary) !important;
+  transform: translateX(4px);
+}
+.recent-arrow-icon {
+  transition: all 0.22s ease;
+}
+
+
+
