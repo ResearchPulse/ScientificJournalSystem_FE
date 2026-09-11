@@ -19,8 +19,8 @@ const ROUTES = {
   GEOGRAPHY:             "/geography",
 
   // Quản lý Dự án (Project)
-  PROJECTS:              "/projects",
-  PROJECT_CREATE:        "/projects/create",
+  PROJECTS:              "/dashboard?tab=projects",
+  PROJECT_CREATE:        "/dashboard?tab=create-project",
   PROJECT_EDIT:          "/projects/:id/edit",
   PROJECT_DETAIL:        "/projects/:id",
   PROJECT_INVITE_ACCEPT: "/project-invite/accept",
@@ -53,9 +53,9 @@ const ROUTES = {
 
   // Hồ sơ cá nhân & Ví coin
   PROFILE:               "/profile",
-  WALLET:                "/wallet",
-  WALLET_TOP_UP:         "/wallet/top-up",
-  WALLET_TRANSACTIONS:   "/wallet/transactions",
+  WALLET:                "/dashboard?tab=wallet",
+  WALLET_TOP_UP:         "/dashboard?tab=topup",
+  WALLET_TRANSACTIONS:   "/dashboard?tab=transactions",
   WALLET_CHECKOUT:       "/wallet/checkout",
   PAYMENT_RESULT:        "/wallet/payment-result",
   PAYOS_RETURN:          "/wallet/payment/result",

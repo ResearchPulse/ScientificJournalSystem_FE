@@ -2,8 +2,7 @@ import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import { Button } from '@ui';
+import { Button, Icon, StatCard } from '@ui';
 import ROUTES from '../../../app/routes/routePaths';
 import { useWalletStore } from '../../../app/store/walletStore';
 import { getWalletTransactions } from '../api/walletApi';
@@ -117,12 +116,6 @@ export default function MyWalletPage() {
   };
   const getTxStatus = tx => tx?.status || tx?.transaction_status || tx?.payment_status || 'success';
   return <div className="my-wallet-page">
-      <div className="my-wallet-breadcrumb">
-        <span>Dashboard</span>
-        <Icon icon="lucide:chevron-right" width={12} />
-        <span>My Wallet</span>
-      </div>
-
       <div className="my-wallet-hero reveal-on-scroll">
         <h1 className="my-wallet-title">{t("wallet.tongQuanTaiChinh")}</h1>
         <p className="my-wallet-subtitle">{t("wallet.theoDoiSoDuKiemTraLichSuBienDo")}</p>
@@ -136,7 +129,7 @@ export default function MyWalletPage() {
               <div className="my-wallet-balance-label">{t("wallet.soDuKhaDung")}</div>
               <div className="my-wallet-balance-value">
                 {formatCoin(balance)}
-                <span>Coins</span>
+                <span className="text-muted-custom">Coins</span>
               </div>
             </div>
             <Button
@@ -209,16 +202,32 @@ export default function MyWalletPage() {
         </div>
 
         <div className="my-wallet-right-stack">
-          {/* Stats cards */}
+          {/* Stats cards using shared @ui StatCard */}
           <div className="my-wallet-stats-grid">
-            <div className="my-wallet-stat-card reveal-on-scroll">
-              <div className="my-wallet-stat-label">{t("wallet.daSuDung")}</div>
-              <div className="my-wallet-stat-value">{formatCoin(totalSpent)} Coins</div>
-            </div>
-            <div className="my-wallet-stat-card reveal-on-scroll delay-100">
-              <div className="my-wallet-stat-label">{t("wallet.daNap")}</div>
-              <div className="my-wallet-stat-value">{formatCoin(totalDeposit)} Coins</div>
-            </div>
+            <StatCard
+              label={t("wallet.daSuDung")}
+              value={
+                <span>
+                  {formatCoin(totalSpent)} <span className="text-muted-custom" style={{ fontSize: '0.8rem', fontWeight: 600 }}>Coins</span>
+                </span>
+              }
+              icon="lucide:arrow-up-right"
+              accentColor="#ef4444"
+              formatValue={false}
+              className="reveal-on-scroll"
+            />
+            <StatCard
+              label={t("wallet.daNap")}
+              value={
+                <span>
+                  {formatCoin(totalDeposit)} <span className="text-muted-custom" style={{ fontSize: '0.8rem', fontWeight: 600 }}>Coins</span>
+                </span>
+              }
+              icon="lucide:arrow-down-left"
+              accentColor="#22c55e"
+              formatValue={false}
+              className="reveal-on-scroll delay-100"
+            />
           </div>
 
           {/* Linked accounts */}

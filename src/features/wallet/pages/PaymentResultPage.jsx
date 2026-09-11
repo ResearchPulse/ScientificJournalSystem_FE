@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import { Button } from '@ui';
+import { Icon, Button } from '@ui';
 import Header from '../../landing/components/Header';
 import ROUTES from '../../../app/routes/routePaths';
 import { useWalletStore } from '../../../app/store/walletStore';

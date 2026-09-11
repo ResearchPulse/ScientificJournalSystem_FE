@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from 'react';
-import { Icon } from '@iconify/react';
+import { Icon, Button, Badge, Chip } from '@ui';
 import { getWalletTransactions } from '../api/walletApi';
 import './TransactionHistoryPage.css';
 export default function TransactionHistoryPage() {
@@ -105,41 +105,64 @@ export default function TransactionHistoryPage() {
   };
   const getTxStatus = tx => tx?.status || tx?.transaction_status || tx?.payment_status || 'success';
   return <div className="tx-history-page">
-      <div className="tx-history-breadcrumb">
-        <span>Dashboard</span>
-        <Icon icon="lucide:chevron-right" width={12} />
-        <span>My Wallet</span>
-        <Icon icon="lucide:chevron-right" width={12} />
-        <span>Transaction History</span>
-      </div>
-
-      <div className="tx-history-hero">
+      <div className="tx-history-hero reveal-on-scroll">
+        <Chip
+          icon="solar:history-bold"
+          label="ResearchPulse Wallet"
+          variant="minimal"
+          size="sm"
+          className="mb-2"
+        />
         <h1 className="tx-history-title">{t("wallet.lichSuBienDongCoin")}</h1>
         <p className="tx-history-subtitle">{t("wallet.xemLaiDanhSachNapTieuVaHoanCoi")}</p>
       </div>
 
       {/* Filter Tabs */}
-      <div className="tx-history-filters">
-        <button type="button" className={`tx-filter-tab ${filterType === '' ? 'active' : ''}`} onClick={() => {
-        setFilterType('');
-        setPage(1);
-      }}>{t("dashboard.tatCa")}</button>
-        <button type="button" className={`tx-filter-tab ${filterType === 'deposit' ? 'active' : ''}`} onClick={() => {
-        setFilterType('deposit');
-        setPage(1);
-      }}>{t("wallet.napCoin1")}</button>
-        <button type="button" className={`tx-filter-tab ${filterType === 'spend' ? 'active' : ''}`} onClick={() => {
-        setFilterType('spend');
-        setPage(1);
-      }}>{t("wallet.tieuCoin")}</button>
-        <button type="button" className={`tx-filter-tab ${filterType === 'refund' ? 'active' : ''}`} onClick={() => {
-        setFilterType('refund');
-        setPage(1);
-      }}>{t("wallet.hoanCoin")}</button>
+      <div className="tx-history-filters reveal-on-scroll">
+        <button
+          type="button"
+          className={`tx-filter-tab ${filterType === '' ? 'active' : ''}`}
+          onClick={() => {
+            setFilterType('');
+            setPage(1);
+          }}
+        >
+          {t("dashboard.tatCa", "All")}
+        </button>
+        <button
+          type="button"
+          className={`tx-filter-tab ${filterType === 'deposit' ? 'active' : ''}`}
+          onClick={() => {
+            setFilterType('deposit');
+            setPage(1);
+          }}
+        >
+          {t("wallet.napCoin1")}
+        </button>
+        <button
+          type="button"
+          className={`tx-filter-tab ${filterType === 'spend' ? 'active' : ''}`}
+          onClick={() => {
+            setFilterType('spend');
+            setPage(1);
+          }}
+        >
+          {t("wallet.tieuCoin")}
+        </button>
+        <button
+          type="button"
+          className={`tx-filter-tab ${filterType === 'refund' ? 'active' : ''}`}
+          onClick={() => {
+            setFilterType('refund');
+            setPage(1);
+          }}
+        >
+          {t("wallet.hoanCoin")}
+        </button>
       </div>
 
       {/* Main Table Card */}
-      <div className="tx-history-card">
+      <div className="tx-history-card reveal-on-scroll">
         {loading ? <div className="tx-history-table-loading">{t("wallet.dangTaiLichSuGiaoDich")}</div> : error ? <div className="tx-history-table-empty">{error}</div> : transactions.length === 0 ? <div className="tx-history-table-empty">{t("wallet.khongTimThayGiaoDichNao")}</div> : <>
             <div className="tx-history-table-wrap">
               <table className="tx-history-table">
@@ -155,10 +178,12 @@ export default function TransactionHistoryPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions.map(tx => {                const amountVal = tx.amount || 0;
-                const isMinus = amountVal < 0;
-                const status = getTxStatus(tx);
-                return <tr key={tx.wallet_transaction_id}>
+                  {transactions.map(tx => {
+                    const amountVal = tx.amount || 0;
+                    const isMinus = amountVal < 0;
+                    const status = getTxStatus(tx);
+                    return (
+                      <tr key={tx.wallet_transaction_id}>
                         <td>
                           <div className="tx-history-table-desc">
                             <span className={`tx-history-table-type-icon ${getTxTypeIconClass(tx.type)}`}>
@@ -170,36 +195,68 @@ export default function TransactionHistoryPage() {
                             </div>
                           </div>
                         </td>
-                        <td className="tx-history-id-col">{tx.wallet_transaction_id}</td>
-                        <td>{formatDate(tx.created_at)}</td>
+                        <td className="tx-history-id-col">
+                          <span
+                            className="font-monospace"
+                            style={{ fontSize: '11.5px' }}
+                            title={tx.wallet_transaction_id}
+                          >
+                            {tx.wallet_transaction_id?.length > 18
+                              ? `${tx.wallet_transaction_id.slice(0, 8)}...${tx.wallet_transaction_id.slice(-6)}`
+                              : tx.wallet_transaction_id}
+                          </span>
+                        </td>
+                        <td style={{ fontSize: '12.5px', color: 'var(--text-muted)' }}>{formatDate(tx.created_at)}</td>
                         <td className={`tx-history-table-amount ${isMinus ? 'spend' : 'deposit'}`}>
                           {isMinus ? '-' : '+'}
                           {formatCoin(Math.abs(amountVal))}
+                          <span className="text-muted-custom ms-1" style={{ fontSize: '11px', fontWeight: 600 }}>Coins</span>
                         </td>
-                        <td>{formatCoin(tx.balance_before)}</td>
-                        <td style={{
-                    fontWeight: 800
-                  }}>{formatCoin(tx.balance_after)}</td>
                         <td>
-                          <span className={`tx-history-table-badge ${getStatusBadgeClass(status)}`}>
-                            {getStatusLabel(status)}
-                          </span>
+                          {formatCoin(tx.balance_before)} <span className="text-muted-custom" style={{ fontSize: '11px' }}>Coins</span>
                         </td>
-                      </tr>;
-              })}
+                        <td style={{ fontWeight: 800 }}>
+                          {formatCoin(tx.balance_after)} <span className="text-muted-custom" style={{ fontSize: '11px' }}>Coins</span>
+                        </td>
+                        <td>
+                          <Badge pill variant={status === 'success' ? 'success' : status === 'failed' ? 'danger' : 'secondary'}>
+                            {getStatusLabel(status)}
+                          </Badge>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
 
             {/* Pagination Controls */}
             {totalPages > 1 && <div className="tx-history-pagination">
-                <button type="button" disabled={page <= 1} onClick={() => setPage(prev => Math.max(1, prev - 1))} className="tx-pagination-btn">
-                  <Icon icon="lucide:chevron-left" width={16} />{t("article.truoc")}</button>
-                <span className="tx-pagination-text">{t("pagination.page", "Page")} {page} / {totalPages}</span>
-                <button type="button" disabled={page >= totalPages} onClick={() => setPage(prev => Math.min(totalPages, prev + 1))} className="tx-pagination-btn">
-                  {t("article.sau", "Next")}
-                  <Icon icon="lucide:chevron-right" width={16} />
-                </button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={page <= 1}
+                  onClick={() => setPage(prev => Math.max(1, prev - 1))}
+                  className="d-inline-flex align-items-center gap-1"
+                >
+                  <Icon icon="lucide:chevron-left" width={15} />
+                  <span>{t("article.truoc")}</span>
+                </Button>
+                <span className="tx-pagination-text text-muted-custom">
+                  {t("pagination.page", "Page")} {page} / {totalPages}
+                </span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  disabled={page >= totalPages}
+                  onClick={() => setPage(prev => Math.min(totalPages, prev + 1))}
+                  className="d-inline-flex align-items-center gap-1"
+                >
+                  <span>{t("article.sau", "Next")}</span>
+                  <Icon icon="lucide:chevron-right" width={15} />
+                </Button>
               </div>}
           </>}
       </div>

@@ -149,7 +149,7 @@ export default function TopAuthorsTable({
       const citations = author.citation_count ?? author.citations ?? author.cited_by_count ?? 0;
       const rank = i + 1;
       return <div key={author.author_id ?? author.id ?? i} className="d-flex d-md-grid px-3 py-3 align-items-center gap-3 font-display rounded-4 top-author-row reveal-on-scroll" style={{
-        transitionDelay: `${i * 80}ms`
+        '--stagger-delay': `${i * 80}ms`
       }} onClick={() => onAuthorClick?.(author)}>
             <RankBadge rank={rank} />
             <div className="d-flex align-items-center gap-2">

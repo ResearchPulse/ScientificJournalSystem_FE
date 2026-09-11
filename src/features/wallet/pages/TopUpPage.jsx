@@ -15,8 +15,7 @@ import { useTranslation } from "react-i18next";
  */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import { Button } from '@ui';
+import { Button, PrimaryButton, Icon, Chip } from '@ui';
 import { useWalletStore } from '../../../app/store/walletStore';
 import ROUTES from '../../../app/routes/routePaths';
 import { getCoinPackages } from '../api/walletApi';
@@ -136,32 +135,41 @@ export default function TopUpPage() {
       <div className="topup-inner">
 
         {/* ── Hero ── */}
-        <div className="topup-hero">
-          <div className="topup-hero__badge">
-            <Icon icon="solar:wallet-bold" width={14} />
-            ResearchPulse Coins
-          </div>
+        <div className="topup-hero reveal-on-scroll">
+          <Chip
+            icon="solar:wallet-bold"
+            label="ResearchPulse Coins"
+            variant="minimal"
+            size="sm"
+            className="mb-2"
+          />
           <h1 className="topup-hero__title">{t("wallet.napCoinVaoTaiKhoan")}</h1>
           <p className="topup-hero__sub">{t("wallet.moKhoaNhungTiemNangNghienCuuVo")}</p>
         </div>
 
         {/* ── Wallet Balance Bar ── */}
-        <div className="topup-wallet-bar reveal-on-scroll">
+        <div
+          className="topup-wallet-bar reveal-on-scroll"
+          role="button"
+          tabIndex={0}
+          onClick={() => navigate(ROUTES.WALLET)}
+          title={t("landing.viCuaToi", "Ví của tôi")}
+        >
           <div className="topup-wallet-bar__left">
             <div className="topup-wallet-bar__icon">
-              <Icon icon="solar:wallet-bold" width={22} color="var(--primary)" />
+              <Icon icon="solar:wallet-bold" width={20} />
             </div>
             <div>
               <div className="topup-wallet-bar__label">{t("wallet.soDuHienTai")}</div>
               <div className="topup-wallet-bar__balance">
                 {formatCoin(balance)}
-                <span className="topup-wallet-bar__unit">Coins</span>
+                <span className="topup-wallet-bar__unit text-muted-custom">Coins</span>
               </div>
             </div>
           </div>
           <Icon icon="lucide:chevron-right" width={18} style={{
-          color: 'var(--text-muted)'
-        }} />
+            color: 'var(--text-muted)'
+          }} />
         </div>
 
         {/* ── Package Selection ── */}
@@ -169,99 +177,124 @@ export default function TopUpPage() {
 
         {loadingPackages && <div className="topup-loading-area">
             <div className="spinner-border spinner-border-sm" role="status" style={{
-          color: 'var(--primary)'
-        }} />
+              color: 'var(--primary)'
+            }} />
             <span>{t("wallet.dangTaiGoiCoin")}</span>
           </div>}
 
         {!loadingPackages && errorPackages && <div className="topup-empty">
             <Icon icon="lucide:wifi-off" width={32} style={{
-          marginBottom: 12,
-          color: 'var(--text-muted)'
-        }} />
+              marginBottom: 12,
+              color: 'var(--text-muted)'
+            }} />
             <p>{errorPackages}</p>
           </div>}
 
         {!loadingPackages && !errorPackages && packages.length === 0 && <div className="topup-empty">
             <Icon icon="lucide:package-x" width={32} style={{
-          marginBottom: 12
-        }} />
+              marginBottom: 12
+            }} />
             <p>{t("wallet.hienChuaCoGoiCoinNaoDangBan")}</p>
           </div>}
 
         {!loadingPackages && packages.length > 0 && <div className="topup-packages-grid">
-            {packages.map((pkg, idx) => {          const isRecommended = pkg.coin_amount === RECOMMENDED_COIN_AMOUNT;
-          const isSelected = selectedPkgId === pkg.package_id;
-          return <button key={pkg.package_id} className={`topup-pkg-card reveal-on-scroll delay-${((idx % 4) + 1) * 100} ${isSelected ? 'selected' : ''}`} onClick={() => setSelectedPkgId(pkg.package_id)} type="button" aria-pressed={isSelected}>
-                  {isRecommended && <div className="topup-pkg-card__badge">{t("wallet.khuyenDung")}</div>}
-
-                  <div className="topup-pkg-card__check">
-                    <Icon icon="lucide:check" width={12} color="#fff" />
+            {packages.map((pkg, idx) => {
+              const isRecommended = pkg.coin_amount === RECOMMENDED_COIN_AMOUNT;
+              const isSelected = selectedPkgId === pkg.package_id;
+              return <button
+                key={pkg.package_id}
+                className={`topup-pkg-card reveal-on-scroll delay-${((idx % 4) + 1) * 100} ${isSelected ? 'selected' : ''}`}
+                onClick={() => setSelectedPkgId(pkg.package_id)}
+                type="button"
+                aria-pressed={isSelected}
+              >
+                {isRecommended && (
+                  <div className="topup-pkg-card__badge">
+                    <Icon icon="lucide:sparkles" width={10} />
+                    <span>{t("wallet.khuyenDung")}</span>
                   </div>
+                )}
 
-                  <div className="topup-pkg-card__top-row">
-                    <div className="topup-pkg-card__icon-wrap">
-                      <div className="topup-pkg-card__icon">
-                        <Icon icon="lucide:circle-dollar-sign" width={24} color="var(--primary)" />
-                      </div>
-                    </div>
-                    <div className="topup-pkg-card__meta">
-                      <div className="topup-pkg-card__label">ResearchPulse Coin</div>
-                      <div className="topup-pkg-card__name">{pkg.name}</div>
-                    </div>
+                <div className="topup-pkg-card__check">
+                  <Icon icon="lucide:check" width={12} color="#fff" />
+                </div>
+
+                <div className="topup-pkg-card__top-row">
+                  <div className="topup-pkg-card__icon-box">
+                    <Icon icon="lucide:circle-dollar-sign" width={22} />
                   </div>
-
-                  <div className="topup-pkg-card__main">
-                    <div className="topup-pkg-card__total-coin">
-                      {formatCoin(pkg.total_coin)}
-                    </div>
-                    <div className="topup-pkg-card__coin-unit">Coins</div>
+                  <div className="topup-pkg-card__meta">
+                    <div className="topup-pkg-card__label">ResearchPulse Coin</div>
+                    <div className="topup-pkg-card__name">{pkg.name}</div>
                   </div>
+                </div>
 
-                  {pkg.bonus_coin > 0 ? <div className="topup-pkg-card__bonus">
-                      <Icon icon="lucide:gift" width={11} />
-                      +{formatCoin(pkg.bonus_coin)} bonus
-                    </div> : <div className="topup-pkg-card__bonus topup-pkg-card__bonus--muted">
-                      <Icon icon="lucide:circle-off" width={11} />{t("wallet.khongCoBonus")}</div>}
-
-                  <div className="topup-pkg-card__footer">
-                    <div className="topup-pkg-card__price">{formatVND(pkg.price)}</div>
-                    <div className="topup-pkg-card__footer-note">
-                      {formatCoin(pkg.coin_amount)}{t("wallet.coinGoc")}</div>
+                <div className="topup-pkg-card__main">
+                  <div className="topup-pkg-card__total-coin">
+                    {formatCoin(pkg.total_coin)}
                   </div>
-                </button>;
-        })}
+                  <div className="topup-pkg-card__coin-unit text-muted-custom">Coins</div>
+                </div>
+
+                {pkg.bonus_coin > 0 ? (
+                  <div className="topup-pkg-card__bonus">
+                    <Icon icon="lucide:gift" width={11} />
+                    <span>+{formatCoin(pkg.bonus_coin)} bonus</span>
+                  </div>
+                ) : (
+                  <div className="topup-pkg-card__bonus topup-pkg-card__bonus--muted">
+                    <Icon icon="lucide:circle-off" width={11} />
+                    <span>{t("wallet.khongCoBonus")}</span>
+                  </div>
+                )}
+
+                <div className="topup-pkg-card__footer">
+                  <div className="topup-pkg-card__price">{formatVND(pkg.price)}</div>
+                  <div className="topup-pkg-card__footer-note">
+                    {formatCoin(pkg.coin_amount)} {t("wallet.coinGoc")}
+                  </div>
+                </div>
+              </button>;
+            })}
           </div>}
 
         {/* ── Payment Method ── */}
         {!loadingPackages && packages.length > 0 && <>
             <div className="topup-section-title reveal-on-scroll">{t("wallet.phuongThucThanhToan")}</div>
             <div className="topup-method-row reveal-on-scroll">
-              {PAYMENT_METHODS.map(m => <button key={m.key} type="button" className={`topup-method-btn ${paymentMethod === m.key ? 'active' : ''}`} onClick={() => !m.disabled && setPaymentMethod(m.key)} disabled={m.disabled} title={m.disabled ? t("wallet.sapRaMat") : m.label}>
-                  <Icon icon={m.icon} width={18} color={m.color} />
-                  {m.label}
-                  {m.disabled && <span style={{
-              fontSize: 10,
-              marginLeft: 4,
-              color: 'var(--text-muted)'
-            }}>{t("wallet.sapRaMat1")}</span>}
-                </button>)}
+              {PAYMENT_METHODS.map(m => <button
+                key={m.key}
+                type="button"
+                className={`topup-method-btn ${paymentMethod === m.key ? 'active' : ''}`}
+                onClick={() => !m.disabled && setPaymentMethod(m.key)}
+                disabled={m.disabled}
+                title={m.disabled ? t("wallet.sapRaMat") : m.label}
+              >
+                <Icon icon={m.icon} width={18} color={m.color} />
+                <span>{m.label}</span>
+                {m.disabled && <span style={{
+                  fontSize: 10,
+                  marginLeft: 4,
+                  color: 'var(--text-muted)'
+                }}>{t("wallet.sapRaMat1")}</span>}
+              </button>)}
             </div>
           </>}
 
         {/* ── CTA ── */}
         {!loadingPackages && packages.length > 0 && <div className="topup-cta-row reveal-on-scroll">
-            <Button
-              variant="primary"
+            <PrimaryButton
               size="lg"
-              className="rounded-pill px-4"
+              className="px-4 py-2.5 d-inline-flex align-items-center gap-2"
               disabled={!selectedPkgId}
               onClick={handlePay}
-              icon="solar:wallet-bold"
             >
-              {t("wallet.tienHanhNapTien")}{selectedPkg && ` — ${formatVND(selectedPkg.price)}`}
-            </Button>
-            <div className="topup-cta-note">{t("wallet.giaoDichDuocBaoMatVaMaHoa")}<br />{t("wallet.coinSeDuocCongSauKhiThanhToanT")}</div>
+              <Icon icon="solar:wallet-bold" width={18} />
+              <span>{t("wallet.tienHanhNapTien")}{selectedPkg && ` — ${formatVND(selectedPkg.price)}`}</span>
+            </PrimaryButton>
+            <div className="topup-cta-note">
+              {t("wallet.giaoDichDuocBaoMatVaMaHoa")}<br />{t("wallet.coinSeDuocCongSauKhiThanhToanT")}
+            </div>
           </div>}
 
         {/* ── Benefits Section ── */}
@@ -269,10 +302,8 @@ export default function TopUpPage() {
           <div className="topup-benefits__title">{t("wallet.taiSaoNenSuDungResearchpulseCo")}</div>
           <div className="topup-benefits__grid">
             {BENEFITS.map(b => <div className="topup-benefit-item" key={b.title}>
-                <div className="topup-benefit-item__icon" style={{
-              background: b.iconBg
-            }}>
-                  <Icon icon={b.icon} width={18} color={b.iconColor} />
+                <div className="topup-benefit-item__icon">
+                  <Icon icon={b.icon} width={18} />
                 </div>
                 <div>
                   <div className="topup-benefit-item__title">{b.title}</div>

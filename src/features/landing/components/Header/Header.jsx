@@ -79,14 +79,6 @@ export default function Header() {
     navigateWithLang(ROUTES.REGISTER);
   };
   const navItems = [{
-    label: t("author.tongQuan"),
-    icon: "lucide:layout-dashboard",
-    path: ROUTES.DASHBOARD
-  }, {
-    label: t("landing.duAn"),
-    icon: "lucide:folder",
-    path: ROUTES.PROJECTS
-  }, {
     label: t("search"),
     icon: "lucide:search",
     path: ROUTES.CATALOG
@@ -274,21 +266,6 @@ export default function Header() {
 
         <Offcanvas.Body className="d-flex flex-column justify-content-between py-4">
           <Nav className="flex-column gap-3 mb-4">
-            {!!email && (
-              <>
-                <Nav.Link onClick={() => {
-                  setShowMobileMenu(false);
-                  navigateWithLang(ROUTES.DASHBOARD);
-                }} className="text-muted-custom hover:text-main py-2 text-sm font-semibold border-bottom border-light">{t("author.tongQuan")}</Nav.Link>
-                <Nav.Link onClick={() => {
-                  setShowMobileMenu(false);
-                  navigateWithLang(ROUTES.PROJECTS);
-                }} className="text-muted-custom hover:text-main py-2 text-sm font-semibold border-bottom border-light" style={{
-                  color: cleanPathname.startsWith(ROUTES.PROJECTS) ? "var(--primary)" : "var(--text-muted)",
-                  fontWeight: cleanPathname.startsWith(ROUTES.PROJECTS) ? 700 : 600
-                }}>{t("landing.duAn")}</Nav.Link>
-              </>
-            )}
             <Nav.Link onClick={() => {
               setShowMobileMenu(false);
               navigateWithLang(ROUTES.CATALOG);

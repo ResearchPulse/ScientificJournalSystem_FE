@@ -11,7 +11,7 @@ import { Chip } from '@ui';
 import { useWalletStore } from '@/app/store/walletStore';
 import ROUTES from '@/app/routes/routePaths';
 
-export default function CoinBalanceBadge({ className = '' }) {
+export default function CoinBalanceBadge({ className = '', onClick }) {
   const navigate = useNavigate();
   const { balance, fetchWallet, isFetched, isLoading } = useWalletStore();
 
@@ -29,12 +29,20 @@ export default function CoinBalanceBadge({ className = '' }) {
     maximumFractionDigits: isWholeNumber ? 0 : 2
   }).format(balance);
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      navigate(ROUTES.WALLET);
+    }
+  };
+
   return (
     <Chip
       icon="solar:wallet-bold"
       label={isLoading && !isFetched ? '...' : formattedBalance}
       variant="minimal"
-      onClick={() => navigate(ROUTES.WALLET)}
+      onClick={handleClick}
       className={className}
       aria-label="Số dư ví"
     />

@@ -143,6 +143,10 @@
   background-color: var(--bg-card) !important;
 }
 
+.bg-backdrop {
+  background-color: var(--bg-backdrop, #f5f7f9) !important;
+}
+
 .bg-dark-bg {
   background-color: var(--bg-main) !important;
 }

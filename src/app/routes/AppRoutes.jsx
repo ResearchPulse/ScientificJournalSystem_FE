@@ -1,4 +1,9 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
+
+function DashboardTabRedirect({ tab }) {
+  const { lang } = useParams();
+  return <Navigate to={`/${lang || 'en'}/dashboard?tab=${tab}`} replace />;
+}
 
 import LandingPage from '../../features/landing/pages/LandingPage';
 import JournalDetailPage from '../../features/journal/pages/JournalDetailPage';
@@ -12,10 +17,6 @@ import RegisterPage from '../../features/auth/pages/RegisterPage';
 import LoginPage from '../../features/auth/pages/LoginPage';
 import ProfilePage from '../../features/profile/pages/ProfilePage';
 import VerifyEmailPage from '../../features/auth/pages/VerifyEmailPage';
-import WalletLayout from '../../features/wallet/components/WalletLayout';
-import MyWalletPage from '../../features/wallet/pages/MyWalletPage';
-import TopUpPage from '../../features/wallet/pages/TopUpPage';
-import TransactionHistoryPage from '../../features/wallet/pages/TransactionHistoryPage';
 import WalletCheckoutPage from '../../features/wallet/pages/WalletCheckoutPage';
 import PaymentResultPage from '../../features/wallet/pages/PaymentResultPage';
 import ROUTES from './routePaths';
@@ -27,8 +28,6 @@ import AuthLayoutWithUser from '../layouts/AuthLayoutWithUser';
 import LangLayout from '../layouts/LangLayout';
 import LanguageRedirect from './LanguageRedirect';
 
-import ProjectListPage from '../../features/project/pages/ProjectListPage';
-import CreateProjectPage from '../../features/project/pages/CreateProjectPage';
 import EditProjectPage from '../../features/project/pages/EditProjectPage';
 import ProjectDetailPage from '../../features/project/pages/ProjectDetailPage';
 import AcceptInvitePage from '../../features/project/pages/AcceptInvitePage';
@@ -95,17 +94,15 @@ export default function AppRoutes() {
           <Route element={<ProtectedRoute />}>
             <Route path="dashboard" element={<DashboardPage />} />
             
-            <Route path="projects" element={<ProjectListPage />} />
-            <Route path="projects/create" element={<CreateProjectPage />} />
+            <Route path="projects" element={<DashboardTabRedirect tab="projects" />} />
+            <Route path="projects/create" element={<DashboardTabRedirect tab="create-project" />} />
             <Route path="projects/:id/edit" element={<EditProjectPage />} />
             <Route path="projects/:id" element={<ProjectDetailPage />} />
             <Route path="project-invite/accept" element={<AcceptInvitePage />} />
 
-            <Route element={<WalletLayout />}>
-              <Route path={ROUTES.WALLET.substring(1)} element={<MyWalletPage />} />
-              <Route path={ROUTES.WALLET_TOP_UP.substring(1)} element={<TopUpPage />} />
-              <Route path={ROUTES.WALLET_TRANSACTIONS.substring(1)} element={<TransactionHistoryPage />} />
-            </Route>
+            <Route path="wallet" element={<DashboardTabRedirect tab="wallet" />} />
+            <Route path="wallet/top-up" element={<DashboardTabRedirect tab="topup" />} />
+            <Route path="wallet/transactions" element={<DashboardTabRedirect tab="transactions" />} />
 
             <Route
               path="authors/leaderboard"

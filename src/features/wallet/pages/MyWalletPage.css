@@ -48,10 +48,12 @@
 }
 
 .my-wallet-card {
-  background: #fff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 24px;
+  color: var(--text-main);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .my-wallet-card-header {
@@ -74,7 +76,7 @@
 .my-wallet-card-link {
   border: 0;
   background: transparent;
-  color: #ff6a1a;
+  color: var(--primary);
   font-weight: 750;
   font-size: 13px;
   display: inline-flex;
@@ -84,14 +86,15 @@
 
 /* Balance Card */
 .my-wallet-balance-card {
-  background: #fff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .my-wallet-balance-label {
@@ -112,9 +115,9 @@
 }
 
 .my-wallet-balance-value span {
-  font-size: 13px;
-  font-weight: 750;
-  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
   margin-left: 6px;
 }
 
@@ -276,9 +279,9 @@
 }
 
 .my-wallet-stat-card {
-  background: #fff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 16px 20px;
 }
 
@@ -296,6 +299,13 @@
   color: var(--text-main);
 }
 
+.my-wallet-stat-value span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
 /* Account */
 .my-wallet-account-list {
   display: grid;
@@ -307,18 +317,21 @@
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  transition: border-color 0.16s ease, background-color 0.16s ease;
 }
 
 .my-wallet-account-item.active {
-  border-color: rgba(255, 122, 51, 0.22);
-  background: rgba(255, 122, 51, 0.02);
+  border-color: rgba(37, 99, 235, 0.25);
+  background: var(--primary-light);
 }
 
 .my-wallet-account-name {
   font-size: 13px;
   font-weight: 800;
+  color: var(--text-main);
 }
 
 .my-wallet-account-status {
@@ -327,8 +340,8 @@
 }
 
 .bg-secure {
-  background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(255, 255, 255, 0));
-  border-color: rgba(34, 197, 94, 0.12);
+  background: var(--bg-card);
+  border: 1px solid rgba(34, 197, 94, 0.25);
 }
 
 @media (max-width: 768px) {
