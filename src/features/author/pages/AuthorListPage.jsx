@@ -7,17 +7,23 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Card } from 'react-bootstrap';
-import { Icon } from '@ui';
+import {
+  Icon,
+  Breadcrumb,
+  StatCard,
+  Chip,
+  LoadingSkeleton,
+  Pagination as AdminPagination,
+  PrimaryButton,
+  FilterCard,
+  FilterSearch,
+  FilterSelect
+} from '@ui';
 import Header from '../../landing/components/Header';
 import useAuthors from '../hooks/useAuthors';
 import AuthorTable from '../components/AuthorTable';
 import AuthorCard from '../components/AuthorCard';
-import { LoadingSkeleton } from '@ui';
 import AuthorNavigationTabs from '../components/AuthorNavigationTabs';
-import { Pagination as AdminPagination } from '@ui';
-import { PrimaryButton } from '@ui';
-import { FilterCard } from '@ui';
-import { FilterSearch, FilterSelect } from '@ui';
 import './AuthorListPage.css';
 export default function AuthorListPage() {
   const {
@@ -113,21 +119,22 @@ export default function AuthorListPage() {
       <Header />
 
       <Container>
-        <nav className="author-list-breadcrumb mb-4" aria-label="breadcrumb">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <span className="author-list-breadcrumb__link" onClick={() => navigate('/')}>{t("author.tongQuan")}</span>
-            </li>
-            <li className="breadcrumb-item active text-primary" aria-current="page">{t("author.tacGiaNoiBat")}</li>
-          </ol>
-        </nav>
+        <Breadcrumb
+          className="mb-4"
+          items={[
+            { label: t("home", "Home"), to: '/' },
+            { label: t("author.tacGiaNoiBat", "Authors"), active: true }
+          ]}
+        />
 
         <section className="author-list-hero reveal-on-scroll">
           <div className="author-list-hero__content">
-            <div className="author-list-eyebrow">
-              <Icon icon="lucide:users-round" width="17" />
-              <span>Author registry</span>
-            </div>
+            <Chip
+              icon="lucide:users-round"
+              label="Author registry"
+              variant="minimal"
+              className="mb-2"
+            />
             <h1 className="author-list-title">{t("author.danhSachNhaKhoaHocTacGia")}</h1>
             <p className="author-list-description">{t("author.traCuuThongTinChiSoHocThuatHin")}</p>
           </div>
@@ -137,14 +144,14 @@ export default function AuthorListPage() {
 
         <Row className="g-3 mb-4">
           {statCards.map((stat, idx) => <Col xs={12} sm={6} lg={3} key={idx} className={`reveal-on-scroll delay-${(idx + 1) * 100}`}>
-              <Card className="author-stat-card">
-                <div className="author-stat-header">
-                  <span className="author-stat-label">{stat.label}</span>
-                  <Icon className="author-stat-icon" icon={stat.icon} width="16" />
-                </div>
-                <div className="author-stat-value">{stat.value}</div>
-                <div className="author-stat-desc">{stat.desc}</div>
-              </Card>
+              <StatCard
+                label={stat.label}
+                value={stat.value}
+                icon={stat.icon}
+                description={stat.desc}
+                loading={loadingAuthors}
+                formatValue={false}
+              />
             </Col>)}
         </Row>
 
@@ -155,14 +162,20 @@ export default function AuthorListPage() {
                 <FilterSearch value={searchInput} onChange={e => setSearchInput(e.target.value)} placeholder={t("author.timTheoTenVienNghienCuuTuKhoa")} />
               </Col>
 
-              <Col xs={12} sm={6} lg={3} className="author-subject-filter-col">
-                <FilterSelect value={subjectAreaVal} onChange={e => handleFilterChange('subject_area', e.target.value)} options={[{
-                value: '',
-                label: t("admin.chonLinhVuc")
-              }, ...(subjectAreas || []).map(area => ({
-                value: area.display_name || area.name || '',
-                label: area.display_name || area.name || ''
-              }))]} />
+              <Col xs={12} sm="auto" className="author-subject-filter-col">
+                <FilterSelect
+                  value={subjectAreaVal}
+                  onChange={e => handleFilterChange('subject_area', e.target.value)}
+                  header={t("admin.chonLinhVuc", "Select the field")}
+                  variant="compact"
+                  options={[{
+                    value: '',
+                    label: t("admin.chonLinhVuc")
+                  }, ...(subjectAreas || []).map(area => ({
+                    value: area.display_name || area.name || '',
+                    label: area.display_name || area.name || ''
+                  }))]}
+                />
               </Col>
 
               <Col xs={12} sm={6} lg={1} className="d-flex gap-2">

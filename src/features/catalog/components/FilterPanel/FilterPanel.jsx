@@ -31,7 +31,9 @@ export default function FilterPanel({
   isOaDiamond = false,
   onOaDiamondToggle,
   onClearAll,
-  loading = false
+  loading = false,
+  sort = 'metric',
+  onSortChange
 }) {
   const { t } = useTranslation();
   const [menuSearch, setMenuSearch] = useState({});
@@ -218,6 +220,51 @@ export default function FilterPanel({
       <div className="catalog-filter-layout">
         <div className="catalog-filter-toolbar" aria-label="Catalog filters">
           {filterConfigs.map(renderDropdown)}
+
+          {/* Sắp xếp */}
+          <Dropdown className="catalog-filter-dropdown" autoClose="outside">
+            <Dropdown.Toggle
+              variant="light"
+              id="catalog-sort-filters"
+              className={`catalog-filter-button ${sort !== 'metric' ? 'is-active' : ''}`}
+            >
+              <span className="catalog-filter-button-label">
+                {sort === 'metric' ? t("catalog.macDinh", "Default") : t("catalog.tenAz", "Name (A-Z)")}
+              </span>
+              <Icon icon="lucide:arrow-up-down" width="15" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="catalog-filter-menu">
+              <div className="catalog-filter-menu-header">
+                <span>{t("article.sapXep", "Sort")}</span>
+                {sort !== 'metric' && (
+                  <button type="button" onClick={() => onSortChange?.('metric')} className="catalog-filter-reset-btn">
+                    Reset
+                  </button>
+                )}
+              </div>
+              <div className="catalog-filter-options">
+                {[
+                  { value: 'metric', label: t("catalog.macDinh", "Default") },
+                  { value: 'name', label: t("catalog.tenAz", "Name (A-Z)") },
+                ].map((option) => {
+                  const isSelected = sort === option.value;
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className={`catalog-filter-option ${isSelected ? 'is-selected' : ''}`}
+                      onClick={() => onSortChange?.(option.value)}
+                    >
+                      <span className="catalog-option-check" aria-hidden="true">
+                        {isSelected && <Icon icon="lucide:check" width="13" />}
+                      </span>
+                      <span>{option.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </Dropdown.Menu>
+          </Dropdown>
 
           <Dropdown className="catalog-filter-dropdown" autoClose="outside">
             <Dropdown.Toggle variant="light" id="catalog-more-filters" className="catalog-filter-button catalog-more-filter-button">

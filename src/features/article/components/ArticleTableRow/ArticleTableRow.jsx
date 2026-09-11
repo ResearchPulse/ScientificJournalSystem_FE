@@ -7,10 +7,11 @@ import { t } from "i18next";
  */
 
 import { useNavigate } from 'react-router-dom';
-import { LatexText, Icon, Button } from '@ui';
+import { LatexText, Icon, Button, Badge } from '@ui';
 export default function ArticleTableRow({
   article,
   index,
+  itemIndex,
   onDetailClick
 }) {
   const { t: _t } = useTranslation();
@@ -49,24 +50,20 @@ export default function ArticleTableRow({
       navigate(`/journals/${journalId}`);
     }
   };
-  return <tr onClick={() => onDetailClick(article.article_id)} style={{
-    cursor: 'pointer',
-    borderBottom: '1px solid var(--border)',
-    transition: 'all 0.15s'
-  }} className="align-middle article-table-row">
+  return <tr onClick={() => onDetailClick(article.article_id)} className="align-middle article-table-row">
       {/* Index */}
-      <td className="text-muted-custom ps-3 font-display" style={{
-      width: '40px',
-      fontSize: '0.8rem'
+      <td className="ps-4 pe-2 py-3 text-muted-custom font-display" style={{
+      width: '56px',
+      fontSize: '0.85rem'
     }}>
-        {index + 1}
+        {itemIndex ?? index + 1}
       </td>
 
       {/* Article Title */}
       <td style={{
       maxWidth: '400px'
     }} className="py-3">
-        <div className="text-main font-weight-semibold hover:text-primary transition-colors duration-150 text-sm" style={{
+        <div className="text-main font-weight-semibold transition-colors duration-150 text-sm" style={{
         lineHeight: '1.4',
         fontWeight: 600,
         overflow: 'hidden',
@@ -91,7 +88,7 @@ export default function ArticleTableRow({
       <td style={{
       maxWidth: '180px'
     }}>
-        {article.journal_id || article.journal?.journal_id ? <div onClick={e => handleJournalClick(e, article.journal_id || article.journal?.journal_id)} className="text-main hover:text-primary text-sm text-truncate" style={{
+        {article.journal_id || article.journal?.journal_id ? <div onClick={e => handleJournalClick(e, article.journal_id || article.journal?.journal_id)} className="text-main text-sm text-truncate" style={{
         textDecoration: 'none',
         cursor: 'pointer',
         fontWeight: 500
@@ -127,28 +124,32 @@ export default function ArticleTableRow({
 
       {/* Topic Badge */}
       <td style={{
-      width: '130px'
-    }}>
-        <span className={`article-topic-badge ${topicClassName}`}>
+        width: '130px'
+      }}>
+        <Badge
+          pill
+          variant={null}
+          className={`article-topic-badge ${topicClassName}`}
+        >
           {article.primary_topic || t("article.chuaPhanLoai")}
-        </span>
+        </Badge>
       </td>
 
       {/* Open Access */}
       <td className="text-center" style={{
-      width: '80px'
-    }}>
-        {article.is_open_access ? <span className="article-oa-badge">
+        width: '80px'
+      }}>
+        {article.is_open_access ? (
+          <Badge
+            pill
+            variant="success"
+            className="text-xs px-2 py-0.5"
+          >
             OA
-          </span> : <span className="text-muted-custom text-xs">—</span>}
-      </td>
-
-      {/* Actions */}
-      <td className="text-end pe-3" style={{
-      width: '80px'
-    }}>
-        <span className="article-action-link d-flex align-items-center justify-content-end gap-0.5">{t("article.chiTiet1")}<Icon icon="lucide:arrow-right" width="12" />
-        </span>
+          </Badge>
+        ) : (
+          <span className="text-muted-custom text-xs">—</span>
+        )}
       </td>
     </tr>;
 }

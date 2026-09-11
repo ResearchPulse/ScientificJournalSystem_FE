@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
  * File: features\journal\components\JournalMetadataGrid.jsx
  */
 import { Row, Col } from 'react-bootstrap';
+import { LoadingSkeleton } from '@ui';
+
 export default function JournalMetadataGrid({
   journal,
   loading
@@ -16,14 +18,8 @@ export default function JournalMetadataGrid({
     return <section className="journal-surface journal-meta-grid mb-4" aria-label="Đang tải metadata tạp chí">
         <Row className="gy-4">
           {[1, 2, 3, 4, 5, 6].map(i => <Col lg={2} md={4} sm={6} key={i}>
-              <div className="skeleton-shimmer mb-2" style={{
-            width: '60px',
-            height: '14px'
-          }} />
-              <div className="skeleton-shimmer" style={{
-            width: '100px',
-            height: '24px'
-          }} />
+              <LoadingSkeleton width="60px" height="14px" className="mb-2" />
+              <LoadingSkeleton width="100px" height="24px" />
             </Col>)}
         </Row>
       </section>;

@@ -187,7 +187,8 @@
 
 .article-table {
   --bs-table-bg: var(--bg-card);
-  --bs-table-hover-bg: #f5f6f7;
+  --bs-table-hover-bg: var(--bg-section);
+  --bs-table-hover-color: var(--text-main);
   color: var(--text-main) !important;
 }
 
@@ -208,13 +209,22 @@
   vertical-align: middle;
 }
 
-.article-table-row {
+.article-table tbody tr,
+.article-table tbody tr > *,
+.article-table-row,
+.article-table-row > * {
   cursor: pointer;
-  transition: background-color 0.18s ease;
+  transition: background-color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1)),
+              color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
-.article-table-row:hover {
-  background: var(--primary-light);
+.article-table.table-hover > tbody > tr:hover,
+.article-table.table-hover > tbody > tr:hover > *,
+.article-table-row:hover,
+.article-table-row:hover > * {
+  background-color: var(--bg-section) !important;
+  --bs-table-accent-bg: var(--bg-section) !important;
+  --bs-table-hover-bg: var(--bg-section) !important;
 }
 
 .article-topic-badge,
@@ -223,13 +233,13 @@
   display: inline-flex;
   align-items: center;
   max-width: 100%;
-  padding: 0.24rem 0.55rem;
+  padding: 0.2rem 0.55rem;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-chip);
-  color: var(--text-muted);
-  font-size: 0.68rem;
-  font-weight: 700;
+  border-radius: 999px;
+  background: var(--bg-chip, #f1f5f9) !important;
+  color: var(--text-muted) !important;
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
 .article-topic-badge.is-active {
@@ -332,7 +342,7 @@
 /* ArticleDetailPage.css */
 .article-detail-page {
   min-height: 100vh;
-  padding-top: 82px;
+  padding-top: 90px;
   padding-bottom: 60px;
   background-color: var(--bg-main);
   color: var(--text-main);
@@ -1391,7 +1401,14 @@
   color: var(--text-muted);
 }
 
+.article-filter-wrapper {
+  position: relative;
+  z-index: 40;
+}
+
 .article-filter-card {
+  position: relative;
+  z-index: 40;
   overflow: visible !important;
 }
 
@@ -1404,6 +1421,8 @@
 }
 
 .article-filter-toolbar {
+  position: relative;
+  z-index: 41;
   display: flex;
   flex: 1 1 auto;
   flex-wrap: wrap;
@@ -1467,8 +1486,7 @@
   border-radius: 10px !important;
   background: var(--bg-card) !important;
   box-shadow: 0 18px 44px rgba(7, 26, 28, 0.12) !important;
-  padding: 0.55rem !important;
-  z-index: 1040;
+  z-index: 1060 !important;
 }
 
 .article-more-filter-menu {

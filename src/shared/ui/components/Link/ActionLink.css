@@ -1,0 +1,114 @@
+/* ─── Chuẩn hóa ActionLink trong hệ thống UI (Unified ActionLink System) ─── */
+
+.ui-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, opacity 0.15s ease;
+  user-select: none;
+}
+
+/* ─── Kích thước (Sizes) ─── */
+.ui-action-link--sm {
+  font-size: 0.82rem;
+}
+
+.ui-action-link--md {
+  font-size: 0.88rem;
+}
+
+.ui-action-link--lg {
+  font-size: 0.95rem;
+}
+
+/* ─── Biến thể màu sắc (Variants) ─── */
+.ui-action-link--primary {
+  color: var(--primary) !important;
+}
+
+.ui-action-link--primary:hover,
+.ui-action-link--primary:focus-visible {
+  color: var(--primary-hover) !important;
+}
+
+.ui-action-link--secondary {
+  color: var(--text-main) !important;
+}
+
+.ui-action-link--secondary:hover,
+.ui-action-link--secondary:focus-visible {
+  color: var(--primary) !important;
+}
+
+.ui-action-link--muted {
+  color: var(--text-muted) !important;
+}
+
+.ui-action-link--muted:hover,
+.ui-action-link--muted:focus-visible {
+  color: var(--primary) !important;
+}
+
+.ui-action-link--danger {
+  color: var(--danger, #ef4444) !important;
+}
+
+.ui-action-link--danger:hover,
+.ui-action-link--danger:focus-visible {
+  color: #dc2626 !important;
+}
+
+/* ─── Kiểu gạch chân (Underline behavior) ─── */
+.ui-action-link--underline-always {
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+.ui-action-link--underline-hover {
+  text-decoration: none !important;
+}
+
+.ui-action-link--underline-hover:hover,
+.ui-action-link--underline-hover:focus-visible {
+  text-decoration: underline !important;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+.ui-action-link--underline-none {
+  text-decoration: none !important;
+}
+
+/* ─── Hiệu ứng icon chuyển động nhẹ (Icon micro-motion) ─── */
+.ui-action-link__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+
+.ui-action-link:hover .ui-action-link__icon--right {
+  transform: translateX(3px);
+}
+
+.ui-action-link:hover .ui-action-link__icon--left {
+  transform: translateX(-3px);
+}
+
+/* ─── Trạng thái vô hiệu hóa (Disabled) ─── */
+.ui-action-link.is-disabled,
+.ui-action-link:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}

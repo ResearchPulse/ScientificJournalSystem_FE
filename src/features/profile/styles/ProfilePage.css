@@ -1,11 +1,12 @@
 .profile-page {
   min-height: 100vh;
-  background: #f8f9fb;
-  padding: 120px 40px 40px;
+  background: var(--bg-main, #f8f9fb);
+  color: var(--text-main);
+  padding: 90px 1rem 60px;
 }
 
 .profile-container {
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto;
 }
 
@@ -301,7 +302,7 @@
 /* Mobile */
 @media (max-width: 768px) {
   .profile-page {
-    padding: 100px 20px 20px;
+    padding: 86px 1rem 40px;
   }
 
   .profile-content {

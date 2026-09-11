@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
  * File: features\journal\pages\JournalDetailPage.jsx
  */
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Breadcrumb } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
-import { PrimaryButton } from '@ui';
+import { PrimaryButton, Breadcrumb, AuthRequiredModal } from '@ui';
 
 // Shared Layout Header
 import Header from '../../landing/components/Header';
@@ -23,7 +23,6 @@ import JournalTabs from '../components/JournalTabs';
 import RankingTabContent from '../components/RankingTabContent';
 import VolumesTabContent from '../components/VolumesTabContent';
 import ArticlesTabContent from '../components/ArticlesTabContent';
-import { AuthRequiredModal } from '@ui';
 import AddToProjectModal from '../components/AddToProjectModal';
 import '../components/JournalDetail.css';
 export default function JournalDetailPage() {
@@ -68,7 +67,7 @@ export default function JournalDetailPage() {
 
   // Fallback for not found or empty ID
   if (notFound) {
-    return <div className="grid-bg min-vh-100 d-flex flex-column text-main">
+    return <div className="min-vh-100 d-flex flex-column text-main journal-detail-page">
         <Header />
         <Container className="flex-grow-1 d-flex flex-column justify-content-center align-items-center py-5">
           <div className="journal-dark-card p-5 text-center" style={{
@@ -82,42 +81,25 @@ export default function JournalDetailPage() {
         </Container>
       </div>;
   }
-  return <div className="grid-bg min-vh-100 text-main pb-5 journal-detail-page">
+  return <div className="min-vh-100 text-main pb-5 journal-detail-page">
       {/* Top Navbar */}
       <Header />
 
       {/* Main Container */}
-      <Container className="pt-5 mt-5 journal-detail-shell">
+      <Container className="journal-detail-shell">
         
-        {/* Custom Breadcrumb Nav */}
-        <div aria-label="breadcrumb" className="journal-breadcrumb">
-          <Breadcrumb className="mb-0 custom-breadcrumb d-flex align-items-center">
-            <Breadcrumb.Item onClick={() => navigate('/')} className="d-flex align-items-center" linkProps={{
-            style: {
-              cursor: 'pointer',
-              fontSize: '0.85rem',
-              lineHeight: 1,
-              color: 'var(--text-muted)',
-              textDecoration: 'none'
-            }
-          }}>{t("home")}</Breadcrumb.Item>
-            <Breadcrumb.Item onClick={() => navigate('/search')} className="d-flex align-items-center" linkProps={{
-            style: {
-              cursor: 'pointer',
-              fontSize: '0.85rem',
-              lineHeight: 1,
-              color: 'var(--text-muted)',
-              textDecoration: 'none'
-            }
-          }}>{t("search")}</Breadcrumb.Item>
-            <Breadcrumb.Item active className="d-flex align-items-center" style={{
-            fontSize: '0.85rem',
-            color: 'var(--text-main)',
-            fontWeight: 500
-          }}>
-              {loadingJournal ? t("common.dangTai") : journal?.display_name}
-            </Breadcrumb.Item>
-          </Breadcrumb>
+        {/* Standardized Breadcrumb */}
+        <div className="reveal-on-scroll">
+          <Breadcrumb
+            items={[
+              { label: t("home", "Home"), href: '/' },
+              { label: t("search", "Search"), href: '/search' },
+              {
+                label: loadingJournal ? t("common.dangTai", "Loading...") : journal?.display_name,
+                active: true
+              }
+            ]}
+          />
         </div>
 
         {/* Hero Section */}

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
  */
 
 import { useNavigate } from 'react-router-dom';
-import { EntityCard, Badge, LoadingSkeleton, Icon, Button } from '@ui';
+import { EntityCard, Badge, LoadingSkeleton, Icon, Button, ActionLink } from '@ui';
 import { formatCount, truncate } from '@shared/utils/formatNumber';
 import './TopAuthorsTable.css';
 
@@ -91,13 +91,9 @@ export default function TopAuthorsTable({
   } = useTranslation();
   const navigate = useNavigate();
   const actions = onViewAll ? (
-    <button
-      type="button"
-      className="dashboard-link-action"
-      onClick={onViewAll}
-    >
+    <ActionLink onClick={onViewAll}>
       {t("dashboard.bangXepHang")}
-    </button>
+    </ActionLink>
   ) : null;
   const description = loading ? <div className="p-3">
       {[1, 2, 3, 4, 5].map(i => <div key={i} className="d-flex align-items-center gap-3 py-3 px-2 border-bottom border-light">

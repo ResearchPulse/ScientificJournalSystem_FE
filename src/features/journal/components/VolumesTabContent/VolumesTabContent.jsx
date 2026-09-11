@@ -5,11 +5,20 @@ import { useTranslation } from "react-i18next";
  * File: features\journal\components\VolumesTabContent.jsx
  */
 import { useState } from 'react';
-import { Spinner } from 'react-bootstrap';
-
 import { useNavigate } from 'react-router-dom';
-import { LoadingSkeleton, Icon, Button } from '@ui';
-import { Pagination as AdminPagination } from '@ui';
+import {
+  LoadingSkeleton,
+  Icon,
+  Spinner,
+  PaginationControls,
+  Badge,
+  EmptyState,
+  ErrorState,
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionBody,
+} from '@ui';
 export default function VolumesTabContent({
   volumes = [],
   issuesByVolume = {},
@@ -42,104 +51,133 @@ export default function VolumesTabContent({
     }
   };
 
-  /** Điều hướng đến trang bài báo theo issue */
-  const handleViewArticles = (e, issueId) => {
-    e.stopPropagation();
+  /** Tạo URL điều hướng đến trang bài báo theo issue */
+  const getIssueArticlesUrl = issueId => {
     const query = new URLSearchParams({
       issue_id: issueId
     });
     if (journalId) query.set('journal_id', journalId);
-    navigate(`/articles?${query.toString()}`);
+    return `/articles?${query.toString()}`;
   };
 
   /** Render shared pagination controls with API pagination metadata. */
-  const renderPagination = (pagination, onPageChange, entityName) => {
-    const totalItems = pagination?.total || pagination?.total_items || pagination?.totalItems || 0;
+  const renderPagination = (pagination, onPageChange) => {
+    const totalPages = pagination?.totalPages || pagination?.total_pages || (pagination?.total && pagination?.limit ? Math.ceil(pagination.total / pagination.limit) : 1);
     const currentPage = pagination?.page || 1;
-    const limit = pagination?.limit || pagination?.page_size || 10;
-    if (totalItems <= limit) return null;
-    return <AdminPagination totalItems={totalItems} currentPage={currentPage} limit={limit} onPageChange={onPageChange} entityName={entityName} />;
+    if (totalPages <= 1) return null;
+    return (
+      <div className="d-flex justify-content-end align-items-center mt-3 pt-2">
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        />
+      </div>
+    );
   };
   if (loading) {
-    return <section className="journal-surface p-4">
-        {[1, 2, 3].map(i => <div key={i} className="mb-3 p-3 border-bottom">
-            <LoadingSkeleton width="200px" height="24px" className="mb-2" />
-            <LoadingSkeleton width="120px" height="16px" />
+    return <div className="d-flex flex-column gap-3">
+        {[1, 2, 3].map(i => <div key={i} className="journal-volume-card p-3">
+            <LoadingSkeleton variant="text" width="40%" height="24px" className="mb-2" />
+            <LoadingSkeleton variant="text" width="20%" height="16px" />
           </div>)}
-      </section>;
+      </div>;
   }
   if (error) {
-    return <section className="journal-surface journal-empty-state">
-        <Icon icon="lucide:alert-triangle" width="36" className="text-danger" />
-        <p className="mb-0">{t("journal.khongTheTaiDanhSachVolumesVuiL")}</p>
-      </section>;
+    return <ErrorState title={t("journal.khongTheTaiTapChi")} message={t("journal.daXayRaLoiKhiTaiDuLieuVui")} onRetry={() => window.location.reload()} />;
   }
   if (!volumes || volumes.length === 0) {
-    return <section className="journal-surface journal-empty-state">
-        <Icon icon="lucide:folder-x" width="36" />
-        <p className="mb-0">{t("journal.journalNayChuaCoDuLieuVolume")}</p>
-      </section>;
+    return <EmptyState title={t("journal.chuaCoVolumeNao")} message={t("journal.tapChiNayHienChuaCoTapPhatH")} />;
   }
-  return <div className="journal-volume-list">
-      {volumes.map(vol => {
+  return (
+    <div className="journal-volume-list">
+      <Accordion alwaysOpen>
+        {volumes.map(vol => {
+          const volumeId = vol.volume_id || vol.id;
+          const volumeYear = vol.publication_year || vol.year;
+          const isExpanded = !!expandedVolumes[volumeId];
+          const issues = issuesByVolume[volumeId];
+          const issueError = issueErrors[volumeId];
+          const issuePagination = issuePaginationByVolume[volumeId];
+          const issueCountLabel = vol.issue_count !== undefined && vol.issue_count > 0
+            ? `• ${vol.issue_count} ${vol.issue_count === 1 ? t("journal.soLuongIssueDon", "issue") : t("journal.soLuongIssue", "issues")}`
+            : null;
 
-      const volumeId = vol.volume_id || vol.id;
-      const volumeYear = vol.publication_year || vol.year;
-      const isExpanded = !!expandedVolumes[volumeId];
-      const issues = issuesByVolume[volumeId];
-      const issueError = issueErrors[volumeId];
-      const issuePagination = issuePaginationByVolume[volumeId];
-      return <article key={volumeId} className={`journal-volume-card ${isExpanded ? 'is-expanded' : ''}`}>
-            <div className="journal-volume-header" onClick={() => toggleVolume(volumeId)}>
-              <div className="d-flex align-items-center gap-3 flex-wrap">
-                <Icon icon={isExpanded ? 'lucide:folder-open' : 'lucide:folder'} style={{
-              color: 'var(--text-muted)'
-            }} width="20" />
-                <div>
-                  <span className="journal-volume-title">Volume {vol.volume_number || 'N/A'}</span>
-                  <span className="journal-volume-meta">{volumeYear || t("author.chuaCapNhat")}</span>
-                  {vol.issue_count !== undefined && vol.issue_count > 0 && <span className="text-muted-custom small ms-2">
-                      {vol.issue_count} issue
-                    </span>}
-                </div>
-              </div>
-              <span className="text-muted-custom d-flex align-items-center">
-                <Icon icon={isExpanded ? 'lucide:chevron-up' : 'lucide:chevron-down'} width="18" />
-              </span>
-            </div>
+          return (
+            <AccordionItem
+              key={volumeId}
+              isExpanded={isExpanded}
+              onToggle={() => toggleVolume(volumeId)}
+            >
+              <AccordionHeader
+                title={`Volume ${vol.volume_number || 'N/A'}`}
+                badge={volumeYear}
+                badgeVariant="secondary"
+                meta={issueCountLabel}
+                icon="lucide:folder"
+                expandedIcon="lucide:folder-open"
+              />
 
-            {isExpanded && <div className="journal-issue-panel">
-                {issues === undefined && !issueError ? <div className="d-flex align-items-center gap-2 py-3 text-muted-custom">
-                    <Spinner animation="border" size="sm" />{t("journal.dangTaiDanhSachIssue")}</div> : issueError ? <div className="d-flex align-items-center gap-2 py-3 text-danger">
-                    <Icon icon="lucide:alert-triangle" width="16" />{t("journal.khongTheTaiDanhSachIssuesVuiLo")}</div> : !issues || issues.length === 0 ? <div className="text-muted-custom py-3 text-start">
-                    <Icon icon="lucide:inbox" width="14" className="me-1" />{t("journal.volumeNayChuaCoIssue")}</div> : <div className="d-flex flex-column gap-2 py-2">
+              <AccordionBody>
+                {issues === undefined && !issueError ? (
+                  <div className="d-flex align-items-center gap-2 py-3 text-muted-custom">
+                    <Spinner size="sm" variant="primary" />
+                    {t("journal.dangTaiDanhSachIssue")}
+                  </div>
+                ) : issueError ? (
+                  <div className="d-flex align-items-center gap-2 py-3 text-danger">
+                    <Icon icon="lucide:alert-triangle" width="16" />
+                    {t("journal.khongTheTaiDanhSachIssuesVuiLo")}
+                  </div>
+                ) : !issues || issues.length === 0 ? (
+                  <div className="text-muted-custom py-3 text-start">
+                    <Icon icon="lucide:inbox" width="14" className="me-1" />
+                    {t("journal.volumeNayChuaCoIssue")}
+                  </div>
+                ) : (
+                  <div className="d-flex flex-column gap-2 py-2">
                     {issues.map(issue => {
+                      const issueId = issue.issue_id || issue.id;
+                      const issueYear = issue.publication_year || issue.year;
+                      const issueMonth = issue.month ? MONTH_NAMES[issue.month] || `Tháng ${issue.month}` : null;
+                      const periodLabel = [issueMonth, issueYear].filter(Boolean).join(' ');
+                      const articleCount = issue.article_count;
 
-              const issueId = issue.issue_id || issue.id;
-              const issueYear = issue.publication_year || issue.year;
-              const issueMonth = issue.month ? MONTH_NAMES[issue.month] || `Tháng ${issue.month}` : null;
-              return <div key={issueId} className="journal-issue-row">
+                      return (
+                        <div
+                          key={issueId}
+                          className="journal-issue-row"
+                          onClick={() => navigate(getIssueArticlesUrl(issueId))}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={e => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              navigate(getIssueArticlesUrl(issueId));
+                            }
+                          }}
+                        >
                           <div className="d-flex align-items-center gap-2 flex-wrap">
-                            <Icon icon="lucide:file-stack" style={{
-                    color: 'var(--text-muted)'
-                  }} width="15" />
+                            <Icon icon="lucide:file-stack" className="text-muted-custom" width="16" />
                             <span className="journal-issue-title">Issue {issue.issue_number || 'N/A'}</span>
-                            {(issueMonth || issueYear) && <span className="text-muted-custom small">
-                                {[issueMonth, issueYear].filter(Boolean).join(' ')}
-                              </span>}
-                            {issue.article_count !== undefined && <span className="text-muted-custom small">
-                                {issue.article_count}{" "}{t("author.baiBao")}</span>}
+                            {periodLabel && <Badge pill variant="secondary">{periodLabel}</Badge>}
+                            {articleCount !== undefined && (
+                              <span className="text-muted-custom small ms-1">
+                                • {articleCount} {articleCount === 1 ? t("journal.soLuongBaiBaoDon", "article") : t("journal.soLuongBaiBao", "articles")}
+                              </span>
+                            )}
                           </div>
-
-                          <Button onClick={e => handleViewArticles(e, issueId)} className="journal-text-btn px-3 py-1">{t("journal.xemBaiBao")}<Icon icon="lucide:arrow-right" width="14" />
-                          </Button>
-                        </div>;
-            })}
+                        </div>
+                      );
+                    })}
                     {renderPagination(issuePagination, nextPage => onIssuePageChange && onIssuePageChange(volumeId, nextPage), 'issue')}
-                  </div>}
-              </div>}
-          </article>;
-    })}
+                  </div>
+                )}
+              </AccordionBody>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
       {renderPagination(volumePagination, nextPage => onVolumePageChange && onVolumePageChange(nextPage), 'volume')}
-    </div>;
+    </div>
+  );
 }

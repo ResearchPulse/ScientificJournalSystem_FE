@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
  */
 import { useState } from 'react';
 
-import { EntityCard, Badge, LoadingSkeleton, Icon, Button } from '@ui';
+import { EntityCard, Badge, LoadingSkeleton, Icon, Button, ActionLink } from '@ui';
 
 function ProjectStatusBadge({
   status
@@ -115,13 +115,9 @@ export default function RecentProjectsCard({
   const totalPages = Math.max(1, Math.ceil((projects?.length ?? 0) / ITEMS_PER_PAGE));
   const paginatedProjects = projects.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
   const actions = onViewAll ? (
-    <button
-      type="button"
-      className="dashboard-link-action"
-      onClick={onViewAll}
-    >
+    <ActionLink onClick={onViewAll}>
       {t("dashboard.xemTatCa")}
-    </button>
+    </ActionLink>
   ) : null;
   const description = <div className="px-1">
       {loading ? [1, 2, 3].map(i => <div key={i} className="d-flex align-items-center gap-3 px-3 py-3">

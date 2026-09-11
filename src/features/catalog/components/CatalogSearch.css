@@ -1,32 +1,70 @@
 .catalog-search-page {
+  min-height: 100vh;
+  padding-top: 90px;
+  padding-bottom: 60px;
   background: var(--bg-main, #ffffff);
-  padding-top: 96px;
-  padding-bottom: 80px;
+  color: var(--text-main);
 }
 
 .catalog-shell {
-  max-width: 1180px;
+  position: relative;
+  z-index: 1;
+}
+
+.catalog-breadcrumb .breadcrumb {
+  margin-bottom: 0;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+}
+
+.catalog-breadcrumb a {
+  color: var(--text-muted) !important;
+  text-decoration: none;
+  transition: color var(--dur-fast, 150ms) var(--ease-standard);
+}
+
+.catalog-breadcrumb a:hover {
+  color: var(--primary) !important;
+}
+
+.catalog-breadcrumb .active {
+  color: var(--text-main) !important;
+  font-weight: 500;
 }
 
 .catalog-hero {
   margin-bottom: 1.5rem;
 }
 
+.catalog-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .catalog-title {
+  margin: 0;
+  max-width: 780px;
   color: var(--text-main);
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3vw, 3rem);
-  font-weight: 600;
-  letter-spacing: -0.035em;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 650;
   line-height: 1.05;
-  margin-bottom: 0.65rem;
-  text-wrap: balance;
+  letter-spacing: -0.035em;
 }
 
 .catalog-subtitle {
+  max-width: 680px;
+  margin: 0.85rem 0 0;
   color: var(--text-muted);
-  max-width: 62ch;
-  margin: 0;
+  font-size: 0.95rem;
   line-height: 1.65;
 }
 
@@ -71,6 +109,13 @@
   position: relative;
   z-index: 30;
   overflow: visible !important;
+  transition: border-color var(--dur-fast, 150ms) var(--ease-standard),
+              box-shadow var(--dur-fast, 150ms) var(--ease-standard);
+}
+
+.catalog-filter-toolbar:hover,
+.catalog-filter-toolbar:focus-within {
+  border-color: #cbd5e1 !important;
 }
 
 .catalog-filter-dropdown {
@@ -90,7 +135,7 @@
   min-height: 42px;
   max-width: 230px;
   border: none !important;
-  background: var(--bg-card) !important;
+  background: transparent !important;
   color: var(--text-main) !important;
   display: inline-flex !important;
   align-items: center;
@@ -101,6 +146,10 @@
   font-weight: 600 !important;
   padding: 0.52rem 0.8rem !important;
   box-shadow: none !important;
+  border-radius: 999px !important;
+  transition: background-color var(--dur-fast, 150ms) var(--ease-standard),
+              color var(--dur-fast, 150ms) var(--ease-standard),
+              box-shadow var(--dur-fast, 150ms) var(--ease-standard);
 }
 
 .catalog-filter-button-label {
@@ -111,9 +160,22 @@
 
 .catalog-filter-button:hover,
 .catalog-filter-button:focus,
-.catalog-filter-button.show,
-.catalog-filter-button.is-active {
+.catalog-filter-button.show {
+  background-color: var(--bg-section, #f8fafc) !important;
+  color: var(--text-main) !important;
+}
 
+.catalog-filter-button.is-active {
+  background-color: var(--bg-section, #f8fafc) !important;
+  color: var(--primary) !important;
+}
+
+.catalog-filter-button svg {
+  transition: transform var(--dur-fast, 150ms) var(--ease-standard);
+}
+
+.catalog-filter-dropdown.show .catalog-filter-button svg {
+  transform: rotate(180deg);
 }
 
 .catalog-filter-button:disabled {
@@ -216,6 +278,8 @@
   font-family: var(--font-display);
   font-size: 0.88rem;
   font-weight: 500;
+  transition: background-color var(--dur-fast, 150ms) var(--ease-standard),
+              color var(--dur-fast, 150ms) var(--ease-standard);
 }
 
 .catalog-filter-option:hover,
@@ -257,6 +321,8 @@
 
 .catalog-table-search {
   box-shadow: 0 8px 18px rgba(7, 26, 28, 0.03);
+  transition: border-color var(--dur-fast, 150ms) var(--ease-standard),
+              box-shadow var(--dur-fast, 150ms) var(--ease-standard);
 }
 
 .catalog-selected-filters {
@@ -372,46 +438,6 @@
   box-shadow: none !important;
 }
 
-.catalog-toolbar {
-  position: relative;
-  z-index: 10;
-  margin-bottom: 1rem;
-}
-
-.catalog-count strong,
-.catalog-count .catalog-number {
-  color: var(--text-main);
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-}
-
-.catalog-sort-toggle {
-  display: inline-flex !important;
-  border: none !important;
-  background: transparent !important;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.9rem !important;
-}
-
-.catalog-dropdown-menu {
-  border: 1px solid var(--border) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 14px 34px rgba(7, 26, 28, 0.08);
-  padding: 0.4rem !important;
-}
-
-.catalog-dropdown-menu .dropdown-item {
-  border-radius: 8px;
-  color: var(--text-main);
-  font-size: 0.9rem;
-  padding: 0.55rem 0.7rem;
-}
-
-.catalog-dropdown-menu .dropdown-item:hover {
- background-color: #f5f6f7;
-}
-
 .catalog-table-card {
   position: relative;
   z-index: 1;
@@ -505,6 +531,20 @@
 
 .catalog-follow-btn.is-followed {
   color: var(--text-muted);
+}
+
+.catalog-mobile-card {
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  background: var(--bg-card) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transition: background-color var(--dur-fast, 150ms) var(--ease-standard),
+              border-color var(--dur-fast, 150ms) var(--ease-standard);
+}
+
+.catalog-mobile-card:hover {
+  background-color: var(--bg-section) !important;
 }
 
 .catalog-state-card {

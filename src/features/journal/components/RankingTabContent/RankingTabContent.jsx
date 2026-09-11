@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
  * File: features\journal\components\RankingTabContent.jsx
  */
 import { Row, Col, Table } from 'react-bootstrap';
-import { LoadingSkeleton, Badge } from '@ui';
+import { LoadingSkeleton, Badge, EmptyState } from '@ui';
 export default function RankingTabContent({
   rankingHistory = [],
   metricName = 'Impact Factor',
@@ -31,7 +31,13 @@ export default function RankingTabContent({
       </Row>;
   }
   if (!rankingHistory || rankingHistory.length === 0) {
-    return <section className="journal-surface journal-empty-state">{t("journal.chuaCoDuLieuLichSuXepHangChoTa")}</section>;
+    return (
+      <EmptyState
+        icon="lucide:bar-chart-2"
+        title={t("journal.chuaCoDuLieuLichSuXepHangChoTa", "Chưa có dữ liệu lịch sử xếp hạng cho tạp chí này.")}
+        description=""
+      />
+    );
   }
 
   // Sort chronological for chart (oldest to newest)

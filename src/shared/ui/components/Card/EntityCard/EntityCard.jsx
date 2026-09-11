@@ -28,6 +28,7 @@ export default function EntityCard({
   meta,
   actions,
   footer,
+  children,
   onClick,
   className = '',
   bodyClassName = '',
@@ -45,15 +46,18 @@ export default function EntityCard({
         {media && <div className="shared-entity-card__media">{media}</div>}
 
         <div className={`shared-entity-card__content ${contentClassName}`.trim()}>
-          <div className="shared-entity-card__header">
-            <div className="shared-entity-card__title-group">
-              <h3 className="shared-entity-card__title" title={typeof title === 'string' ? title : undefined}>{title}</h3>
-              {subtitle && <p className="shared-entity-card__subtitle">{subtitle}</p>}
+          {(title || actions || subtitle) && (
+            <div className="shared-entity-card__header">
+              <div className="shared-entity-card__title-group">
+                {title && <h3 className="shared-entity-card__title" title={typeof title === 'string' ? title : undefined}>{title}</h3>}
+                {subtitle && <p className="shared-entity-card__subtitle">{subtitle}</p>}
+              </div>
+              {actions && <div className="shared-entity-card__actions">{actions}</div>}
             </div>
-            {actions && <div className="shared-entity-card__actions">{actions}</div>}
-          </div>
+          )}
 
           {description && <div className="shared-entity-card__description">{description}</div>}
+          {children}
           {meta && <div className="shared-entity-card__meta">{meta}</div>}
         </div>
       </div>

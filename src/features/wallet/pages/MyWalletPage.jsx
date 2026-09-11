@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Icon, StatCard } from '@ui';
+import { Button, Icon, StatCard, ActionLink } from '@ui';
 import ROUTES from '../../../app/routes/routePaths';
 import { useWalletStore } from '../../../app/store/walletStore';
 import { getWalletTransactions } from '../api/walletApi';
@@ -146,13 +146,11 @@ export default function MyWalletPage() {
             <div className="my-wallet-card-header">
               <div className="my-wallet-card-title">
                 <Icon icon="lucide:clock" width={18} />{t("wallet.lichSuGiaoDichGanDay")}</div>
-              <button
-                type="button"
-                className="dashboard-link-action"
+              <ActionLink
                 onClick={() => navigate(ROUTES.WALLET_TRANSACTIONS)}
               >
                 {t("wallet.xemTatCa")}
-              </button>
+              </ActionLink>
             </div>
 
             {loadingTx ? <div className="my-wallet-table-loading">{t("wallet.dangTaiLichSuGiaoDich")}</div> : errorTx ? <div className="my-wallet-table-empty">{errorTx}</div> : recentTx.length === 0 ? <div className="my-wallet-table-empty">{t("wallet.khongCoGiaoDichNaoGanDay")}</div> : <div className="my-wallet-table-wrap">

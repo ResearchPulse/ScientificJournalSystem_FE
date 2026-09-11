@@ -29,7 +29,7 @@ export default function Pagination({
   }
 
   const isEn = i18n.language === 'en';
-  const formatNum = (num) => num.toLocaleString(isEn ? 'en-US' : 'vi-VN');
+  const formatNum = (num) => (typeof num === 'number' ? num.toLocaleString(isEn ? 'en-US' : 'vi-VN') : (num ?? ''));
 
   const getEntityLabel = (name, count) => {
     if (!name) return '';

@@ -48,8 +48,5 @@ export default function AuthorTableRow({
       <td className="author-table-cell">{formatLocalNumber(articlesCount)}</td>
       <td className="author-table-cell">{formatLocalNumber(citations)}</td>
       <td className="author-table-cell author-table-hindex">{hIndex}</td>
-      <td>
-        <span className="author-table-link">{t("author.chiTiet")}</span>
-      </td>
     </tr>;
 }

@@ -4,15 +4,16 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\article\components\ArticleTable.jsx
  */
-import { Table, Card } from 'react-bootstrap';
-
 import ArticleTableRow from '../ArticleTableRow';
-import { LatexText, Icon, Button } from '@ui';
+import { LatexText, Icon, Button, EmptyState, Table, Badge } from '@ui';
+import { Card } from 'react-bootstrap';
 export default function ArticleTable({
   articles,
   isLoading,
   onDetailClick,
-  onClearFilters
+  onClearFilters,
+  currentPage = 1,
+  limit = 10
 }) {
   const {
     t
@@ -22,11 +23,11 @@ export default function ArticleTable({
       {[1, 2, 3, 4, 5].map(i => <tr key={i} style={{
       borderBottom: '1px solid var(--border)'
     }}>
-          <td className="ps-3 py-3" style={{
-        width: '40px'
+          <td className="ps-4 pe-2 py-3" style={{
+        width: '56px'
       }}>
             <div className="skeleton-shimmer rounded" style={{
-          width: '15px',
+          width: '18px',
           height: '14px'
         }} />
           </td>
@@ -70,12 +71,6 @@ export default function ArticleTable({
           height: '20px'
         }} />
           </td>
-          <td className="pe-3 text-end py-3">
-            <div className="skeleton-shimmer rounded ms-auto" style={{
-          width: '50px',
-          height: '16px'
-        }} />
-          </td>
         </tr>)}
     </tbody>;
 
@@ -104,16 +99,15 @@ export default function ArticleTable({
         <Table responsive hover className="article-table m-0 border-0">
           <thead>
             <tr>
-              <th className="px-3 py-3" style={{
-              width: '40px'
-            }}>#</th>
+              <th className="ps-4 pe-2 py-3 text-muted-custom font-display" style={{
+              width: '56px'
+            }}>{t("catalog.stt", "No.")}</th>
               <th className="px-3 py-3">{t("article.tenBaiBao")}</th>
               <th className="px-3 py-3">JOURNAL</th>
               <th className="px-3 py-3 text-center">{t("article.nam1")}</th>
               <th className="px-3 py-3">DOI</th>
               <th className="px-3 py-3">TOPIC</th>
               <th className="px-3 py-3 text-center">OA</th>
-              <th className="px-3 py-3 text-end">{t("article.chiTiet")}</th>
             </tr>
           </thead>
           {renderSkeletons()}
@@ -123,21 +117,15 @@ export default function ArticleTable({
 
   // If search matches nothing
   if (articles.length === 0) {
-    return <div className="text-center p-5 rounded-3 d-flex flex-column align-items-center justify-content-center" style={{
-      backgroundColor: 'var(--bg-card)',
-      border: '1px solid var(--border)',
-      minHeight: '320px'
-    }}>
-        <div className="article-empty-icon mb-3">
-          <Icon icon="lucide:search-code" width="30" height="30" />
-        </div>
-        <h5 className="text-main font-weight-bold mb-2 font-display">{t("article.khongTimThayBaiBaoPhuHop")}</h5>
-        <p className="text-muted-custom mb-4 text-sm max-w-md">{t("article.hayThuThayDoiTuKhoaHoacXoaCacB")}</p>
-        {onClearFilters && <Button variant="outline-primary" onClick={onClearFilters} className="d-flex align-items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-pill">
-            <Icon icon="lucide:rotate-ccw" width="14" />
-            <span>{t("article.xoaBoLoc")}</span>
-          </Button>}
-      </div>;
+    return (
+      <EmptyState
+        icon="lucide:search-x"
+        title={t("article.khongTimThayBaiBaoPhuHop")}
+        description={t("article.hayThuThayDoiTuKhoaHoacXoaCacB")}
+        actionLabel={onClearFilters ? t("article.xoaBoLoc") : undefined}
+        onAction={onClearFilters}
+      />
+    );
   }
   return <>
       {/* 1. TABLE LAYOUT (Desktop & Tablet) */}
@@ -145,20 +133,30 @@ export default function ArticleTable({
         <Table responsive hover className="article-table m-0 border-0">
           <thead>
             <tr>
-              <th className="px-3 py-3" style={{
-              width: '40px'
-            }}>#</th>
+              <th className="ps-4 pe-2 py-3 text-muted-custom font-display" style={{
+              width: '56px'
+            }}>{t("catalog.stt", "No.")}</th>
               <th className="px-3 py-3">{t("article.tenBaiBao")}</th>
               <th className="px-3 py-3">JOURNAL</th>
               <th className="px-3 py-3 text-center">{t("article.nam1")}</th>
               <th className="px-3 py-3">DOI</th>
               <th className="px-3 py-3">TOPIC</th>
               <th className="px-3 py-3 text-center">OA</th>
-              <th className="px-3 py-3 text-end">{t("article.chiTiet")}</th>
             </tr>
           </thead>
           <tbody>
-            {articles.map((article, index) => <ArticleTableRow key={article.article_id} article={article} index={index} onDetailClick={onDetailClick} />)}
+            {articles.map((article, index) => {
+              const itemIndex = (currentPage - 1) * limit + index + 1;
+              return (
+                <ArticleTableRow
+                  key={article.article_id}
+                  article={article}
+                  index={index}
+                  itemIndex={itemIndex}
+                  onDetailClick={onDetailClick}
+                />
+              );
+            })}
           </tbody>
         </Table>
       </div>
@@ -168,17 +166,30 @@ export default function ArticleTable({
         <div className="d-flex flex-column gap-3">
           {articles.map((article, index) => {
           const topicClassName = getTopicClassName(article.primary_topic);
+          const itemIndex = (currentPage - 1) * limit + index + 1;
           return <Card key={article.article_id} onClick={() => onDetailClick(article.article_id)} className="article-mobile-card">
                 <Card.Body className="p-3">
                   <div className="d-flex align-items-center justify-content-between mb-2">
-                    <span className="text-muted-custom text-xs font-display">#{index + 1}</span>
+                    <span className="text-muted-custom text-xs font-display fw-semibold">
+                      {t("catalog.stt", "No.")} {itemIndex}
+                    </span>
                     <div className="d-flex gap-1.5 align-items-center">
-                      <span className={`article-topic-badge ${topicClassName}`}>
+                      <Badge
+                        pill
+                        variant={null}
+                        className={`article-topic-badge ${topicClassName}`}
+                      >
                         {article.primary_topic || t("article.chuaPhanLoai")}
-                      </span>
-                      {article.is_open_access && <span className="article-oa-badge">
+                      </Badge>
+                      {article.is_open_access && (
+                        <Badge
+                          pill
+                          variant="success"
+                          className="text-xs px-2 py-0.5"
+                        >
                           OA
-                        </span>}
+                        </Badge>
+                      )}
                     </div>
                   </div>
 

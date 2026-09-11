@@ -7,15 +7,11 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@ui';
+import { Icon, Breadcrumb, Chip, PrimaryButton, FilterCard, FilterSelect, Pagination as AdminPagination } from '@ui';
 import Header from '../../landing/components/Header';
 import useAuthors from '../hooks/useAuthors';
 import AuthorLeaderboardTable from '../components/AuthorLeaderboardTable';
 import AuthorNavigationTabs from '../components/AuthorNavigationTabs';
-import { PrimaryButton } from '@ui';
-import { FilterCard } from '@ui';
-import { FilterSelect } from '@ui';
-import { Pagination as AdminPagination } from '@ui';
 import './AuthorLeaderboardPage.css';
 export default function AuthorLeaderboardPage() {
   const {
@@ -54,25 +50,24 @@ export default function AuthorLeaderboardPage() {
       <Header />
 
       <Container>
-        <nav className="author-leaderboard-breadcrumb mb-4" aria-label="breadcrumb">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <span className="author-leaderboard-breadcrumb__link" onClick={() => navigate('/')}>{t("author.tongQuan")}</span>
-            </li>
-            <li className="breadcrumb-item">
-              <span className="author-leaderboard-breadcrumb__link" onClick={() => navigate('/authors')}>{t("author.tacGiaNoiBat")}</span>
-            </li>
-            <li className="breadcrumb-item active text-primary" aria-current="page">{t("author.bangXepHang")}</li>
-          </ol>
-        </nav>
+        <Breadcrumb
+          className="mb-4"
+          items={[
+            { label: t("home", "Home"), to: '/' },
+            { label: t("author.tacGiaNoiBat", "Authors"), to: '/authors' },
+            { label: t("author.bangXepHang", "Bảng xếp hạng"), active: true }
+          ]}
+        />
 
         <section className="author-leaderboard-hero reveal-on-scroll">
           <div className="author-leaderboard-hero__content d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
             <div>
-              <div className="author-leaderboard-eyebrow">
-                <Icon icon="lucide:trophy" width="17" />
-                <span>Author leaderboard</span>
-              </div>
+              <Chip
+                icon="lucide:trophy"
+                label="Author leaderboard"
+                variant="minimal"
+                className="mb-2"
+              />
               <h1 className="author-leaderboard-title">{t("author.bangXepHangTacGia")}</h1>
               <p className="author-leaderboard-description">{t("author.cacTacGiaNoiBatNhatHeThongDuoc")}</p>
             </div>
@@ -85,45 +80,53 @@ export default function AuthorLeaderboardPage() {
         <AuthorNavigationTabs activeTab="leaderboard" />
 
         <FilterCard className="author-leaderboard-filter-card reveal-on-scroll">
-          <Row className="g-3 align-items-center">
-            <Col xs={12} sm={6} md={4}>
-              <div className="author-leaderboard-filter-control">
-                <span className="author-leaderboard-label">{t("author.linhVuc1")}</span>
-                <FilterSelect value={selectedArea} onChange={e => setSelectedArea(e.target.value)} options={[{
-                value: '',
-                label: t("author.tatCaLinhVuc")
-              }, {
-                value: 'Machine Learning',
-                label: 'Machine Learning'
-              }, {
-                value: 'Computer Vision',
-                label: 'Computer Vision'
-              }, {
-                value: 'Deep Learning',
-                label: 'Deep Learning'
-              }, {
-                value: 'Quantum Optics',
-                label: 'Quantum Optics'
-              }]} />
-              </div>
-            </Col>
+          <div className="d-flex flex-wrap align-items-center gap-4 py-1">
+            <div className="author-leaderboard-filter-control">
+              <span className="author-leaderboard-label">{t("author.linhVuc1")}</span>
+              <FilterSelect
+                value={selectedArea}
+                onChange={e => setSelectedArea(e.target.value)}
+                header={t("author.linhVuc1", "Field")}
+                variant="compact"
+                options={[{
+                  value: '',
+                  label: t("author.tatCaLinhVuc")
+                }, {
+                  value: 'Machine Learning',
+                  label: 'Machine Learning'
+                }, {
+                  value: 'Computer Vision',
+                  label: 'Computer Vision'
+                }, {
+                  value: 'Deep Learning',
+                  label: 'Deep Learning'
+                }, {
+                  value: 'Quantum Optics',
+                  label: 'Quantum Optics'
+                }]}
+              />
+            </div>
 
-            <Col xs={12} sm={6} md={4}>
-              <div className="author-leaderboard-filter-control">
-                <span className="author-leaderboard-label">{t("author.thoiGian")}</span>
-                <FilterSelect value={selectedPeriod} onChange={e => setSelectedPeriod(e.target.value)} options={[{
-                value: 'all',
-                label: t("author.tatCaThoiGian")
-              }, {
-                value: 'week',
-                label: t("author.tuanNay")
-              }, {
-                value: 'month',
-                label: t("author.thangNay")
-              }]} />
-              </div>
-            </Col>
-          </Row>
+            <div className="author-leaderboard-filter-control">
+              <span className="author-leaderboard-label">{t("author.thoiGian")}</span>
+              <FilterSelect
+                value={selectedPeriod}
+                onChange={e => setSelectedPeriod(e.target.value)}
+                header={t("author.thoiGian", "Time range")}
+                variant="compact"
+                options={[{
+                  value: 'all',
+                  label: t("author.tatCaThoiGian")
+                }, {
+                  value: 'week',
+                  label: t("author.tuanNay")
+                }, {
+                  value: 'month',
+                  label: t("author.thangNay")
+                }]}
+              />
+            </div>
+          </div>
         </FilterCard>
 
         <div className="reveal-on-scroll">

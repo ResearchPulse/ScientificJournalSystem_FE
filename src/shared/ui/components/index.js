@@ -34,3 +34,11 @@ export { default as Progress, ProgressBar } from './Progress';
 export { default as Logo } from './Logo';
 export { default as LatexText } from './LatexText/LatexText';
 export { default as ChatbotWidget } from './Chatbot/ChatbotWidget';
+export { default as Breadcrumb, BreadcrumbItem } from './Breadcrumb';
+export { default as ActionLink, ActionLink as Link } from './Link';
+export {
+  default as Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionBody,
+} from './Accordion';

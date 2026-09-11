@@ -4,16 +4,14 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\article\pages\ArticleListPage.jsx
  */
-import { Container, Modal, Breadcrumb } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Container, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../landing/components/Header';
 import useArticleList from '../hooks/useArticleList';
 import ArticleStatsCards from '../components/ArticleStatsCards';
 import ArticleFilterBar from '../components/ArticleFilterBar';
 import ArticleTable from '../components/ArticleTable';
-import { Pagination as AdminPagination } from '@ui';
-import { PrimaryButton } from '@ui';
+import { Pagination as AdminPagination, PrimaryButton, Breadcrumb, Chip, Icon } from '@ui';
 import '../Article.css';
 export default function ArticleListPage() {
   const {
@@ -36,21 +34,18 @@ export default function ArticleListPage() {
     setShowAuthModal,
     handleAuthRedirect
   } = useArticleList();
-  return <div className="article-list-page grid-bg">
+  return <div className="article-list-page">
       <Header />
 
       <Container className="article-list-shell">
         {/* Breadcrumb */}
-        <nav aria-label="breadcrumb" className="article-list-breadcrumb mb-4">
-          <Breadcrumb className="mb-0 d-flex align-items-center">
-            <Breadcrumb.Item onClick={() => navigate('/')} linkProps={{
-            style: {
-              cursor: 'pointer'
-            }
-          }}>{t("home")}</Breadcrumb.Item>
-            <Breadcrumb.Item active>{t("articles")}</Breadcrumb.Item>
-          </Breadcrumb>
-        </nav>
+        <Breadcrumb
+          className="article-list-breadcrumb mb-4"
+          items={[
+            { label: t("home"), to: '/' },
+            { label: t("articles"), active: true },
+          ]}
+        />
 
         {/* Page Header */}
         <section className="article-list-hero reveal-on-scroll" aria-labelledby="article-list-title">
@@ -62,14 +57,26 @@ export default function ArticleListPage() {
             <h1 id="article-list-title" className="article-list-title">{t("article.khoLuuTruBaiBaoKhoaHoc")}</h1>
             <p className="article-list-description">{t("article.duyetQuaTimKiemVaLocHangNghinB")}</p>
 
-            {filters.selectedVolume && <div className="article-list-scope">
-                <Icon icon="solar:folder-with-files-bold" width="15" />
-                <span>{t("article.dangXemBaiBaoThuocVolume")}{filters.selectedVolume}</span>
-              </div>}
-            {filters.selectedIssue && <div className="article-list-scope">
-                <Icon icon="lucide:layers-3" width="15" />
-                <span>{t("article.dangXemBaiBaoThuocIssue")}{filters.selectedIssue}</span>
-              </div>}
+            {(filters.selectedVolume || filters.selectedIssue) && (
+              <div className="d-flex align-items-center gap-2 flex-wrap mt-2">
+                {filters.selectedVolume && (
+                  <Chip
+                    variant="minimal"
+                    size="md"
+                    icon="solar:folder-with-files-bold"
+                    label={`${t("article.dangXemBaiBaoThuocVolume")}${filters.selectedVolume}`}
+                  />
+                )}
+                {filters.selectedIssue && (
+                  <Chip
+                    variant="minimal"
+                    size="md"
+                    icon="lucide:layers-3"
+                    label={`${t("article.dangXemBaiBaoThuocIssue")}${filters.selectedIssue}`}
+                  />
+                )}
+              </div>
+            )}
           </div>
 
           <aside className="article-list-summary" aria-label="Tổng kết bài báo">
@@ -84,7 +91,7 @@ export default function ArticleListPage() {
         <ArticleStatsCards stats={stats} isLoading={isLoading} />
 
         {/* Thanh lọc & Sắp xếp */}
-        <div className="reveal-on-scroll">
+        <div className="reveal-on-scroll article-filter-wrapper position-relative" style={{ zIndex: 40 }}>
           <ArticleFilterBar filters={filters} updateFilters={updateFilters} clearFilters={clearFilters} />
         </div>
 
@@ -101,7 +108,14 @@ export default function ArticleListPage() {
 
         {/* Bảng dữ liệu */}
         <div className="reveal-on-scroll">
-          <ArticleTable articles={articles} isLoading={isLoading} onDetailClick={handleDetailClick} onClearFilters={clearFilters} />
+          <ArticleTable
+            articles={articles}
+            isLoading={isLoading}
+            onDetailClick={handleDetailClick}
+            onClearFilters={clearFilters}
+            currentPage={currentPage}
+            limit={10}
+          />
         </div>
 
         {/* Phân trang */}

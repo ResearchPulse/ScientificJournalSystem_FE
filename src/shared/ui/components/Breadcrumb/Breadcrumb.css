@@ -1,0 +1,67 @@
+/* ==========================================================================
+   UI BREADCRUMB (Điều hướng phân cấp - Hệ thống Design System)
+   ========================================================================== */
+
+.ui-breadcrumb-nav {
+  display: block;
+}
+
+.ui-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.ui-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.ui-breadcrumb-item + .ui-breadcrumb-item::before {
+  content: var(--ui-breadcrumb-separator, "/");
+  display: inline-block;
+  padding-left: 0.55rem;
+  padding-right: 0.55rem;
+  color: var(--text-muted);
+  opacity: 0.5;
+  font-size: 0.8rem;
+  user-select: none;
+}
+
+.ui-breadcrumb-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 4px;
+  transition: color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.ui-breadcrumb-link:hover,
+.ui-breadcrumb-link:focus-visible {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.ui-breadcrumb-item.is-active,
+.ui-breadcrumb-current {
+  color: var(--text-main);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.ui-breadcrumb-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+}

@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\journal\components\JournalHero.jsx
  */
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import { useNavigate } from 'react-router-dom';
-import { PrimaryButton, LoadingSkeleton, Icon, Button } from '@ui';
+import { PrimaryButton, LoadingSkeleton, Icon, Button, Badge, Spinner } from '@ui';
 export default function JournalHero({
   journal,
   isFollowing,
@@ -74,10 +74,26 @@ export default function JournalHero({
   return <section className="journal-surface journal-hero-card mb-4" aria-labelledby="journal-detail-title">
       <Row className="gy-4 align-items-start journal-hero-content">
         <Col lg={8} md={7}>
-          <div className="journal-meta-line">
-            {displayQuartile && <span>{displayQuartile}</span>}
-            {is_open_access && <span>Open Access</span>}
-            {publisher_name && <span>{publisher_name}</span>}
+          <div className="d-flex align-items-center gap-2 mb-3 flex-wrap">
+            {displayQuartile && (
+              <Badge
+                pill
+                variant={displayQuartile.toLowerCase() === 'q1' ? 'q1' : 'secondary'}
+                className="text-xs fw-semibold px-2 py-0.5"
+              >
+                {displayQuartile}
+              </Badge>
+            )}
+            {is_open_access && (
+              <Badge
+                pill
+                variant="success"
+                className="text-xs px-2 py-0.5"
+              >
+                Open Access
+              </Badge>
+            )}
+            {publisher_name && <span className="text-muted-custom small font-display">• {publisher_name}</span>}
           </div>
 
           <h1 id="journal-detail-title" className="journal-title">
@@ -109,13 +125,13 @@ export default function JournalHero({
 
           <div className="journal-action-row">
             <Button onClick={onFollow} disabled={isFollowing} className={`journal-outline-btn px-3 py-2 ${is_following ? 'is-active' : ''}`}>
-              {isFollowing ? <Spinner animation="border" size="sm" /> : is_following ? <>
+              {isFollowing ? <Spinner size="sm" variant="primary" /> : is_following ? <>
                   <Icon icon="lucide:check" width="16" />{t("journal.dangTheoDoi")}</> : <>
                   <Icon icon="lucide:plus" width="16" />{t("catalog.theoDoi")}</>}
             </Button>
 
             <PrimaryButton onClick={onAddToProject} disabled={isAddingToProject} className="gap-2 px-3 py-2">
-              {isAddingToProject ? <Spinner animation="border" size="sm" variant="light" /> : <>
+              {isAddingToProject ? <Spinner size="sm" variant="white" /> : <>
                   <Icon icon="lucide:folder-plus" width="16" />{t("journal.themVaoProject")}</>}
             </PrimaryButton>
           </div>

@@ -1,0 +1,105 @@
+.ui-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.ui-accordion-item {
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  transition: border-color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1)),
+              box-shadow var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.ui-accordion-item:hover {
+  border-color: var(--border-hover, #cbd5e1);
+}
+
+.ui-accordion-item.is-expanded {
+  border-color: var(--border, #e2e8f0);
+}
+
+.ui-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.15rem;
+  background-color: var(--bg-card, #ffffff);
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
+  font-family: inherit;
+}
+
+/* Hover effect standardized to match table row hover (.ui-table-hover tbody tr:hover) */
+.ui-accordion-header:hover {
+  background-color: var(--neutral-50, #fafafa);
+}
+
+.ui-accordion-header:focus-visible {
+  outline: 2px solid var(--primary, #2563eb);
+  outline-offset: -2px;
+}
+
+.ui-accordion-header-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.ui-accordion-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #64748b);
+  transition: color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
+  flex-shrink: 0;
+}
+
+.ui-accordion-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.ui-accordion-title {
+  color: var(--text-main, #0f172a);
+  font-family: var(--font-display, inherit);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.ui-accordion-meta {
+  color: var(--text-muted, #64748b);
+  font-size: 0.85rem;
+}
+
+.ui-accordion-caret {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted, #64748b);
+  transition: transform var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1)),
+              color var(--dur-fast, 150ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1));
+  flex-shrink: 0;
+}
+
+.ui-accordion-item.is-expanded .ui-accordion-caret {
+  color: var(--text-main, #0f172a);
+}
+
+.ui-accordion-body {
+  background: var(--bg-section, #f8fafc);
+  border-top: 1px solid var(--border, #e2e8f0);
+  padding: 0.85rem 1.15rem;
+}

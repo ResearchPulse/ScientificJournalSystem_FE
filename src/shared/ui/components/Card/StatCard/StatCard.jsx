@@ -16,7 +16,7 @@ import './StatCard.css';
  * @param {string} props.label - Metric label
  * @param {React.ReactNode} props.value - Main metric value
  * @param {string} [props.icon] - Optional Iconify icon name
- * @param {string} [props.accentColor='var(--primary)'] - Accent CSS color/token
+ * @param {string} [props.accentColor='var(--text-main)'] - Accent CSS color/token
  * @param {React.ReactNode} [props.description] - Optional supporting text
  * @param {React.ReactNode} [props.trend] - Optional custom trend/status content
  * @param {number} [props.growth] - Numeric delta for trend indicator
@@ -31,7 +31,7 @@ export default function StatCard({
   label,
   value,
   icon,
-  accentColor = 'var(--primary)',
+  accentColor = 'var(--text-main)',
   description,
   trend,
   growth,

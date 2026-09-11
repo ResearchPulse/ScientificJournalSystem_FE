@@ -4,12 +4,10 @@ import { useTranslation } from "react-i18next";
  * @description Vỏ chứa dữ liệu dạng bảng hiển thị danh sách tác giả theo cấu trúc dòng cột.
  */
 
-import { Table, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import AuthorTableRow from '../AuthorTableRow';
 import AuthorCard from '../AuthorCard';
-import { LoadingSkeleton } from '@ui';
-import { EmptyState } from '@ui';
-import { ErrorState } from '@ui';
+import { Table, LoadingSkeleton, EmptyState, ErrorState } from '@ui';
 export default function AuthorTable({
   authors = [],
   loading = false,
@@ -28,7 +26,7 @@ export default function AuthorTable({
   }
   return <div>
       <div className="author-table-shell d-none d-md-block">
-        <Table hover responsive className="author-table m-0 align-middle">
+        <Table hover className="author-table m-0 align-middle">
           <thead>
             <tr>
               <th className="author-table-index-col text-center py-3">#</th>
@@ -37,7 +35,6 @@ export default function AuthorTable({
               <th className="py-3">{t("publications")}</th>
               <th className="py-3">Citations</th>
               <th className="py-3">H-index</th>
-              <th className="author-table-action-col py-3">{t("article.chiTiet1")}</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +55,6 @@ export default function AuthorTable({
                   <td><LoadingSkeleton width="40px" height="14px" /></td>
                   <td><LoadingSkeleton width="50px" height="14px" /></td>
                   <td><LoadingSkeleton width="30px" height="14px" /></td>
-                  <td><LoadingSkeleton width="60px" height="14px" /></td>
                 </tr>) : authors.filter(Boolean).map((author, idx) => <AuthorTableRow key={author.author_id ?? author.id ?? idx} author={author} index={startIndex + idx} />)}
           </tbody>
         </Table>

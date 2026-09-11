@@ -14,9 +14,6 @@
   text-align: left;
   font-family: var(--font-display);
   animation: slideUp var(--dur-slow, 240ms) var(--ease-standard, cubic-bezier(0.4, 0, 0.2, 1)) backwards;
-  transition: transform 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease;
 }
 
 button.shared-entity-card {
@@ -25,7 +22,7 @@ button.shared-entity-card {
 }
 
 .shared-entity-card--interactive:hover {
-  /* No hover effect requested */
+  background: var(--neutral-50, #f8fafc);
 }
 
 .shared-entity-card__body {

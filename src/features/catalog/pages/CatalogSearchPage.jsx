@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCatalogSearch } from '../hooks/useCatalogSearch';
 import FilterPanel from '../components/FilterPanel';
 import JournalTable from '../components/JournalTable';
-import { LoadingSkeleton, AuthRequiredModal, Pagination as AdminPagination, PrimaryButton } from '@ui';
+import { LoadingSkeleton, AuthRequiredModal, Pagination as AdminPagination, PrimaryButton, Breadcrumb } from '@ui';
 import Header from '../../landing/components/Header';
 import useAuth from '../../auth/hooks/useAuth';
 import '../components/CatalogSearch.css';
@@ -67,8 +67,21 @@ export default function CatalogSearchPage() {
       <Header />
 
       <Container className="catalog-shell">
+        {/* Breadcrumb */}
+        <Breadcrumb
+          className="catalog-breadcrumb mb-4"
+          items={[
+            { label: t("home", "Home"), to: '/' },
+            { label: t("catalog.danhMucTimKiem", "Catalog"), active: true },
+          ]}
+        />
+
         {/* Page Title & Subtitle */}
         <section className="catalog-hero text-start reveal-on-scroll">
+          <div className="catalog-eyebrow">
+            <Icon icon="lucide:library" width="15" height="15" />
+            <span>ResearchPulse Journals</span>
+          </div>
           <h1 className="catalog-title">{t("catalog.danhMucTimKiem")}</h1>
           <p className="catalog-subtitle">{t("catalog.timKiemJournalLocTheoLinhVucXe")}</p>
         </section>
@@ -77,39 +90,49 @@ export default function CatalogSearchPage() {
         <div className="w-100">
           {/* Toolbar Filter Panel */}
           <div className="catalog-filter-section">
-            <FilterPanel searchInput={searchInput} setSearchInput={setSearchInput} onSearchSubmit={handleSearchSubmit} subjectAreas={subjectAreas} subjectCategories={subjectCategories} selectedAreas={selectedAreas} selectedCategories={selectedCategories} selectedAccess={selectedAccess} selectedQuartiles={selectedQuartiles} onAreaSelect={onAreaSelect} onCategorySelect={onCategorySelect} onAccessSelect={onAccessSelect} onQuartileSelect={onQuartileSelect} selectedYear={selectedYear} selectedZone={selectedZone} zones={zones} onYearSelect={onYearSelect} onZoneSelect={onZoneSelect} isOaDiamond={isOaDiamond} onOaDiamondToggle={handleOaDiamondToggle} onClearAll={handleClearAll} loading={loadingFilters} />
+            <FilterPanel
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+              onSearchSubmit={handleSearchSubmit}
+              subjectAreas={subjectAreas}
+              subjectCategories={subjectCategories}
+              selectedAreas={selectedAreas}
+              selectedCategories={selectedCategories}
+              selectedAccess={selectedAccess}
+              selectedQuartiles={selectedQuartiles}
+              onAreaSelect={onAreaSelect}
+              onCategorySelect={onCategorySelect}
+              onAccessSelect={onAccessSelect}
+              onQuartileSelect={onQuartileSelect}
+              selectedYear={selectedYear}
+              selectedZone={selectedZone}
+              zones={zones}
+              onYearSelect={onYearSelect}
+              onZoneSelect={onZoneSelect}
+              isOaDiamond={isOaDiamond}
+              onOaDiamondToggle={handleOaDiamondToggle}
+              onClearAll={handleClearAll}
+              loading={loadingFilters}
+              sort={sort}
+              onSortChange={handleSortChange}
+            />
           </div>
 
-          {/* Toolbar Panel */}
-          <div className="catalog-toolbar d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 text-start reveal-on-scroll">
-            
-            {/* Summary Counter text */}
-            <div className="text-muted-custom catalog-count">
+          {/* Kết quả đếm (chuẩn hóa theo Article) */}
+          <div className="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2 text-start">
+            <div className="text-muted-custom text-xs">
               {loadingJournals ? (
                 <span>{t("catalog.dangTimKiemTapChi")}</span>
               ) : (
                 <span>
-                  {t("catalog.timThay", "Found ")}
-                  <strong>{total}</strong> {t("catalog.tapChiCount", "journals")} · {t("pagination.page", "Page")} <span className="catalog-number">{page}/{totalPages}</span>
+                  {t("pagination.showing", "Showing")}{" "}
+                  <span className="text-main font-weight-bold">{journals.length}</span>{" "}
+                  {t("pagination.of", "of")}{" "}
+                  <span className="text-main font-weight-bold">{total ? total.toLocaleString() : 0}</span>{" "}
+                  {t("catalog.tapChiCount", "journals")}
                 </span>
               )}
             </div>
-
-            {/* Sort Dropdown */}
-              <Dropdown align="end">
-                <Dropdown.Toggle variant="light" id="sort-dropdown" className="catalog-sort-toggle">
-                  <Icon icon="lucide:arrow-up-down" width="14" />
-                  <span>
-                    {sort === 'metric' && t("catalog.macDinh")}
-                    {sort === 'name' && t("catalog.tenAz")}
-                  </span>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="catalog-dropdown-menu">
-                  <Dropdown.Item onClick={() => handleSortChange('metric')}>{t("catalog.macDinh")}</Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleSortChange('name')}>{t("catalog.tenAz")}</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-
           </div>
 
           {/* Main Result Area */}
@@ -140,7 +163,15 @@ export default function CatalogSearchPage() {
                 <h2 className="catalog-state-title">{t("catalog.khongTimThayJournalPhuHop")}</h2>
                 <p className="text-muted-custom mb-4">{t("catalog.hayThuThayDoiTuKhoaTimKiemHoac")}</p>
                 <PrimaryButton onClick={handleClearAll} variant="outline">{t("article.xoaBoLoc")}</PrimaryButton>
-              </section> : <JournalTable journals={journals} followedJournals={followedJournals} onFollow={handleFollowJournal} />}
+              </section> : (
+                <JournalTable
+                  journals={journals}
+                  followedJournals={followedJournals}
+                  onFollow={handleFollowJournal}
+                  page={page}
+                  limit={pageLimit}
+                />
+              )}
           </div>
 
           {/* Pagination Controls */}

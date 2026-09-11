@@ -4,25 +4,44 @@ import { useTranslation } from "react-i18next";
  * @description Component thanh điều hướng phụ cho trang tác giả.
  */
 
-import { Nav } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@ui';
+import { Tabs, Tab, TabList } from '@ui';
 export default function AuthorNavigationTabs({
-  activeTab
+  activeTab,
+  onTabChange
 }) {
   const {
     t
   } = useTranslation();
   const navigate = useNavigate();
-  return <Nav variant="tabs" activeKey={activeTab} className="author-tabs mb-4 border-0 d-flex flex-nowrap overflow-x-auto">
-      <Nav.Item>
-        <Nav.Link eventKey="list" onClick={() => navigate('/authors')} className="d-flex align-items-center gap-2 px-3 py-2 text-nowrap">
-          <Icon icon="lucide:users" width="16" />{t("author.danhSachTacGia")}</Nav.Link>
-      </Nav.Item>
 
-      <Nav.Item>
-        <Nav.Link eventKey="leaderboard" onClick={() => navigate('/authors/leaderboard')} className="d-flex align-items-center gap-2 px-3 py-2 text-nowrap">
-          <Icon icon="lucide:trophy" width="16" />{t("author.bangXepHang")}</Nav.Link>
-      </Nav.Item>
-    </Nav>;
+  const handleTabChange = key => {
+    if (onTabChange) {
+      onTabChange(key);
+      return;
+    }
+    if (key === 'list') {
+      navigate('/authors');
+    } else if (key === 'leaderboard') {
+      navigate('/authors/leaderboard');
+    }
+  };
+
+  return (
+    <Tabs
+      activeTab={activeTab}
+      onTabChange={handleTabChange}
+      variant="pills"
+      className="author-tabs mb-4"
+    >
+      <TabList>
+        <Tab eventKey="list" icon="lucide:users">
+          {t("author.danhSachTacGia")}
+        </Tab>
+        <Tab eventKey="leaderboard" icon="lucide:trophy">
+          {t("author.bangXepHang")}
+        </Tab>
+      </TabList>
+    </Tabs>
+  );
 }
