@@ -4,12 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import ROUTES from '../../../app/routes/routePaths';
 import useProjects from '../hooks/useProjects';
 import ProjectCard from '../components/ProjectCard';
-import { EmptyState } from '@ui';
-import { LoadingSkeleton } from '@ui';
+import { EmptyState, LoadingSkeleton, PrimaryButton } from '@ui';
 import { Icon } from '@iconify/react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import Header from '../../landing/components/Header';
-import { PrimaryButton } from '@ui';
 import useAuth from '../../auth/hooks/useAuth';
 const ProjectListPage = () => {
   const navigate = useNavigate();
@@ -206,17 +204,16 @@ const ProjectListPage = () => {
           </p>
         </Modal.Body>
         <Modal.Footer border="0" className="gap-2">
-          <Button variant="light" className="px-4 fw-medium" onClick={() => setConfirmModal({ show: false, projectId: null, action: null })} style={{ borderRadius: '10px' }}>
+          <PrimaryButton variant="outline" className="px-4" onClick={() => setConfirmModal({ show: false, projectId: null, action: null })}>
             Hủy bỏ
-          </Button>
-          <Button 
-            variant={confirmModal.action === 'delete' ? "danger" : "success"} 
-            className="px-4 fw-medium text-white" 
+          </PrimaryButton>
+          <PrimaryButton 
+            variant={confirmModal.action === 'delete' ? "destructive" : "primary"} 
+            className="px-4" 
             onClick={confirmModal.action === 'delete' ? executeDelete : executeRestore}
-            style={{ borderRadius: '10px' }}
           >
             {confirmModal.action === 'delete' ? t("project.xoaDuAn") : "Khôi phục"}
-          </Button>
+          </PrimaryButton>
         </Modal.Footer>
       </Modal>
     </div>;

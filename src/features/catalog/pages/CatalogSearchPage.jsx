@@ -10,12 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { useCatalogSearch } from '../hooks/useCatalogSearch';
 import FilterPanel from '../components/FilterPanel';
 import JournalTable from '../components/JournalTable';
-import { LoadingSkeleton } from '@ui';
-import { AuthRequiredModal } from '@ui';
+import { LoadingSkeleton, AuthRequiredModal, Pagination as AdminPagination, PrimaryButton } from '@ui';
 import Header from '../../landing/components/Header';
 import useAuth from '../../auth/hooks/useAuth';
-import { Pagination as AdminPagination } from '@ui';
-import { PrimaryButton } from '@ui';
 import '../components/CatalogSearch.css';
 export default function CatalogSearchPage() {
   const {
