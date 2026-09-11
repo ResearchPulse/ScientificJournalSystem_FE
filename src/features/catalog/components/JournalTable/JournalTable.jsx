@@ -6,9 +6,9 @@ import { t } from "i18next";
  * File: features\catalog\components\JournalTable.jsx
  */
 import { Table } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
-import { Badge } from '@ui';
+import { Badge, Icon } from '@ui';
 
 export default function JournalTable({
   journals = [],

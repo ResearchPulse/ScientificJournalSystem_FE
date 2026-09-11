@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Row, Col, Form } from 'react-bootstrap';
+
 import { getSubjectAreasApi } from '../../../journal/api/journalApi';
-import { PrimaryButton } from '@ui';
+import { PrimaryButton, Icon, Button } from '@ui';
 import { HeaderFilterCard } from '@ui';
 import { FilterSearch, FilterSelect } from '@ui';
 

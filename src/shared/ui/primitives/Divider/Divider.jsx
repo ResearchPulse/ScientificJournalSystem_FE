@@ -1,9 +1,10 @@
 /**
- * Divider - Border separator primitive
+ * Divider - Border separator primitive with optional center label support
  */
 export default function Divider({
   orientation = 'horizontal', // 'horizontal' | 'vertical'
   className = '',
+  children,
   style,
   ...props
 }) {
@@ -23,6 +24,26 @@ export default function Divider({
         }}
         {...props}
       />
+    );
+  }
+
+  if (children) {
+    return (
+      <div
+        role="separator"
+        className={`d-flex align-items-center my-3 ${className}`}
+        style={style}
+        {...props}
+      >
+        <div className="flex-grow-1 border-top" style={{ borderColor: 'var(--border)' }} />
+        <span
+          className="px-3 text-muted-custom small text-uppercase fw-semibold"
+          style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}
+        >
+          {children}
+        </span>
+        <div className="flex-grow-1 border-top" style={{ borderColor: 'var(--border)' }} />
+      </div>
     );
   }
 

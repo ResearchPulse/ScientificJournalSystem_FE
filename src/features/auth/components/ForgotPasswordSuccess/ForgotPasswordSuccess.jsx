@@ -1,8 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Icon } from '@ui';
+import { Icon, Button } from '@ui';
 import ROUTES from '@/app/routes/routePaths';
 export default function ForgotPasswordSuccess({
   onResend,

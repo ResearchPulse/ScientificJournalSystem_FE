@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\catalog\components\JournalResultCard.jsx
  */
-import { Card, Button } from 'react-bootstrap';
-import { Badge } from '@ui';
+import { Card } from 'react-bootstrap';
+import { Badge, Icon, Button } from '@ui';
 import { Link, useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+
 export default function JournalResultCard({
   journal,
   isFollowed = false,

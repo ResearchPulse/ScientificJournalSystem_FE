@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Form, Spinner } from 'react-bootstrap';
-import { PrimaryButton } from '@ui';
-import { Icon } from '@iconify/react';
+import { PrimaryButton, Icon } from '@ui';
+
 
 const InviteMemberModal = ({ show, onHide, onInvite, actionLoading }) => {
   const { t } = useTranslation();

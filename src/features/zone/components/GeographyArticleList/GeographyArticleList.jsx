@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Table, Card, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { Pagination as AdminPagination, LatexText, Badge, LoadingSkeleton, EmptyState } from '@ui';
+import { Table, Card } from 'react-bootstrap';
+
+import { Pagination as AdminPagination, LatexText, Badge, LoadingSkeleton, EmptyState, Icon, Button } from '@ui';
 export default function GeographyArticleList({
   articles = [],
   loading = false,

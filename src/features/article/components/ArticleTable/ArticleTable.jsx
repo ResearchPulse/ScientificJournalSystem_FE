@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\article\components\ArticleTable.jsx
  */
-import { Table, Card, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Table, Card } from 'react-bootstrap';
+
 import ArticleTableRow from '../ArticleTableRow';
-import { LatexText } from '@ui';
+import { LatexText, Icon, Button } from '@ui';
 export default function ArticleTable({
   articles,
   isLoading,

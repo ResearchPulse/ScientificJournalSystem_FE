@@ -1,0 +1,71 @@
+.ui-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background-color: var(--bg-card);
+}
+
+.ui-table {
+  width: 100%;
+  margin-bottom: 0;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  text-align: left;
+}
+
+.ui-table th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background-color: var(--neutral-50);
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.ui-table td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+.ui-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover effect */
+.ui-table-hover tbody tr {
+  transition: background-color var(--dur-fast) var(--ease-standard);
+  cursor: pointer;
+}
+.ui-table-hover tbody tr:hover {
+  background-color: var(--neutral-50);
+}
+
+/* Striped rows */
+.ui-table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+/* Compact */
+.ui-table-compact th,
+.ui-table-compact td {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.82rem;
+}
+
+/* Sticky Header */
+.ui-table-sticky-header {
+  max-height: 480px;
+  overflow-y: auto;
+}
+.ui-table-sticky-header th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}

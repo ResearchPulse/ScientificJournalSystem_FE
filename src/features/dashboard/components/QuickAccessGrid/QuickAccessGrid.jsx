@@ -1,10 +1,11 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
  *
  * File: features\dashboard\components\QuickAccessGrid.jsx
  */
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
 import '../../Dashboard.css';
 

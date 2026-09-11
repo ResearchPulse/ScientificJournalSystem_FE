@@ -1,3 +1,4 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
@@ -5,7 +6,7 @@ import { useTranslation } from "react-i18next";
  * File: features\keywords\components\KeywordSortDropdown.jsx
  */
 import { Dropdown } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 
 /**
  * Dropdown sắp xếp danh sách keyword.

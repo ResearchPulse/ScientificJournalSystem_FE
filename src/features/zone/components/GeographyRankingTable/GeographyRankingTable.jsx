@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState, useMemo } from 'react';
-import { Icon } from '@iconify/react';
-import { LoadingSkeleton } from '@ui';
+
+import { LoadingSkeleton, Icon } from '@ui';
 
 export default function GeographyRankingTable({
   data = [],

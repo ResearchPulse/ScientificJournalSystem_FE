@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\journal\components\JournalHero.jsx
  */
-import { Row, Col, Button, Spinner } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Row, Col, Spinner } from 'react-bootstrap';
+
 import { useNavigate } from 'react-router-dom';
-import { PrimaryButton, LoadingSkeleton } from '@ui';
+import { PrimaryButton, LoadingSkeleton, Icon, Button } from '@ui';
 export default function JournalHero({
   journal,
   isFollowing,

@@ -4,7 +4,10 @@
 @import url('./tokens/spacing.css');
 @import url('./tokens/radius.css');
 @import url('./tokens/shadows.css');
+@import url('./tokens/transitions.css');
 @import url('./reset.css');
+@import url('./utilities.css');
+@import url('./animations.css');
 
 html,
 body {

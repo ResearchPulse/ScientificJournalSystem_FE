@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
  * File: features\article\components\ArticleFilterBar.jsx
  */
 import { useState, useEffect } from 'react';
-import { Dropdown, Form, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { FilterSearch } from '@ui';
+import { Dropdown, Form } from 'react-bootstrap';
+
+import { FilterSearch, Icon, Button } from '@ui';
 import { FilterCard } from '@ui';
 import { searchJournalsApi } from '@features/journal/api/journalApi';
 import { getTopicsApi } from '@features/topic/api/topic.api';

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import { StateCard } from '@ui';
+
+import { StateCard, Icon, Button } from '@ui';
 
 /**
  * Component JournalTableAdmin - Bảng hiển thị danh sách tạp chí phục vụ mục đích quản trị (Admin View).

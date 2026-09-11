@@ -1,8 +1,9 @@
+import { Icon } from '@ui';
 import { t } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useCallback } from 'react';
 import { Outlet, useLocation, NavLink } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+
 import Header from '@features/landing/components/Header';
 import ROUTES from '@/app/routes/routePaths';
 import './WalletLayout.css';

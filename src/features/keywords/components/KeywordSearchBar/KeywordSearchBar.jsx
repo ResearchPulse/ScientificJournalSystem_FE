@@ -1,3 +1,4 @@
+import { Icon, Button } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
@@ -5,8 +6,8 @@ import { useTranslation } from "react-i18next";
  * File: features\keywords\components\KeywordSearchBar.jsx
  */
 import { useState, useEffect } from 'react';
-import { InputGroup, Form, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { InputGroup, Form } from 'react-bootstrap';
+
 
 /**
  * Thanh tìm kiếm keyword với nút submit và reset.

@@ -1,3 +1,4 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
 * File source thuộc hệ thống FE ResearchPulse.
@@ -5,7 +6,7 @@ import { useTranslation } from "react-i18next";
 * File: features\article\components\ArticleStatisticsCard.jsx
 */
 import { Card, Row, Col } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 export default function ArticleStatisticsCard({
   article
 }) {

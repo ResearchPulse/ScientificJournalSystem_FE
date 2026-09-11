@@ -1,3 +1,4 @@
+import { Icon, Button } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
@@ -5,8 +6,8 @@ import { useTranslation } from "react-i18next";
  * File: features\article\components\ArticleActionCard.jsx
  */
 import { useState } from 'react';
-import { Card, Button, Spinner } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Card, Spinner } from 'react-bootstrap';
+
 export default function ArticleActionCard({
   article,
   isBookmarked,

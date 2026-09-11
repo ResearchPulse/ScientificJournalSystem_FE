@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
-import { Row, Col, Card, Button, Form, InputGroup } from 'react-bootstrap';
+import { Row, Col, Card, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useJournalManagement } from '../../journal/hooks/useJournalManagement';
-import { Pagination } from '@ui';
+import { Pagination, Button } from '@ui';
 import SwitchJournalModal from '../components/modals/SwitchJournalModal';
 
 /**

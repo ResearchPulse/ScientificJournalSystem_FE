@@ -1,0 +1,196 @@
+/* ─── Comprehensive Animation System & Keyframes ─── */
+
+/* ─── 1. Keyframe Definitions ─── */
+
+/* Fade In / Out */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Slide Up (Fade + TranslateY) */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide Down (Fade + TranslateY) */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Scale In (Pop / Modal Entrance) */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Scale Out */
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Floating / Hover Levitation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Subtle Pulse (Badges / Status indicators) */
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.82;
+    transform: scale(1.04);
+  }
+}
+
+/* Glow Pulse (Accent buttons / highlights) */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 122, 51, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 122, 51, 0);
+  }
+}
+
+/* Bounce Subtle */
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* ─── 2. Utility Animation Classes ─── */
+
+.animate-fade-in {
+  animation: fadeIn var(--dur-normal) var(--ease-standard) forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOut var(--dur-normal) var(--ease-standard) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp var(--dur-normal) var(--ease-smooth) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown var(--dur-normal) var(--ease-smooth) forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft var(--dur-normal) var(--ease-smooth) forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight var(--dur-normal) var(--ease-smooth) forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--dur-fast) var(--ease-spring) forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glowPulse 2s infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounceSubtle 1.5s ease-in-out infinite;
+}
+
+/* ─── 3. Stagger & Delay Utilities ─── */
+.delay-75 { animation-delay: 75ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ─── 4. Duration Overrides ─── */
+.duration-fast { animation-duration: var(--dur-fast) !important; }
+.duration-normal { animation-duration: var(--dur-normal) !important; }
+.duration-slow { animation-duration: var(--dur-slow) !important; }
+.duration-slower { animation-duration: var(--dur-slower) !important; }

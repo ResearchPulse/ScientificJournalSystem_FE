@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
  */
 import { useState } from 'react';
 import { Modal, Spinner } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '@/app/routes/routePaths';
 import { activateProjectApi } from '../../api/project.api';
 import { toast } from '@shared/utils/toast';
 import { useWalletStore } from '@/app/store/walletStore';
-import { PrimaryButton } from '@ui';
+import { PrimaryButton, Icon } from '@ui';
 import './UpgradePlanModal.css';
 
 const UpgradePlanModal = ({

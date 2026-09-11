@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '@iconify/react';
+
 import { Dropdown } from 'react-bootstrap';
 import { useAuthStore } from '@/app/store/authStore';
 import { useUserStore } from '@/app/store/userStore';
-import { PrimaryButton, Badge, LoadingSkeleton } from '@ui';
+import { PrimaryButton, Badge, LoadingSkeleton, Icon } from '@ui';
 
 const ProjectMembersList = ({ 
   project,

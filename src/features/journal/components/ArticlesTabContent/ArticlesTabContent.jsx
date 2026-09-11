@@ -5,9 +5,9 @@ import { t } from "i18next";
  *
  * File: features\journal\components\ArticlesTabContent.jsx
  */
-import { Card, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { LoadingSkeleton } from '@ui';
+import { Card } from 'react-bootstrap';
+
+import { LoadingSkeleton, Icon, Button } from '@ui';
 import { LatexText } from '@ui';
 export default function ArticlesTabContent({
   recentArticles = [],

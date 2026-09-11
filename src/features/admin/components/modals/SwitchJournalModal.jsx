@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from 'react';
 import { Modal, Form, ListGroup } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { PrimaryButton } from '@ui';
+
+import { PrimaryButton, Icon } from '@ui';
 import { useJournalManagement } from '../../../journal/hooks/useJournalManagement';
 
 /**

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Table, Badge } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { StateCard } from '@ui';
+import { Table } from 'react-bootstrap';
+
+import { StateCard, Badge, Icon } from '@ui';
 
 /**
  * Component IssueTable - Bảng hiển thị toàn bộ các Số phát sóng (Issues) nằm trong một Tập (Volume).

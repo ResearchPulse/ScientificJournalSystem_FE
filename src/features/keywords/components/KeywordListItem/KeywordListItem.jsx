@@ -4,9 +4,8 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\keywords\components\KeywordListItem.jsx
  */
-import { Button } from 'react-bootstrap';
-import { Badge } from '@ui';
-import { Icon } from '@iconify/react';
+import { Badge, Icon, Button } from '@ui';
+
 
 /**
  * Card hiển thị một keyword trong danh sách.

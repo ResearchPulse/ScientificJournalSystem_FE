@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from 'react';
-import { Icon } from '@iconify/react';
+import Icon from '../../primitives/Icon';
 import './FilterInput.css';
 
 /**

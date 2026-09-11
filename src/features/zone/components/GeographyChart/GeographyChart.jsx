@@ -1,6 +1,7 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 import { useMemo } from 'react';
-import { Icon } from '@iconify/react';
+
 function SimpleSvgBarChart({
   data,
   labelKey = 'name',

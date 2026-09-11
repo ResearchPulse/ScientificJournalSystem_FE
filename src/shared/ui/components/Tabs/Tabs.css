@@ -1,0 +1,119 @@
+.ui-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ui-tab-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ui-tab-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all var(--dur-fast) var(--ease-standard);
+  position: relative;
+  border-radius: var(--radius-md);
+}
+
+.ui-tab-button:hover:not(:disabled) {
+  color: var(--text-main);
+  background: var(--neutral-100);
+}
+
+.ui-tab-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.ui-tab-button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Variant: Underline */
+.ui-tabs-underline .ui-tab-list {
+  border-bottom: 2px solid var(--border);
+  gap: 1.25rem;
+}
+
+.ui-tabs-underline .ui-tab-button {
+  border-radius: 0;
+  padding-inline: 0.2rem;
+  padding-bottom: 0.8rem;
+  background: transparent !important;
+}
+
+.ui-tabs-underline .ui-tab-button.is-active {
+  color: var(--primary);
+}
+
+.ui-tabs-underline .ui-tab-button.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+
+/* Variant: Pills */
+.ui-tabs-pills .ui-tab-list {
+  background: var(--neutral-100);
+  padding: 0.25rem;
+  border-radius: var(--radius-lg);
+  display: inline-flex;
+  width: fit-content;
+}
+
+.ui-tabs-pills .ui-tab-button {
+  border-radius: var(--radius-md);
+  padding: 0.45rem 1rem;
+}
+
+.ui-tabs-pills .ui-tab-button.is-active {
+  background: #ffffff;
+  color: var(--text-main);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Variant: Enclosed */
+.ui-tabs-enclosed .ui-tab-list {
+  border-bottom: 1px solid var(--border);
+  gap: 0.25rem;
+}
+
+.ui-tabs-enclosed .ui-tab-button {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border: 1px solid transparent;
+  border-bottom: none;
+  margin-bottom: -1px;
+}
+
+.ui-tabs-enclosed .ui-tab-button.is-active {
+  background: #ffffff;
+  border-color: var(--border);
+  color: var(--primary);
+}
+
+.ui-tab-panel {
+  padding-top: 1rem;
+}

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useState } from 'react';
-import { Card, Button, Row, Col, Modal, Form } from 'react-bootstrap';
+import { Card, Row, Col, Modal, Form } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
-import { Icon } from '@ui';
+import { Icon, Button } from '@ui';
 import SubmissionTabs from '../../components/article-submission/SubmissionTabs';
 import ManualArticleForm from '../../components/article-submission/ManualArticleForm';
 import PdfDropzone from '../../components/article-submission/PdfDropzone';

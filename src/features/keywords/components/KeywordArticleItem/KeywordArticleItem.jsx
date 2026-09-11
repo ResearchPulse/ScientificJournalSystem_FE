@@ -4,9 +4,8 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\keywords\components\KeywordArticleItem.jsx
  */
-import { Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { LatexText } from '@ui';
+
+import { LatexText, Icon, Button } from '@ui';
 
 /**
  * Item hiển thị bài báo liên quan đến keyword.

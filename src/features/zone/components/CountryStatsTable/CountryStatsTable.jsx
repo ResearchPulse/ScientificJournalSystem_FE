@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import React, { useState, useMemo } from 'react';
 import { Table, InputGroup, Form } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { Pagination as AdminPagination } from '@ui';
+
+import { Pagination as AdminPagination, Icon } from '@ui';
 export default function CountryStatsTable({
   countries = [],
   selectedCountry = null,

@@ -1,8 +1,9 @@
+import { Badge, Icon, Button } from '@ui';
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
-import { ListGroup, Badge, Button } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+
 
 /**
  * Component VolumeList - Hiển thị danh sách các Tập (Volume) thuộc Tạp chí đang chọn.

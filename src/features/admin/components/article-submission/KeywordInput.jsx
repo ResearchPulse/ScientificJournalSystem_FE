@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Form, Badge } from 'react-bootstrap';
-import { Icon } from '@ui';
+import { Form } from 'react-bootstrap';
+import { Icon, Badge } from '@ui';
 
 /**
  * KeywordInput Component

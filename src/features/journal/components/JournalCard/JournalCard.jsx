@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { Button, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { EntityCard, Badge } from '@ui';
+import { EntityCard, Badge, Button } from '@ui';
 
 /**
  * Component JournalCard - Hiển thị thông tin tạp chí dưới dạng thẻ khối độc lập (Card View).

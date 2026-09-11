@@ -1,11 +1,12 @@
+import { Icon, Button } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
  *
  * File: features\journal\components\JournalSearchBar.jsx
  */
-import { Form, Row, Col, Button, InputGroup } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Form, Row, Col, InputGroup } from 'react-bootstrap';
+
 export default function JournalSearchBar({
   searchInput,
   setSearchInput,

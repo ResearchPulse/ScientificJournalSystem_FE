@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\dashboard\components\TrendingKeywordsCard.jsx
  */
-import { Icon } from '@iconify/react';
-import { EntityCard } from '@ui';
+
+import { EntityCard, Icon } from '@ui';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 function KeywordsRechart({
   chartData,

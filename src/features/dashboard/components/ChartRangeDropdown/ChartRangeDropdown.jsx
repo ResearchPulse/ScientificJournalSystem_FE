@@ -1,6 +1,7 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 import { useState, useRef, useEffect } from 'react';
-import { Icon } from '@iconify/react';
+
 import './ChartRangeDropdown.css';
 export default function ChartRangeDropdown({
   value,

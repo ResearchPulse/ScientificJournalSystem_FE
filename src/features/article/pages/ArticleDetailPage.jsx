@@ -7,7 +7,7 @@ import { t } from "i18next";
  */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Button, Modal } from 'react-bootstrap';
+import { Container, Modal } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 
 // Layout
@@ -25,7 +25,7 @@ import ArticleDetailSkeleton from '../components/ArticleDetailSkeleton';
 import ArticleDetailEmpty from '../components/ArticleDetailEmpty';
 import ArticleDetailError from '../components/ArticleDetailError';
 import ArticlesTabContent from '../../journal/components/ArticlesTabContent';
-import { AuthRequiredModal } from '@ui';
+import { AuthRequiredModal, Button } from '@ui';
 import { toast } from '../../../shared/utils/toast';
 import { getDoiUrl, normalizeArticleDetail } from '../utils/articleFormatters';
 import { LatexText } from '@ui';

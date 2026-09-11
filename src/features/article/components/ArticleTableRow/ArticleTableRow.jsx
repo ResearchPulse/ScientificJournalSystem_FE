@@ -5,10 +5,9 @@ import { t } from "i18next";
  *
  * File: features\article\components\ArticleTableRow.jsx
  */
-import { Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
-import { LatexText } from '@ui';
+import { LatexText, Icon, Button } from '@ui';
 export default function ArticleTableRow({
   article,
   index,

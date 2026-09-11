@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\dashboard\components\TopAuthorsTable.jsx
  */
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
-import { EntityCard, Badge, LoadingSkeleton } from '@ui';
+import { EntityCard, Badge, LoadingSkeleton, Icon } from '@ui';
 import { formatCount, truncate } from '@shared/utils/formatNumber';
 
 /** Rank badge — top 3 có màu riêng */

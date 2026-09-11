@@ -1,3 +1,4 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
  * File source thuộc hệ thống FE ResearchPulse.
@@ -5,7 +6,7 @@ import { useTranslation } from "react-i18next";
  * File: features\dashboard\components\PublicationTrendChart.jsx
  */
 import { useState } from 'react';
-import { Icon } from '@iconify/react';
+
 import '../../Dashboard.css';
 import ChartRangeDropdown from '../ChartRangeDropdown';
 

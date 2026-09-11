@@ -7,8 +7,8 @@ import { t } from "i18next";
  */
 import { useMemo, useState } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { FilterCard } from '@ui';
+
+import { FilterCard, Icon } from '@ui';
 import { FilterSearch } from '@ui';
 export default function FilterPanel({
   searchInput = '',

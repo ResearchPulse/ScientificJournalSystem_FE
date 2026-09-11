@@ -1,0 +1,22 @@
+:root {
+  /* ─── Duration Tokens ─── */
+  --dur-fast: 150ms;
+  --dur-normal: 220ms;
+  --dur-slow: 350ms;
+  --dur-slower: 500ms;
+
+  /* ─── Timing Functions ─── */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ─── Compound Transitions ─── */
+  --transition-fast: all var(--dur-fast) var(--ease-standard);
+  --transition-normal: all var(--dur-normal) var(--ease-standard);
+  --transition-transform: transform var(--dur-normal) var(--ease-smooth);
+  --transition-colors: background-color var(--dur-fast) var(--ease-standard),
+                       border-color var(--dur-fast) var(--ease-standard),
+                       color var(--dur-fast) var(--ease-standard);
+}

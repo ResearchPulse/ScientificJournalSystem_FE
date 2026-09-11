@@ -5,10 +5,10 @@ import { useTranslation } from "react-i18next";
  * File: features\journal\components\VolumesTabContent.jsx
  */
 import { useState } from 'react';
-import { Spinner, Button } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Spinner } from 'react-bootstrap';
+
 import { useNavigate } from 'react-router-dom';
-import { LoadingSkeleton } from '@ui';
+import { LoadingSkeleton, Icon, Button } from '@ui';
 import { Pagination as AdminPagination } from '@ui';
 export default function VolumesTabContent({
   volumes = [],

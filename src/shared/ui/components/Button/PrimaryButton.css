@@ -1,5 +1,5 @@
 .btn-unified {
-  border-radius: 12px !important;
+  border-radius: 12px;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -7,7 +7,7 @@
   font-family: var(--font-display) !important;
   font-weight: 600 !important;
   min-height: 44px;
-  padding-inline: 1.2rem !important;
+  padding-inline: 1.2rem;
   white-space: nowrap;
   transition:
     transform 0.18s ease,
@@ -15,6 +15,13 @@
     background-color 0.18s ease,
     border-color 0.18s ease,
     color 0.18s ease;
+}
+
+.btn-unified.btn-sm {
+  min-height: 32px;
+  padding-inline: 0.75rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
 }
 
 .btn-unified:hover {

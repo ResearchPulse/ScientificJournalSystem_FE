@@ -1,7 +1,8 @@
+import { Icon, Button } from '@ui';
 import { useTranslation } from "react-i18next";
-import { Card, Col, Row, Button } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+
 
 /**
  * Component JournalCardAdmin - Hiển thị thông tin tạp chí dưới dạng thẻ khối độc lập dành cho Admin.

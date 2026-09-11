@@ -7,8 +7,8 @@ import { t } from "i18next";
  */
 import { useState, useEffect } from 'react';
 import { Modal, Form, Spinner, Alert } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { PrimaryButton } from '@ui';
+
+import { PrimaryButton, Icon } from '@ui';
 import { getProjectsApi, createProjectApi, getProjectByIdApi, updateProjectApi } from '@features/project/api/project.api';
 export default function AddToProjectModal({
   show,

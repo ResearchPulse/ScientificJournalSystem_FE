@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Table } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
-import { EmptyState, ErrorState, LoadingSkeleton } from '@ui';
+
+import { EmptyState, ErrorState, LoadingSkeleton, Icon } from '@ui';
 
 export default function RegionStatsPanel({
   regions = [],

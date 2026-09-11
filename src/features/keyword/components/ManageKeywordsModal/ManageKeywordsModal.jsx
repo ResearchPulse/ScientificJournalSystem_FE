@@ -1,6 +1,7 @@
+import { Button } from '@ui';
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
-import { Modal, Button, Table } from 'react-bootstrap';
+import { Modal, Table } from 'react-bootstrap';
 const ManageKeywordsModal = ({
   show,
   onHide,

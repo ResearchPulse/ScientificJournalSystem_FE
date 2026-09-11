@@ -1,3 +1,4 @@
+import { Badge, Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
 * Card hiển thị keyword và topic trong trang chi tiết bài báo.
@@ -6,8 +7,8 @@ import { useTranslation } from "react-i18next";
 *
 * File: features/article/components/KeywordTopicCard.jsx
 */
-import { Card, Badge } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Card } from 'react-bootstrap';
+
 import { useNavigate } from 'react-router-dom';
 import { normalizeKeywords } from '../../utils/articleFormatters';
 export default function KeywordTopicCard({

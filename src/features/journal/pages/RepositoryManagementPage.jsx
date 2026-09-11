@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Button, Breadcrumb } from "react-bootstrap";
+import { Container, Row, Col, Card, Breadcrumb } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useJournalManagement } from "../hooks/useJournalManagement";
@@ -9,7 +9,7 @@ import IssueTable from "../components/IssueTable";
 import SwitchJournalModal from "../components/modals/SwitchJournalModal";
 import CreateVolumeModal from "../components/modals/CreateVolumeModal";
 import CreateIssueModal from "../components/modals/CreateIssueModal";
-import { PrimaryButton } from '@ui';
+import { PrimaryButton, Button } from '@ui';
 
 /**
  * Page RepositoryManagementPage - Màn hình điều phối quản lý Tập (Volume) và Số (Issue) tập trung của Admin.

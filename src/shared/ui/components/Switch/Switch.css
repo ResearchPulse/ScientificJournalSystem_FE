@@ -1,0 +1,89 @@
+.ui-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ui-switch.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.ui-switch-track {
+  position: relative;
+  display: inline-block;
+  background-color: var(--neutral-300);
+  border-radius: var(--radius-full);
+  transition: background-color var(--dur-normal) var(--ease-standard);
+  flex-shrink: 0;
+}
+
+.ui-switch.is-checked .ui-switch-track {
+  background-color: var(--primary);
+}
+
+.ui-switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background-color: #ffffff;
+  border-radius: var(--radius-full);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+
+/* Sizing */
+.ui-switch-sm .ui-switch-track {
+  width: 34px;
+  height: 18px;
+}
+.ui-switch-sm .ui-switch-thumb {
+  width: 14px;
+  height: 14px;
+}
+.ui-switch-sm.is-checked .ui-switch-thumb {
+  transform: translateX(16px);
+}
+
+.ui-switch-md .ui-switch-track {
+  width: 44px;
+  height: 24px;
+}
+.ui-switch-md .ui-switch-thumb {
+  width: 20px;
+  height: 20px;
+}
+.ui-switch-md.is-checked .ui-switch-thumb {
+  transform: translateX(20px);
+}
+
+.ui-switch-lg .ui-switch-track {
+  width: 54px;
+  height: 30px;
+}
+.ui-switch-lg .ui-switch-thumb {
+  width: 26px;
+  height: 26px;
+}
+.ui-switch-lg.is-checked .ui-switch-thumb {
+  transform: translateX(24px);
+}
+
+.ui-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ui-switch-input:focus-visible + .ui-switch-track {
+  box-shadow: var(--focus-ring);
+}
+
+.ui-switch-label {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-weight: 500;
+}

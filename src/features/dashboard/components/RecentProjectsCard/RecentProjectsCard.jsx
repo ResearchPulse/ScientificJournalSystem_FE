@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
  * File: features\dashboard\components\RecentProjectsCard.jsx
  */
 import { useState } from 'react';
-import { Icon } from '@iconify/react';
-import { EntityCard, Badge, LoadingSkeleton } from '@ui';
+
+import { EntityCard, Badge, LoadingSkeleton, Icon } from '@ui';
 
 function ProjectStatusBadge({
   status

@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 * File: features\article\components\ArticleHeaderCard.jsx
 */
 import { Card } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
-import { LatexText, Badge } from '@ui';
+import { LatexText, Badge, Icon } from '@ui';
 export default function ArticleHeaderCard({
   article
 }) {

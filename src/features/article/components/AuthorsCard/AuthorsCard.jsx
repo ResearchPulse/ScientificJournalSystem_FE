@@ -1,3 +1,4 @@
+import { Icon } from '@ui';
 import { useTranslation } from "react-i18next";
 /**
 * File source thuộc hệ thống FE ResearchPulse.
@@ -5,7 +6,7 @@ import { useTranslation } from "react-i18next";
 * File: features\article\components\AuthorsCard.jsx
 */
 import { Card } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
 import { getInitials, normalizeAuthors } from '../../utils/articleFormatters';
 export default function AuthorsCard({

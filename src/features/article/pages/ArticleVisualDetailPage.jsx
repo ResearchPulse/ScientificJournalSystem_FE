@@ -7,7 +7,7 @@ import { t } from "i18next";
  */
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Button, Modal, Dropdown } from 'react-bootstrap';
+import { Container, Modal, Dropdown } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 
 // Layout
@@ -25,7 +25,7 @@ import { useWalletStore } from '../../../app/store/walletStore';
 import ArticleDetailSkeleton from '../components/ArticleDetailSkeleton';
 import ArticleDetailEmpty from '../components/ArticleDetailEmpty';
 import ArticleDetailError from '../components/ArticleDetailError';
-import { ErrorState } from '@ui';
+import { ErrorState, Button } from '@ui';
 import { AuthRequiredModal } from '@ui';
 import { toast } from '../../../shared/utils/toast';
 import { getDoiUrl, normalizeArticleDetail } from '../utils/articleFormatters';
