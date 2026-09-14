@@ -1,94 +1,158 @@
-import { useTranslation } from "react-i18next";
+﻿import { useNavigate } from "react-router-dom";
+import Header from "../../landing/components/Header";
+import Icon from "../../../shared/components/Icon";
+
+// Sub-components
+import AuthorProfileHero from "../components/AuthorProfileHero";
+import AuthorQuickNav from "../components/AuthorQuickNav";
+import AuthorMetricsCards from "../components/AuthorMetricsCards";
+import AuthorAffiliations from "../components/AuthorAffiliations";
+import AuthorResearchCenters from "../components/AuthorResearchCenters";
+import AuthorResearchInterests from "../components/AuthorResearchInterests";
+import AuthorResearchAreas from "../components/AuthorResearchAreas";
+import AuthorResearchImpact from "../components/AuthorResearchImpact";
+import AuthorPublications from "../components/AuthorPublications";
+import AuthorMostCited from "../components/AuthorMostCited";
+import AuthorJournals from "../components/AuthorJournals";
+import AuthorCollaborators from "../components/AuthorCollaborators";
+import AuthorResearchNetwork from "../components/AuthorResearchNetwork";
+import AuthorAwards from "../components/AuthorAwards";
+import AuthorEducation from "../components/AuthorEducation";
+import AuthorRelatedResearchers from "../components/AuthorRelatedResearchers";
+
+// Dedicated Frontend Prototype Mock Data
+import {
+  MOCK_AUTHOR,
+  MOCK_METRICS,
+  MOCK_AFFILIATIONS,
+  MOCK_RESEARCH_CENTERS,
+  MOCK_RESEARCH_INTERESTS,
+  MOCK_RESEARCH_AREAS,
+  MOCK_IMPACT_TREND,
+  MOCK_PUBLICATIONS,
+  MOCK_MOST_CITED,
+  MOCK_JOURNALS,
+  MOCK_COLLABORATORS,
+  MOCK_NETWORK,
+  MOCK_AWARDS,
+  MOCK_EDUCATION,
+  MOCK_RELATED_RESEARCHERS,
+} from "../data/authorProfile.mock";
+
+import "./AuthorDetailPage.css";
+
 /**
  * @file AuthorDetailPage.jsx
- * @description Trang chi tiết hiển thị toàn bộ hồ sơ học thuật của một tác giả cụ thể.
+ * @description Academic Researcher Profile (ResearchPulse).
+ * Full-width, high-density scientific profile layout.
  */
-
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
-import Header from '../../landing/components/Header';
-import useAuthors from '../hooks/useAuthors';
-import AuthorProfileHeader from '../components/AuthorProfileHeader';
-import AuthorAreasBreakdown from '../components/AuthorAreasBreakdown';
-import AuthorArticlesSection from '../components/AuthorArticlesSection';
-import PrimaryButton from '../../../shared/components/Button/PrimaryButton';
-import './AuthorDetailPage.css';
 export default function AuthorDetailPage() {
-  const {
-    t
-  } = useTranslation();
-  const {
-    id
-  } = useParams();
   const navigate = useNavigate();
-  const {
-    currentAuthor,
-    authorArticles,
-    authorBreakdown,
-    loadingAuthorDetail,
-    loadingArticles,
-    loadingAreas,
-    errorAuthorDetail,
-    errorArticles,
-    errorAreas,
-    fetchAuthorDetailsFull,
-    fetchAuthorDetail,
-    fetchAuthorArticles,
-    fetchAuthorAreasBreakdown
-  } = useAuthors();
-  useEffect(() => {
-    if (id) {
-      fetchAuthorDetailsFull(id);
-    }
-  }, [id, fetchAuthorDetailsFull]);
-  const authorName = currentAuthor?.full_name ?? currentAuthor?.display_name ?? currentAuthor?.name ?? t("typeAuthor");
-  return <div className="author-detail-page">
+
+  // Prototype renders rich mock dataset directly to eliminate empty states
+  const author = MOCK_AUTHOR;
+  const metrics = MOCK_METRICS;
+  const affiliations = MOCK_AFFILIATIONS;
+  const researchCenters = MOCK_RESEARCH_CENTERS;
+  const interests = MOCK_RESEARCH_INTERESTS;
+  const researchAreas = MOCK_RESEARCH_AREAS;
+  const impactTrend = MOCK_IMPACT_TREND;
+  const publications = MOCK_PUBLICATIONS;
+  const mostCited = MOCK_MOST_CITED;
+  const journals = MOCK_JOURNALS;
+  const collaborators = MOCK_COLLABORATORS;
+  const network = MOCK_NETWORK;
+  const awards = MOCK_AWARDS;
+  const education = MOCK_EDUCATION;
+  const relatedResearchers = MOCK_RELATED_RESEARCHERS;
+
+  return (
+    <div className="ap-page">
       <Header />
 
-      <Container>
-        <nav className="author-detail-breadcrumb mb-4" aria-label="breadcrumb">
+      <main className="ap-main-container">
+        {/* 1. BREADCRUMB */}
+        <nav className="ap-breadcrumb" aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <span className="author-detail-breadcrumb__link" onClick={() => navigate('/')}>{t("author.tongQuan")}</span>
+              <span className="ap-breadcrumb__link" onClick={() => navigate("/")}>
+                ResearchPulse
+              </span>
             </li>
             <li className="breadcrumb-item">
-              <span className="author-detail-breadcrumb__link" onClick={() => navigate('/authors')}>{t("author.tacGiaNoiBat")}</span>
+              <span className="ap-breadcrumb__link" onClick={() => navigate("/authors")}>
+                Tác giả
+              </span>
             </li>
-            <li className="breadcrumb-item active author-detail-breadcrumb__current" aria-current="page">
-              {loadingAuthorDetail ? t("common.dangTai") : authorName}
+            <li className="breadcrumb-item active" aria-current="page">
+              <span className="ap-breadcrumb__current">{author.full_name}</span>
             </li>
           </ol>
         </nav>
 
-        <section className="author-detail-hero">
-          <div className="author-detail-hero__content d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
-            <div>
-              <div className="author-detail-eyebrow">
-                <Icon icon="lucide:user-round-search" width="17" />
-                <span>Author profile</span>
-              </div>
-              <h1 className="author-detail-title">{loadingAuthorDetail ? t("author.hoSoTacGia") : authorName}</h1>
-              <p className="author-detail-description">{t("author.hoSoHocThuatPhanBoLinhVucNghie")}</p>
-            </div>
-            <PrimaryButton variant="outline" onClick={() => navigate('/authors')} className="px-3 py-2" icon="lucide:arrow-left">{t("author.quayLaiDanhSachTacGia")}</PrimaryButton>
+        {/* 2. RESEARCHER HERO */}
+        <AuthorProfileHero author={author} metrics={metrics} />
+
+        {/* 3. QUICK NAVIGATION (Sticky) */}
+        <AuthorQuickNav />
+
+        {/* 4. KEY RESEARCH METRICS STRIP */}
+        <AuthorMetricsCards metrics={metrics} />
+
+        {/* 5. TWO-COLUMN GRID: Affiliations & Centers | Interests & Areas */}
+        <div className="ap-grid-two-col">
+          {/* Left Column */}
+          <div className="ap-grid-col">
+            <AuthorAffiliations affiliations={affiliations} />
+            <AuthorResearchCenters centers={researchCenters} />
           </div>
-        </section>
 
-        <Row className="g-4">
-          <Col xs={12} lg={4}>
-            <AuthorProfileHeader author={currentAuthor} loading={loadingAuthorDetail} error={errorAuthorDetail} onRetry={() => id && fetchAuthorDetail(id)} />
-          </Col>
+          {/* Right Column */}
+          <div className="ap-grid-col">
+            <AuthorResearchInterests interests={interests} />
+            <AuthorResearchAreas areas={researchAreas} />
+          </div>
+        </div>
 
-          <Col xs={12} lg={8}>
-            <div className="d-flex flex-column gap-4">
-              <AuthorAreasBreakdown breakdown={authorBreakdown} loading={loadingAreas} error={errorAreas} onRetry={() => id && fetchAuthorAreasBreakdown(id)} />
+        {/* 6. RESEARCH IMPACT & TRAJECTORY */}
+        <AuthorResearchImpact metrics={metrics} trend={impactTrend} />
 
-              <AuthorArticlesSection articles={authorArticles} loading={loadingArticles} error={errorArticles} onRetry={() => id && fetchAuthorArticles(id)} />
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </div>;
+        {/* 7. SCIENTIFIC PUBLICATIONS */}
+        <AuthorPublications publications={publications} />
+
+        {/* 8. TWO-COLUMN: Most Cited | Top Journals */}
+        <div className="ap-grid-two-col">
+          <div className="ap-grid-col">
+            <AuthorMostCited mostCited={mostCited} />
+          </div>
+          <div className="ap-grid-col">
+            <AuthorJournals journals={journals} />
+          </div>
+        </div>
+
+        {/* 9. TWO-COLUMN: Frequent Collaborators | Research Network */}
+        <div className="ap-grid-two-col">
+          <div className="ap-grid-col">
+            <AuthorCollaborators collaborators={collaborators} />
+          </div>
+          <div className="ap-grid-col">
+            <AuthorResearchNetwork network={network} />
+          </div>
+        </div>
+
+        {/* 10. TWO-COLUMN: Awards & Honors | Education & Career */}
+        <div className="ap-grid-two-col">
+          <div className="ap-grid-col">
+            <AuthorAwards awards={awards} />
+          </div>
+          <div className="ap-grid-col">
+            <AuthorEducation education={education} />
+          </div>
+        </div>
+
+        {/* 11. RELATED RESEARCHERS */}
+        <AuthorRelatedResearchers researchers={relatedResearchers} />
+      </main>
+    </div>
+  );
 }

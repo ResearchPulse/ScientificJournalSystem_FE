@@ -1,90 +1,131 @@
+﻿import { useState } from "react";
 import { useTranslation } from "react-i18next";
 /**
  * @file AuthorProfileHeader.jsx
- * @description Thẻ thông tin hồ sơ bên cột trái hiển thị siêu dữ liệu chính cho tác giả được chọn.
+ * @description Identity card — left column of the Academic Researcher Profile page.
  */
+import AuthorAvatar from "./AuthorAvatar";
+import Icon from "../../../shared/components/Icon";
+import LoadingSkeleton from "../../../shared/components/LoadingSkeleton";
 
-import { Card, Row, Col } from 'react-bootstrap';
-import Icon from '../../../shared/components/Icon';
-import AuthorAvatar from './AuthorAvatar';
-export default function AuthorProfileHeader({
-  author,
-  loading = false
-}) {
-  const {
-    t
-  } = useTranslation();
+export default function AuthorProfileHeader({ author, loading = false }) {
+  const { t } = useTranslation();
+  const [orcidCopied, setOrcidCopied] = useState(false);
+
   if (loading) {
-    return <Card className="author-profile-card author-profile-skeleton">
+    return (
+      <div className="adp-identity-card adp-identity-skeleton">
         <div className="d-flex justify-content-center mb-3">
-          <div className="skeleton-shimmer rounded-circle author-profile-skeleton-avatar" />
+          <div className="skeleton-shimmer rounded-circle" style={{ width: 88, height: 88 }} />
         </div>
-        <div className="skeleton-shimmer rounded mx-auto mb-2 w-60 h-22" />
-        <div className="skeleton-shimmer rounded mx-auto mb-2 w-50 h-16" />
-        <div className="skeleton-shimmer rounded mx-auto mb-4 w-40 h-14" />
-        <div className="skeleton-shimmer rounded mx-auto mb-3 w-80 h-36" />
-        <div className="skeleton-shimmer rounded mx-auto w-100 h-60" />
-      </Card>;
+        <LoadingSkeleton width="65%" height="18px" className="mx-auto mb-2" />
+        <LoadingSkeleton width="50%" height="12px" className="mx-auto mb-1" />
+        <LoadingSkeleton width="40%" height="11px" className="mx-auto mb-3" />
+        <LoadingSkeleton width="100%" height="36px" className="mb-2" />
+        <LoadingSkeleton width="100%" height="36px" className="mb-2" />
+        <LoadingSkeleton width="100%" height="60px" className="mb-3" />
+        <LoadingSkeleton width="100%" height="36px" className="mb-1" />
+        <LoadingSkeleton width="100%" height="36px" />
+      </div>
+    );
   }
+
   if (!author) return null;
+
   const name = author.full_name ?? author.display_name ?? author.name ?? t("typeAuthor");
-  const institution1 = author.institution_1 ?? author.last_known_institution ?? author.institution ?? '—';
-  const institution2 = author.institution_2 ?? author.department ?? '';
-  const email = author.email ?? '';
-  const hIndex = author.h_index ?? author.hindex ?? 0;
-  const citations = author.citation_count ?? author.cited_by_count ?? author.citations ?? 0;
-  const articlesCount = author.article_count ?? author.works_count ?? author.papers ?? 0;
-  const avatarColor = author.avatar_color ?? '#FF7A33';
-  const formatLocalNumber = num => {
-    if (num == null) return '0';
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const position = author.position ?? author.academic_title ?? "";
+  const institution = author.institution_1 ?? author.last_known_institution ?? author.institution ?? "";
+  const dept = author.institution_2 ?? author.department ?? "";
+  const email = author.email ?? "";
+  const orcid = author.orcid ?? "";
+  const bio = author.bio ?? author.description ?? "";
+  const homepage = author.homepage ?? author.homepage_url ?? "";
+  const avatarColor = author.avatar_color ?? "#FF7A33";
+
+  const handleCopyOrcid = () => {
+    if (!orcid) return;
+    navigator.clipboard.writeText(orcid);
+    setOrcidCopied(true);
+    setTimeout(() => setOrcidCopied(false), 2000);
   };
-  return <Card className="author-profile-card">
-      <div className="d-flex justify-content-center mb-3">
+
+  return (
+    <div className="adp-identity-card">
+      {/* Avatar */}
+      <div className="adp-identity-avatar-wrap">
         <AuthorAvatar name={name} size="xl" bgColor={avatarColor} />
       </div>
 
-      <h2 className="author-profile-name">{name}</h2>
-      <div className="author-profile-affiliation-primary">{institution1}</div>
-      {institution2 && <div className="author-profile-affiliation-secondary">{institution2}</div>}
+      {/* Name */}
+      <h1 className="adp-identity-name">{name}</h1>
 
-      <div className="author-profile-orcid">
-        ORCID: <strong>{author.orcid || t("author.chuaCapNhat")}</strong>
+      {/* Position */}
+      {position && <div className="adp-identity-position">{position}</div>}
+
+      {/* Institution */}
+      {institution && <div className="adp-identity-institution">{institution}</div>}
+
+      {/* Department */}
+      {dept && <div className="adp-identity-dept">{dept}</div>}
+
+      <div className="adp-identity-divider" />
+
+      {/* ORCID */}
+      {orcid ? (
+        <div className="adp-identity-orcid" onClick={handleCopyOrcid} title="Click to copy ORCID">
+          <span className="adp-identity-orcid-label">ORCID</span>
+          <span className="adp-identity-orcid-value">{orcid}</span>
+          <span className="adp-identity-orcid-copy">
+            <Icon icon={orcidCopied ? "lucide:check" : "lucide:copy"} width="12" style={{ color: orcidCopied ? "var(--primary)" : undefined }} />
+          </span>
+        </div>
+      ) : (
+        <div className="adp-identity-orcid" style={{ cursor: "default", opacity: 0.6 }}>
+          <span className="adp-identity-orcid-label">ORCID</span>
+          <span className="adp-identity-orcid-value">{t("author.chuaCapNhat")}</span>
+        </div>
+      )}
+
+      {/* Email */}
+      {email && (
+        <div className="adp-identity-email">
+          <Icon icon="lucide:mail" width="12" style={{ flexShrink: 0 }} />
+          <span>{email}</span>
+        </div>
+      )}
+
+      {/* Bio */}
+      {bio && <p className="adp-identity-bio">{bio}</p>}
+
+      {/* Actions */}
+      <div className="adp-identity-actions">
+        <button
+          className="adp-identity-btn adp-identity-btn--primary"
+          onClick={() => document.getElementById("adp-publications")?.scrollIntoView({ behavior: "smooth" })}
+        >
+          <Icon icon="lucide:file-text" width="13" />
+          {t("author.xemCongTrinhCongBo")}
+        </button>
+
+        {homepage && (
+          <a href={homepage} target="_blank" rel="noopener noreferrer" className="adp-identity-btn">
+            <Icon icon="lucide:globe" width="13" />
+            {t("author.trangCaNhanHomepage")}
+          </a>
+        )}
+
+        {orcid && (
+          <a
+            href={`https://orcid.org/${orcid}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="adp-identity-btn"
+          >
+            <Icon icon="simple-icons:orcid" width="13" />
+            ORCID Profile
+          </a>
+        )}
       </div>
-
-      {email && <div className="d-flex justify-content-center">
-          <div className="author-profile-email">
-            <Icon icon="lucide:mail" width="12" className="opacity-75" />
-            <span className="text-truncate">{email}</span>
-          </div>
-        </div>}
-
-      <p className="author-profile-bio">{author.bio || t("author.chuaCapNhatThongTinTieuSu")}</p>
-
-      <div className="author-profile-metrics">
-        <Row className="g-0 align-items-center">
-          <Col xs={4} className="author-profile-metric">
-            <div className="author-profile-metric-label">H-index</div>
-            <div className="author-profile-metric-value">{hIndex}</div>
-          </Col>
-          <Col xs={4} className="author-profile-metric">
-            <div className="author-profile-metric-label">{t("author.trichDan")}</div>
-            <div className="author-profile-metric-value">{formatLocalNumber(citations)}</div>
-          </Col>
-          <Col xs={4} className="author-profile-metric">
-            <div className="author-profile-metric-label">{t("articles")}</div>
-            <div className="author-profile-metric-value">{formatLocalNumber(articlesCount)}</div>
-          </Col>
-        </Row>
-      </div>
-
-      <div className="d-flex flex-column gap-2 mt-2">
-        {author.homepage && <a href={author.homepage} target="_blank" rel="noopener noreferrer" className="author-profile-link">
-            <Icon icon="lucide:globe" width="14" />{t("author.trangCaNhanHomepage")}</a>}
-        <button onClick={() => document.getElementById('articles-section')?.scrollIntoView({
-        behavior: 'smooth'
-      })} className="author-profile-button">
-          <Icon icon="lucide:file-text" width="14" />{t("author.xemCongTrinhCongBo")}</button>
-      </div>
-    </Card>;
+    </div>
+  );
 }
