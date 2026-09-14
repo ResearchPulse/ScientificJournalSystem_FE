@@ -1,110 +1,138 @@
-import { useTranslation } from "react-i18next";
-import { t } from "i18next";
+﻿import { useTranslation } from "react-i18next";
 /**
  * @file AuthorAreasBreakdown.jsx
- * @description Hiển thị trực quan hóa tỷ lệ phần trăm phân bổ các bài báo xuất bản của tác giả.
+ * @description Donut chart + ranked area list for the author research distribution.
  */
+import { Card } from "react-bootstrap";
+import LoadingSkeleton from "../../../shared/components/LoadingSkeleton";
+import EmptyState from "../../../shared/components/EmptyState";
 
-import { Row, Col, Card } from 'react-bootstrap';
-import LoadingSkeleton from '../../../shared/components/LoadingSkeleton';
-import EmptyState from '../../../shared/components/EmptyState';
-export default function AuthorAreasBreakdown({
-  breakdown = [],
-  loading = false,
-  error = null
-}) {
-  const { t: _t } = useTranslation();
-  const breakdownItems = Array.isArray(breakdown) ? breakdown : [];
-  const maxVisibleAreas = 5;
-  const sortedBreakdownItems = [...breakdownItems].sort((a, b) => (Number(b.percentage ?? b.percent ?? 0) || 0) - (Number(a.percentage ?? a.percent ?? 0) || 0));
-  const visibleBreakdownItems = sortedBreakdownItems.slice(0, maxVisibleAreas);
-  const hiddenBreakdownCount = Math.max(0, sortedBreakdownItems.length - maxVisibleAreas);
-  const hiddenArticleCount = sortedBreakdownItems.slice(maxVisibleAreas).reduce((sum, item) => sum + (Number(item.count ?? item.article_count ?? 0) || 0), 0);
+const COLORS = ["#FF7A33", "#6366F1", "#0EA5E9", "#10B981", "#F59E0B", "#8B5CF6", "#EC4899"];
+
+export default function AuthorAreasBreakdown({ breakdown = [], loading = false, error = null }) {
+  const { t } = useTranslation();
+  const items = Array.isArray(breakdown) ? breakdown : [];
+  const MAX_VISIBLE = 5;
+
+  const sorted = [...items].sort(
+    (a, b) => (Number(b.percentage ?? b.percent ?? 0) || 0) - (Number(a.percentage ?? a.percent ?? 0) || 0)
+  );
+  const visible = sorted.slice(0, MAX_VISIBLE);
+  const hiddenCount = Math.max(0, sorted.length - MAX_VISIBLE);
+  const hiddenArticles = sorted
+    .slice(MAX_VISIBLE)
+    .reduce((s, x) => s + (Number(x.count ?? x.article_count ?? 0) || 0), 0);
+
   if (loading) {
-    return <Card className="author-areas-card">
-        <h5 className="author-section-title mb-4">{t("author.phanBoLinhVucNghienCuu")}</h5>
-        <Row className="align-items-center">
-          <Col xs={12} md={5} className="d-flex justify-content-center mb-3 mb-md-0">
-            <div className="skeleton-shimmer rounded-circle author-areas-skeleton-chart" />
-          </Col>
-          <Col xs={12} md={7}>
-            <div className="d-flex flex-column gap-3">
-              <LoadingSkeleton width="90%" height="28px" />
-              <LoadingSkeleton width="80%" height="28px" />
-              <LoadingSkeleton width="70%" height="28px" />
-            </div>
-          </Col>
-        </Row>
-      </Card>;
+    return (
+      <div className="adp-card adp-areas">
+        <div className="adp-section-label">{t("author.phanBoLinhVucNghienCuu")}</div>
+        <div className="adp-areas-inner">
+          <div className="skeleton-shimmer adp-areas-skeleton-chart" />
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+            <LoadingSkeleton width="90%" height="12px" />
+            <LoadingSkeleton width="75%" height="12px" />
+            <LoadingSkeleton width="60%" height="12px" />
+          </div>
+        </div>
+      </div>
+    );
   }
-  if (error || breakdownItems.length === 0) {
-    return <Card className="author-areas-card">
-        <h5 className="author-section-title mb-3">{t("author.phanBoLinhVucNghienCuu")}</h5>
-        <EmptyState title={t("author.chuaCoDuLieuPhanBo")} description={t("author.chuaCoDuLieuPhanBoLinhVucNghie")} icon="lucide:pie-chart" className="border-0 py-4" />
-      </Card>;
+
+  if (error || items.length === 0) {
+    return (
+      <div className="adp-card adp-areas">
+        <div className="adp-section-label">{t("author.phanBoLinhVucNghienCuu")}</div>
+        <EmptyState
+          title={t("author.chuaCoDuLieuPhanBo")}
+          description={t("author.chuaCoDuLieuPhanBoLinhVucNghie")}
+          icon="lucide:pie-chart"
+          className="border-0 py-3"
+        />
+      </div>
+    );
   }
-  const colors = ['#FF7A33', '#6366F1', '#0EA5E9', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899'];
-  const radius = 50;
+
+  // Build SVG donut
+  const radius = 45;
   const circumference = 2 * Math.PI * radius;
-  let accumulatedPercentage = 0;
-  return <Card className="author-areas-card">
-      <h5 className="author-section-title mb-4">{t("author.phanBoLinhVucNghienCuu1")}</h5>
+  let acc = 0;
 
-      <Row className="align-items-center">
-        <Col xs={12} md={5} className="d-flex justify-content-center mb-4 mb-md-0">
-          <div className="author-areas-chart">
-            <svg width="180" height="180" viewBox="0 0 140 140">
-              <circle cx="70" cy="70" r={radius} fill="transparent" stroke="var(--bg-section)" strokeWidth="14" />
-              {visibleBreakdownItems.map((item, idx) => {
-              const strokeColor = colors[idx % colors.length];
-              const pct = item.percentage ?? 0;
-              const dashArray = `${pct / 100 * circumference} ${circumference}`;
-              const dashOffset = -(accumulatedPercentage / 100 * circumference);
-              accumulatedPercentage += pct;
-              return <circle key={idx} cx="70" cy="70" r={radius} fill="transparent" stroke={strokeColor} strokeWidth="15" strokeDasharray={dashArray} strokeDashoffset={dashOffset} className="author-areas-slice" />;
+  return (
+    <div className="adp-card adp-areas">
+      <div className="adp-section-label">{t("author.phanBoLinhVucNghienCuu1")}</div>
+
+      <div className="adp-areas-inner">
+        {/* Donut chart */}
+        <div className="adp-areas-chart-wrap">
+          <svg width="130" height="130" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r={radius} fill="transparent" stroke="var(--bg-section)" strokeWidth="12" />
+            {visible.map((item, idx) => {
+              const pct = Number(item.percentage ?? 0) || 0;
+              const dashArray = `${(pct / 100) * circumference} ${circumference}`;
+              const dashOffset = -((acc / 100) * circumference);
+              acc += pct;
+              return (
+                <circle
+                  key={idx}
+                  cx="60"
+                  cy="60"
+                  r={radius}
+                  fill="transparent"
+                  stroke={COLORS[idx % COLORS.length]}
+                  strokeWidth="13"
+                  strokeDasharray={dashArray}
+                  strokeDashoffset={dashOffset}
+                />
+              );
             })}
-            </svg>
-            <div className="author-areas-center">
-              <span className="author-areas-center-label">{t("author.linhVuc")}</span>
-              <span className="author-areas-center-value">{breakdownItems.length}</span>
-            </div>
+          </svg>
+          <div className="adp-areas-donut-center">
+            <span className="adp-areas-donut-value">{items.length}</span>
+            <span className="adp-areas-donut-label">{t("author.linhVuc")}</span>
           </div>
-        </Col>
+        </div>
 
-        <Col xs={12} md={7}>
-          <div className="author-areas-list">
-            {visibleBreakdownItems.map((item, idx) => {
-            const color = colors[idx % colors.length];
-            const name = item.subject_area ?? item.category_name ?? item.subject_area_name ?? item.display_name ?? item.name ?? t("article.chuaPhanLoai");
-            const pct = item.percentage ?? 0;
-            const count = item.count ?? item.article_count ?? 0;
-            return <div key={idx}>
-                  <div className="author-areas-item-head">
-                    <div className="author-areas-item-name">
-                      <span className="author-areas-dot" style={{
-                    backgroundColor: color
-                  }} />
-                      <span className="text-truncate">{name}</span>
-                    </div>
-                    <div className="author-areas-item-stats">
-                      <span>{count}{t("author.baiBao")}</span>
-                      <span>•</span>
-                      <span className="text-main">{pct}%</span>
-                    </div>
+        {/* Area list */}
+        <div className="adp-areas-list">
+          {visible.map((item, idx) => {
+            const color = COLORS[idx % COLORS.length];
+            const name =
+              item.subject_area ??
+              item.category_name ??
+              item.subject_area_name ??
+              item.display_name ??
+              item.name ??
+              t("article.chuaPhanLoai");
+            const pct = Number(item.percentage ?? 0) || 0;
+            const count = Number(item.count ?? item.article_count ?? 0) || 0;
+            return (
+              <div key={idx} className="adp-areas-row">
+                <div className="adp-areas-row-head">
+                  <div className="adp-areas-row-name">
+                    <span className="adp-areas-dot" style={{ backgroundColor: color }} />
+                    <span>{name}</span>
                   </div>
-                  <div className="author-areas-progress">
-                    <div className="author-areas-progress-fill" style={{
-                  width: `${pct}%`,
-                  backgroundColor: color
-                }} />
+                  <div className="adp-areas-row-stats">
+                    <span>{count}{t("author.baiBao")}</span>
+                    <span>·</span>
+                    <span>{pct}%</span>
                   </div>
-                </div>;
+                </div>
+                <div className="adp-areas-track">
+                  <div className="adp-areas-fill" style={{ width: `${pct}%`, backgroundColor: color }} />
+                </div>
+              </div>
+            );
           })}
-
-            {hiddenBreakdownCount > 0 && <div className="author-areas-more">{t("author.con")}{hiddenBreakdownCount}{t("author.linhVucKhac")}{hiddenArticleCount ? ` (${hiddenArticleCount} bài báo)` : ''}
-              </div>}
-          </div>
-        </Col>
-      </Row>
-    </Card>;
+          {hiddenCount > 0 && (
+            <div className="adp-areas-more">
+              +{hiddenCount} {t("author.linhVucKhac")}
+              {hiddenArticles > 0 ? ` (${hiddenArticles} ${t("author.baiBao")})` : ""}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
