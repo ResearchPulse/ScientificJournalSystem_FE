@@ -52,7 +52,7 @@ const ProjectListPage = () => {
       const storageKey = 'recently_viewed_projects';
       const raw = localStorage.getItem(storageKey);
       if (raw) {
-        const list = JSON.parse(raw).filter(recentId => recentId !== id);
+        const list = JSON.parse(raw).filter(recentId => String(recentId) !== String(id));
         localStorage.setItem(storageKey, JSON.stringify(list));
         setRecentIds(list);
       }
@@ -132,8 +132,8 @@ const ProjectListPage = () => {
           }} />
           </div>
           <div className="d-flex gap-4 text-muted-custom small">
-            <span>{t("project.tongSoDuAn")}{" "}<strong className="text-main">{projects.length}</strong></span>
-            <span>{t("project.dangHoatDong")}{" "}<strong className="text-success">{projects.filter(p => p.status !== 'DELETED').length}</strong></span>
+            <span>{t("project.tongSoDuAn")}{" "}<strong className="text-main">{activeProjects.length}</strong></span>
+            <span>{t("project.dangHoatDong")}{" "}<strong className="text-success">{activeProjects.filter(p => p.status === 'ACTIVE').length}</strong></span>
           </div>
         </div>
 
