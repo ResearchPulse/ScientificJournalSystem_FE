@@ -28,12 +28,21 @@ export default function AuthorLeaderboardPage() {
     errorLeaderboard,
     fetchLeaderboard,
     totalLeaderboard,
-    leaderboardTotalPages
+    leaderboardTotalPages,
+    subjectAreas,
+    fetchSubjectAreas,
   } = useAuthors();
   const [selectedArea, setSelectedArea] = useState('');
   const [selectedPeriod, setSelectedPeriod] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 10;
+
+  useEffect(() => {
+    if (!subjectAreas || subjectAreas.length === 0) {
+      fetchSubjectAreas();
+    }
+  }, [subjectAreas, fetchSubjectAreas]);
+
   useEffect(() => {
     fetchLeaderboard({
       subject_area: selectedArea,
@@ -89,37 +98,28 @@ export default function AuthorLeaderboardPage() {
             <Col xs={12} sm={6} md={4}>
               <div className="author-leaderboard-filter-control">
                 <span className="author-leaderboard-label">{t("author.linhVuc1")}</span>
-                <FilterSelect value={selectedArea} onChange={e => setSelectedArea(e.target.value)} options={[{
+                <FilterSelect value={selectedArea} onChange={handleAreaChange} options={[{
                 value: '',
                 label: t("author.tatCaLinhVuc")
-              }, {
-                value: 'Machine Learning',
-                label: 'Machine Learning'
-              }, {
-                value: 'Computer Vision',
-                label: 'Computer Vision'
-              }, {
-                value: 'Deep Learning',
-                label: 'Deep Learning'
-              }, {
-                value: 'Quantum Optics',
-                label: 'Quantum Optics'
-              }]} />
+              }, ...(subjectAreas || []).map(area => ({
+                value: area.display_name || area.name || '',
+                label: area.display_name || area.name || ''
+              }))]} />
               </div>
             </Col>
 
             <Col xs={12} sm={6} md={4}>
               <div className="author-leaderboard-filter-control">
                 <span className="author-leaderboard-label">{t("author.thoiGian")}</span>
-                <FilterSelect value={selectedPeriod} onChange={e => setSelectedPeriod(e.target.value)} options={[{
+                <FilterSelect value={selectedPeriod} onChange={handlePeriodChange} options={[{
                 value: 'all',
                 label: t("author.tatCaThoiGian")
               }, {
-                value: 'week',
-                label: t("author.tuanNay")
-              }, {
                 value: 'month',
                 label: t("author.thangNay")
+              }, {
+                value: 'year',
+                label: t("author.namNay")
               }]} />
               </div>
             </Col>
