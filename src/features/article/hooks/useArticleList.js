@@ -109,7 +109,7 @@ export default function useArticleList() {
    */
   const updateFilters = useCallback((newFilters) => {
     const params = new URLSearchParams(searchParams);
-    const filterKeys = ['search', 'year', 'journal', 'topic', 'access'];
+    const filterKeys = ['search', 'year', 'journal', 'topic', 'access', 'sortBy', 'sortOrder'];
     const hasFilterChange = Object.keys(newFilters).some((k) => filterKeys.includes(k));
 
     if (hasFilterChange) {

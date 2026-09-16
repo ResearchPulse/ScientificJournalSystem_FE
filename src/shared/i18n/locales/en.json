@@ -295,6 +295,8 @@
     "khongCoLuaChonPhuHop": "No matching options",
     "sapXepBaiBao": "Sort Articles",
     "chiHienThiOpenAccess": "Open Access Only",
+    "chiHienThiKhongOpenAccess": "Non-Open Access (Closed)",
+    "trangThaiTruyCap": "Access Status",
     "timBaiBaoDoiTuKhoa": "Search articles, DOI, keywords...",
     "namXuatBan": "Publication Year:",
     "va": "and",
