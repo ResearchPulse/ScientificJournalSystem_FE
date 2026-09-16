@@ -8,7 +8,8 @@ export default function SearchableKeywordInput({
   onRemoveKeyword,
   placeholder,
   disabled = false,
-  debounceTime = 300
+  debounceTime = 300,
+  subjectAreaId = null
 }) {
   const {
     t
@@ -38,10 +39,14 @@ export default function SearchableKeywordInput({
       const val = searchTerm.trim();
       setIsSearching(true);
       try {
-        const res = await keywordApi.getKeywords({
+        const queryParams = {
           search: val,
           limit: 20
-        });
+        };
+        if (subjectAreaId) {
+          queryParams.subject_area_id = subjectAreaId;
+        }
+        const res = await keywordApi.getKeywords(queryParams);
         const items = res?.data?.data?.items || res?.data?.data || [];
         setSuggestions(Array.isArray(items) ? items : []);
       } catch (err) {
@@ -52,7 +57,7 @@ export default function SearchableKeywordInput({
     };
     const timeoutId = setTimeout(fetchSuggestions, debounceTime);
     return () => clearTimeout(timeoutId);
-  }, [searchTerm, isOpen, debounceTime]);
+  }, [searchTerm, isOpen, debounceTime, subjectAreaId]);
   const handleSelect = kwName => {
     if (kwName && onAddKeyword) {
       onAddKeyword(kwName);

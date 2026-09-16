@@ -73,12 +73,16 @@ const EditProjectPage = () => {
     }
   }, [id]);
   useEffect(() => {
+    if (!subjectAreaId) {
+      setSuggestedKeywords([]);
+      return;
+    }
+
     const fetchSuggestions = async () => {
       setLoadingSuggestions(true);
       try {
-        const res = await keywordApi.getKeywords({
-          limit: 10
-        });
+        const queryParams = { limit: 10, subject_area_id: subjectAreaId };
+        const res = await keywordApi.getKeywords(queryParams);
         const items = res?.data?.data?.items || res?.data?.data || res?.data || [];
         setSuggestedKeywords(Array.isArray(items) ? items.map(k => k.display_name || k.name).filter(Boolean) : []);
       } catch (err) {
@@ -88,7 +92,7 @@ const EditProjectPage = () => {
       }
     };
     fetchSuggestions();
-  }, []);
+  }, [subjectAreaId]);
   const selectedAreaObj = areas.find(a => String(a.id || a.subject_area_id) === String(subjectAreaId));
   const selectedAreaName = selectedAreaObj ? selectedAreaObj.display_name || selectedAreaObj.name || selectedAreaObj.area_name : '';
   const removeKeyword = kw => {
@@ -179,13 +183,13 @@ const EditProjectPage = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-5">
               <label className="form-label fw-semibold text-muted-custom mb-2 small text-uppercase tracking-wider">{t("project.tuKhoaDangTheoDoi")}</label>
-              <SearchableKeywordInput keywords={keywords} placeholder={t("project.chonTuKhoaTheoDoi")} disabled={loading} onAddKeyword={val => {
+              <SearchableKeywordInput keywords={keywords} subjectAreaId={subjectAreaId} placeholder={t("project.chonTuKhoaTheoDoi")} disabled={loading} onAddKeyword={val => {
               if (val && !keywords.includes(val)) {
                 setKeywords([...keywords, val]);
               }
             }} onRemoveKeyword={removeKeyword} />
 
-              {suggestedKeywords.length > 0 && <div className="mt-3 small">
+              {subjectAreaId && suggestedKeywords.length > 0 && <div className="mt-3 small">
                   <span className="text-muted-custom">{t("project.goiYTuKhoaNoiBat")}</span>
                   {loadingSuggestions ? <span className="text-muted-custom ms-2">{t("common.dangTai")}</span> : <div className="d-flex flex-wrap gap-2 mt-2">
                       {suggestedKeywords.filter(k => !keywords.includes(k)).map(sugg => <span key={sugg} className="badge rounded-pill bg-light text-dark border cursor-pointer hover-primary" onClick={() => addSuggestedKeyword(sugg)}>

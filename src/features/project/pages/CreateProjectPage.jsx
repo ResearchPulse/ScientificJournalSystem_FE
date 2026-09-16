@@ -50,13 +50,18 @@ const CreateProjectPage = () => {
     fetchCatalogs();
   }, []);
 
-  // Fetch suggested keywords
+  // Fetch suggested keywords based on selected subject area
   useEffect(() => {
-    const fetchSuggestions = async () => {      setLoadingSuggestions(true);
+    if (!subjectAreaId) {
+      setSuggestedKeywords([]);
+      return;
+    }
+
+    const fetchSuggestions = async () => {
+      setLoadingSuggestions(true);
       try {
-        const res = await keywordApi.getKeywords({
-          limit: 10
-        });
+        const queryParams = { limit: 10, subject_area_id: subjectAreaId };
+        const res = await keywordApi.getKeywords(queryParams);
         const items = res?.data?.data?.items || res?.data?.data || res?.data || [];
         // Map to string names for the UI suggestions
         setSuggestedKeywords(Array.isArray(items) ? items.map(k => k.display_name || k.name).filter(Boolean) : []);
@@ -67,7 +72,7 @@ const CreateProjectPage = () => {
       }
     };
     fetchSuggestions();
-  }, []);
+  }, [subjectAreaId]);
   const selectedAreaObj = areas.find(a => String(a.id || a.subject_area_id) === String(subjectAreaId));
   const selectedAreaName = selectedAreaObj ? selectedAreaObj.display_name || selectedAreaObj.name || selectedAreaObj.area_name : '';
   const removeKeyword = kw => {
@@ -87,7 +92,8 @@ const CreateProjectPage = () => {
     value: area.id || area.subject_area_id,
     label: area.display_name || area.name || area.area_name
   })) : [];
-  const handleSubmit = async e => {    e.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault();
     if (!title.trim() || !subjectAreaId) {
       setError(t("project.vuiLongNhapTenDuAnVaChonLinhVu"));
       return;
@@ -95,18 +101,25 @@ const CreateProjectPage = () => {
     setLoading(true);
     setError(null);
     try {
-      // 1. Tạo project (không truyền keywords vì BE không còn nhận)
+      // 1. Tạo project có kèm keywords trực tiếp từ Backend
       const res = await createProject({
         title: title.trim(),
         subject_area_id: parseInt(subjectAreaId, 10),
         subject_category_ids: [],
-        journal_ids: []
+        journal_ids: [],
+        keywords: keywords
       });
 
-      // 2. Đồng bộ keywords bằng API FE
       const projectId = res?.data?.project_id || res?.data?.id || res?.project_id;
       if (projectId) {
-        await keywordService.syncProjectKeywordsFEOnly(projectId, keywords);
+        // Dự phòng đồng bộ nếu backend chưa kịp gắn (hoặc đảm bảo tính đồng bộ tuyệt đối)
+        if (keywords.length > 0) {
+          try {
+            await keywordService.syncProjectKeywordsFEOnly(projectId, keywords);
+          } catch (syncErr) {
+            console.warn('Keyword sync fallback warning:', syncErr);
+          }
+        }
         navigate(`/projects/${projectId}`);
       } else {
         setError(res?.message || t("project.taoDuAnThatBai"));
@@ -184,13 +197,13 @@ const CreateProjectPage = () => {
               <label className="form-label fw-semibold text-main mb-2 small text-uppercase tracking-wider">{t("project.tuKhoaMuonTheoDoi")}</label>
               <p className="text-muted-custom small mb-2">{t("project.nhanEnterHoacGoDauPhayDeThemTu")}</p>
               
-              <SearchableKeywordInput keywords={keywords} placeholder={t("project.chonTuKhoaTheoDoi")} disabled={loading} onAddKeyword={val => {
+              <SearchableKeywordInput keywords={keywords} subjectAreaId={subjectAreaId} placeholder={t("project.chonTuKhoaTheoDoi")} disabled={loading} onAddKeyword={val => {
               if (val && !keywords.includes(val)) {
                 setKeywords([...keywords, val]);
               }
             }} onRemoveKeyword={removeKeyword} />
 
-              {suggestedKeywords.length > 0 && <div className="mt-3 small">
+              {subjectAreaId && suggestedKeywords.length > 0 && <div className="mt-3 small">
                   <span className="text-muted-custom">{t("project.goiYTuKhoaNoiBat")}</span>
                   {loadingSuggestions ? <span className="text-muted-custom ms-2">{t("common.dangTai")}</span> : <div className="d-flex flex-wrap gap-2 mt-2">
                       {suggestedKeywords.filter(k => !keywords.includes(k)).map(sugg => <span key={sugg} className="badge rounded-pill bg-light text-dark border cursor-pointer hover-primary" onClick={() => addSuggestedKeyword(sugg)}>
