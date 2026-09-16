@@ -295,6 +295,8 @@
     "khongCoLuaChonPhuHop": "Không có lựa chọn phù hợp",
     "sapXepBaiBao": "Sắp xếp bài báo",
     "chiHienThiOpenAccess": "Chỉ hiển thị Open Access",
+    "chiHienThiKhongOpenAccess": "Không Open Access (Closed)",
+    "trangThaiTruyCap": "Trạng thái truy cập",
     "timBaiBaoDoiTuKhoa": "Tìm bài báo, DOI, từ khóa...",
     "namXuatBan": "Năm xuất bản:",
     "va": "và",
