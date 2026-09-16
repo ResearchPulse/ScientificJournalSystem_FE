@@ -18,43 +18,56 @@ export const useAuthStore = create(
   persist(
     (set) => ({
       token: null,
+      refreshToken: null,
+      remember: false,
       isAuthenticated: false,
       user: null,
       isLoading: false,
       error: null,
+      sessionExpiredModalVisible: false,
 
       /**
        * Đánh dấu phiên đăng nhập là hợp lệ.
        *
-       * Hỗ trợ 2 trường hợp:
-       * - Login/refresh token: `loginSuccess(token)`
+       * Hỗ trợ các trường hợp:
+       * - Login/refresh token: `loginSuccess(token, user, remember, refreshToken)`
        * - Khôi phục session bằng cookie: `loginSuccess(null, user)`
        */
-      loginSuccess: (token = null, user = null) => set((state) => {
+      loginSuccess: (token = null, user = null, remember = null, refreshToken = null) => set((state) => {
         const targetToken = token ?? state.token;
+        const targetUser = user ?? state.user;
+        const targetRemember = remember !== null ? Boolean(remember) : state.remember;
+        const targetRefreshToken = refreshToken ?? state.refreshToken;
+
         return {
           token: targetToken,
-          user: user ?? state.user,
-          isAuthenticated: Boolean(targetToken ?? user ?? state.user),
+          refreshToken: targetRefreshToken,
+          remember: targetRemember,
+          user: targetUser,
+          isAuthenticated: Boolean(targetToken ?? targetUser),
           error: null,
+          sessionExpiredModalVisible: false,
         };
       }),
 
       setUser: (user) => set({ user }),
       setLoading: (isLoading) => set({ isLoading }),
       setError: (error) => set({ error }),
+      setSessionExpiredModalVisible: (sessionExpiredModalVisible) => set({ sessionExpiredModalVisible }),
 
       /**
-       * Xóa trạng thái auth trong memory.
-       * Việc xóa token trong localStorage/sessionStorage nằm ở `removeToken`.
+       * Xóa trạng thái auth trong memory và storage.
        */
       logout: () => {
         return set({
           token: null,
+          refreshToken: null,
+          remember: false,
           isAuthenticated: false,
           user: null,
           error: null,
           isLoading: false,
+          sessionExpiredModalVisible: false,
         });
       },
     }),
@@ -62,6 +75,8 @@ export const useAuthStore = create(
       name: 'researchpulse-auth-storage',
       partialize: (state) => ({
         token: state.token,
+        refreshToken: state.refreshToken,
+        remember: state.remember,
         isAuthenticated: state.isAuthenticated,
         user: state.user,
       }),

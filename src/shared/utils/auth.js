@@ -32,12 +32,32 @@ export const isAuthenticated = async () => {
   try {
     const authStore = useAuthStore.getState();
 
-    // ưu tiên dev: nếu Zustand đã có trạng thái isAuthenticated hợp lệ thì trả true ngay
-    if (authStore.isAuthenticated && useUserStore.getState().email) {
-      return true;
+    // Nếu có token, kiểm tra hạn dùng thực tế của token
+    if (authStore.token) {
+      try {
+        const decoded = jwtDecode(authStore.token);
+        const isExpired = decoded.exp && decoded.exp * 1000 <= Date.now();
+
+        if (isExpired) {
+          // Token đã hết hạn!
+          if (!authStore.remember) {
+            // Không tick Remember-me -> kích hoạt modal thông báo hết hạn phiên
+            authStore.setSessionExpiredModalVisible(true);
+            return false;
+          }
+          // Có tick Remember-me -> tiếp tục xuống dưới gọi api.get('/users/me')
+          // để Axios interceptor kích hoạt luồng tự động refresh token ngầm
+        } else if (authStore.isAuthenticated && useUserStore.getState().email) {
+          return true;
+        }
+      } catch {
+        // Token sai định dạng
+      }
+    } else if (!authStore.isAuthenticated) {
+      return false;
     }
 
-    // còn thiếu dữ liệu: gọi BE để xác thực theo luồng HEAD (users/me + fallback)
+    // Gọi BE xác thực profile / kích hoạt interceptor refresh nếu token hết hạn
     let meResponse;
     try {
       meResponse = await api.get('/users/me');
@@ -49,10 +69,7 @@ export const isAuthenticated = async () => {
       }
     }
 
-    // BE có thể trả payload nhiều format
     const meData = meResponse?.data?.data ?? meResponse?.data;
-
-    // Chỉ cần lấy được user payload là coi như authenticated
     if (meData) {
       useUserStore.getState().setUser?.(meData);
       useUserStore.getState().setEmail?.(meData?.email);
@@ -60,13 +77,9 @@ export const isAuthenticated = async () => {
       return true;
     }
 
-
     return false;
-
-
   } catch (error) {
-    // Nếu dính lỗi 401 triệt để (kể cả sau khi Axios Interceptor đã cố Refresh thất bại)
-    useAuthStore.getState().logout(); // Đảm bảo clear sạch Zustand cũ nếu có
+    // Nếu lỗi 401: Interceptor của api.js đã xử lý phân nhánh refresh hoặc hiển thị modal
     return false;
   }
 };

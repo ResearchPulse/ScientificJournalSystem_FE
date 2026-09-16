@@ -39,27 +39,20 @@ const getEmailFromToken = (token) => {
  * @returns {Promise<{response: Object, token: string|null, email: string}>}
  */
 export const loginWithPassword = async (email, password, remember = true) => {
-  // ưu tiên dev: gửi remember lên BE
+  // Gửi remember lên BE
   const response = await loginApi({ email, password, remember });
 
-  // giữ chức năng HEAD: hỗ trợ nhiều format token từ response
-  let token = response.data?.data?.token;
-  if (!token) {
-    token = response.data?.token;
-  }
-
-  if (token) {
-    // persistToken không nằm trong file hiện tại => fallback sang persist qua removeToken/shared flow
-    // Nếu hàm persistToken tồn tại ở scope khác thì vẫn dùng được.
-    if (typeof persistToken === 'function') {
-      // eslint-disable-next-line no-undef
-      persistToken(token, remember);
-    }
-  }
+  const responseData = response.data?.data || response.data;
+  const token = responseData?.token || response.data?.token || null;
+  const refreshToken = responseData?.refresh_token || response.data?.refresh_token || null;
+  const user = responseData?.user || null;
 
   return {
     response: response.data,
-    token: token || null,
+    token,
+    refreshToken,
+    user,
+    remember: Boolean(remember),
     email: token ? getEmailFromToken(token) : email,
   };
 };
@@ -69,16 +62,22 @@ export const loginWithPassword = async (email, password, remember = true) => {
  * Exchange Google auth code for backend token.
  *
  * @param {string} code - Google OAuth auth code.
- * @returns {Promise<{response: Object, token: string|null, email: string}>}
+ * @returns {Promise<{response: Object, token: string|null, refreshToken: string|null, user: Object|null, remember: boolean, email: string}>}
  */
 export const loginWithGoogleCode = async (code) => {
   const result = await loginGoogleApi(code);
   const body = result.data;
-  const token = body?.data?.token;
+  const responseData = body?.data || body;
+  const token = responseData?.token || body?.token || null;
+  const refreshToken = responseData?.refresh_token || body?.refresh_token || null;
+  const user = responseData?.user || null;
 
   return {
     response: body,
-    token: token || null,
+    token,
+    refreshToken,
+    user,
+    remember: true,
     email: token ? getEmailFromToken(token) : 'User',
   };
 };
