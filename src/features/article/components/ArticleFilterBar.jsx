@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
  *
  * File: features\article\components\ArticleFilterBar.jsx
  */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { FilterSearch } from '../../../shared/components/Input';
@@ -51,9 +51,6 @@ export default function ArticleFilterBar({
   // Selected item custom labels (khi id từ URL không nằm trong top options ban đầu)
   const [selectedJournalName, setSelectedJournalName] = useState('');
   const [selectedTopicName, setSelectedTopicName] = useState('');
-
-  const journalSearchTimer = useRef(null);
-  const topicSearchTimer = useRef(null);
 
   // 1. Fetch metadata bộ lọc ban đầu (năm thực tế, top journals, top topics)
   useEffect(() => {
@@ -177,24 +174,19 @@ export default function ArticleFilterBar({
     }
   }, [filters.selectedTopic, topicOptions, baseTopicOptions]);
 
-  // 4. Server-side debounced search cho Tạp chí
-  const handleJournalSearch = (keyword) => {
-    setMenuSearch((prev) => ({ ...prev, journal: keyword }));
-
-    if (journalSearchTimer.current) {
-      clearTimeout(journalSearchTimer.current);
-    }
-
-    if (!keyword.trim()) {
+  // 4. Server-side debounced search cho Tạp chí qua useEffect
+  useEffect(() => {
+    const keyword = menuSearch.journal.trim();
+    if (!keyword) {
       setJournalOptions(baseJournalOptions);
       setSearchingJournals(false);
       return;
     }
 
     setSearchingJournals(true);
-    journalSearchTimer.current = setTimeout(async () => {
+    const timer = setTimeout(async () => {
       try {
-        const res = await searchJournalsApi({ search: keyword.trim(), limit: 40 });
+        const res = await searchJournalsApi({ search: keyword, limit: 40 });
         const items = res?.data?.data?.items || res?.data?.items || [];
         const mapped = items.map((j) => ({
           value: String(j.journal_id),
@@ -207,26 +199,23 @@ export default function ArticleFilterBar({
         setSearchingJournals(false);
       }
     }, 300);
-  };
 
-  // 5. Server-side debounced search cho Topic
-  const handleTopicSearch = (keyword) => {
-    setMenuSearch((prev) => ({ ...prev, topic: keyword }));
+    return () => clearTimeout(timer);
+  }, [menuSearch.journal, baseJournalOptions]);
 
-    if (topicSearchTimer.current) {
-      clearTimeout(topicSearchTimer.current);
-    }
-
-    if (!keyword.trim()) {
+  // 5. Server-side debounced search cho Topic qua useEffect
+  useEffect(() => {
+    const keyword = menuSearch.topic.trim();
+    if (!keyword) {
       setTopicOptions(baseTopicOptions);
       setSearchingTopics(false);
       return;
     }
 
     setSearchingTopics(true);
-    topicSearchTimer.current = setTimeout(async () => {
+    const timer = setTimeout(async () => {
       try {
-        const res = await getTopicsApi({ search: keyword.trim(), limit: 40 });
+        const res = await getTopicsApi({ search: keyword, limit: 40 });
         const topicData = res?.data?.data || res?.data;
         const items = topicData?.topics || topicData?.items || (Array.isArray(topicData) ? topicData : []);
         const mapped = items.map((tp) => ({
@@ -240,7 +229,9 @@ export default function ArticleFilterBar({
         setSearchingTopics(false);
       }
     }, 300);
-  };
+
+    return () => clearTimeout(timer);
+  }, [menuSearch.topic, baseTopicOptions]);
 
   const handleSearchChange = (val) => {
     updateFilters({ search: val });
@@ -279,7 +270,7 @@ export default function ArticleFilterBar({
       onClear: () => handleSelectChange('journal')('all'),
       searchable: true,
       searching: searchingJournals,
-      onSearchChange: handleJournalSearch,
+      onSearchChange: (keyword) => setMenuSearch((prev) => ({ ...prev, journal: keyword })),
       emptyLabel: t("article.khongTimThayTapChi", "Không tìm thấy tạp chí")
     },
     {
@@ -291,7 +282,7 @@ export default function ArticleFilterBar({
       onClear: () => handleSelectChange('topic')('all'),
       searchable: true,
       searching: searchingTopics,
-      onSearchChange: handleTopicSearch,
+      onSearchChange: (keyword) => setMenuSearch((prev) => ({ ...prev, topic: keyword })),
       emptyLabel: t("article.khongTimThayChuDe", "Không tìm thấy chủ đề")
     }
   ];
@@ -393,8 +384,7 @@ export default function ArticleFilterBar({
                 type="button"
                 onClick={() => {
                   config.onClear();
-                  if (config.id === 'journal') handleJournalSearch('');
-                  if (config.id === 'topic') handleTopicSearch('');
+                  setMenuSearch((prev) => ({ ...prev, [config.id]: '' }));
                 }}
                 className="article-filter-reset-btn"
               >
