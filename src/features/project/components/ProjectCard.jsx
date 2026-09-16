@@ -139,28 +139,37 @@ const ProjectCard = ({
         </div>
       </Link>;
   }
-  const meta = <span className="badge rounded-pill fw-medium" style={{
-    backgroundColor: 'var(--primary-light)',
-    color: 'var(--primary)'
-  }}>
-      {areaName}
-    </span>;
   const isDeleted = project.status === 'DELETED';
+  const meta = (
+    <div className="d-flex align-items-center gap-2">
+      <span className="badge rounded-pill fw-medium" style={{
+        backgroundColor: 'var(--primary-light)',
+        color: 'var(--primary)'
+      }}>
+        {areaName}
+      </span>
+      {isDeleted && (
+        <span className="badge rounded-pill bg-danger text-white fw-medium" style={{ fontSize: '0.7rem' }}>
+          {t("project.daXoa", "Đã xóa")}
+        </span>
+      )}
+    </div>
+  );
   
   // Kiểm tra quyền owner
   const currentUserId = currentUser?.user_id || currentUser?.id;
-  const isOwner = currentUser && (
+  const isOwner = project.user_role === 'OWNER' || (currentUser && (
     (project.user_id && project.user_id === currentUserId) || 
     (project.owner && project.owner.user_id === currentUserId) ||
     (project.owner_id && project.owner_id === currentUserId)
-  );
+  ));
 
   const actions = isOwner ? (isDeleted ? (
-    <button className="btn btn-sm btn-link text-success p-0 ms-2 hover-primary" onClick={handleRestore} title="Khôi phục dự án">
+    <button className="btn btn-sm btn-link text-success p-0 ms-2 hover-primary" onClick={handleRestore} title={t("project.khoiPhucDuAn", "Khôi phục dự án")}>
       <Icon icon="lucide:refresh-cw" width="18" />
     </button>
   ) : (
-    <button className="btn btn-sm btn-link text-muted p-0 ms-2 hover-danger" onClick={handleDelete} title={t("project.xoaDuAn")}>
+    <button className="btn btn-sm btn-link text-muted p-0 ms-2 hover-danger" onClick={handleDelete} title={t("project.xoaDuAn", "Xóa dự án")}>
       <Icon icon="lucide:trash-2" width="18" />
     </button>
   )) : null;

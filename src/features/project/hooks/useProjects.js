@@ -54,8 +54,9 @@ export default function useProjects() {
       const response = await deleteProjectApi(id);
       if (response.data && response.data.success !== false) {
         queryClient.setQueryData(['projects', 'list'], (prev) =>
-          prev ? prev.map((p) => (String(p.project_id) === String(id) ? { ...p, status: 'DELETED' } : p)) : prev
+          prev ? prev.filter((p) => String(p.project_id || p.id) !== String(id)) : prev
         );
+        queryClient.invalidateQueries({ queryKey: ['projects', 'list'] });
         return response.data;
       } else {
         throw new Error(response.data?.message || 'Failed to delete project');
