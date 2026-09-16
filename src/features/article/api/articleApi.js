@@ -15,6 +15,14 @@ export const getArticlesListApi = (params) => {
 };
 
 /**
+ * Lấy các tùy chọn bộ lọc cho bài báo (năm thực tế, top journals, top topics)
+ * @returns {Promise} Axios promise
+ */
+export const getArticleFilterOptionsApi = () => {
+  return api.get('/articles/filter-options');
+};
+
+/**
  * Tạo mới bài báo khoa học
  * @param {Object} data - Dữ liệu bài báo
  * @returns {Promise} Axios promise
