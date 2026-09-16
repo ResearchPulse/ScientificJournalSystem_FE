@@ -92,7 +92,9 @@ export default function AuthorListPage() {
     label: t("article.tongTacGia"),
     value: formatLocalNumber(totalAuthors),
     icon: 'lucide:users',
-    desc: t("author.tongTacGiaTrongHeThong")
+    desc: subjectAreaVal
+      ? `${t("author.tacGiaTrongLinhVuc", "Tác giả trong lĩnh vực")} ${subjectAreaVal}`
+      : t("author.tongTacGiaTrongHeThong")
   }, {
     label: t("author.tacGiaNoiBat"),
     value: formatLocalNumber(featuredAuthorsCount || visibleAuthorsCount),

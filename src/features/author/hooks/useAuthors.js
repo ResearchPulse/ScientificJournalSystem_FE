@@ -47,7 +47,21 @@ const normalizeAuthorRecord = (author) => {
   if (!author || typeof author !== 'object') return author;
   const rawName = author.display_name ?? author.full_name ?? author.name ?? '';
   const cleanedName = String(rawName).trim().replace(/^[\s;'"`]+/, '').trim() || 'Tác giả';
-  return { ...author, full_name: cleanedName, name: cleanedName, institution_1: author.institution_1 ?? author.last_known_institution ?? author.institution ?? '', institution_2: author.institution_2 ?? author.department ?? author.affiliation ?? '', article_count: author.article_count ?? author.works_count ?? 0, citation_count: author.citation_count ?? author.cited_by_count ?? 0, homepage: author.homepage ?? author.homepage_url ?? '', bio: author.bio ?? author.description ?? '', orcid: author.orcid ?? '' };
+  return {
+    ...author,
+    full_name: cleanedName,
+    name: cleanedName,
+    institution_1: author.institution_1 ?? author.last_known_institution ?? author.institution ?? '',
+    institution_2: author.institution_2 ?? author.department ?? author.affiliation ?? '',
+    article_count: author.article_count ?? author.works_count ?? 0,
+    citation_count: author.citation_count ?? author.cited_by_count ?? 0,
+    homepage: author.homepage ?? author.homepage_url ?? '',
+    bio: author.bio ?? author.description ?? '',
+    orcid: author.orcid ?? '',
+    subject_areas: Array.isArray(author.subject_areas)
+      ? author.subject_areas
+      : (author.subject_area ? [author.subject_area] : (author.primary_subject_area ? [author.primary_subject_area] : [])),
+  };
 };
 
 const getAuthorMetric = (author, keys = []) => {
