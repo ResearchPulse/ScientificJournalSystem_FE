@@ -80,10 +80,10 @@ export default function useAuth() {
       setError(null);
 
       try {
-        const { response, token: googleToken, email } = await loginWithGoogleCode(codeResponse.code);
+        const { response, token: googleToken, refreshToken: googleRefreshToken, user: googleUser, email } = await loginWithGoogleCode(codeResponse.code);
 
         if (response?.success && googleToken) {
-          loginSuccess(googleToken);
+          loginSuccess(googleToken, googleUser, true, googleRefreshToken);
           setEmail(email);
           toast.success('Đăng nhập thành công');
           navigate(googleRedirect, { replace: true });
@@ -115,7 +115,7 @@ export default function useAuth() {
       const result = await loginWithPassword(email, password, remember);
 
       if (result.token) {
-        loginSuccess(result.token);
+        loginSuccess(result.token, result.user, result.remember, result.refreshToken);
         onSuccess?.(result.token);
         setEmail(result.email);
       }

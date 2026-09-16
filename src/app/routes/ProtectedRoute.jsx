@@ -6,7 +6,8 @@ import { isAuthenticated as checkAuthStatus } from "../../shared/utils/auth";
 import { getDefaultLang } from "./languageRouting";
 const ProtectedRoute = () => {
   const { t } = useTranslation();
-  const isAuthenticated = useAuthStore(s => s.isAuthenticated);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const sessionExpiredModalVisible = useAuthStore((s) => s.sessionExpiredModalVisible);
   const [loading, setLoading] = useState(true);
   
   const location = useLocation();
@@ -23,6 +24,11 @@ const ProtectedRoute = () => {
     checkAuth();
   }, []);
   
+  // Nếu modal thông báo hết hạn phiên đang mở -> vẫn render Outlet để modal hiển thị đè lên màn hình
+  if (sessionExpiredModalVisible) {
+    return <Outlet />;
+  }
+
   if (loading) return <div>{t("common.dangKiemTraQuyenTruyCap")}</div>;
   
   return isAuthenticated ? <Outlet /> : <Navigate to={{pathname: '/' + lang + '/login'}} state={{ from: location }} replace />;
