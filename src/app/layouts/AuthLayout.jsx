@@ -3,47 +3,24 @@
  *
  * File: app\layouts\AuthLayout.jsx
  */
-import { Row, Col } from 'react-bootstrap';
-
 export default function AuthLayout({ banner, children }) {
   return (
-    <div 
-      className="min-vh-100 w-100 overflow-x-hidden d-flex"
-      style={{ 
-        backgroundColor: 'var(--bg-main)',
-        color: 'var(--text-main)',
-        fontFamily: 'var(--font-display)'
-      }}
+    <div
+      className="auth-shell"
+      style={{ color: "var(--text-main)", fontFamily: "var(--font-display)" }}
     >
-      <Row className="g-0 w-100 min-vh-100">
-        {/* Left Column: Banner (Hidden on Mobile) */}
-        <Col 
-          md={6} 
-          className="d-none d-md-block h-100 min-vh-100 position-sticky top-0"
-        >
-          {banner}
-        </Col>
-
-        {/* Right Column: Auth Forms */}
-        <Col 
-          xs={12} 
-          md={6} 
-          className="d-flex align-items-center justify-content-center py-5 px-3 px-sm-4 px-md-5 min-vh-100 overflow-y-auto"
-          style={{ backgroundColor: 'var(--bg-main)' }}
-        >
-          <div 
-            className="w-100" 
-            style={{ 
-              maxWidth: '440px',
-              animation: 'slide-up 0.4s ease-out'
-            }}
+      <div className="auth-frame">
+        <aside className="auth-brand-panel">{banner}</aside>
+        <main className="auth-form-panel">
+          <div
+            className="auth-form-inner"
+            style={{ animation: "slide-up 0.4s ease-out" }}
           >
             {children}
           </div>
-        </Col>
-      </Row>
+        </main>
+      </div>
 
-      {/* Animation Styles */}
       <style>{`
         @keyframes slide-up {
           from {

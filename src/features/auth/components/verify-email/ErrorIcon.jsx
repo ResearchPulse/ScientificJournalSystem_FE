@@ -7,13 +7,13 @@ const ErrorIcon = () => {
     <div className="d-flex justify-content-center mb-4">
       <div
         style={{
-          width: '80px',
-          height: '80px',
-          borderRadius: '50%',
-          backgroundColor: '#fff0ee',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          width: "80px",
+          height: "80px",
+          borderRadius: "50%",
+          backgroundColor: "var(--ds-error-bg, #fff1f2)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <svg
@@ -24,14 +24,25 @@ const ErrorIcon = () => {
           xmlns="http://www.w3.org/2000/svg"
           aria-label="Kích hoạt thất bại"
         >
-          <circle cx="12" cy="12" r="12" fill="#FF7A33" fillOpacity="0.2" />
+          <circle
+            cx="12"
+            cy="12"
+            r="12"
+            fill="var(--ds-error-text, #b12c40)"
+            fillOpacity="0.12"
+          />
           <path
             d="M12 7V13"
-            stroke="#FF7A33"
+            stroke="var(--ds-error-text, #b12c40)"
             strokeWidth="2.2"
             strokeLinecap="round"
           />
-          <circle cx="12" cy="16.5" r="1.2" fill="#FF7A33" />
+          <circle
+            cx="12"
+            cy="16.5"
+            r="1.2"
+            fill="var(--ds-error-text, #b12c40)"
+          />
         </svg>
       </div>
     </div>
