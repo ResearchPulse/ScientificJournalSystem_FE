@@ -1,48 +1,52 @@
 import { useTranslation } from "react-i18next";
-import { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import AuthLayout from '../../../app/layouts/AuthLayout';
-import AuthBanner from '../components/AuthBanner';
-import LoginForm from '../components/LoginForm';
-import SocialAuthButton from '../components/SocialAuthButton';
-import { toast } from '../../../shared/utils/toast';
-import ROUTES from '../../../app/routes/routePaths';
+import { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import AuthLayout from "../../../app/layouts/AuthLayout";
+import AuthBanner from "../components/AuthBanner";
+import LoginForm from "../components/LoginForm";
+import SocialAuthButton from "../components/SocialAuthButton";
+import { toast } from "../../../shared/utils/toast";
+import ROUTES from "../../../app/routes/routePaths";
 const DASHBOARD_PAGE = ROUTES.DASHBOARD;
 export default function LoginPage() {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    login,
-    loginWithGoogle
-  } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
 
   // State riêng của màn hình login để điều khiển loading và lỗi form.
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // Nếu người dùng bị redirect tới login từ một trang khác, đăng nhập xong quay lại trang đó.
-  const from = location.state?.from 
-    ? `${location.state.from.pathname}${location.state.from.search || ''}` 
+  const from = location.state?.from
+    ? `${location.state.from.pathname}${location.state.from.search || ""}`
     : DASHBOARD_PAGE;
 
   /**
    * Xử lý submit form đăng nhập bằng email/password.
    * Thành công thì điều hướng tới trang trước đó hoặc dashboard.
    */
-  const handleLoginSubmit = async payload => {
+  const handleLoginSubmit = async (payload) => {
     setIsLoading(true);
     setError(null);
     try {
       await login(payload.email, payload.password, payload.remember_login);
       navigate(from, {
-        replace: true
+        replace: true,
       });
     } catch (err) {
-      console.error('Login failed:', err.response?.data?.message || err.message);
-      setError(err.response?.data?.message || err.message || t("auth.dangNhapKhongThanhCongVuiLongK"));
+      console.error(
+        "Login failed:",
+        err.response?.data?.message || err.message,
+      );
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          t("auth.dangNhapKhongThanhCongVuiLongK"),
+      );
     } finally {
       setIsLoading(false);
     }
@@ -63,50 +67,36 @@ export default function LoginPage() {
       setIsLoading(false);
     }
   };
-  return <AuthLayout banner={<AuthBanner />}>
+  return (
+    <AuthLayout banner={<AuthBanner />}>
       <div className="mb-4">
-        <h2 className="font-display fw-bold mb-1" style={{
-        fontSize: '1.85rem',
-        color: 'var(--text-main)'
-      }}>{t("signIn")}</h2>
-        <p className="text-muted-custom text-sm mb-0" style={{
-        color: 'var(--text-muted) !important'
-      }}>{t("auth.chaoMungTroLaiVuiLongNhapThong")}</p>
+        <h2 className="auth-title">{t("signIn")}</h2>
+        <p className="auth-subtitle">
+          {t("auth.chaoMungTroLaiVuiLongNhapThong")}
+        </p>
       </div>
 
-      {/* Nút đăng nhập bằng Google OAuth. */}
       <div className="mb-4">
-        <SocialAuthButton onClick={handleLoginWithGoogle} disabled={isLoading} />
+        <SocialAuthButton
+          onClick={handleLoginWithGoogle}
+          disabled={isLoading}
+        />
       </div>
 
-      {/* Đường phân cách giữa Google OAuth và form email/password. */}
-      <div className="d-flex align-items-center justify-content-center mb-4 text-xs font-semibold select-none text-muted-custom" style={{
-      color: 'var(--text-muted) !important'
-    }}>
-        <div className="w-100" style={{
-        height: '1px',
-        background: 'var(--border)'
-      }} />
-        <span className="px-3 text-nowrap" style={{
-        letterSpacing: '0.05em'
-      }}>{t("auth.hoac")}</span>
-        <div className="w-100" style={{
-        height: '1px',
-        background: 'var(--border)'
-      }} />
-      </div>
+      <div className="auth-divider">{t("auth.hoac")}</div>
 
-      <LoginForm onSubmit={handleLoginSubmit} isLoading={isLoading} apiError={error} />
+      <LoginForm
+        onSubmit={handleLoginSubmit}
+        isLoading={isLoading}
+        apiError={error}
+      />
 
-      {/* Điều hướng sang trang đăng ký nếu người dùng chưa có tài khoản. */}
       <div className="text-center mt-4 text-sm font-medium">
-        <span className="text-muted-custom" style={{
-        color: '#94a3b8 !important'
-      }}>{t("auth.chuaCoTaiKhoan")}</span>{' '}
-        <Link to={ROUTES.REGISTER} className="text-decoration-none transition-all" style={{
-        color: 'var(--primary)',
-        fontWeight: 600
-      }}>{t("signUp")}</Link>
+        <span className="auth-section-meta">{t("auth.chuaCoTaiKhoan")}</span>{" "}
+        <Link to={ROUTES.REGISTER} className="auth-link">
+          {t("signUp")}
+        </Link>
       </div>
-    </AuthLayout>;
+    </AuthLayout>
+  );
 }

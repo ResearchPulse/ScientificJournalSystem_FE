@@ -5,31 +5,29 @@ import { t } from "i18next";
  *
  * File: features/auth/pages/RegisterPage.jsx
  */
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import AuthLayout from '../../../app/layouts/AuthLayout';
-import AuthBanner from '../components/AuthBanner';
-import RegisterForm from '../components/RegisterForm';
-import Icon from '../../../shared/components/Icon';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import AuthLayout from "../../../app/layouts/AuthLayout";
+import AuthBanner from "../components/AuthBanner";
+import RegisterForm from "../components/RegisterForm";
+import Icon from "../../../shared/components/Icon";
 export default function RegisterPage() {
   const { t: _t } = useTranslation();
   const navigate = useNavigate();
-  const {
-    register
-  } = useAuth();
+  const { register } = useAuth();
 
   // State phục vụ UI đăng ký: loading, lỗi API, màn hình thành công.
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [registeredEmail, setRegisteredEmail] = useState('');
+  const [registeredEmail, setRegisteredEmail] = useState("");
 
   /**
    * Gửi form đăng ký lên backend.
    * Nếu API không ném lỗi, hiển thị màn hình thông báo xác thực email.
    */
-  const handleRegisterSubmit = async payload => {
+  const handleRegisterSubmit = async (payload) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -37,8 +35,15 @@ export default function RegisterPage() {
       await register(payload);
       setIsSuccess(true);
     } catch (err) {
-      console.error('Registration failed:', err.response?.data?.message || err.message);
-      setError(err.response?.data?.message || err.message || t("auth.dangKyKhongThanhCongVuiLongThu"));
+      console.error(
+        "Registration failed:",
+        err.response?.data?.message || err.message,
+      );
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          t("auth.dangKyKhongThanhCongVuiLongThu"),
+      );
     } finally {
       setIsLoading(false);
     }
@@ -51,70 +56,63 @@ export default function RegisterPage() {
   const handleGoogleAuth = () => {
     alert(t("auth.dangNhapdangKyBangGoogleOauthD"));
   };
-  return <AuthLayout banner={<AuthBanner />}>
-      {isSuccess ? <div className="text-center py-4 animate-fade-in">
-          <div className="d-inline-flex align-items-center justify-content-center mb-4" style={{
-        width: '80px',
-        height: '80px',
-        borderRadius: '50%',
-        background: 'rgba(16, 185, 129, 0.08)',
-        border: '2px solid #10b981',
-        boxShadow: '0 0 20px rgba(16, 185, 129, 0.1)'
-      }}>
-            <Icon icon="lucide:check-circle" className="text-success" style={{
-          fontSize: '40px'
-        }} />
+  return (
+    <AuthLayout banner={<AuthBanner />}>
+      {isSuccess ? (
+        <div className="text-center py-4 animate-fade-in">
+          <div
+            className="d-inline-flex align-items-center justify-content-center mb-4"
+            style={{
+              width: "80px",
+              height: "80px",
+              borderRadius: "50%",
+              background: "var(--ds-success-bg)",
+              border: "2px solid var(--ds-success-text)",
+              boxShadow: "0 0 20px rgba(15, 122, 82, 0.12)",
+            }}
+          >
+            <Icon
+              icon="lucide:check-circle"
+              style={{ fontSize: "40px", color: "var(--ds-success-text)" }}
+            />
           </div>
 
-          <h2 className="font-display fw-bold mb-3" style={{
-        fontSize: '1.75rem',
-        color: 'var(--text-main)'
-      }}>{t("auth.dangKyThanhCong")}</h2>
+          <h2 className="auth-title mb-3" style={{ fontSize: "1.75rem" }}>
+            {t("auth.dangKyThanhCong")}
+          </h2>
 
-          <p className="text-muted-custom mb-4" style={{
-        color: 'var(--text-muted) !important',
-        lineHeight: '1.6',
-        fontSize: '14px'
-      }}>{t("auth.motEmailXacThucDaDuocGuiToiDia")}{' '}<strong style={{
-          color: 'var(--text-main)',
-          margin: '0 4px'
-        }}>{registeredEmail}</strong>{' '}{t("auth.vuiLongKiemTraHopThuHoacThuRac")}</p>
+          <p className="auth-subtitle mb-4" style={{ fontSize: "14px" }}>
+            {t("auth.motEmailXacThucDaDuocGuiToiDia")}{" "}
+            <strong style={{ color: "var(--text-main)" }}>
+              {registeredEmail}
+            </strong>{" "}
+            {t("auth.vuiLongKiemTraHopThuHoacThuRac")}
+          </p>
 
-          <button onClick={() => navigate('/login')} className="w-100 py-2.5 rounded-3 border-0 text-sm font-semibold transition-all" style={{
-        background: 'var(--btn-dark)',
-        color: '#ffffff',
-        boxShadow: 'none'
-      }} onMouseEnter={e => {
-        e.currentTarget.style.background = 'var(--primary)';
-      }} onMouseLeave={e => {
-        e.currentTarget.style.background = 'var(--btn-dark)';
-      }}>{t("auth.diDenDangNhap")}</button>
-        </div> : <>
+          <button
+            onClick={() => navigate("/login")}
+            className="auth-primary-button w-100"
+          >
+            {t("auth.diDenDangNhap")}
+          </button>
+        </div>
+      ) : (
+        <>
           <div className="mb-4">
-            <h2 className="font-display fw-bold mb-1" style={{
-          fontSize: '1.85rem',
-          color: 'var(--text-main)'
-        }}>{t("auth.taoTaiKhoan")}</h2>
-            <p className="text-muted-custom text-sm mb-0" style={{
-          color: 'var(--text-muted) !important'
-        }}>{t("auth.dangKyMienPhiKhongCanTheTinDun")}</p>
+            <h2 className="auth-title">{t("auth.taoTaiKhoan")}</h2>
+            <p className="auth-subtitle">
+              {t("auth.dangKyMienPhiKhongCanTheTinDun")}
+            </p>
           </div>
 
-          {/* Đường phân cách giữa phần tiêu đề và form đăng ký. */}
-          <div className="d-flex align-items-center justify-content-center mb-4 text-xs font-semibold select-none text-muted-custom" style={{
-        color: 'var(--text-muted) !important'
-      }}>
-            <div className="w-100" style={{
-          height: '1px',
-          background: 'var(--border)'
-        }} />
-            <div className="w-100" style={{
-          height: '1px',
-          background: 'var(--border)'
-        }} />
-          </div>
-
-          <RegisterForm onSubmit={handleRegisterSubmit} isLoading={isLoading} apiError={error} onGoogleAuth={handleGoogleAuth} />
-        </>}
-    </AuthLayout>;
+          <RegisterForm
+            onSubmit={handleRegisterSubmit}
+            isLoading={isLoading}
+            apiError={error}
+            onGoogleAuth={handleGoogleAuth}
+          />
+        </>
+      )}
+    </AuthLayout>
+  );
 }

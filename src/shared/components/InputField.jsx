@@ -3,14 +3,14 @@
  *
  * File: shared\components\InputField.jsx
  */
-import { Form, InputGroup } from 'react-bootstrap';
-import Icon from './Icon';
-import { useState } from 'react';
+import { Form, InputGroup } from "react-bootstrap";
+import Icon from "./Icon";
+import { useState } from "react";
 
 export default function InputField({
   label,
   name,
-  type = 'text',
+  type = "text",
   value,
   onChange,
   onBlur,
@@ -26,39 +26,30 @@ export default function InputField({
   return (
     <Form.Group className="mb-3">
       {label && (
-        <Form.Label 
-          className="text-xs font-bold mb-1.5 d-flex align-items-center gap-1"
-          style={{ 
-            letterSpacing: '0.05em', 
-            color: 'var(--text-main)',
-            textTransform: 'uppercase'
-          }}
-        >
+        <Form.Label className="auth-field-label">
           {label}
           {required && <span className="text-danger">*</span>}
         </Form.Label>
       )}
-      
-      <InputGroup 
-        className="rounded-3 overflow-hidden border"
+
+      <InputGroup
+        className={`auth-field-shell ${error ? "is-error" : ""}`}
         style={{
-          borderColor: error ? '#ef4444' : (isFocused ? 'var(--primary)' : 'var(--border)'),
-          background: '#ffffff',
-          transition: 'all 0.2s ease-in-out',
-          boxShadow: error 
-            ? '0 0 0 3px rgba(239, 68, 68, 0.12)' 
-            : (isFocused ? '0 0 0 3px rgba(255, 122, 51, 0.15)' : '0 1px 2px rgba(0, 0, 0, 0.02)')
+          borderColor: error
+            ? "var(--ds-error-text)"
+            : isFocused
+              ? "var(--ds-blue-600)"
+              : "var(--border)",
+          background: disabled ? "var(--ds-gray-50)" : "#fff",
+          opacity: disabled ? 0.7 : 1,
         }}
       >
         {icon && (
-          <InputGroup.Text 
-            className="bg-transparent border-0 pe-1 text-muted-custom d-flex align-items-center justify-content-center"
-            style={{ width: '40px' }}
-          >
-            <Icon icon={icon} width="18" className="text-muted-custom opacity-70" />
+          <InputGroup.Text className="auth-field-icon" aria-hidden="true">
+            <Icon icon={icon} width="18" />
           </InputGroup.Text>
         )}
-        
+
         <Form.Control
           type={type}
           name={name}
@@ -74,21 +65,14 @@ export default function InputField({
           }}
           placeholder={placeholder}
           disabled={disabled}
-          className="bg-transparent border-0 text-main text-sm py-2.5 ps-2"
-          style={{
-            boxShadow: 'none',
-            outline: 'none',
-            color: 'var(--text-main)'
-          }}
+          className="auth-field-control"
+          aria-invalid={Boolean(error)}
           {...props}
         />
       </InputGroup>
-      
+
       {error && (
-        <div 
-          className="text-danger text-xs mt-1.5 d-flex align-items-center gap-1 animate-fade-in"
-          style={{ fontWeight: 500 }}
-        >
+        <div className="auth-error" role="alert">
           <Icon icon="lucide:alert-circle" width="12" />
           <span>{error}</span>
         </div>
@@ -96,4 +80,3 @@ export default function InputField({
     </Form.Group>
   );
 }
-
