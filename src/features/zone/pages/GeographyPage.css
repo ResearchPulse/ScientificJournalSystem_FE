@@ -274,7 +274,7 @@
 }
 
 .geography-article-row:hover .geography-link-accent {
-  color: #e8632a;
+  color: var(--primary);
 }
 
 /* Pagination modifications */

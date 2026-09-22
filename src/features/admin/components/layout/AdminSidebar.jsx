@@ -1,15 +1,15 @@
-import { NavLink, useLocation } from 'react-router-dom';
-import Icon from '../../../shared/components/Icon';
-import ADMIN_MENU from '../constants/adminMenu';
+import { NavLink, useLocation } from "react-router-dom";
+import Icon from "../../../shared/components/Icon";
+import ADMIN_MENU from "../constants/adminMenu";
 
 export default function AdminSidebar() {
   const location = useLocation();
-  const isPreview = location.pathname.startsWith('/admin-preview');
+  const isPreview = location.pathname.startsWith("/admin-preview");
 
   // Hàm chuyển đổi đường dẫn nếu đang ở chế độ xem thử (preview)
   const getPath = (path) => {
     if (isPreview) {
-      return path.replace('/admin', '/admin-preview');
+      return path.replace("/admin", "/admin-preview");
     }
     return path;
   };
@@ -22,7 +22,7 @@ export default function AdminSidebar() {
           <span className="admin-sidebar__brand-icon">
             <Icon icon="lucide:activity" />
           </span>
-          <span>ResearchPulse</span>
+          <span>HyperData Lab</span>
         </div>
 
         {/* Danh sách menu chính - map từ ADMIN_MENU để dễ thêm/sửa */}
@@ -34,7 +34,7 @@ export default function AdminSidebar() {
               // NavLink tự thêm class "active" khi path khớp,
               // ta map sang class riêng để style theo design token
               className={({ isActive }) =>
-                `admin-sidebar__item${isActive ? ' admin-sidebar__item--active' : ''}`
+                `admin-sidebar__item${isActive ? " admin-sidebar__item--active" : ""}`
               }
             >
               <Icon icon={item.icon} className="admin-sidebar__item-icon" />
@@ -47,7 +47,10 @@ export default function AdminSidebar() {
       {/* Khu vực dưới cùng: Support + Sign Out */}
       <div className="admin-sidebar__footer">
         <a href="#support" className="admin-sidebar__item">
-          <Icon icon="lucide:help-circle" className="admin-sidebar__item-icon" />
+          <Icon
+            icon="lucide:help-circle"
+            className="admin-sidebar__item-icon"
+          />
           <span>Support</span>
         </a>
         <a href="/login" className="admin-sidebar__item">

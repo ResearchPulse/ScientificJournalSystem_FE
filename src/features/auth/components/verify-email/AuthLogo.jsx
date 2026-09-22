@@ -8,13 +8,13 @@ const AuthLogo = () => {
       <span
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: '1.8rem',
+          fontSize: "1.8rem",
           fontWeight: 700,
-          color: 'var(--primary)',
-          letterSpacing: '-0.5px',
+          color: "var(--primary)",
+          letterSpacing: "-0.5px",
         }}
       >
-        ResearchPulse
+        HyperData Lab
       </span>
     </div>
   );

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-
 :root {
-  --font-display: "Manrope", "Segoe UI", sans-serif;
+  --font-display: "Manrope", "Roboto", sans-serif;
+  --font-supporting: "Roboto", sans-serif;
+  --font-sans: var(--font-supporting);
 
   /* Hyperdata Lab primitive tokens */
   --ds-blue-600: #0071bc;
@@ -77,6 +77,13 @@
   --motion-fast: 140ms;
   --motion-medium: 200ms;
   --motion-slow: 260ms;
+
+  /* shared shape and interaction tokens */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --transition-ui: 240ms cubic-bezier(0.22, 1, 0.36, 1);
 
   /* elevation */
   --shadow-card: 0 20px 50px rgba(17, 32, 51, 0.08);
@@ -694,7 +701,7 @@ header.sticky-scrolled {
 
 .glass-card:hover {
   border-color: var(--primary);
-  box-shadow: 0 10px 30px -10px rgba(255, 122, 51, 0.12);
+  box-shadow: 0 10px 30px -10px rgba(0, 113, 188, 0.12);
   transform: translateY(-2px);
 }
 
@@ -713,8 +720,8 @@ header.sticky-scrolled {
   transition: all 0.3s ease;
 }
 .btn-primary-glow:hover {
-  background: #e8632a;
-  box-shadow: 0 6px 20px rgba(255, 122, 51, 0.4);
+  background: var(--primary-dark);
+  box-shadow: 0 6px 20px rgba(0, 113, 188, 0.4);
   transform: translateY(-1px);
   color: #ffffff !important;
 }
@@ -861,6 +868,53 @@ button,
   font-family: var(--font-display) !important;
   font-weight: 500 !important;
 }
+
+.font-supporting,
+code,
+pre {
+  font-family: var(--font-supporting) !important;
+}
+
+.text-muted-custom,
+.text-secondary,
+.form-label,
+.form-text,
+small,
+caption,
+.breadcrumb,
+.table,
+.table th,
+.table td,
+.admin-pagination {
+  font-family: var(--font-supporting) !important;
+}
+
+.transition-hover {
+  transition: transform var(--motion-medium) ease, box-shadow var(--motion-medium) ease,
+    border-color var(--motion-medium) ease, background-color var(--motion-medium) ease;
+}
+
+.transition-hover:not(tr):hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition-hover,
+  .shared-entity-card,
+  .shared-stat-card,
+  .shared-state-card {
+    transition: none !important;
+  }
+
+  .transition-hover:not(tr):hover,
+  .shared-entity-card--interactive:hover,
+  .shared-stat-card:hover,
+  .shared-stat-card--interactive:hover,
+  .shared-state-card:hover {
+    transform: none !important;
+  }
+}
 .btn-fw-600,
 .btn-primary-glow {
   font-weight: 600 !important;
@@ -916,7 +970,7 @@ th,
   background: var(--primary) !important;
   color: #fff !important;
   border: none !important;
-  box-shadow: 0 2px 12px rgba(255, 122, 51, 0.18);
+  box-shadow: 0 2px 12px rgba(0, 113, 188, 0.18);
   transition:
     transform 0.15s ease,
     box-shadow 0.15s ease,
@@ -924,8 +978,8 @@ th,
 }
 .btn-primary-glow:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 18px rgba(255, 122, 51, 0.22);
-  background: #e8632a !important;
+  box-shadow: 0 4px 18px rgba(0, 113, 188, 0.22);
+  background: var(--primary-dark) !important;
 }
 .btn-primary-glow:active {
   transform: translateY(0);
@@ -1009,7 +1063,7 @@ select.account-form-input {
 .account-form-input:focus {
   background-color: #f1f5f9 !important;
   outline: 0 !important;
-  box-shadow: 0 0 0 2px rgba(255, 122, 51, 0.25) !important;
+  box-shadow: 0 0 0 2px rgba(0, 113, 188, 0.25) !important;
 }
 
 .account-form-label {

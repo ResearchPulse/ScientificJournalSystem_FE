@@ -1,11 +1,11 @@
 .shared-filter-card {
-  background-color: var(--bg-card);
+  background-color: transparent;
   width: 100%;
+  transition: transform var(--motion-medium) ease, box-shadow var(--motion-medium) ease;
 }
 
 @media (max-width: 768px) {
   .shared-filter-card {
-    padding: 1rem;
-    border-radius: 8px;
+    padding: 0;
   }
 }

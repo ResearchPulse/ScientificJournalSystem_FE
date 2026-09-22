@@ -6,10 +6,16 @@ import { useEffect } from 'react';
  */
 export default function useScrollReveal(selector = '.reveal-on-scroll') {
   useEffect(() => {
+    const elements = document.querySelectorAll(selector);
+
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      elements.forEach((el) => el.classList.add('is-visible'));
+      return undefined;
+    }
+
     // Check if IntersectionObserver is supported
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
       // Fallback: immediately reveal all elements if IntersectionObserver is not available
-      const elements = document.querySelectorAll(selector);
       elements.forEach((el) => el.classList.add('is-visible'));
       return;
     }
@@ -31,7 +37,6 @@ export default function useScrollReveal(selector = '.reveal-on-scroll') {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const elements = document.querySelectorAll(selector);
 
     elements.forEach((el) => observer.observe(el));
 

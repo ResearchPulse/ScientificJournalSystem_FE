@@ -27,7 +27,7 @@ const SuccessState = ({ countdown, totalSeconds, onLogin, onHome }) => {
             fontWeight: 600,
           }}
         >
-          ResearchPulse
+          HyperData Lab
         </span>
         .
       </p>

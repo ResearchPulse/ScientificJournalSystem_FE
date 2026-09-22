@@ -4,7 +4,9 @@ export default function AdminFooter() {
 
   return (
     <footer className="admin-footer">
-      <span>&copy; {currentYear} ResearchPulse Admin. All rights reserved.</span>
+      <span>
+        &copy; {currentYear} HyperData Lab Admin. All rights reserved.
+      </span>
       <div className="admin-footer__links">
         <a href="#privacy-policy">Privacy Policy</a>
         <a href="#terms-of-service">Terms of Service</a>

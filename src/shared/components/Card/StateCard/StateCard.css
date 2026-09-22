@@ -17,6 +17,12 @@
   color: var(--text-main);
   text-align: center;
   font-family: var(--font-display);
+  transition: transform var(--motion-medium) ease, box-shadow var(--motion-medium) ease;
+}
+
+.shared-state-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
 }
 
 .shared-state-card__icon {
