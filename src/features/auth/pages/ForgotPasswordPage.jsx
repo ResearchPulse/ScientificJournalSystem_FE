@@ -6,7 +6,6 @@ import AuthBanner from "../components/AuthBanner";
 import ForgotPasswordForm from "../components/ForgotPasswordForm";
 import ForgotPasswordSuccess from "../components/ForgotPasswordSuccess";
 import { forgotPasswordApi } from "../api/auth.api";
-import Icon from "../../../shared/components/Icon";
 export default function ForgotPasswordPage() {
   const { t: _t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
@@ -56,26 +55,11 @@ export default function ForgotPasswordPage() {
     <AuthLayout banner={<AuthBanner />}>
       {!isSubmitted ? (
         <>
-          <div className="d-flex d-md-none align-items-center gap-2 mb-4">
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{
-                width: "36px",
-                height: "36px",
-                borderRadius: "10px",
-                background:
-                  "linear-gradient(180deg, var(--ds-blue-600) 0%, var(--ds-blue-700) 100%)",
-                boxShadow: "0 8px 18px rgba(0, 113, 188, 0.18)",
-              }}
-            >
-              <Icon icon="lucide:activity" className="text-white text-sm" />
-            </div>
-            <span
-              className="fs-5 fw-bold"
-              style={{ letterSpacing: "-0.03em", color: "var(--text-main)" }}
-            >
-              ResearchPulse
+          <div className="auth-mobile-brand">
+            <span className="auth-mobile-brand-mark" aria-hidden="true">
+              RP
             </span>
+            <span className="fs-5 fw-bold">ResearchPulse</span>
           </div>
 
           <div className="mb-4">

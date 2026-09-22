@@ -6,40 +6,27 @@ import { useTranslation } from "react-i18next";
 const LoadingState = () => {
   const { t } = useTranslation();
   return (
-    <div className="text-center py-3">
+    <div
+      className="text-center py-3 auth-state-enter"
+      role="status"
+      aria-live="polite"
+    >
       {/* Spinner Bootstrap */}
       <div
         className="spinner-border mb-4"
         role="status"
-        style={{
-          color: "var(--primary, var(--ds-blue-600))",
-          width: "3rem",
-          height: "3rem",
-        }}
+        className="auth-loading-spinner"
       >
         <span className="visually-hidden">{t("common.dangTai")}</span>
       </div>
 
       {/* Heading */}
-      <h5
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 600,
-          color: "var(--ds-text-strong, #112033)",
-          marginBottom: "0.5rem",
-        }}
-      >
+      <h2 className="auth-status-heading mb-2">
         {t("auth.dangXacThucTaiKhoan")}
-      </h5>
+      </h2>
 
       {/* Mô tả */}
-      <p
-        style={{
-          fontSize: "0.9rem",
-          color: "var(--ds-text-soft, #52637a)",
-          marginBottom: 0,
-        }}
-      >
+      <p className="auth-status-copy mb-0">
         {t("auth.vuiLongChoTrongGiayLat")}
       </p>
     </div>

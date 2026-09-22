@@ -21,9 +21,8 @@ const AuthActionButtons = ({ status, onLogin, onHome, onRegister }) => {
         {/* Link phụ — về trang chủ */}
         <button
           onClick={onHome}
-          className="btn btn-link auth-link"
+          className="auth-secondary-button w-100"
           type="button"
-          style={{ fontSize: "0.9rem" }}
         >
           {t("auth.veTrangChu")}
         </button>
@@ -47,9 +46,8 @@ const AuthActionButtons = ({ status, onLogin, onHome, onRegister }) => {
         {/* Link phụ — về trang đăng nhập */}
         <button
           onClick={onLogin}
-          className="btn btn-link auth-link"
+          className="auth-secondary-button w-100"
           type="button"
-          style={{ fontSize: "0.9rem" }}
         >
           {t("auth.veTrangDangNhap")}
         </button>

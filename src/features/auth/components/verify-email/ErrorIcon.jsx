@@ -5,17 +5,7 @@
 const ErrorIcon = () => {
   return (
     <div className="d-flex justify-content-center mb-4">
-      <div
-        style={{
-          width: "80px",
-          height: "80px",
-          borderRadius: "50%",
-          backgroundColor: "var(--ds-error-bg, #fff1f2)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="auth-status-icon auth-status-icon--error">
         <svg
           width="40"
           height="40"
@@ -28,21 +18,16 @@ const ErrorIcon = () => {
             cx="12"
             cy="12"
             r="12"
-            fill="var(--ds-error-text, #b12c40)"
+            fill="currentColor"
             fillOpacity="0.12"
           />
           <path
             d="M12 7V13"
-            stroke="var(--ds-error-text, #b12c40)"
+            stroke="currentColor"
             strokeWidth="2.2"
             strokeLinecap="round"
           />
-          <circle
-            cx="12"
-            cy="16.5"
-            r="1.2"
-            fill="var(--ds-error-text, #b12c40)"
-          />
+          <circle cx="12" cy="16.5" r="1.2" fill="currentColor" />
         </svg>
       </div>
     </div>

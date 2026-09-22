@@ -9,31 +9,17 @@ import AuthActionButtons from "./AuthActionButtons";
 const SuccessState = ({ countdown, totalSeconds, onLogin, onHome }) => {
   const { t } = useTranslation();
   return (
-    <div>
+    <div className="auth-state-enter">
       {/* Icon checkmark xanh lá */}
       <SuccessIcon />
 
       {/* Heading */}
-      <h4
-        className="text-center mb-2"
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 600,
-          color: "var(--ds-text-strong, #112033)",
-        }}
-      >
+      <h2 className="auth-status-heading text-center mb-2">
         {t("auth.kichHoatTaiKhoanThanhCong")}
-      </h4>
+      </h2>
 
       {/* Mô tả */}
-      <p
-        className="text-center mb-4"
-        style={{
-          fontSize: "0.93rem",
-          color: "var(--ds-text-soft, #52637a)",
-          lineHeight: 1.6,
-        }}
-      >
+      <p className="auth-status-copy text-center mb-4">
         {t("auth.taiKhoanCuaBanDaDuocKichHoatTh")}{" "}
         <span
           style={{
