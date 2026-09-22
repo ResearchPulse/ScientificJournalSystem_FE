@@ -8,31 +8,17 @@ import AuthActionButtons from "./AuthActionButtons";
 const ErrorState = ({ message, onLogin, onRegister }) => {
   const { t } = useTranslation();
   return (
-    <div>
+    <div className="auth-state-enter">
       {/* Icon cảnh báo màu cam */}
       <ErrorIcon />
 
       {/* Heading */}
-      <h4
-        className="text-center mb-2"
-        style={{
-          fontFamily: "var(--font-display)",
-          fontWeight: 600,
-          color: "var(--ds-text-strong, #112033)",
-        }}
-      >
+      <h2 className="auth-status-heading text-center mb-2">
         {t("auth.kichHoatTaiKhoanThatBai")}
-      </h4>
+      </h2>
 
       {/* Message lỗi — từ BE hoặc default */}
-      <p
-        className="text-center mb-4"
-        style={{
-          fontSize: "0.93rem",
-          color: "var(--ds-text-soft, #52637a)",
-          lineHeight: 1.6,
-        }}
-      >
+      <p className="auth-status-copy text-center mb-4">
         {message || t("auth.lienKetKichHoatKhongHopLeHoacD")}
       </p>
 

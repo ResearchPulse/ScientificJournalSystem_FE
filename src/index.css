@@ -104,7 +104,7 @@ body {
 
 html:has(.auth-shell),
 body:has(.auth-shell) {
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 button,
@@ -148,14 +148,14 @@ textarea:focus-visible {
 
 .auth-shell {
   min-height: 100dvh;
-  height: 100dvh;
+  height: auto;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px 20px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
   background:
     radial-gradient(circle at top left, rgba(0, 113, 188, 0.06), transparent 24%),
     rgba(244, 247, 251, 0.9);
@@ -165,7 +165,8 @@ textarea:focus-visible {
   width: 100%;
   max-width: var(--auth-shell-max);
   height: calc(100dvh - 64px);
-  min-height: 0;
+  max-height: calc(100dvh - 64px);
+  min-height: min(720px, calc(100dvh - 64px));
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: rgba(255, 255, 255, 0.72);
@@ -189,11 +190,116 @@ textarea:focus-visible {
   background: rgba(255, 255, 255, 0.7);
   padding: 32px 24px;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .auth-form-inner {
   width: 100%;
   max-width: 424px;
+  animation: auth-content-enter var(--motion-slow) ease-out both;
+}
+
+.auth-shell :is(.auth-title, .auth-subtitle, .auth-form-inner > form, .auth-status-card) {
+  animation: auth-content-enter var(--motion-slow) ease-out both;
+}
+
+.auth-shell :is(.auth-form-inner > form, .auth-status-card) {
+  animation-delay: 60ms;
+}
+
+.auth-mobile-brand {
+  display: none;
+}
+
+.auth-mobile-brand-mark {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--ds-blue-600) 0%, var(--ds-blue-700) 100%);
+  box-shadow: 0 8px 18px rgba(0, 113, 188, 0.18);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.auth-status-card {
+  animation: auth-content-enter var(--motion-slow) ease-out both;
+}
+
+.auth-state-enter {
+  animation: auth-content-enter var(--motion-slow) ease-out both;
+}
+
+.auth-loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 24px;
+  color: var(--primary);
+}
+
+.auth-status-icon {
+  width: 80px;
+  height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  animation: auth-status-pop var(--motion-slow) ease-out both;
+}
+
+.auth-status-icon--success {
+  background: var(--ds-success-bg);
+  color: var(--ds-success-text);
+  box-shadow: 0 0 0 8px rgba(15, 122, 82, 0.06);
+}
+
+.auth-status-icon--error {
+  background: var(--ds-error-bg);
+  color: var(--ds-error-text);
+  box-shadow: 0 0 0 8px rgba(177, 44, 64, 0.05);
+}
+
+.auth-status-heading {
+  color: var(--ds-text-strong);
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.auth-status-copy {
+  color: var(--ds-text-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.auth-secondary-button {
+  min-height: var(--auth-button-height);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.auth-secondary-button:hover {
+  background: var(--primary-light);
+  border-color: var(--ds-border);
+}
+
+@keyframes auth-content-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auth-status-pop {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .auth-title {
@@ -438,6 +544,8 @@ textarea:focus-visible {
 
   .auth-frame {
     height: auto;
+    max-height: none;
+    min-height: 0;
     min-height: unset;
     grid-template-columns: 1fr;
     border-radius: 20px;
@@ -452,6 +560,13 @@ textarea:focus-visible {
     overflow-y: visible;
   }
 
+  .auth-mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
   .auth-form-inner {
     max-width: 100%;
   }
@@ -459,6 +574,17 @@ textarea:focus-visible {
   .auth-primary-button,
   .auth-social-button {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
