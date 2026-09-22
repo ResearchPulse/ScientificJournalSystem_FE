@@ -75,12 +75,18 @@ export default function AuthorDetailPage() {
         <nav className="ap-breadcrumb" aria-label="breadcrumb">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <span className="ap-breadcrumb__link" onClick={() => navigate("/")}>
-                ResearchPulse
+              <span
+                className="ap-breadcrumb__link"
+                onClick={() => navigate("/")}
+              >
+                HyperData Lab
               </span>
             </li>
             <li className="breadcrumb-item">
-              <span className="ap-breadcrumb__link" onClick={() => navigate("/authors")}>
+              <span
+                className="ap-breadcrumb__link"
+                onClick={() => navigate("/authors")}
+              >
                 Tác giả
               </span>
             </li>

@@ -3,20 +3,25 @@
  *
  * File: features\landing\pages\LandingPage.jsx
  */
-import Header from '../components/Header';
-import Hero from '../components/Hero';
-import Sandbox from '../components/Sandbox';
-import Features from '../components/Features';
-import HowToUse from '../components/HowToUse';
-import FooterCTA from '../components/FooterCTA';
-import Footer from '../components/Footer';
-import useScrollReveal from '../../../shared/hooks/useScrollReveal';
+import Header from "../components/Header";
+import Hero from "../components/Hero";
+import Sandbox from "../components/Sandbox";
+import Features from "../components/Features";
+import HowToUse from "../components/HowToUse";
+import FooterCTA from "../components/FooterCTA";
+import Footer from "../components/Footer";
+import useScrollReveal from "../../../shared/hooks/useScrollReveal";
 
 export default function LandingPage() {
-  useScrollReveal('.reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale');
+  useScrollReveal(
+    ".reveal-on-scroll, .reveal-left, .reveal-right, .reveal-scale",
+  );
 
   return (
-    <div className="min-vh-100 overflow-x-hidden" style={{ backgroundColor: 'var(--bg-main)', color: 'var(--text-main)' }}>
+    <div
+      className="min-vh-100 overflow-x-hidden"
+      style={{ backgroundColor: "var(--bg-main)", color: "var(--text-main)" }}
+    >
       {/* Sticky Header */}
       <Header />
 
@@ -28,7 +33,7 @@ export default function LandingPage() {
         {/* Try Now Sandbox Section */}
         <Sandbox />
 
-        {/* Why use ResearchPulse Section */}
+        {/* Why use HyperData Lab Section */}
         <Features />
 
         {/* How to use Section */}

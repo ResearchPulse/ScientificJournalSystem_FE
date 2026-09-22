@@ -1,36 +1,31 @@
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
-import { useState, useEffect } from 'react';
-import { Modal, Form, Row, Col } from 'react-bootstrap';
-import { useJournalManagement } from '../../../journal/hooks/useJournalManagement';
-import PrimaryButton from '../../../../shared/components/Button/PrimaryButton';
-export default function AddJournalModal({
-  show,
-  handleClose
-}) {
+import { useState, useEffect } from "react";
+import { Modal, Form, Row, Col } from "react-bootstrap";
+import { useJournalManagement } from "../../../journal/hooks/useJournalManagement";
+import PrimaryButton from "../../../../shared/components/Button/PrimaryButton";
+export default function AddJournalModal({ show, handleClose }) {
   const { t: _t } = useTranslation();
-  const {
-    addJournal
-  } = useJournalManagement();
+  const { addJournal } = useJournalManagement();
   const [formData, setFormData] = useState({
-    title: '',
-    issn: '',
-    onlineIssn: '',
-    publisher: '',
+    title: "",
+    issn: "",
+    onlineIssn: "",
+    publisher: "",
     // this will store publisher_id
-    subjectCategory: '',
-    subjectArea: '',
-    aimScope: '',
-    visibility: 'Public',
-    broadCategory: 'Technology',
-    specificResearchArea: ''
+    subjectCategory: "",
+    subjectArea: "",
+    aimScope: "",
+    visibility: "Public",
+    broadCategory: "Technology",
+    specificResearchArea: "",
   });
   const [publishers, setPublishers] = useState([]);
   const [subjectAreas, setSubjectAreas] = useState([]);
   const [subjectCategories, setSubjectCategories] = useState([]);
   const [zones, setZones] = useState({
     countryZoneId: 1,
-    regionZoneId: 2
+    regionZoneId: 2,
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -42,51 +37,69 @@ export default function AddJournalModal({
           const {
             getPublishersApi,
             getSubjectAreasApi,
-            getSubjectCategoriesApi
-          } = await import('../../../journal/api/journalApi');
-          const {
-            getCountryStatsApi,
-            getRegionStatsApi
-          } = await import('../../../zone/api/zone.api');
-          const [pubRes, countryRes, regionRes, areaRes, catRes] = await Promise.all([getPublishersApi({
-            page: 1,
-            limit: 5000
-          }), getCountryStatsApi({
-            limit: 1
-          }), getRegionStatsApi({
-            limit: 1
-          }), getSubjectAreasApi({
-            page: 1,
-            limit: 5000
-          }), getSubjectCategoriesApi({
-            page: 1,
-            limit: 5000
-          })]);
+            getSubjectCategoriesApi,
+          } = await import("../../../journal/api/journalApi");
+          const { getCountryStatsApi, getRegionStatsApi } =
+            await import("../../../zone/api/zone.api");
+          const [pubRes, countryRes, regionRes, areaRes, catRes] =
+            await Promise.all([
+              getPublishersApi({
+                page: 1,
+                limit: 5000,
+              }),
+              getCountryStatsApi({
+                limit: 1,
+              }),
+              getRegionStatsApi({
+                limit: 1,
+              }),
+              getSubjectAreasApi({
+                page: 1,
+                limit: 5000,
+              }),
+              getSubjectCategoriesApi({
+                page: 1,
+                limit: 5000,
+              }),
+            ]);
           const pubItems = pubRes.data?.data?.items || pubRes.data?.data || [];
           setPublishers(pubItems);
           if (pubItems.length > 0) {
-            setFormData(prev => ({
+            setFormData((prev) => ({
               ...prev,
-              publisher: pubItems[0].publisher_id || pubItems[0].id
+              publisher: pubItems[0].publisher_id || pubItems[0].id,
             }));
           }
-          const rawAreaItems = areaRes.data?.data?.items || areaRes.data?.data || [];
-          const getAreaName = (a) => a.display_name || a.name || a.subject_area_name || String(a.id);
-          const areaItems = rawAreaItems.filter((a, index, self) => self.findIndex(t => getAreaName(t) === getAreaName(a)) === index);
+          const rawAreaItems =
+            areaRes.data?.data?.items || areaRes.data?.data || [];
+          const getAreaName = (a) =>
+            a.display_name || a.name || a.subject_area_name || String(a.id);
+          const areaItems = rawAreaItems.filter(
+            (a, index, self) =>
+              self.findIndex((t) => getAreaName(t) === getAreaName(a)) ===
+              index,
+          );
           setSubjectAreas(areaItems);
 
-          const rawCatItems = catRes.data?.data?.items || catRes.data?.data || [];
-          const getCatName = (c) => c.display_name || c.name || c.category_name || String(c.id);
-          const catItems = rawCatItems.filter((c, index, self) => self.findIndex(t => getCatName(t) === getCatName(c)) === index);
+          const rawCatItems =
+            catRes.data?.data?.items || catRes.data?.data || [];
+          const getCatName = (c) =>
+            c.display_name || c.name || c.category_name || String(c.id);
+          const catItems = rawCatItems.filter(
+            (c, index, self) =>
+              self.findIndex((t) => getCatName(t) === getCatName(c)) === index,
+          );
           setSubjectCategories(catItems);
-          const countryItems = countryRes.data?.data?.items || countryRes.data?.data || [];
-          const regionItems = regionRes.data?.data?.items || regionRes.data?.data || [];
+          const countryItems =
+            countryRes.data?.data?.items || countryRes.data?.data || [];
+          const regionItems =
+            regionRes.data?.data?.items || regionRes.data?.data || [];
           setZones({
             countryZoneId: countryItems[0]?.zone_id || 1,
-            regionZoneId: regionItems[0]?.zone_id || 2
+            regionZoneId: regionItems[0]?.zone_id || 2,
           });
         } catch (err) {
-          console.error('Failed to load publishers or zones:', err);
+          console.error("Failed to load publishers or zones:", err);
         } finally {
           setLoading(false);
         }
@@ -94,37 +107,41 @@ export default function AddJournalModal({
       loadData();
     }
   }, [show]);
-  const handleChange = e => {
-    const {
-      name,
-      value
-    } = e.target;
-    setFormData(prev => ({
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.title.trim()) newErrors.title = t("admin.tenTapChiKhongDuocDeTrong");
-    if (!formData.issn.trim()) newErrors.issn = t("admin.maSoIssnKhongDuocDeTrong");
-    if (!formData.publisher) newErrors.publisher = t("admin.vuiLongChonNhaXuatBan");
-    if (!formData.subjectCategory) newErrors.subjectCategory = t("admin.vuiLongChonDanhMucChinh");
-    if (!formData.subjectArea) newErrors.subjectArea = t("admin.linhVucNghienCuuCuTheKhongDuoc");
+    if (!formData.title.trim())
+      newErrors.title = t("admin.tenTapChiKhongDuocDeTrong");
+    if (!formData.issn.trim())
+      newErrors.issn = t("admin.maSoIssnKhongDuocDeTrong");
+    if (!formData.publisher)
+      newErrors.publisher = t("admin.vuiLongChonNhaXuatBan");
+    if (!formData.subjectCategory)
+      newErrors.subjectCategory = t("admin.vuiLongChonDanhMucChinh");
+    if (!formData.subjectArea)
+      newErrors.subjectArea = t("admin.linhVucNghienCuuCuTheKhongDuoc");
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const selectedPub = publishers.find(p => String(p.publisher_id || p.id) === String(formData.publisher));
+      const selectedPub = publishers.find(
+        (p) => String(p.publisher_id || p.id) === String(formData.publisher),
+      );
       const payload = {
         display_name: formData.title,
         publisher_id: parseInt(formData.publisher),
@@ -138,70 +155,128 @@ export default function AddJournalModal({
         visibility: formData.visibility,
         subjectCategory: formData.subjectCategory,
         subjectArea: formData.subjectArea,
-        publisher_name: selectedPub ? selectedPub.display_name : 'ResearchPulse Press'
+        publisher_name: selectedPub
+          ? selectedPub.display_name
+          : "HyperData Lab Press",
       };
       await addJournal(payload);
       setFormData({
-        title: '',
-        issn: '',
-        onlineIssn: '',
-        publisher: publishers[0]?.publisher_id || publishers[0]?.id || '',
-        subjectCategory: '',
-        subjectArea: '',
-        aimScope: '',
-        visibility: 'Public',
-        broadCategory: 'Technology',
-        specificResearchArea: ''
+        title: "",
+        issn: "",
+        onlineIssn: "",
+        publisher: publishers[0]?.publisher_id || publishers[0]?.id || "",
+        subjectCategory: "",
+        subjectArea: "",
+        aimScope: "",
+        visibility: "Public",
+        broadCategory: "Technology",
+        specificResearchArea: "",
       });
       handleClose();
     } catch (err) {
       const errorMsg = err.response?.data?.message || err.message;
-      const errorDetail = err.response?.data?.detail ? `\nChi tiết: ${err.response.data.detail}` : '';
+      const errorDetail = err.response?.data?.detail
+        ? `\nChi tiết: ${err.response.data.detail}`
+        : "";
       alert(t("admin.loiTaoTapChi") + " " + errorMsg + errorDetail);
     }
   };
-  return <Modal show={show} onHide={handleClose} centered backdrop="static" className="text-main">
+  return (
+    <Modal
+      show={show}
+      onHide={handleClose}
+      centered
+      backdrop="static"
+      className="text-main"
+    >
       <Modal.Header closeButton className="border-bottom-0 pb-0">
-        <Modal.Title className="font-display fw-bold h4 text-main">{t("admin.themJournalMoi")}</Modal.Title>
+        <Modal.Title className="font-display fw-bold h4 text-main">
+          {t("admin.themJournalMoi")}
+        </Modal.Title>
       </Modal.Header>
-      
+
       <Form onSubmit={handleSubmit}>
         <Modal.Body className="py-4 text-start">
-          
           {/* Tên Journal */}
           <Form.Group className="mb-3">
-            <Form.Label className="fw-medium small text-main">{t("admin.tenJournal")}<span className="text-danger">*</span></Form.Label>
-            <Form.Control type="text" name="title" value={formData.title} onChange={handleChange} isInvalid={!!errors.title} placeholder={t("admin.nhapTenJournalDayDu")} />
-            <Form.Control.Feedback type="invalid">{errors.title}</Form.Control.Feedback>
+            <Form.Label className="fw-medium small text-main">
+              {t("admin.tenJournal")}
+              <span className="text-danger">*</span>
+            </Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              isInvalid={!!errors.title}
+              placeholder={t("admin.nhapTenJournalDayDu")}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.title}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Row 2: Mã ISSN & Danh mục */}
           <Row className="g-3 mb-3">
             <Col xs={12} sm={6}>
               <Form.Group>
-                <Form.Label className="fw-medium small text-main">{t("admin.maIssn")}<span className="text-danger">*</span></Form.Label>
-                <Form.Control type="text" name="issn" value={formData.issn} onChange={handleChange} isInvalid={!!errors.issn} placeholder={t("admin.viDu12345678")} />
-                <Form.Control.Feedback type="invalid">{errors.issn}</Form.Control.Feedback>
+                <Form.Label className="fw-medium small text-main">
+                  {t("admin.maIssn")}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  name="issn"
+                  value={formData.issn}
+                  onChange={handleChange}
+                  isInvalid={!!errors.issn}
+                  placeholder={t("admin.viDu12345678")}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.issn}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            
+
             <Col xs={12} sm={6}>
               <Form.Group>
-                <Form.Label className="fw-medium small text-main">{t("typeCategory")}<span className="text-danger">*</span></Form.Label>
-                <Form.Select name="subjectCategory" value={formData.subjectCategory} onChange={handleChange} isInvalid={!!errors.subjectCategory} style={{
-                cursor: 'pointer'
-              }}>
+                <Form.Label className="fw-medium small text-main">
+                  {t("typeCategory")}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  name="subjectCategory"
+                  value={formData.subjectCategory}
+                  onChange={handleChange}
+                  isInvalid={!!errors.subjectCategory}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
                   <option value="">{t("admin.chonDanhMuc")}</option>
-                  {Array.from(new Map(subjectCategories.map(cat => {
-                    const catName = cat.display_name || cat.name || cat.category_name || String(cat.id);
-                    return [catName, { ...cat, _catName: catName }];
-                  })).values()).map(cat => (
-                    <option key={cat.subject_category_id || cat.id || cat._catName} value={cat._catName}>
+                  {Array.from(
+                    new Map(
+                      subjectCategories.map((cat) => {
+                        const catName =
+                          cat.display_name ||
+                          cat.name ||
+                          cat.category_name ||
+                          String(cat.id);
+                        return [catName, { ...cat, _catName: catName }];
+                      }),
+                    ).values(),
+                  ).map((cat) => (
+                    <option
+                      key={cat.subject_category_id || cat.id || cat._catName}
+                      value={cat._catName}
+                    >
                       {cat._catName}
                     </option>
                   ))}
                 </Form.Select>
-                <Form.Control.Feedback type="invalid">{errors.subjectCategory}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  {errors.subjectCategory}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
@@ -210,46 +285,96 @@ export default function AddJournalModal({
           <Row className="g-3 mb-3">
             <Col xs={12} sm={6}>
               <Form.Group>
-                <Form.Label className="fw-medium small text-main">{t("admin.nhaXuatBan")}<span className="text-danger">*</span></Form.Label>
-                <Form.Select name="publisher" value={formData.publisher} onChange={handleChange} isInvalid={!!errors.publisher} style={{
-                cursor: 'pointer'
-              }}>
-                  {loading ? <option>{t("admin.dangTaiDanhSachNhaXuatBan")}</option> : publishers.length === 0 ? <option value="">{t("admin.khongCoNhaXuatBanNao")}</option> : publishers.map(pub => <option key={pub.publisher_id || pub.id} value={pub.publisher_id || pub.id}>
+                <Form.Label className="fw-medium small text-main">
+                  {t("admin.nhaXuatBan")}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  name="publisher"
+                  value={formData.publisher}
+                  onChange={handleChange}
+                  isInvalid={!!errors.publisher}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
+                  {loading ? (
+                    <option>{t("admin.dangTaiDanhSachNhaXuatBan")}</option>
+                  ) : publishers.length === 0 ? (
+                    <option value="">{t("admin.khongCoNhaXuatBanNao")}</option>
+                  ) : (
+                    publishers.map((pub) => (
+                      <option
+                        key={pub.publisher_id || pub.id}
+                        value={pub.publisher_id || pub.id}
+                      >
                         {pub.display_name}
-                      </option>)}
+                      </option>
+                    ))
+                  )}
                 </Form.Select>
-                <Form.Control.Feedback type="invalid">{errors.publisher}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  {errors.publisher}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            
+
             <Col xs={12} sm={6}>
               <Form.Group>
-                <Form.Label className="fw-medium small text-main">{t("typeArea")}<span className="text-danger">*</span></Form.Label>
-                <Form.Select name="subjectArea" value={formData.subjectArea} onChange={handleChange} isInvalid={!!errors.subjectArea} style={{
-                cursor: 'pointer'
-              }}>
+                <Form.Label className="fw-medium small text-main">
+                  {t("typeArea")}
+                  <span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Select
+                  name="subjectArea"
+                  value={formData.subjectArea}
+                  onChange={handleChange}
+                  isInvalid={!!errors.subjectArea}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
                   <option value="">{t("admin.chonLinhVuc")}</option>
-                  {Array.from(new Map(subjectAreas.map(area => {
-                    const areaName = area.display_name || area.name || area.subject_area_name || String(area.id);
-                    return [areaName, { ...area, _areaName: areaName }];
-                  })).values()).map(area => (
-                    <option key={area.subject_area_id || area.id || area._areaName} value={area._areaName}>
+                  {Array.from(
+                    new Map(
+                      subjectAreas.map((area) => {
+                        const areaName =
+                          area.display_name ||
+                          area.name ||
+                          area.subject_area_name ||
+                          String(area.id);
+                        return [areaName, { ...area, _areaName: areaName }];
+                      }),
+                    ).values(),
+                  ).map((area) => (
+                    <option
+                      key={area.subject_area_id || area.id || area._areaName}
+                      value={area._areaName}
+                    >
                       {area._areaName}
                     </option>
                   ))}
                 </Form.Select>
-                <Form.Control.Feedback type="invalid">{errors.subjectArea}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  {errors.subjectArea}
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Row>
-
         </Modal.Body>
         <Modal.Footer className="border-top-0 pt-0">
-          <PrimaryButton variant="outline" onClick={handleClose} className="px-4">{t("admin.huy")}</PrimaryButton>
+          <PrimaryButton
+            variant="outline"
+            onClick={handleClose}
+            className="px-4"
+          >
+            {t("admin.huy")}
+          </PrimaryButton>
           <PrimaryButton type="submit" className="px-4">
             + Create Journal
           </PrimaryButton>
         </Modal.Footer>
       </Form>
-    </Modal>;
+    </Modal>
+  );
 }

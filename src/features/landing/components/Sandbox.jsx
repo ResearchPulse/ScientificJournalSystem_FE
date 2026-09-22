@@ -101,7 +101,7 @@ export default function Sandbox() {
       const targetPath = getItemPath(item);
       if (targetPath) navigate(targetPath);
     },
-    [navigate]
+    [navigate],
   );
 
   const tags = [
@@ -353,7 +353,7 @@ export default function Sandbox() {
                                 "var(--primary-light)";
                             } else {
                               e.currentTarget.style.backgroundColor =
-                                "rgba(255, 122, 51, 0.05)";
+                                "var(--primary-light)";
                             }
                           }}
                           onMouseLeave={(e) => {
@@ -374,7 +374,10 @@ export default function Sandbox() {
                             >
                               <Icon icon={cfg.icon} className="fs-5" />
                             </div>
-                            <div className="d-flex flex-column text-truncate" style={{ minWidth: 0 }}>
+                            <div
+                              className="d-flex flex-column text-truncate"
+                              style={{ minWidth: 0 }}
+                            >
                               <span
                                 className="font-medium text-main text-sm text-truncate"
                                 style={{
@@ -384,19 +387,31 @@ export default function Sandbox() {
                               >
                                 {item.title || item.name}
                               </span>
-                              {(item.authors?.length > 0 || item.journal?.name) && (
+                              {(item.authors?.length > 0 ||
+                                item.journal?.name) && (
                                 <span
                                   className="text-muted-custom text-truncate"
-                                  style={{ fontSize: "0.725rem", maxWidth: "380px" }}
+                                  style={{
+                                    fontSize: "0.725rem",
+                                    maxWidth: "380px",
+                                  }}
                                 >
                                   {item.authors?.length > 0 && (
                                     <span>
-                                      {item.authors.map(a => a.name || a.display_name).slice(0, 3).join(', ')}
-                                      {item.authors.length > 3 ? ' et al.' : ''}
+                                      {item.authors
+                                        .map((a) => a.name || a.display_name)
+                                        .slice(0, 3)
+                                        .join(", ")}
+                                      {item.authors.length > 3 ? " et al." : ""}
                                     </span>
                                   )}
-                                  {item.authors?.length > 0 && item.journal?.name && <span> • </span>}
-                                  {item.journal?.name && <span className="fst-italic">{item.journal.name}</span>}
+                                  {item.authors?.length > 0 &&
+                                    item.journal?.name && <span> • </span>}
+                                  {item.journal?.name && (
+                                    <span className="fst-italic">
+                                      {item.journal.name}
+                                    </span>
+                                  )}
                                 </span>
                               )}
                             </div>

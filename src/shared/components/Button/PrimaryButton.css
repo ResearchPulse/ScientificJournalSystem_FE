@@ -47,10 +47,10 @@
 
 .btn-variant-primary:hover,
 .btn-variant-primary:focus {
-  background: #e8632a !important;
-  border-color: #e8632a !important;
+  background: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
   color: #fff !important;
-  box-shadow: 0 4px 18px rgba(255, 122, 51, 0.22);
+  box-shadow: 0 4px 18px rgba(0, 113, 188, 0.22);
 }
 
 .btn-variant-outline {
@@ -64,7 +64,7 @@
   background: var(--primary-light) !important;
   border-color: var(--primary) !important;
   color: var(--primary) !important;
-  box-shadow: 0 4px 18px rgba(255, 122, 51, 0.12);
+  box-shadow: 0 4px 18px rgba(0, 113, 188, 0.12);
 }
 
 .btn-variant-destructive {

@@ -5,7 +5,7 @@
 .wallet-layout-page {
   min-height: 100vh;
   padding-top: var(--header-height);
-  background: #f7f8fb;
+  background: var(--bg-main);
   color: var(--text-main);
 }
 
@@ -43,7 +43,7 @@
   width: 38px;
   height: 38px;
   border-radius: 13px;
-  background: linear-gradient(135deg, #ff7a33, #ff5608);
+  background: linear-gradient(180deg, var(--ds-blue-600), var(--ds-blue-700));
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -87,13 +87,13 @@
 }
 
 .wallet-sidebar__item:hover {
-  background: rgba(255, 122, 51, 0.07);
-  color: #ff6a1a;
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 .wallet-sidebar__item.active {
-  background: rgba(255, 122, 51, 0.12);
-  color: #ff6a1a;
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 .wallet-sidebar__promo {
@@ -124,7 +124,7 @@
   width: 100%;
   border: 0;
   border-radius: 12px;
-  background: linear-gradient(135deg, #ff7a33, #ff5608);
+  background: var(--primary);
   color: #fff;
   font-weight: 850;
   min-height: 38px;

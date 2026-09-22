@@ -94,7 +94,7 @@ export default function AuthBanner() {
             className="fs-4 fw-bold"
             style={{ letterSpacing: "-0.03em", color: "var(--ds-text-strong)" }}
           >
-            ResearchPulse
+            HyperData Lab
           </span>
         </Navbar.Brand>
 
@@ -210,7 +210,7 @@ export default function AuthBanner() {
         }}
       >
         <span>
-          © {new Date().getFullYear()} ResearchPulse. All rights reserved.
+          © {new Date().getFullYear()} HyperData Lab. All rights reserved.
         </span>
         <div className="d-flex gap-3">
           <Icon

@@ -31,11 +31,9 @@ import PrimaryButton from "../../../shared/components/Button/PrimaryButton";
  *  TopAuthorsTable
  */
 export default function DashboardPage() {
-  const {
-    t
-  } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const email = useUserStore(state => state.email);
+  const email = useUserStore((state) => state.email);
 
   // Year range select state for publication trends ('5', '10', 'all')
   const [trendRange, setTrendRange] = useState("5");
@@ -55,7 +53,7 @@ export default function DashboardPage() {
     errorAnalytics,
     errorKeywords,
     errorAuthors,
-    refetchAnalytics
+    refetchAnalytics,
   } = useDashboard(email, trendRange);
 
   // Quick search state
@@ -63,11 +61,14 @@ export default function DashboardPage() {
 
   // Auth modal (for "Tạo Project mới" when guest)
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const handleQuickSearch = useCallback(e => {
-    if (e.key === "Enter" && quickSearch.trim()) {
-      navigate(`/catalog?search=${encodeURIComponent(quickSearch.trim())}`);
-    }
-  }, [quickSearch, navigate]);
+  const handleQuickSearch = useCallback(
+    (e) => {
+      if (e.key === "Enter" && quickSearch.trim()) {
+        navigate(`/catalog?search=${encodeURIComponent(quickSearch.trim())}`);
+      }
+    },
+    [quickSearch, navigate],
+  );
   const handleCreateProject = () => {
     if (!email) {
       setShowAuthModal(true);
@@ -75,22 +76,26 @@ export default function DashboardPage() {
       navigate("/projects/create");
     }
   };
-  const handleProjectClick = project => {
+  const handleProjectClick = (project) => {
     const id = project.project_id ?? project.id;
     if (id) navigate(`/projects/${id}`);
   };
-  const handleAuthorClick = author => {
+  const handleAuthorClick = (author) => {
     const id = author.author_id ?? author.id;
     if (id) navigate(`/authors/${id}`);
   };
-  const handleKeywordClick = keyword => {
+  const handleKeywordClick = (keyword) => {
     navigate(`/catalog?search=${encodeURIComponent(keyword)}`);
   };
-  return <div className="min-vh-100" style={{
-    backgroundColor: "var(--bg-main)",
-    color: "var(--text-main)",
-    paddingTop: "80px"
-  }}>
+  return (
+    <div
+      className="min-vh-100"
+      style={{
+        backgroundColor: "var(--bg-main)",
+        color: "var(--text-main)",
+        paddingTop: "80px",
+      }}
+    >
       {/* Sticky Navbar */}
       <Header />
 
@@ -102,10 +107,13 @@ export default function DashboardPage() {
             backgroundColor: "var(--bg-card)",
             border: "1px solid var(--border)",
             borderRadius: "20px",
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)"
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.03)",
           }}
         >
-          <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-4 position-relative" style={{ zIndex: 1 }}>
+          <div
+            className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-4 position-relative"
+            style={{ zIndex: 1 }}
+          >
             <div>
               <div
                 className="d-inline-flex align-items-center gap-2 px-3 py-1 mb-3 rounded-pill"
@@ -113,17 +121,17 @@ export default function DashboardPage() {
                   backgroundColor: "var(--primary-light)",
                   color: "var(--primary)",
                   fontSize: "0.8rem",
-                  fontWeight: "600"
+                  fontWeight: "600",
                 }}
               >
                 <Icon icon="lucide:sparkles" width={14} />
-                <span>ResearchPulse Analytics</span>
+                <span>HyperData Lab Analytics</span>
               </div>
               <h1
                 className="font-display fw-bold text-main mb-2"
                 style={{
                   fontSize: "calc(1.5rem + 0.8vw)",
-                  letterSpacing: "-0.02em"
+                  letterSpacing: "-0.02em",
                 }}
               >
                 {t("dashboard.chaoMungBanDenVoiResearchpulse")}
@@ -132,7 +140,7 @@ export default function DashboardPage() {
                 className="text-muted-custom mb-0 font-display"
                 style={{
                   fontSize: "0.95rem",
-                  maxWidth: "640px"
+                  maxWidth: "640px",
                 }}
               >
                 {t("dashboard.khamPhaXuHuongXepHangTapChiVaC")}
@@ -167,7 +175,13 @@ export default function DashboardPage() {
             />
           </Col>
           <Col xs={12} lg={4}>
-            <RecentProjectsCard projects={projects} loading={loadingProjects} error={errorProjects} onViewAll={() => navigate("/projects")} onProjectClick={handleProjectClick} />
+            <RecentProjectsCard
+              projects={projects}
+              loading={loadingProjects}
+              error={errorProjects}
+              onViewAll={() => navigate("/projects")}
+              onProjectClick={handleProjectClick}
+            />
           </Col>
         </Row>
 
@@ -189,10 +203,20 @@ export default function DashboardPage() {
         </Row>
 
         {/* ── Top Authors Table ────────────────────────────────────── */}
-        <TopAuthorsTable authors={topAuthors} loading={loadingAuthors} error={errorAuthors} onAuthorClick={handleAuthorClick} onViewAll={() => navigate("/authors")} />
+        <TopAuthorsTable
+          authors={topAuthors}
+          loading={loadingAuthors}
+          error={errorAuthors}
+          onAuthorClick={handleAuthorClick}
+          onViewAll={() => navigate("/authors")}
+        />
       </Container>
 
       {/* Auth modal for guests clicking "Tạo Project mới" */}
-      <AuthRequiredModal show={showAuthModal} onHide={() => setShowAuthModal(false)} />
-    </div>;
+      <AuthRequiredModal
+        show={showAuthModal}
+        onHide={() => setShowAuthModal(false)}
+      />
+    </div>
+  );
 }

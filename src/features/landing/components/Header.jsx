@@ -162,7 +162,7 @@ export default function Header() {
             >
               <Icon icon="lucide:activity" className="text-white text-sm" />
             </div>
-            ResearchPulse
+            HyperData Lab
           </Navbar.Brand>
 
           {/* Hamburger toggle for mobile */}
@@ -398,7 +398,7 @@ export default function Header() {
             >
               <Icon icon="lucide:activity" className="text-white text-xs" />
             </div>
-            ResearchPulse
+            HyperData Lab
           </Offcanvas.Title>
         </Offcanvas.Header>
 

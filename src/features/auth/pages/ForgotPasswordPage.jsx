@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
             <span className="auth-mobile-brand-mark" aria-hidden="true">
               RP
             </span>
-            <span className="fs-5 fw-bold">ResearchPulse</span>
+            <span className="fs-5 fw-bold">HyperData Lab</span>
           </div>
 
           <div className="mb-4">

@@ -1,18 +1,28 @@
-import Icon from './Icon';
+import Icon from "./Icon";
 
 /**
- * Logo component that matches the style of the ResearchPulse header.
- * 
+ * Logo component that matches the style of the HyperData Lab header.
+ *
  * @param {Object} props - Component props
  * @param {number} props.size - Size of the icon box (default: 32)
  * @param {string} props.fontSize - Font size of the text (default: '1.25rem')
  * @param {string} props.className - Custom class names
  */
-export default function Logo({ size = 32, fontSize = '1.25rem', className = '', ...props }) {
+export default function Logo({
+  size = 32,
+  fontSize = "1.25rem",
+  className = "",
+  ...props
+}) {
   return (
-    <div 
-      className={`d-flex align-items-center text-main fw-bold ${className}`} 
-      style={{ fontFamily: "var(--font-display)", fontWeight: 800, cursor: "pointer", ...props.style }} 
+    <div
+      className={`d-flex align-items-center text-main fw-bold ${className}`}
+      style={{
+        fontFamily: "var(--font-display)",
+        fontWeight: 800,
+        cursor: "pointer",
+        ...props.style,
+      }}
       {...props}
     >
       {/* Icon block resembling the original brand design */}
@@ -28,7 +38,7 @@ export default function Logo({ size = 32, fontSize = '1.25rem', className = '', 
       >
         <Icon icon="lucide:activity" className="text-white text-sm" />
       </div>
-      <span style={{ fontSize }}>ResearchPulse</span>
+      <span style={{ fontSize }}>HyperData Lab</span>
     </div>
   );
 }
